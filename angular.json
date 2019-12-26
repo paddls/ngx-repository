@@ -2,5 +2,41 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "ngx-repository": {
+      "projectType": "library",
+      "root": "projects/ngx-repository",
+      "sourceRoot": "projects/ngx-repository/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-repository/tsconfig.lib.json",
+            "project": "projects/ngx-repository/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-repository/src/test.ts",
+            "tsConfig": "projects/ngx-repository/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-repository/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-repository/tsconfig.lib.json",
+              "projects/ngx-repository/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }},
+  "defaultProject": "ngx-repository"
 }
