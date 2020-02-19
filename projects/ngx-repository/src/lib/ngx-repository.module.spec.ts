@@ -1,7 +1,6 @@
 import {NgxRepositoryModule} from './ngx-repository.module';
 import {TestBed} from '@angular/core/testing';
 import {
-  AbstractStrategyRepositoryInstantiation,
   Denormalizer,
   Normalizer,
   NormalizerConfiguration
@@ -25,8 +24,7 @@ describe('NgxRepositoryModule', () => {
     });
 
     it('should provide AbstractStrategyRepositoryInstantiation', () => {
-      expect(TestBed.get(AbstractStrategyRepositoryInstantiation)).toBeTruthy();
-      expect(TestBed.get(AbstractStrategyRepositoryInstantiation) instanceof InjectorStrategyRepositoryInstantiation).toBeTruthy();
+      expect(TestBed.get(InjectorStrategyRepositoryInstantiation)).toBeTruthy();
     });
 
     it('should provide Normalizer', () => {

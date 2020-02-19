@@ -5,6 +5,7 @@ import {
   NormalizerConfiguration
 } from '@witty-services/repository-core';
 import {InjectorStrategyRepositoryInstantiation} from './strategy/injector.strategy-repository-instantiation';
+import {HttpClientModule} from '@angular/common/http';
 
 export interface Config {
   normalizerConfiguration: NormalizerConfiguration;
@@ -34,6 +35,9 @@ const moduleProviders: Provider[] = [
 ];
 
 @NgModule({
+  imports: [
+    HttpClientModule
+  ],
   providers: [
     {
       provide: NormalizerConfiguration,

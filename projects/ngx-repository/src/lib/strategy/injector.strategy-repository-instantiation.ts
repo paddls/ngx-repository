@@ -6,7 +6,7 @@ export class InjectorStrategyRepositoryInstantiation implements AbstractStrategy
 
   public constructor(private injector: Injector) {}
 
-  public get(repository: new () => AbstractRepository<any, any, any>): AbstractRepository<any, any, any> {
+  public get(repository: new (...args: any[]) => AbstractRepository<any, any, any, any>): AbstractRepository<any, any, any, any> {
     return this.injector.get(repository);
   }
 }
