@@ -1,8 +1,12 @@
-import {AbstractRepository} from '@witty-services/repository-core';
+import { AbstractRepository, Denormalizer, Normalizer } from '@witty-services/repository-core';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 export abstract class ObservableRepository<T, K = null, P = null, O = null> extends AbstractRepository<T, K, P, O> {
+
+  protected constructor(denormalizer: Denormalizer<T>, normalizer: Normalizer<T>) {
+    super(denormalizer, normalizer);
+  }
 
   protected abstract onFindAll(path: string, params?: P, options?: O): Observable<T[]>;
   protected abstract onFindOne(path: string, id: K, params?: P, options?: O): Observable<T>;
