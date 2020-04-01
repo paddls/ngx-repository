@@ -11,7 +11,7 @@
     "ngx-repository:start": "ng serve --project ngx-repository-app",
     "ngx-repository:test": "ng test --project ngx-repository --code-coverage",
     "ngx-repository:build": "ng build --project ngx-repository",
-    "ngx-repository:publish": "npm run build:ngx-repository && cd dist/ngx-repository && npm publish --access=public"
+    "ngx-repository:publish": "npm run ngx-repository:build && cd dist/ngx-repository && npm publish --access=public"
   },
   "private": true,
   "dependencies": {
