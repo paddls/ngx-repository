@@ -1,0 +1,43 @@
+<ng-container *ngIf="library$|async as library">
+  <h2>Library settings</h2>
+  <form class="library-settings">
+    <hr/>
+    <label for="name">Library name : </label>
+    <input type="text" id="name" name="name" [(ngModel)]="library.name"/>
+    <hr/>
+    <button type="button" (click)="onDeleteLibrary(library)">Delete</button>
+    <button type="submit" (click)="onUpdateLibrary(library)">Submit</button>
+  </form>
+
+  <h2>Books</h2>
+  <ul class="books">
+    <li *ngFor="let book of library.books$|async" class="book">
+      <h3>
+        <button *ngIf="!bookIsExpanded(book)" (click)="toggleBook(book)">&gt;</button>
+        <button *ngIf="bookIsExpanded(book)" (click)="toggleBook(book)">&or;</button>
+        {{ book.title }}
+      </h3>
+      <ng-container *ngIf="bookIsExpanded(book)">
+        <h4>Description</h4>
+        <ul class="book-settings">
+          <li>Written by {{ (book.author$|async)?.fullName }}</li>
+          <li>Edited by {{ (book.author$|async)?.fullName }}</li>
+        </ul>
+
+        <h4>Comments</h4>
+        <ul class="comments">
+          <li *ngFor="let comment of book.comments$|async">
+            <ng-container *ngIf="comment.author$|async as author">
+              <p>
+                By&nbsp;<i>{{ author.fullName }}</i>
+              </p>
+              <p>
+                {{ comment.message }}
+              </p>
+            </ng-container>
+          </li>
+        </ul>
+      </ng-container>
+    </li>
+  </ul>
+</ng-container>

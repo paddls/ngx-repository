@@ -8,9 +8,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "test:ngx-repository": "ng test --project ngx-repository --code-coverage",
-    "build:ngx-repository": "ng build --project ngx-repository",
-    "publish:ngx-repository": "npm run build:ngx-repository && cd dist/ngx-repository && npm publish --access=public"
+    "ngx-repository:start": "ng serve --project ngx-repository-app",
+    "ngx-repository:test": "ng test --project ngx-repository --code-coverage",
+    "ngx-repository:build": "ng build --project ngx-repository",
+    "ngx-repository:publish": "npm run build:ngx-repository && cd dist/ngx-repository && npm publish --access=public"
   },
   "private": true,
   "dependencies": {
@@ -22,7 +23,8 @@
     "@angular/platform-browser": "~8.0.0",
     "@angular/platform-browser-dynamic": "~8.0.0",
     "@angular/router": "~8.0.0",
-    "@witty-services/repository-core": "^1.0.4",
+    "@witty-services/repository-core": "^1.0.5",
+    "angular-in-memory-web-api": "^0.10.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
