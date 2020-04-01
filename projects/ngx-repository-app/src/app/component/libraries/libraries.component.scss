@@ -1,0 +1,39 @@
+:host {
+  display: flex;
+  height: 100%;
+  width: 100%;
+
+  ul.libraries {
+    margin: 0;
+    padding: 0;
+
+    width: 25%;
+    height: 100%;
+    border-right: 2px solid #cccccc;
+    list-style: none;
+
+    > li {
+      padding: .5rem;
+
+      &.title {
+        font-weight: bold;
+        background-color: #cccccc;
+        text-align: center;
+      }
+
+      &:not(.title):nth-child(odd) {
+        background-color: #fff4c2;
+      }
+
+      > a {
+        color: black;
+      }
+    }
+  }
+
+  div.library {
+    width: 75%;
+    height: 100%;
+    overflow: scroll;
+  }
+}

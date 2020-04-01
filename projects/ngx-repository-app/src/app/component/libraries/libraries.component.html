@@ -1,0 +1,9 @@
+<ul class="libraries">
+  <li class="title">Libraries</li>
+  <li *ngFor="let library of libraries$|async">
+    <a [routerLink]="['/', 'libraries', library.id]">{{ library.name }}</a>
+  </li>
+</ul>
+<div class="library">
+  <router-outlet></router-outlet>
+</div>
