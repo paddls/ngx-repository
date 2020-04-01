@@ -26,7 +26,7 @@ export abstract class HttpRepository<T, K = null, P = null> extends ObservableRe
     return this.http.get(path, options);
   }
 
-  protected onFindOne(path, id: K, params?: P, options?: HttpOptions): Observable<any> {
+  protected onFindOne(path: string, id: K, params?: P, options?: HttpOptions): Observable<any> {
     return this.http.get(path, options);
   }
 

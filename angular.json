@@ -37,6 +37,124 @@
           }
         }
       }
-    }},
+    },
+    "ngx-repository-app": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/ngx-repository-app",
+      "sourceRoot": "projects/ngx-repository-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ngx-repository-app",
+            "index": "projects/ngx-repository-app/src/index.html",
+            "main": "projects/ngx-repository-app/src/main.ts",
+            "polyfills": "projects/ngx-repository-app/src/polyfills.ts",
+            "tsConfig": "projects/ngx-repository-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/ngx-repository-app/src/favicon.ico",
+              "projects/ngx-repository-app/src/assets"
+            ],
+            "styles": [
+              "projects/ngx-repository-app/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/ngx-repository-app/src/environments/environment.ts",
+                  "with": "projects/ngx-repository-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ngx-repository-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ngx-repository-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngx-repository-app:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-repository-app/src/test.ts",
+            "polyfills": "projects/ngx-repository-app/src/polyfills.ts",
+            "tsConfig": "projects/ngx-repository-app/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-repository-app/karma.conf.js",
+            "assets": [
+              "projects/ngx-repository-app/src/favicon.ico",
+              "projects/ngx-repository-app/src/assets"
+            ],
+            "styles": [
+              "projects/ngx-repository-app/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-repository-app/tsconfig.app.json",
+              "projects/ngx-repository-app/tsconfig.spec.json",
+              "projects/ngx-repository-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/ngx-repository-app/e2e/protractor.conf.js",
+            "devServerTarget": "ngx-repository-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngx-repository-app:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
   "defaultProject": "ngx-repository"
 }

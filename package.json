@@ -8,9 +8,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "test:ngx-repository": "ng test --project ngx-repository --code-coverage",
-    "build:ngx-repository": "ng build --project ngx-repository",
-    "publish:ngx-repository": "npm run build:ngx-repository && cd dist/ngx-repository && npm publish --access=public"
+    "ngx-repository:start": "ng serve --project ngx-repository-app",
+    "ngx-repository:test": "ng test --project ngx-repository --code-coverage",
+    "build:ngx-repository:build": "ng build --project ngx-repository",
+    "ngx-repository:publish": "npm run build:ngx-repository && cd dist/ngx-repository && npm publish --access=public"
   },
   "private": true,
   "dependencies": {
