@@ -17,4 +17,10 @@ export class Comment extends Identifiable {
 
   @JoinColumn({field: 'author', repository: PersonRepository})
   public author$: Observable<Person>;
+
+  public constructor(data: Partial<Comment> = {}) {
+    super(data);
+
+    Object.assign(this, data);
+  }
 }

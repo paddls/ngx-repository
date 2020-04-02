@@ -31,4 +31,10 @@ export class Book extends Identifiable {
     params: (book: Book, params: any) => ({bookId: book.id, libraryId: params.libraryId})
   })
   public comments$: Observable<Comment[]>;
+
+  public constructor(data: Partial<Book> = {}) {
+    super(data);
+
+    Object.assign(this, data);
+  }
 }
