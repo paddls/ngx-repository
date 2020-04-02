@@ -22,8 +22,10 @@ export class Library extends Identifiable {
   @Column({field: 'createdAt', customConverter: DateConverter})
   public createdAt: Date;
 
-  public constructor() {
-    super();
+  public constructor(data: Partial<Book> = {}) {
+    super(data);
+
+    Object.assign(this, data);
 
     this.test = 'test';
   }

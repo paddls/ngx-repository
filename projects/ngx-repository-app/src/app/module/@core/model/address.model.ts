@@ -10,4 +10,8 @@ export class Address {
 
   @Column()
   public city: string;
+
+  public constructor(data: Partial<Address> = {}) {
+    Object.assign(this, data);
+  }
 }
