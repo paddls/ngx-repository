@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
 export class UrlLoggerInterceptor implements HttpInterceptor {
 
   public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log(req.method, req.url);
+    console.log(req.method, req.urlWithParams);
 
     return next.handle(req);
   }

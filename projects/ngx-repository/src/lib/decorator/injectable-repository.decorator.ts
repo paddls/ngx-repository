@@ -6,7 +6,7 @@ export interface InjectableRepositoryContext extends Injectable, RepositoryConte
 }
 
 export function InjectableRepository(params: InjectableRepositoryContext): any {
-  return (target: AbstractRepository<any, any, any, any>): void => {
+  return (target: AbstractRepository<any, any, any, any, any>): void => {
     Injectable({providedIn: params.providedIn})(target);
     Repository(params)(target);
   };

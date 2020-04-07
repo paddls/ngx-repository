@@ -5,7 +5,6 @@ import {
   Normalizer,
   NormalizerConfiguration
 } from '@witty-services/repository-core';
-import {InjectorStrategyRepositoryInstantiation} from './strategy/injector.strategy-repository-instantiation';
 
 describe('NgxRepositoryModule', () => {
 
@@ -21,10 +20,6 @@ describe('NgxRepositoryModule', () => {
 
     it('should provide NormalizerConfiguration', () => {
       expect(TestBed.get(NormalizerConfiguration)).toBeTruthy();
-    });
-
-    it('should provide AbstractStrategyRepositoryInstantiation', () => {
-      expect(TestBed.get(InjectorStrategyRepositoryInstantiation)).toBeTruthy();
     });
 
     it('should provide Normalizer', () => {

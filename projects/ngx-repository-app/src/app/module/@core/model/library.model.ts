@@ -1,16 +1,26 @@
 import {Identifiable} from './identifiable.model';
 import {Observable} from 'rxjs';
 import {Book} from './book.model';
-import {BookRepository} from '../repository/book.repository';
 import {Address} from './address.model';
 import {Column, DateConverter, SubCollection} from '@witty-services/repository-core';
+import {HttpResource, FirebaseResource} from 'ngx-repository';
 
+@HttpResource({
+  read: {
+    path: '/libraries'
+  }
+})
+@FirebaseResource({
+  write: {
+    path: '/library'
+  }
+})
 export class Library extends Identifiable {
 
   @Column()
   public name: string;
 
-  @SubCollection({repository: BookRepository, params: (library: Library) => ({libraryId: library.id})})
+  @SubCollection({resourceType: Book, params: (library: Library) => ({libraryId: library.id})})
   public books$: Observable<Book[]>;
 
   @Column(Address)

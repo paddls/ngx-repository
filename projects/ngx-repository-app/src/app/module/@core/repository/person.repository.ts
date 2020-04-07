@@ -1,9 +1,31 @@
 import {Person} from '../model/person.model';
-import {MyAbstractRepository} from './my-abstract.repository';
-import {InjectableRepository} from 'ngx-repository';
+import {Injectable} from '@angular/core';
+import {HttpConnection, HttpRepository} from 'ngx-repository';
+import {Repository} from '@witty-services/repository-core';
+import {Observable} from 'rxjs';
 
-@InjectableRepository({
-  type: Person,
+export interface SearchCriteria {
+  firstName: string;
+}
+
+@Injectable()
+@Repository({
+  resourceType: Person,
   path: '/persons'
 })
-export class PersonRepository extends MyAbstractRepository<Person, string>  {}
+export class ReadPersonRepository extends HttpRepository<Person, string> {
+
+  public constructor(httpConnection: HttpConnection) {
+    super(httpConnection);
+  }
+
+  public findBy(criteria: SearchCriteria): Observable<Person[]> {
+    const params: {[key: string]: string} = {};
+
+    if (criteria.firstName) {
+      params[`firstName`] = `^${criteria.firstName}`;
+    }
+
+    return this.find(null, {params});
+  }
+}
