@@ -4,12 +4,18 @@ import {BaseUrlInterceptor} from './interceptor/base-url.interceptor';
 import {BookInterceptor} from './interceptor/book.interceptor';
 import {CommentInterceptor} from './interceptor/comment.interceptor';
 import {UrlLoggerInterceptor} from './interceptor/url-logger.interceptor';
+import {LibraryInterceptor} from './interceptor/library.interceptor';
 
 @NgModule({
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UrlLoggerInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LibraryInterceptor,
       multi: true
     },
     {
