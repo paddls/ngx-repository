@@ -2,10 +2,19 @@
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.3.
 
-## Code scaffolding
+## Get Started
 
-Run `ng generate component component-name --project ngx-repository` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-repository`.
-> Note: Don't forget to add `--project ngx-repository` or else it will be added to the default project in your `angular.json` file. 
+`
+@NgModule({
+	imports: [
+	  ...
+		NgxRepositoryModule.forRoot(),
+		...
+	]
+})
+export class CoreModule {
+}
+`
 
 ## Build
 
