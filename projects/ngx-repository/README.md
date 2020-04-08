@@ -4,6 +4,12 @@ This library was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Get Started
 
+#### 1. Install NPM package
+
+`npm i -S @witty-services/ngx-repository @witty-services/repository-core`
+
+#### 2. Import module from library
+
 ```
 @NgModule({
   imports: [
