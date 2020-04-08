@@ -4,17 +4,17 @@ This library was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Get Started
 
-`
+```
 @NgModule({
-	imports: [
-	  ...
-		NgxRepositoryModule.forRoot(),
-		...
-	]
+  imports: [
+    ...
+    NgxRepositoryModule.forRoot(),
+    ...
+  ]
 })
 export class CoreModule {
 }
-`
+```
 
 ## Build
 
