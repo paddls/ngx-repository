@@ -97,6 +97,7 @@
     "no-inferrable-types": [
       false
     ],
-    "newline-before-return": true
+    "newline-before-return": true,
+    "no-empty-interface": false
   }
 }

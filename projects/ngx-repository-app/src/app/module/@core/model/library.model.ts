@@ -2,26 +2,17 @@ import {Identifiable} from './identifiable.model';
 import {Observable} from 'rxjs';
 import {Book} from './book.model';
 import {Address} from './address.model';
-import {Column, DateConverter, SubCollection} from '@witty-services/repository-core';
-import {HttpResource, FirebaseResource} from 'ngx-repository';
+import {BookQuery} from '../query/book.query';
+import {Column, DateConverter, HttpResource, SubCollection} from 'ngx-repository';
 
 @HttpResource({
-  read: {
-    path: '/libraries'
-  }
-})
-@FirebaseResource({
-  write: {
-    path: '/library'
-  }
+  read: '/libraries',
+  update: '/library'
 })
 export class Library extends Identifiable {
 
   @Column()
   public name: string;
-
-  @SubCollection({resourceType: Book, params: (library: Library) => ({libraryId: library.id})})
-  public books$: Observable<Book[]>;
 
   @Column(Address)
   public address: Address;
@@ -31,6 +22,9 @@ export class Library extends Identifiable {
 
   @Column({field: 'createdAt', customConverter: DateConverter})
   public createdAt: Date;
+
+  @SubCollection({resourceType: Book, params: (library: Library) => new BookQuery({libraryId: library.id})})
+  public books$: Observable<Book[]>;
 
   public constructor(data: Partial<Book> = {}) {
     super(data);

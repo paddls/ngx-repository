@@ -2,8 +2,8 @@ import {Person} from './person.model';
 import {Comment} from './comment.model';
 import {Observable} from 'rxjs';
 import {Identifiable} from './identifiable.model';
-import {Column, JoinColumn, SubCollection} from '@witty-services/repository-core';
-import {HttpResource} from 'ngx-repository';
+import {CommentQuery} from '../query/comment.query';
+import {Column, HttpResource, JoinColumn, SubCollection} from 'ngx-repository';
 
 @HttpResource({
   path: '/libraries/:libraryId/books'
@@ -30,7 +30,7 @@ export class Book extends Identifiable {
 
   @SubCollection({
     resourceType: Comment,
-    params: (book: Book, params: any) => ({bookId: book.id, libraryId: params.libraryId})
+    params: (book: Book, params: any) => new CommentQuery({bookId: book.id, libraryId: params.libraryId})
   })
   public comments$: Observable<Comment[]>;
 

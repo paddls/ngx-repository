@@ -1,10 +1,10 @@
 import {NgModule, Optional, Provider, SkipSelf} from '@angular/core';
 import {LibraryService} from './service/library.service';
-import {ReadPersonRepository} from './repository/person.repository';
 import {PersonService} from './service/person.service';
+import {PersonRepository} from './repository/person.repository';
 
 const REPOSITORIES: Provider[] = [
-  ReadPersonRepository
+  PersonRepository
 ];
 
 const SERVICES: Provider[] = [

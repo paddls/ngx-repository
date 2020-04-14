@@ -24,16 +24,12 @@ export class CoreModule {
 
 ## Build
 
-Run `ng build ngx-repository` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `npm run ngx-repository:build` to build the project.
 
 ## Publishing
 
-After building your library with `ng build ngx-repository`, go to the dist folder `cd dist/ngx-repository` and run `npm publish`.
+Run `npm run ngx-repository:publish` to publish the project.
 
 ## Running unit tests
 
-Run `ng test ngx-repository` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Run `npm run ngx-repository:test` to test the project.

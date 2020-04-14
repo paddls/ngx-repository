@@ -22,8 +22,16 @@
           text-align: center;
         }
 
-        &:not(.title):nth-child(odd) {
+        &:not(.title):not(.pagination):nth-child(odd) {
           background-color: #fff4c2;
+        }
+
+        &.pagination {
+          text-align: center;
+
+          & > button.selected {
+            background-color: gray;
+          }
         }
       }
     }
