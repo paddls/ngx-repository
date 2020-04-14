@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {Library} from '../../module/@core/model/library.model';
 import {Person} from '../../module/@core/model/person.model';
 import {PersonService} from '../../module/@core/service/person.service';
-import {switchMap} from 'rxjs/operators';
+import {map, shareReplay, switchMap} from 'rxjs/operators';
 import {LibrariesService} from '../../service/libraries.service';
+import {Page} from 'ngx-repository';
 
 @Component({
   selector: 'app-libraries',
@@ -13,26 +14,38 @@ import {LibrariesService} from '../../service/libraries.service';
 })
 export class LibrariesComponent {
 
-  private searchedFirstNameChangeSubject: Subject<string> = new Subject<string>();
+  private currentPageSubject: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+
+  private searchedFirstNameChangeSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   public searchedFirstName: string;
 
-  public libraries$: Observable<Library[]>;
+  public libraries$: Observable<Page<Library>>;
+
+  public pages$: Observable<number[]>;
 
   public person$: Observable<Person[]>;
 
   public constructor(librariesService: LibrariesService, personService: PersonService) {
-    this.libraries$ = librariesService.findAll();
+    this.libraries$ = this.currentPageSubject.pipe(
+      switchMap((currentPage: number) => librariesService.findAll(currentPage)),
+      shareReplay({bufferSize: 1, refCount:  true})
+    );
+
+    this.pages$ = this.libraries$.pipe(
+      map((page: Page<Library>) => Array.from(Array(Math.ceil(page.totalItems / page.itemsPerPage)).keys()))
+    );
+
     this.person$ = this.searchedFirstNameChangeSubject.pipe(
       switchMap((searchedFirstName: string) => personService.searchByFirstName(searchedFirstName))
     );
   }
 
   public onSearchedFirstNameChange(): void {
-    if (!this.searchedFirstName) {
-      return;
-    }
-
     this.searchedFirstNameChangeSubject.next(this.searchedFirstName);
+  }
+
+  public onClickOnPage(page: number): void {
+    this.currentPageSubject.next(page);
   }
 }

@@ -21,17 +21,41 @@ export class InMemoryDataService implements InMemoryDbService {
         id: '1',
         name: 'Library 1',
         address: {
-          address: '1 rue des myosotis',
-          postCode: 35510,
-          city: 'Cesson Sévigné'
-        }
+          address: '1 rue de la république',
+          postCode: 35000,
+          city: 'Roazhon'
+        },
+        opened: true
       },
       {
         id: '2',
-        name: 'library 2',
+        name: 'Library 2',
         test: 'coucou',
         createdAt: new Date('Wed, 09 Aug 1995 00:00:00 GMT'),
-        address: null
+        address: {
+          address: '2 rue de la république',
+          postCode: 35000,
+          city: 'Roazhon'
+        },
+        opened: true
+      },
+      {
+        id: '3',
+        name: 'Library 3',
+        createdAt: new Date('Wed, 10 Sep 1990 00:00:00 GMT'),
+        address: {
+          address: '3 rue de la république',
+          postCode: 35000,
+          city: 'Roazhon'
+        },
+        opened: true
+      },
+      {
+        id: '4',
+        name: 'Library 4',
+        createdAt: new Date('Wed, 10 Sep 1990 00:00:00 GMT'),
+        address: null,
+        opened: false
       }
     ];
   }

@@ -4,6 +4,11 @@
     <li *ngFor="let library of libraries$|async">
       <a [routerLink]="['/', 'libraries', library.id]">{{ library.name }}</a>
     </li>
+    <li class="pagination">
+      <button *ngFor="let page of pages$|async"
+              [disabled]="page + 1 === (currentPageSubject|async)"
+              (click)="onClickOnPage(page + 1)">{{ page + 1 }}</button>
+    </li>
   </ul>
   <ul id="users">
     <li class="title">Persons</li>
@@ -12,7 +17,7 @@
              id="searchPerson"
              placeholder="Type first name"
              [(ngModel)]="searchedFirstName"
-             (keypress)="onSearchedFirstNameChange($event)"/>
+             (ngModelChange)="onSearchedFirstNameChange()"/>
     </li>
     <li *ngFor="let person of person$|async">
       {{ person.fullName }}

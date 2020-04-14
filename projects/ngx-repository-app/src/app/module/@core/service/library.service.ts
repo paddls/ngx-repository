@@ -2,23 +2,24 @@ import {Injectable} from '@angular/core';
 import {Library} from '../model/library.model';
 import {Observable} from 'rxjs';
 import {mapTo} from 'rxjs/operators';
-import {RxjsRepository} from '@witty-services/repository-core';
-import {FirebaseConnection, HttpConnection} from 'ngx-repository';
+import {LibraryQuery} from '../query/library.query';
+import {HttpConnection, HttpRepository, InjectRepository, Page} from 'ngx-repository';
 
 @Injectable()
 export class LibraryService {
 
-  private readLibraryRepository: RxjsRepository<Library, string>;
+  @InjectRepository({type: Library, connection: HttpConnection})
+  private readLibraryRepository: HttpRepository<Library, string>;
 
-  private writeLibraryRepository: RxjsRepository<Library, string>;
+  @InjectRepository({type: Library, connection: HttpConnection})
+  private writeLibraryRepository: HttpRepository<Library, string>;
 
-  public constructor(readConnection: HttpConnection, writeConnection: FirebaseConnection) {
-    this.readLibraryRepository = readConnection.getResourceRepository(Library);
-    this.writeLibraryRepository = writeConnection.getResourceRepository(Library);
-  }
-
-  public findAll(): Observable<Library[]> {
-    return this.readLibraryRepository.find();
+  public findAll(currentPage: number, itemPerPage: number): Observable<Page<Library>> {
+    return this.readLibraryRepository.findBy(new LibraryQuery({
+      opened: true,
+      page: currentPage,
+      itemPerPage
+    }));
   }
 
   public findById(id: string): Observable<Library> {

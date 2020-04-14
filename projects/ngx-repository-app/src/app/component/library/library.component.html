@@ -10,8 +10,8 @@
   </form>
 
   <h2>Books</h2>
-  <ul class="books">
-    <li *ngFor="let book of library.books$|async" class="book">
+  <ul class="books" *ngIf="library.books$|async as books">
+    <li *ngFor="let book of books" class="book">
       <h3>
         <button *ngIf="!bookIsExpanded(book)" (click)="toggleBook(book)">&gt;</button>
         <button *ngIf="bookIsExpanded(book)" (click)="toggleBook(book)">&or;</button>
@@ -39,5 +39,6 @@
         </ul>
       </ng-container>
     </li>
+    <li class="no-item" *ngIf="books.length === 0">No Book</li>
   </ul>
 </ng-container>

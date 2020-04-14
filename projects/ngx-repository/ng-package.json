@@ -3,8 +3,5 @@
   "dest": "../../dist/ngx-repository",
   "lib": {
     "entryFile": "src/public-api.ts"
-  },
-  "whitelistedNonPeerDependencies": [
-    "@witty-services/repository-core"
-  ]
+  }
 }
