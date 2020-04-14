@@ -2,7 +2,7 @@ export const JOIN_COLUMN_METADATA_KEY: string = 'joinColumn';
 
 export interface JoinColumnContext {
 
-  field: string;
+  attribute: string;
 
   resourceType: new(...args: any[]) => any;
 }

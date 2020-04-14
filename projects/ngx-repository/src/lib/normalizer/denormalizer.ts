@@ -80,7 +80,7 @@ export class Denormalizer {
     }
 
     joinColumns.forEach((jc: PropertyJoinColumnContext) => {
-      result[jc.propertyKey] = this.connection.getRepository(jc.resourceType).findOne(result[jc.field]);
+      result[jc.propertyKey] = this.connection.getRepository(jc.resourceType).findOne(result[jc.attribute]);
     });
 
     return this;

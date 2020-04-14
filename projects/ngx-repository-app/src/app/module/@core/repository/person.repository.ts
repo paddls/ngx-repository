@@ -6,7 +6,7 @@ import {HttpRepository, Repository} from 'ngx-repository';
 
 @Injectable()
 @Repository(Person)
-export class PersonRepository extends HttpRepository<Person, string, PersonQuery> {
+export class PersonRepository extends HttpRepository<Person, string> {
 
   public searchByFirstName(searchedFirstName: string): Observable<Person[]> {
     return this.findBy(new PersonQuery({

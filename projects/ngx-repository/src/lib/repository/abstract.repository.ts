@@ -11,7 +11,7 @@ import {REPOSITORY_METADATA_KEY} from '../decorator/repository.decorator';
 import {PageBuilder} from '../page-builder/page-builder';
 import {Page} from '../page-builder/page';
 
-export abstract class AbstractRepository<T, K, Q extends Query<K>, RC, RQ, RS> {
+export abstract class AbstractRepository<T, K, RC, RQ, RS> {
 
   public constructor(protected resourceContextKey: string,
                      protected driver: Driver<RQ, RS>,
@@ -44,41 +44,38 @@ export abstract class AbstractRepository<T, K, Q extends Query<K>, RC, RQ, RS> {
     }
   }
 
-  public findBy(query?: Query<K>): any {
+  public findBy(query?: any): any {
     return this.pageBuilder.buildPage(this.driver.findBy(
       this.queryBuilder.buildReadQuery(this.buildQuery(query))
     ));
   }
 
-  public findOne(id: K, query?: Query<K>): any {
-    return this.driver.findOne(this.queryBuilder.buildReadQuery(this.buildQuery({
-      id,
-      ...query
-    })));
+  public findOne(id: K, query: any = {}): any {
+    query.id = id;
+
+    return this.driver.findOne(this.queryBuilder.buildReadQuery(this.buildQuery(query)));
   }
 
-  public create(object: T, query?: Query<K>): any {
+  public create(object: T, query?: any): any {
     return this.driver.create(
       this.normalizeOne(object),
       this.queryBuilder.buildCreateQuery(this.buildQuery(query))
     );
   }
 
-  public update(object: T, query?: Query<K>): any {
+  public update(object: T, query: any = {}): any {
+    query.id = this.getIdOfObject(object);
+
     return this.driver.update(
       this.normalizeOne(object),
-      this.queryBuilder.buildUpdateQuery(this.buildQuery({
-        id: this.getIdOfObject(object),
-        ...query
-      }))
+      this.queryBuilder.buildUpdateQuery(this.buildQuery(query))
     );
   }
 
-  public delete(object: T, query?: Query<K>): any {
-    return this.driver.delete(this.queryBuilder.buildDeleteQuery(this.buildQuery({
-      id: this.getIdOfObject(object),
-      ...query
-    })));
+  public delete(object: T, query: any = {}): any {
+    query.id = this.getIdOfObject(object);
+
+    return this.driver.delete(this.queryBuilder.buildDeleteQuery(this.buildQuery(query)));
   }
 
   protected getIdOfObject(object: T): K {

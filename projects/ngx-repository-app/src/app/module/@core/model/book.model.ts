@@ -22,10 +22,10 @@ export class Book extends Identifiable {
   @Column()
   public library: string;
 
-  @JoinColumn({field: 'authorId', resourceType: Person})
+  @JoinColumn({attribute: 'authorId', resourceType: Person})
   public author$: Observable<Person>;
 
-  @JoinColumn({field: 'editorId', resourceType: Person})
+  @JoinColumn({attribute: 'editorId', resourceType: Person})
   public editor$: Observable<Person>;
 
   @SubCollection({
