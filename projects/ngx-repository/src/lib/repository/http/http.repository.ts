@@ -2,7 +2,6 @@ import {RxjsRepository} from '../rxjs.repository';
 import {HttpRequest, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {HTTP_RESOURCE_METADATA_KEY, HttpResourceContext} from '../../decorator/http/http-resource.decorator';
-import {Query} from '../../query-builder/query';
 import {HttpDriver} from '../../driver/http/http.driver';
 import {Normalizer} from '../../normalizer/normalizer';
 import {HttpQueryBuilder} from '../../query-builder/http/http.query-builder';
@@ -11,7 +10,7 @@ import {Inject} from '@angular/core';
 import {HTTP_DENORMALIZER_TOKEN, HTTP_PAGE_BUILDER_TOKEN} from '../../ngx-repository.module.di';
 import {PageBuilder} from '../../page-builder/page-builder';
 
-export class HttpRepository<T, K, Q extends Query<K> = any> extends RxjsRepository<T, K, Q, HttpResourceContext, HttpRequest<any>, Observable<HttpResponse<any>>> {
+export class HttpRepository<T, K> extends RxjsRepository<T, K, HttpResourceContext, HttpRequest<any>, Observable<HttpResponse<any>>> {
 
   public constructor(httpDriver: HttpDriver,
                      normalizer: Normalizer,

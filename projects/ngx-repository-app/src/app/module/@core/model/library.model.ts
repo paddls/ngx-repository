@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import {Book} from './book.model';
 import {Address} from './address.model';
 import {BookQuery} from '../query/book.query';
-import {Column, DateConverter, HttpResource, SubCollection} from 'ngx-repository';
+import {Column, DateConverter, HttpResource, Page, SubCollection} from 'ngx-repository';
 
 @HttpResource({
   read: '/libraries',
@@ -24,7 +24,7 @@ export class Library extends Identifiable {
   public createdAt: Date;
 
   @SubCollection({resourceType: Book, params: (library: Library) => new BookQuery({libraryId: library.id})})
-  public books$: Observable<Book[]>;
+  public books$: Observable<Page<Book>>;
 
   public constructor(data: Partial<Book> = {}) {
     super(data);

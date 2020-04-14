@@ -1,12 +1,10 @@
-import {Query} from '../query-builder/query';
-
 export const SUB_COLLECTION_METADATA_KEY: string = 'subCollection';
 
 export interface SubCollectionContext {
 
   resourceType: new(...args: any[]) => any;
 
-  params?: (model: any, query?: Query<any>) => any  ;
+  params?: (model: any, query?: any) => any  ;
 }
 
 export interface PropertySubCollectionContext extends SubCollectionContext {
