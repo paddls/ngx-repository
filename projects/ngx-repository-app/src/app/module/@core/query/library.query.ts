@@ -1,6 +1,6 @@
-import {HttpHeader, HttpQueryParam, Query} from 'ngx-repository';
+import {HttpHeader, HttpQueryParam} from 'ngx-repository';
 
-export class LibraryQuery extends Query<string> {
+export class LibraryQuery {
 
   @HttpQueryParam()
   public opened: boolean;
@@ -15,8 +15,6 @@ export class LibraryQuery extends Query<string> {
   public itemPerPage: number = 2;
 
   public constructor(data: Partial<LibraryQuery> = {}) {
-    super();
-
     Object.assign(this, data);
   }
 }

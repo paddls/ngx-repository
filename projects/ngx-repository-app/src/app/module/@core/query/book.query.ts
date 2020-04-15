@@ -1,13 +1,11 @@
-import {HttpParam, Query} from 'ngx-repository';
+import {HttpParam} from 'ngx-repository';
 
-export class BookQuery extends Query<string> {
+export class BookQuery {
 
   @HttpParam()
   public libraryId: string;
 
   public constructor(data: Partial<BookQuery> = {}) {
-    super();
-
     Object.assign(this, data);
   }
 }

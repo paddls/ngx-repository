@@ -1,13 +1,11 @@
-import {HttpQueryParam, Query} from 'ngx-repository';
+import {HttpQueryParam} from 'ngx-repository';
 
-export class PersonQuery extends Query<string> {
+export class PersonQuery {
 
   @HttpQueryParam({name: 'firstName', format: '^:value'})
   public firstNameStartWith?: string;
 
   public constructor(data: Partial<PersonQuery> = {}) {
-    super();
-
     Object.assign(this, data);
   }
 }

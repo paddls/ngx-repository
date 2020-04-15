@@ -1,6 +1,6 @@
-import {HttpParam, Query} from 'ngx-repository';
+import {HttpParam} from 'ngx-repository';
 
-export class CommentQuery extends Query<string> {
+export class CommentQuery {
 
   @HttpParam()
   public libraryId: string;
@@ -9,8 +9,6 @@ export class CommentQuery extends Query<string> {
   public bookId: string;
 
   public constructor(data: Partial<CommentQuery> = {}) {
-    super();
-
     Object.assign(this, data);
   }
 }
