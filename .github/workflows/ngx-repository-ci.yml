@@ -33,4 +33,4 @@ jobs:
     - name: Linter
       run: npm run lint
     - name: Test
-      run: npm run test
+      run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
