@@ -6,6 +6,7 @@
     "start": "ng serve --project ngx-repository-app",
     "build": "ng build --project ngx-repository",
     "test": "ng test --project ngx-repository --code-coverage",
+    "test:ci": "npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "lint": "ng lint",
     "publish": "npm run build && cd dist/ngx-repository && npm publish --access=public"
   },
@@ -30,9 +31,9 @@
     "@angular/cli": "~8.0.1",
     "@angular/compiler-cli": "~8.0.0",
     "@angular/language-service": "~8.0.0",
-    "@types/node": "~8.9.4",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~8.9.4",
     "codelyzer": "^5.0.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
