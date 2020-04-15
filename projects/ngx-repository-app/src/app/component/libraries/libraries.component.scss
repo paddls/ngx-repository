@@ -3,30 +3,42 @@
   height: 100%;
   width: 100%;
 
-  ul.libraries {
-    margin: 0;
-    padding: 0;
-
+  div.list {
     width: 25%;
     height: 100%;
     border-right: 2px solid #cccccc;
-    list-style: none;
 
-    > li {
-      padding: .5rem;
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
 
-      &.title {
-        font-weight: bold;
-        background-color: #cccccc;
-        text-align: center;
+      > li {
+        padding: .5rem;
+
+        &.title {
+          font-weight: bold;
+          background-color: #cccccc;
+          text-align: center;
+        }
+
+        &:not(.title):not(.pagination):nth-child(odd) {
+          background-color: #fff4c2;
+        }
+
+        &.pagination {
+          text-align: center;
+
+          & > button.selected {
+            background-color: gray;
+          }
+        }
       }
+    }
 
-      &:not(.title):nth-child(odd) {
-        background-color: #fff4c2;
-      }
-
-      > a {
-        color: black;
+    ul#libraries {
+      a {
+          color: black;
       }
     }
   }

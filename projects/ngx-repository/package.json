@@ -1,9 +1,8 @@
 {
   "name": "@witty-services/ngx-repository",
-  "version": "1.0.1",
+  "version": "2.0.0-rc.0",
   "peerDependencies": {
     "@angular/common": ">=8.0.3-rc.0 || >=8.0.3",
-    "@angular/core": ">=8.0.3-rc.0 || >=8.0.3",
-    "@witty-services/repository-core": ">=1.0.5-rc.0 || >=1.0.5"
+    "@angular/core": ">=8.0.3-rc.0 || >=8.0.3"
   }
 }

@@ -1,19 +1,15 @@
 import {NgModule, Optional, Provider, SkipSelf} from '@angular/core';
-import {PersonRepository} from './repository/person.repository';
-import {LibraryRepository} from './repository/library.repository';
-import {CommentRepository} from './repository/comment.repository';
-import {BookRepository} from './repository/book.repository';
 import {LibraryService} from './service/library.service';
+import {PersonService} from './service/person.service';
+import {PersonRepository} from './repository/person.repository';
 
 const REPOSITORIES: Provider[] = [
-  BookRepository,
-  CommentRepository,
-  LibraryRepository,
   PersonRepository
 ];
 
 const SERVICES: Provider[] = [
-  LibraryService
+  LibraryService,
+  PersonService
 ];
 
 @NgModule({

@@ -133,8 +133,7 @@
           "options": {
             "tsConfig": [
               "projects/ngx-repository-app/tsconfig.app.json",
-              "projects/ngx-repository-app/tsconfig.spec.json",
-              "projects/ngx-repository-app/e2e/tsconfig.json"
+              "projects/ngx-repository-app/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

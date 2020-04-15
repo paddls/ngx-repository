@@ -1,9 +1,16 @@
 import {Person} from '../model/person.model';
-import {MyAbstractRepository} from './my-abstract.repository';
-import {InjectableRepository} from 'ngx-repository';
+import {Observable} from 'rxjs';
+import {PersonQuery} from '../query/person.query';
+import {Injectable} from '@angular/core';
+import {HttpRepository, Repository} from 'ngx-repository';
 
-@InjectableRepository({
-  type: Person,
-  path: '/persons'
-})
-export class PersonRepository extends MyAbstractRepository<Person, string>  {}
+@Injectable()
+@Repository(Person)
+export class PersonRepository extends HttpRepository<Person, string> {
+
+  public searchByFirstName(searchedFirstName: string): Observable<Person[]> {
+    return this.findBy(new PersonQuery({
+      firstNameStartWith: searchedFirstName
+    }));
+  }
+}

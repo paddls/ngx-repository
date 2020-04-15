@@ -1,17 +1,13 @@
 {
-  "name": "ngx-witty-common",
+  "name": "ngx-repository",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
+    "start": "ng serve --project ngx-repository-app",
+    "build": "ng build --project ngx-repository",
+    "test": "ng test --project ngx-repository --code-coverage",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "ngx-repository:start": "ng serve --project ngx-repository-app",
-    "ngx-repository:test": "ng test --project ngx-repository --code-coverage",
-    "ngx-repository:build": "ng build --project ngx-repository",
-    "ngx-repository:publish": "npm run ngx-repository:build && cd dist/ngx-repository && npm publish --access=public"
+    "publish": "npm run build && cd dist/ngx-repository && npm publish --access=public"
   },
   "private": true,
   "dependencies": {
@@ -23,8 +19,7 @@
     "@angular/platform-browser": "~8.0.0",
     "@angular/platform-browser-dynamic": "~8.0.0",
     "@angular/router": "~8.0.0",
-    "@witty-services/repository-core": "^1.0.5",
-    "angular-in-memory-web-api": "^0.10.0",
+    "angular-in-memory-web-api": "^0.9.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
