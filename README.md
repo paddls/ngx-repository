@@ -2,7 +2,7 @@
 
 ![ngx-repository-ci](https://github.com/witty-services/ngx-repository/workflows/build/badge.svg?branch=master)
 [![npm version](https://badge.fury.io/js/%40witty-services%2Fngx-repository.svg)](https://badge.fury.io/js/%40witty-services%2Fngx-repository)
-![NPM](https://img.shields.io/npm/l/@witty-services/ngx-repository)
+![GitHub](https://img.shields.io/github/license/witty-services/ngx-repository)
 ![GitHub repo size](https://img.shields.io/github/repo-size/witty-services/ngx-repository)
 ![GitHub last commit](https://img.shields.io/github/last-commit/witty-services/ngx-repository)
 ![GitHub issues](https://img.shields.io/github/issues/witty-services/ngx-repository)
