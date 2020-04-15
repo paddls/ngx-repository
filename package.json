@@ -1,17 +1,13 @@
 {
-  "name": "ngx-witty-common",
+  "name": "ngx-repository",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
+    "start": "ng serve --project ngx-repository-app",
+    "build": "ng build --project ngx-repository",
+    "test": "ng test --project ngx-repository --code-coverage",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "ngx-repository:start": "ng serve --project ngx-repository-app",
-    "ngx-repository:test": "ng test --project ngx-repository --code-coverage",
-    "ngx-repository:build": "ng build --project ngx-repository",
-    "ngx-repository:publish": "npm run ngx-repository:build && cd dist/ngx-repository && npm publish --access=public"
+    "publish": "npm run build && cd dist/ngx-repository && npm publish --access=public"
   },
   "private": true,
   "dependencies": {
