@@ -10,7 +10,6 @@ import {HTTP_DENORMALIZER_TOKEN, HTTP_PAGE_BUILDER_TOKEN} from './ngx-repository
 import {Denormalizer} from './normalizer/denormalizer';
 import {HttpNoPageBuilder} from './page-builder/http/http-no.page-builder';
 import {HttpClientModule} from '@angular/common/http';
-import {BrowserModule} from '@angular/platform-browser';
 
 export interface Config {
   normalizerConfiguration?: NormalizerConfiguration;
@@ -36,7 +35,6 @@ const MODULE_PROVIDERS: Provider[] = [
 
 @NgModule({
   imports: [
-    BrowserModule,
     HttpClientModule
   ],
   providers: [

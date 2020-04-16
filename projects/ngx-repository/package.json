@@ -1,8 +1,18 @@
 {
   "name": "@witty-services/ngx-repository",
-  "version": "2.0.0-rc.1",
+  "version": "2.0.0-rc.2",
   "peerDependencies": {
     "@angular/common": ">=8.0.3-rc.0 || >=8.0.3",
     "@angular/core": ">=8.0.3-rc.0 || >=8.0.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/witty-services/ngx-repository.git"
+  },
+  "author": "Thomas Nisole",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/witty-services/ngx-repository/issues"
+  },
+  "homepage": "https://github.com/witty-services/ngx-repository#readme"
 }

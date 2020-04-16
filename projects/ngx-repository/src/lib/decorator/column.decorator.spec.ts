@@ -59,7 +59,7 @@ describe('ColumnDecorator', () => {
       thirdResult,
       fourthResult
     ]);
-  })
+  });
 
   it('should throw an error when type and custom converter are passed together', () => {
     expect(

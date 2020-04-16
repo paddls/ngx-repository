@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --project ngx-repository-app",
-    "build": "ng build --project ngx-repository",
+    "build": "ng build --project ngx-repository && cp README.md dist/ngx-repository",
     "test": "ng test --project ngx-repository --code-coverage",
     "test:ci": "npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "lint": "ng lint",
