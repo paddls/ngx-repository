@@ -1,10 +1,10 @@
 import {Connection} from '../connection/connection';
-import {ResourceTypeContextConfiguration} from './resource.decorator';
 import {NgxRepositoryModule} from '../ngx-repository.module';
 
 export const INJECT_REPOSITORY_METADATA_KEY: string = 'httpQueryParam';
 
-export interface InjectRepositoryContext extends ResourceTypeContextConfiguration {
+export interface InjectRepositoryContext {
+  type: new(...args: any[]) => any;
   connection: new(...args: any) => Connection<any, any, any>;
 }
 
@@ -25,13 +25,11 @@ export function InjectRepository(params: InjectRepositoryContext): any {
     }
     Reflect.defineMetadata(INJECT_REPOSITORY_METADATA_KEY, metas.concat(injectRepositoryContextConfiguration), target);
 
-    let value: any;
-
     Object.defineProperty(target, propertyKey, {
       get: () => NgxRepositoryModule.injector
         .get(injectRepositoryContextConfiguration.connection)
         .getRepository(injectRepositoryContextConfiguration.type),
-      set: (newValue: any) => value = newValue,
+      set: (newValue: any) => void 0,
       enumerable: true,
       configurable: true
     });

@@ -17,7 +17,6 @@ export {Id} from './lib/decorator/id.decorator';
 export {InjectRepository} from './lib/decorator/inject-repository.decorator';
 export {JoinColumn} from './lib/decorator/join-column.decorator';
 export {Repository} from './lib/decorator/repository.decorator';
-export {Resource} from './lib/decorator/resource.decorator';
 export {SubCollection} from './lib/decorator/sub-collection.decorator';
 
 export {HttpDriver} from './lib/driver/http/http.driver';

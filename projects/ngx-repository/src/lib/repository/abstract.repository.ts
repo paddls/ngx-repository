@@ -6,8 +6,11 @@ import {ID_METADATA_KEY} from '../decorator/id.decorator';
 import {QuerySettings} from '../query-builder/query-settings';
 import {QueryBuilder} from '../query-builder/query-builder';
 import {Query} from '../query-builder/query';
-import {RESOURCE_METADATA_KEY, ResourceTypeContextConfiguration} from '../decorator/resource.decorator';
-import {REPOSITORY_METADATA_KEY} from '../decorator/repository.decorator';
+import {
+  REPOSITORY_METADATA_KEY,
+  RepositoryContextConfiguration,
+  RESOURCE_CONFIGURATION_METADATA_KEY
+} from '../decorator/repository.decorator';
 import {PageBuilder} from '../page-builder/page-builder';
 import {Page} from '../page-builder/page';
 
@@ -21,24 +24,24 @@ export abstract class AbstractRepository<T, K, RC, RQ, RS> {
                      protected pageBuilder: PageBuilder<RS>) {
   }
 
-  protected get resourceTypeConfiguration(): ResourceTypeContextConfiguration {
-    if (Reflect.hasMetadata(RESOURCE_METADATA_KEY, Object.getPrototypeOf(this).constructor)) {
-      return Reflect.getMetadata(RESOURCE_METADATA_KEY, Object.getPrototypeOf(this).constructor);
-    } else if (Reflect.getMetadata(RESOURCE_METADATA_KEY, this)) {
-      return Reflect.getMetadata(RESOURCE_METADATA_KEY, this);
+  protected get resourceTypeConfiguration(): RepositoryContextConfiguration {
+    if (Reflect.hasMetadata(REPOSITORY_METADATA_KEY, Object.getPrototypeOf(this).constructor)) {
+      return Reflect.getMetadata(REPOSITORY_METADATA_KEY, Object.getPrototypeOf(this).constructor);
+    } else if (Reflect.getMetadata(REPOSITORY_METADATA_KEY, this)) {
+      return Reflect.getMetadata(REPOSITORY_METADATA_KEY, this);
     } else {
       throw new Error('There is no Resource type configuration for this repository.');
     }
   }
 
   protected get resourceContextConfiguration(): RC {
-    if (Reflect.hasMetadata(REPOSITORY_METADATA_KEY, Object.getPrototypeOf(this).constructor)) {
-      return Reflect.getMetadata(REPOSITORY_METADATA_KEY, Object.getPrototypeOf(this).constructor);
-    } else if (Reflect.getMetadata(REPOSITORY_METADATA_KEY, this)) {
-      return Reflect.getMetadata(REPOSITORY_METADATA_KEY, this);
+    if (Reflect.hasMetadata(RESOURCE_CONFIGURATION_METADATA_KEY, Object.getPrototypeOf(this).constructor)) {
+      return Reflect.getMetadata(RESOURCE_CONFIGURATION_METADATA_KEY, Object.getPrototypeOf(this).constructor);
+    } else if (Reflect.getMetadata(RESOURCE_CONFIGURATION_METADATA_KEY, this)) {
+      return Reflect.getMetadata(RESOURCE_CONFIGURATION_METADATA_KEY, this);
     } else {
       const resourceContextConfiguration: RC = Reflect.getMetadata(this.resourceContextKey, this.resourceTypeConfiguration.type);
-      Reflect.defineMetadata(REPOSITORY_METADATA_KEY, resourceContextConfiguration, Object.getPrototypeOf(this).constructor);
+      Reflect.defineMetadata(RESOURCE_CONFIGURATION_METADATA_KEY, resourceContextConfiguration, Object.getPrototypeOf(this).constructor);
 
       return resourceContextConfiguration;
     }

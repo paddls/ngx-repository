@@ -38,7 +38,7 @@ export class PathContextUtil {
   }
 
   public static getDeletePath(pathContext: PathContext): string {
-    if (pathContext.update) {
+    if (pathContext.delete) {
       return cloneDeep(pathContext.delete);
     } else if (pathContext.write) {
       return cloneDeep(pathContext.write);
