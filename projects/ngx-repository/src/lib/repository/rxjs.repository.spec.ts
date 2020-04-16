@@ -33,7 +33,7 @@ describe('RxjsRepository', () => {
     observableRepository = new MockRepository('myResource', null, normalizer, denormalizer, null, null);
   });
 
-  it('should call abstract repository find and return result in observable', (done: any) => {
+  it('should call abstract repository find and return result in observable', (done: DoneFn) => {
     const originalValue: any = {id: 2};
     const nextValue: any = {id: 2, test: 'titi'};
 
@@ -50,7 +50,7 @@ describe('RxjsRepository', () => {
     });
   });
 
-  it('should call abstract repository findOne and return result in observable', (done: any) => {
+  it('should call abstract repository findOne and return result in observable', (done: DoneFn) => {
     const originalValue: any = {id: 2};
     const nextValue: any = {id: 2, test: 'titi'};
 
@@ -67,7 +67,7 @@ describe('RxjsRepository', () => {
     });
   });
 
-  it('should call abstract repository create and return result in observable', (done: any) => {
+  it('should call abstract repository create and return result in observable', (done: DoneFn) => {
     const originalValue: any = {test: 'titi'};
     const nextValue: any = {test: 'titi'};
 
@@ -81,7 +81,7 @@ describe('RxjsRepository', () => {
     });
   });
 
-  it('should call abstract repository update and return result in observable', (done: any) => {
+  it('should call abstract repository update and return result in observable', (done: DoneFn) => {
     const originalValue: any = {id: 1, test: 'titi'};
     const nextValue: any = {id: 1, test: 'titi'};
 
@@ -95,7 +95,7 @@ describe('RxjsRepository', () => {
     });
   });
 
-  it('should call abstract repository delete and return result in observable', (done: any) => {
+  it('should call abstract repository delete and return result in observable', (done: DoneFn) => {
     const originalValue: any = {id: 2, test: 'titi'};
 
     AbstractRepository.prototype.delete = () => of(originalValue);

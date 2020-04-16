@@ -1,5 +1,3 @@
-import {cloneDeep} from 'lodash';
-
 export const HTTP_QUERY_PARAM_METADATA_KEY: string = 'httpQueryParams';
 
 export interface HttpQueryParamContext {
@@ -33,14 +31,5 @@ export function HttpQueryParam(params?: HttpQueryParamContext|string): any {
       metas = Reflect.getMetadata(HTTP_QUERY_PARAM_METADATA_KEY, target);
     }
     Reflect.defineMetadata(HTTP_QUERY_PARAM_METADATA_KEY, metas.concat(httpQueryParamContextConfiguration), target);
-
-    let value: any;
-
-    Object.defineProperty(target, propertyKey, {
-      get: () => !!value ? cloneDeep(httpQueryParamContextConfiguration.format).replace(/:value/gi, value) : value,
-      set: (newValue: any) => value = newValue,
-      enumerable: true,
-      configurable: true
-    });
   };
 }

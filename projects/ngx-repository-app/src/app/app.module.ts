@@ -10,8 +10,8 @@ import {SystemModule} from './module/@system/system.module';
 import {LibrariesComponent} from './component/libraries/libraries.component';
 import {LibraryComponent} from './component/library/library.component';
 import {LibrariesService} from './service/libraries.service';
-import {MyPageBuilder} from './module/@system/page-builder/my.page-builder';
 import {HTTP_PAGE_BUILDER_TOKEN, NgxRepositoryModule} from 'ngx-repository';
+import {MyPageBuilder} from './module/@core/page-builder/my.page-builder';
 
 @NgModule({
   declarations: [
@@ -25,18 +25,18 @@ import {HTTP_PAGE_BUILDER_TOKEN, NgxRepositoryModule} from 'ngx-repository';
     CoreModule,
     FormsModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService, {delay: 100}),
-    NgxRepositoryModule.forRoot({
-      httpPageBuilder: {
-        provide: HTTP_PAGE_BUILDER_TOKEN,
-        useExisting: MyPageBuilder
-      }
-    }),
+    NgxRepositoryModule.forRoot(),
     SystemModule
   ],
   providers: [
-    LibrariesService
+    LibrariesService,
+    {
+      provide: HTTP_PAGE_BUILDER_TOKEN,
+      useClass: MyPageBuilder
+    }
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
 }
+

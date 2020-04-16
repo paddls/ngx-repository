@@ -13,7 +13,6 @@ import {HttpClientModule} from '@angular/common/http';
 
 export interface Config {
   normalizerConfiguration?: NormalizerConfiguration;
-  httpPageBuilder?: Provider;
 }
 
 export function httpDenormalizerToken(httpConnection: HttpConnection, normalizerConfiguration: NormalizerConfiguration): Denormalizer {
@@ -30,7 +29,10 @@ const MODULE_PROVIDERS: Provider[] = [
     useFactory: httpDenormalizerToken,
     deps: [HttpConnection, NormalizerConfiguration]
   },
-  HttpNoPageBuilder
+  {
+    provide: HTTP_PAGE_BUILDER_TOKEN,
+    useClass: HttpNoPageBuilder
+  }
 ];
 
 @NgModule({
@@ -55,20 +57,11 @@ export class NgxRepositoryModule {
       providers: [
         {
           provide: NormalizerConfiguration,
-          useValue: config && config.normalizerConfiguration ? config.normalizerConfiguration : new NormalizerConfiguration()
+          useValue: !!config ? config.normalizerConfiguration : new NormalizerConfiguration()
         },
         ...MODULE_PROVIDERS
       ]
     };
-
-    if (config && config.httpPageBuilder) {
-      newConfiguration.providers.push(config.httpPageBuilder);
-    } else {
-      newConfiguration.providers.push({
-        provide: HTTP_PAGE_BUILDER_TOKEN,
-        useExisting: HttpNoPageBuilder
-      });
-    }
 
     return newConfiguration;
   }

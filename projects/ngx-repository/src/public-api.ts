@@ -7,17 +7,17 @@ export {HttpConnection} from './lib/connection/http/http.connection';
 export {Converter} from './lib/converter/converter';
 export {DateConverter} from './lib/converter/date.converter';
 
-export {HttpHeader} from './lib/decorator/http/http-header.decorator';
-export {HttpParam} from './lib/decorator/http/http-param.decorator';
-export {HttpQueryParam} from './lib/decorator/http/http-query-param.decorator';
-export {HttpResource} from './lib/decorator/http/http-resource.decorator';
+export {HttpHeader, HttpHeaderContext, HTTP_HEADER_METADATA_KEY} from './lib/decorator/http/http-header.decorator';
+export {HttpParam, HttpParamContext, HTTP_PARAM_METADATA_KEY} from './lib/decorator/http/http-param.decorator';
+export {HttpQueryParam, HttpQueryParamContext, HTTP_QUERY_PARAM_METADATA_KEY} from './lib/decorator/http/http-query-param.decorator';
+export {HttpResource, HttpResourceContext, HTTP_RESOURCE_METADATA_KEY} from './lib/decorator/http/http-resource.decorator';
 
-export {Column} from './lib/decorator/column.decorator';
-export {Id} from './lib/decorator/id.decorator';
-export {InjectRepository} from './lib/decorator/inject-repository.decorator';
-export {JoinColumn} from './lib/decorator/join-column.decorator';
-export {Repository} from './lib/decorator/repository.decorator';
-export {SubCollection} from './lib/decorator/sub-collection.decorator';
+export {Column, ColumnContext, COLUMNS_METADATA_KEY} from './lib/decorator/column.decorator';
+export {Id, IdContext, ID_METADATA_KEY} from './lib/decorator/id.decorator';
+export {InjectRepository, InjectRepositoryContext, INJECT_REPOSITORY_METADATA_KEY} from './lib/decorator/inject-repository.decorator';
+export {JoinColumn, JoinColumnContext, JOIN_COLUMN_METADATA_KEY} from './lib/decorator/join-column.decorator';
+export {Repository, RepositoryContextConfiguration, REPOSITORY_METADATA_KEY, RESOURCE_CONFIGURATION_METADATA_KEY} from './lib/decorator/repository.decorator';
+export {SubCollection, SubCollectionContext, SUB_COLLECTION_METADATA_KEY} from './lib/decorator/sub-collection.decorator';
 
 export {HttpDriver} from './lib/driver/http/http.driver';
 export {Driver} from './lib/driver/driver';

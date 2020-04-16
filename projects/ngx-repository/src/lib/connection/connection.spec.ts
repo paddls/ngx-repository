@@ -19,7 +19,7 @@ describe('Connection', () => {
 
   it('should throw an error when no metadata exist', () => {
     const connection: MyConnection = new MyConnection('meta');
-    expect(() => connection.getRepository(MyClass)).toThrowError('MyClass is not a valid resource.');
+    expect(() => connection.getRepository(MyClass)).toThrowError();
   });
 
   it('should return a repository instance', () => {

@@ -3,29 +3,33 @@ import {NgxRepositoryModule} from '../ngx-repository.module';
 import {INJECT_REPOSITORY_METADATA_KEY, InjectRepository} from './inject-repository.decorator';
 import {Mock} from '../../test/mock.model';
 
+const connection: any = {
+  getRepository: () => void 0
+};
+
+class MyService {
+  @InjectRepository({type: Mock, connection})
+  public test: any;
+
+  @InjectRepository({type: Mock, connection})
+  public test2: any;
+}
+
 describe('InjectRepositoryDecorator', () => {
 
   it('should place all context in good place and define a new property with the good value', () => {
     const repository: any = {};
-    const connection: any = {
-      getRepository: () => void 0
-    };
     const injector: Injector = {
       get: () => void 0
-    };
-    const obj: any = {
-      test: {},
-      test2: {}
     };
 
     NgxRepositoryModule.injector = injector;
     spyOn(injector, 'get').and.returnValue(connection);
     spyOn(connection, 'getRepository').and.returnValue(repository);
 
-    InjectRepository({type: Mock, connection})(obj, 'test');
-    InjectRepository({type: Mock, connection})(obj, 'test2');
+    const obj: MyService = new MyService();
 
-    expect(Reflect.getMetadata(INJECT_REPOSITORY_METADATA_KEY, obj)).toEqual([
+    expect(Reflect.getMetadata(INJECT_REPOSITORY_METADATA_KEY, MyService.prototype)).toEqual([
       {
         propertyKey: 'test',
         type: Mock,

@@ -7,6 +7,7 @@ import {PathContextUtil} from '../../common/path/path-context-util';
 import {HTTP_PARAM_METADATA_KEY, HttpParamContextConfiguration} from '../../decorator/http/http-param.decorator';
 import {HTTP_QUERY_PARAM_METADATA_KEY, HttpQueryParamContextConfiguration} from '../../decorator/http/http-query-param.decorator';
 import {HTTP_HEADER_METADATA_KEY, HttpHeaderContextConfiguration} from '../../decorator/http/http-header.decorator';
+import {cloneDeep} from 'lodash';
 
 @Injectable()
 export class HttpQueryBuilder implements QueryBuilder<HttpResourceContext, HttpRequest<any>> {
@@ -73,7 +74,10 @@ export class HttpQueryBuilder implements QueryBuilder<HttpResourceContext, HttpR
       }
 
       httpRequest = httpRequest.clone({
-        params: httpRequest.params.append(httpQueryParam.name, query.settings[httpQueryParam.propertyKey])
+        params: httpRequest.params.append(
+          httpQueryParam.name,
+          cloneDeep(httpQueryParam.format).replace(/:value/gi, query.settings[httpQueryParam.propertyKey])
+        )
       });
     });
 

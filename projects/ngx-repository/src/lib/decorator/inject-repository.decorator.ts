@@ -25,11 +25,11 @@ export function InjectRepository(params: InjectRepositoryContext): any {
     }
     Reflect.defineMetadata(INJECT_REPOSITORY_METADATA_KEY, metas.concat(injectRepositoryContextConfiguration), target);
 
-    Object.defineProperty(target, propertyKey, {
+    Object.defineProperty(target.constructor.prototype, propertyKey, {
       get: () => NgxRepositoryModule.injector
         .get(injectRepositoryContextConfiguration.connection)
         .getRepository(injectRepositoryContextConfiguration.type),
-      set: (newValue: any) => void 0,
+      set: () => void 0,
       enumerable: true,
       configurable: true
     });
