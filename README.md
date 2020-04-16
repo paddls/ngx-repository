@@ -1,6 +1,7 @@
 # NGX-REPOSITORY
 
 ![ngx-repository-ci](https://github.com/witty-services/ngx-repository/workflows/build/badge.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/witty-services/ngx-repository/badge.svg?branch=master)](https://coveralls.io/github/witty-services/ngx-repository?branch=master)
 [![npm version](https://badge.fury.io/js/%40witty-services%2Fngx-repository.svg)](https://badge.fury.io/js/%40witty-services%2Fngx-repository)
 ![GitHub](https://img.shields.io/github/license/witty-services/ngx-repository)
 ![GitHub repo size](https://img.shields.io/github/repo-size/witty-services/ngx-repository)
