@@ -28,7 +28,7 @@ At this time, NgxRepository support differents kinds of serveur :
     * [Add identifier](#add-identifier)
     * [Add columns](#add-columns)
     * [Add nested resource](#add-nested-resource)
-    * [Add sub collection of resource](#add-sub-collection-of-resource)
+    * [Add sub-collection of resource](#add-sub-collection-of-resource)
     * [Inject connection](#inject-connection)
     * [Inject repository](#inejct-repository)
     * [Make custom repository](#make-custom-repository)
@@ -42,7 +42,7 @@ At this time, NgxRepository support differents kinds of serveur :
 
 ## Installation
 
-For installing the library in your Angular with NPM, just run this command :
+For installing the library in your Angular application with NPM, just run this command :
 
 ```shell script
 npm i ngx-repository
@@ -89,7 +89,7 @@ export class Book {
 }
 ```
 
-An query object to make request :
+To make a request, you must have to make a query object :
 
 ```typescript
 import {HttpQueryParam} from '@witty-services/ngx-repository';
@@ -105,8 +105,7 @@ export class BookQuery {
 }
 ```
 
-
-And your business code look like this :
+And use it in your business code like this :
 
 ```typescript
 import {Injectable} from '@angular/core';
@@ -148,7 +147,7 @@ export class BookService {
 
 ### Import module
 
-The first step to use `NgxRepository` is to import `NgxRepositoryModule` and calling forRoot method : 
+The first step to use `NgxRepository` is to import `NgxRepositoryModule` and calling `forRoot` method : 
 
 ```typescript
 // ...
@@ -197,7 +196,7 @@ export class Book {
 
 ### Add nested resource
 
-### Add sub collection of resource
+### Add sub-collection of resource
 
 ### Inject connection
 
