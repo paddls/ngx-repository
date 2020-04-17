@@ -9,7 +9,14 @@
 ![GitHub issues](https://img.shields.io/github/issues/witty-services/ngx-repository)
 ![GitHub top language](https://img.shields.io/github/languages/top/witty-services/ngx-repository)
 
-NgxRepository is an Angular library to make a software DAO layer to access resource over some protocols
+## Introduction
+
+NgxRepository is an Angular library that will allow you to simplify your application's access to server resources.
+
+At this time, NgxRepository support differents kinds of serveur : 
+
+ - Http server : based on the Angular [HttpClientModule](https://angular.io/guide/http)
+ - Firebase server : based on npm [```@angular/fire```](https://www.npmjs.com/package/@angular/fire) library 
 
 ## Summary
 
@@ -22,8 +29,8 @@ NgxRepository is an Angular library to make a software DAO layer to access resou
     * [Add columns](#add-columns)
     * [Add nested resource](#add-nested-resource)
     * [Add sub collection of resource](#add-sub-collection-of-resource)
-    * [Inject connection in your service](#inject-connection-in-your-service)
-    * [Inject repository in your service](#inejct-repository-in-your-service)
+    * [Inject connection](#inject-connection)
+    * [Inject repository](#inejct-repository)
     * [Make custom repository](#make-custom-repository)
 * [API](#api)
     * [Decorators](#decorators)
@@ -51,7 +58,7 @@ With Ngx-Repository, your models look like this :
 import {User} from './user.model';
 import {Comment} from './comment.model';
 import {CommentQuery} from '../query/comment.query';
-import {HttpResource, Id, Column, JoinColumn, SubCollection} from 'ngx-repository';
+import {HttpResource, Id, Column, JoinColumn, SubCollection} from '@witty-services/ngx-repository';
 import {Observable} from 'rxjs';
 
 @HttpResource({
@@ -82,6 +89,23 @@ export class Book {
 }
 ```
 
+An query object to make request :
+
+```typescript
+import {HttpQueryParam} from '@witty-services/ngx-repository';
+
+export class BookQuery {
+
+  @HttpQueryParam()
+  public published: boolean;
+
+  public constructor(data: Partial<BookQuery> = {}) {
+    Object.assign(this, data);
+  }
+}
+```
+
+
 And your business code look like this :
 
 ```typescript
@@ -90,7 +114,7 @@ import {Book} from '../model/book.model';
 import {Observable} from 'rxjs';
 import {mapTo} from 'rxjs/operators';
 import {BookQuery} from '../query/book.query';
-import {HttpConnection, HttpRepository, InjectRepository, Page} from 'ngx-repository';
+import {HttpConnection, HttpRepository, InjectRepository, Page} from '@witty-services/ngx-repository';
 
 @Injectable()
 export class BookService {
@@ -108,28 +132,27 @@ export class BookService {
     return this.bookRepository.findOne(id);
   }
 
-  public update(library: Book): Observable<Book> {
-    return this.bookRepository.update(library).pipe(
-      mapTo(library)
+  public update(book: Book): Observable<Book> {
+    return this.bookRepository.update(book).pipe(
+      mapTo(book)
     );
   }
 
-  public delete(library: Book): Observable<void> {
-    return this.bookRepository.delete(library).pipe(
+  public delete(book: Book): Observable<void> {
+    return this.bookRepository.delete(book).pipe(
       mapTo(void 0)
     );
   }
 }
 ```
 
-
 ### Import module
 
-The first step is to import the ` NgxRepository` module : 
+The first step to use `NgxRepository` is to import `NgxRepositoryModule` and calling forRoot method : 
 
 ```typescript
 // ...
-import {NgxRepositoryModule} from 'ngx-repository';
+import {NgxRepositoryModule} from '@witty-services/ngx-repository';
 // ...
 
 @NgModule({
@@ -138,7 +161,7 @@ import {NgxRepositoryModule} from 'ngx-repository';
   ],
   imports: [
     BrowserModule,
-    NgxRepositoryModule
+    NgxRepositoryModule.forRoot()
   ],
   bootstrap: [AppComponent]
 })
@@ -168,14 +191,19 @@ export class Book {
 }
 ```
 
-#### Id decorator
+### Add identifier
 
-#### Column decorator
+### Add columns
 
-#### JoinColumn decorator
+### Add nested resource
 
-#### SubCollection decorator
+### Add sub collection of resource
 
+### Inject connection
+
+### Inject repository
+
+### Make custom repository
 
 ## Install and build project
 
