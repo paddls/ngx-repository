@@ -2,12 +2,13 @@ import {COLUMNS_METADATA_KEY, PropertyColumnContext} from '../decorator/column.d
 import {set} from 'lodash';
 import {NormalizerConfiguration} from './normalizer.configuration';
 import {isArray} from 'lodash';
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
+import {NORMALIZER_CONFIGURATION_TOKEN} from '../ngx-repository.module.di';
 
 @Injectable()
 export class Normalizer {
 
-  public constructor(private configuration: NormalizerConfiguration) {}
+  public constructor(@Inject(NORMALIZER_CONFIGURATION_TOKEN) private configuration: NormalizerConfiguration) {}
 
   public normalize<T>(object: T): any {
     const result: {} = {};

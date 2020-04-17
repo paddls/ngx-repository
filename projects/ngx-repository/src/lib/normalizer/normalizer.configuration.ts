@@ -1,13 +1,17 @@
-import {Injectable} from '@angular/core';
+export interface NormalizerConfiguration {
 
-@Injectable()
-export class NormalizerConfiguration {
+  denormalizeNull?: boolean;
 
-  public denormalizeNull?: boolean = false;
+  denormalizeUndefined?: boolean;
 
-  public denormalizeUndefined?: boolean = false;
+  normalizeNull?: boolean;
 
-  public normalizeNull?: boolean = false;
-
-  public normalizeUndefined?: boolean = false;
+  normalizeUndefined?: boolean;
 }
+
+export const DEFAULT_NORMALIZER_CONFIGURATION: NormalizerConfiguration = {
+  denormalizeNull: false,
+  denormalizeUndefined: false,
+  normalizeNull: false,
+  normalizeUndefined: false
+};

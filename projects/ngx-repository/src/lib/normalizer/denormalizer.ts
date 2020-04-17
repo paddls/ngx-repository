@@ -4,14 +4,15 @@ import {JOIN_COLUMN_METADATA_KEY, PropertyJoinColumnContext} from '../decorator/
 import {PropertySubCollectionContext, SUB_COLLECTION_METADATA_KEY} from '../decorator/sub-collection.decorator';
 import {NormalizerConfiguration} from './normalizer.configuration';
 import {Connection} from '../connection/connection';
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {Query} from '../query-builder/query';
+import {NORMALIZER_CONFIGURATION_TOKEN} from '../ngx-repository.module.di';
 
 @Injectable()
 export class Denormalizer {
 
   public constructor(private connection: Connection<any, any, any>,
-                     private configuration: NormalizerConfiguration) {}
+                     @Inject(NORMALIZER_CONFIGURATION_TOKEN) private configuration: NormalizerConfiguration) {}
 
   public denormalize<T>(type: new() => T, data: any|any[], query?: Query<any>): T {
     if (!data) {

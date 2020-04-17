@@ -1,8 +1,9 @@
 import 'reflect-metadata';
 import {Normalizer} from './normalizer';
-import {NormalizerConfiguration} from './normalizer.configuration';
+import {DEFAULT_NORMALIZER_CONFIGURATION, NormalizerConfiguration} from './normalizer.configuration';
 import {Column} from '../decorator/column.decorator';
 import {DateConverter} from '../converter/date.converter';
+import {cloneDeep} from 'lodash';
 
 class EmptyColumn {
   public name: string = 'myEmptyColumnObject';
@@ -16,7 +17,7 @@ describe('Normalizer', () => {
   let normalizer: Normalizer;
 
   beforeEach(() => {
-    configuration = new NormalizerConfiguration();
+    configuration = cloneDeep(DEFAULT_NORMALIZER_CONFIGURATION);
     normalizerEmptyColumn = new Normalizer(configuration);
     normalizer = new Normalizer(configuration);
   });

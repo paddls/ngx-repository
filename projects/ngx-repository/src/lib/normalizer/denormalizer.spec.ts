@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import {Denormalizer} from './denormalizer';
-import {NormalizerConfiguration} from './normalizer.configuration';
+import {DEFAULT_NORMALIZER_CONFIGURATION, NormalizerConfiguration} from './normalizer.configuration';
 import {AbstractRepository} from '../repository/abstract.repository';
 import {Column} from '../decorator/column.decorator';
 import {DateConverter} from '../converter/date.converter';
@@ -9,6 +9,7 @@ import {JoinColumn} from '../decorator/join-column.decorator';
 import {Repository} from '../decorator/repository.decorator';
 import {SubCollection} from '../decorator/sub-collection.decorator';
 import {Connection} from '../connection/connection';
+import {cloneDeep} from 'lodash';
 
 class EmptyColumn {
   public name: string = 'myEmptyColumnObject';
@@ -26,7 +27,7 @@ class MyConnection extends Connection<any, any, any> {
 }
 
 describe('Denormalizer', () => {
-  const configuration: NormalizerConfiguration = new NormalizerConfiguration();
+  const configuration: NormalizerConfiguration = cloneDeep(DEFAULT_NORMALIZER_CONFIGURATION);
 
   let connection: Connection<any, any, any>;
   let denormalizerEmptyColumn: Denormalizer;

@@ -6,7 +6,8 @@ import {Normalizer} from '../normalizer/normalizer';
 import {Repository} from '../decorator/repository.decorator';
 import {Id} from '../decorator/id.decorator';
 import {Column} from '../decorator/column.decorator';
-import {NormalizerConfiguration} from '../normalizer/normalizer.configuration';
+import {DEFAULT_NORMALIZER_CONFIGURATION, NormalizerConfiguration} from '../normalizer/normalizer.configuration';
+import {cloneDeep} from 'lodash';
 
 class MyNestedClass {
 
@@ -27,7 +28,7 @@ describe('RxjsRepository', () => {
   let normalizer: Normalizer;
 
   beforeEach(() => {
-    configuration = new NormalizerConfiguration();
+    configuration = cloneDeep(DEFAULT_NORMALIZER_CONFIGURATION);
     denormalizer = new Denormalizer(null, configuration);
     normalizer = new Normalizer(configuration);
     observableRepository = new MockRepository('myResource', null, normalizer, denormalizer, null, null);

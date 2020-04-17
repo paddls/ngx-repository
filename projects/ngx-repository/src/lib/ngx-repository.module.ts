@@ -5,8 +5,8 @@ import {HttpDriver} from './driver/http/http.driver';
 import {HttpConnection} from './connection/http/http.connection';
 import {Normalizer} from './normalizer/normalizer';
 import {HttpQueryBuilder} from './query-builder/http/http.query-builder';
-import {NormalizerConfiguration} from './normalizer/normalizer.configuration';
-import {HTTP_DENORMALIZER_TOKEN, HTTP_PAGE_BUILDER_TOKEN} from './ngx-repository.module.di';
+import {DEFAULT_NORMALIZER_CONFIGURATION, NormalizerConfiguration} from './normalizer/normalizer.configuration';
+import {HTTP_DENORMALIZER_TOKEN, HTTP_PAGE_BUILDER_TOKEN, NORMALIZER_CONFIGURATION_TOKEN} from './ngx-repository.module.di';
 import {Denormalizer} from './normalizer/denormalizer';
 import {HttpNoPageBuilder} from './page-builder/http/http-no.page-builder';
 import {HttpClientModule} from '@angular/common/http';
@@ -27,7 +27,7 @@ const MODULE_PROVIDERS: Provider[] = [
   {
     provide: HTTP_DENORMALIZER_TOKEN,
     useFactory: httpDenormalizerToken,
-    deps: [HttpConnection, NormalizerConfiguration]
+    deps: [HttpConnection, NORMALIZER_CONFIGURATION_TOKEN]
   },
   {
     provide: HTTP_PAGE_BUILDER_TOKEN,
@@ -51,18 +51,19 @@ export class NgxRepositoryModule {
     NgxRepositoryModule.injector = injector;
   }
 
-  public static forRoot(config?: Config): ModuleWithProviders<NgxRepositoryModule> {
-    const newConfiguration: ModuleWithProviders<NgxRepositoryModule> = {
+  public static forRoot(config: Config = {}): ModuleWithProviders<NgxRepositoryModule> {
+    return {
       ngModule: NgxRepositoryModule,
       providers: [
         {
-          provide: NormalizerConfiguration,
-          useValue: !!config ? config.normalizerConfiguration : new NormalizerConfiguration()
+          provide: NORMALIZER_CONFIGURATION_TOKEN,
+          useValue: {
+            ...DEFAULT_NORMALIZER_CONFIGURATION,
+            ...(config.normalizerConfiguration || {})
+          }
         },
         ...MODULE_PROVIDERS
       ]
     };
-
-    return newConfiguration;
   }
 }

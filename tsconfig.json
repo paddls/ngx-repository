@@ -22,6 +22,9 @@
       "ngx-repository": [
         "dist/ngx-repository"
       ],
+      "@witty-services/ngx-repository": [
+        "dist/ngx-repository"
+      ],
       "ngx-repository/*": [
         "dist/ngx-repository/*"
       ]
