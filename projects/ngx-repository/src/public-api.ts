@@ -47,5 +47,6 @@ export {NgxRepositoryModule} from './lib/ngx-repository.module';
 
 export {NgxFirebaseRepositoryModule} from './lib/ngx-firebase-repository.module';
 export {FirebaseResource, FirebaseResourceContext, FIREBASE_RESOURCE_METADATA_KEY} from './lib/driver/firebase/decorator/firebase-resource.decorator';
+export {PathParam} from './lib/driver/firebase/decorator/path-param.decorator';
 export {FirebaseRepository} from './lib/driver/firebase/firebase.repository';
 export {FirebaseConnection} from './lib/driver/firebase/firebase.connection';

@@ -1,0 +1,11 @@
+<ng-container *ngIf="client$|async as client">
+  <h2>Client</h2>
+  <p>{{client.fullName}}</p>
+
+  <ul>
+    <li *ngFor="let purchase of client.purchases$|async">
+      <p>{{purchase.bookId}}</p>
+    </li>
+    <li><button (click)="addPurchase(client)">add</button></li>
+  </ul>
+</ng-container>

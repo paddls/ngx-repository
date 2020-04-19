@@ -13,12 +13,14 @@ import {LibrariesService} from './service/libraries.service';
 import {HTTP_PAGE_BUILDER_TOKEN, NgxRepositoryModule} from '@witty-services/ngx-repository';
 import {MyPageBuilder} from './module/@core/page-builder/my.page-builder';
 import { NgxFirebaseRepositoryModule } from '@witty-services/ngx-repository';
+import { ClientComponent } from './component/client/client.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LibrariesComponent,
-    LibraryComponent
+    LibraryComponent,
+    ClientComponent,
   ],
   imports: [
     AppRoutingModule,

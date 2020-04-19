@@ -1,15 +1,16 @@
 import { Driver } from '../driver';
-import { asyncScheduler, Observable, of, SchedulerLike, Subscriber } from 'rxjs';
+import { asyncScheduler, EMPTY, from, Observable, SchedulerLike, Subscriber } from 'rxjs';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
+import { map, mapTo, tap } from 'rxjs/operators';
+import { FirebaseQuery } from './firebase.query';
 import App = firebase.app.App;
 import Firestore = firebase.firestore.Firestore;
 import QuerySnapshot = firebase.firestore.QuerySnapshot;
-import { map, tap } from 'rxjs/operators';
 import DocumentData = firebase.firestore.DocumentData;
 import QueryDocumentSnapshot = firebase.firestore.QueryDocumentSnapshot;
-import { FirebaseQuery } from './firebase.query';
+import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
 
 @Injectable()
 export class FirebaseDriver implements Driver<FirebaseQuery, Observable<any>> {
@@ -34,21 +35,28 @@ export class FirebaseDriver implements Driver<FirebaseQuery, Observable<any>> {
   }
 
   public create(object: any, query: FirebaseQuery): Observable<any> {
-    return of(null);
+    return from(this.firestore.collection(query.getPath()).add(object)).pipe(
+      mapTo(void 0) // TODO @RMA serialization
+    );
   }
 
   public update(object: any, query: FirebaseQuery): Observable<any> {
-    return of(null);
+    return from(this.firestore.doc(query.getPath()).set(object)).pipe(
+      mapTo(void 0) // TODO @RMA serialization
+    );
   }
 
   public delete(query: FirebaseQuery): Observable<any> {
-    return of(null);
+    return from(this.firestore.doc(query.getPath()).delete()).pipe(
+      mapTo(void 0) // TODO @RMA serialization
+    );
   }
 
   public findBy(query: FirebaseQuery): Observable<any> {
-    return fromCollection(
+    // TODO @RMA pagination
+    return fromRef<QuerySnapshot<DocumentData>>(
       this.firestore.collection(query.getPath())
-      // .where('state', '==', 'CA')
+      // .where('state', '==', 'CA') // TODO @RMA criteria
     ).pipe(
       map((data: QuerySnapshot<DocumentData>) => data.docs.map((doc: QueryDocumentSnapshot<DocumentData>) => ({
         id: doc.id,
@@ -58,12 +66,18 @@ export class FirebaseDriver implements Driver<FirebaseQuery, Observable<any>> {
   }
 
   public findOne(query: FirebaseQuery): Observable<any> {
-    return of(null);
+    return fromRef<DocumentSnapshot>(this.firestore.doc(query.getPath())).pipe(
+      tap(console.log),
+      map((data: DocumentSnapshot) => ({
+        id: data.id,
+        ...data.data()
+      }))
+    );
   }
 }
 
-function fromCollection(ref: any, scheduler: SchedulerLike = asyncScheduler): Observable<QuerySnapshot<DocumentData>> {
-  return new Observable((subscriber: Subscriber<QuerySnapshot<DocumentData>>) => {
+function fromRef<T>(ref: any, scheduler: SchedulerLike = asyncScheduler): Observable<T> {
+  return new Observable((subscriber: Subscriber<T>) => {
     let unsubscribe: any;
     if (scheduler != null) {
       scheduler.schedule(() => {

@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LibrariesComponent} from './component/libraries/libraries.component';
 import {LibraryComponent} from './component/library/library.component';
+import { ClientComponent } from './component/client/client.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,10 @@ const routes: Routes = [
     path: 'libraries',
     component: LibrariesComponent,
     children: [
+      {
+        path: 'clients/:clientId',
+        component: ClientComponent
+      },
       {
         path: ':libraryId',
         component: LibraryComponent

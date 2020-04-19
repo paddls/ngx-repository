@@ -1,8 +1,8 @@
-import { PathParam } from '../../../../../../ngx-repository/src/lib/driver/firebase/decorator/path-param.decorator';
+import { PathParam } from '@witty-services/ngx-repository';
 
 export class PurchaseQuery {
 
-  @PathParam() // TODO @RMA merge with HttpParam behavior
+  @PathParam() // TODO @RMA / @TNI merge with HttpParam behavior
   public clientId: string;
 
   public constructor(data: Partial<PurchaseQuery> = {}) {

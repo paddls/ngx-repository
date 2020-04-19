@@ -10,6 +10,9 @@ import { PurchaseQuery } from '../query/purchase.query';
 export class Client extends Identifiable {
 
   @Column()
+  public id: string;
+
+  @Column()
   public firstName: string;
 
   @Column()

@@ -31,7 +31,7 @@ export class LibrariesComponent {
 
   public constructor(librariesService: LibrariesService,
                      personService: PersonService,
-                     clientService: ClientService) {
+                     private readonly clientService: ClientService) {
     this.libraries$ = this.currentPageSubject.pipe(
       switchMap((currentPage: number) => librariesService.findAll(currentPage)),
       shareReplay({bufferSize: 1, refCount:  true})
@@ -45,7 +45,7 @@ export class LibrariesComponent {
       switchMap((searchedFirstName: string) => personService.searchByFirstName(searchedFirstName))
     );
 
-    this.client$ = clientService.findAll(0, 10);
+    this.client$ = clientService.findAll();
   }
 
   public onSearchedFirstNameChange(): void {
@@ -54,5 +54,17 @@ export class LibrariesComponent {
 
   public onClickOnPage(page: number): void {
     this.currentPageSubject.next(page);
+  }
+
+  public createClient(): void {
+    this.clientService.create().subscribe(console.warn);
+  }
+
+  public deleteClient(client: Client): void {
+    this.clientService.delete(client).subscribe();
+  }
+
+  public updateClient(client: Client): void {
+    this.clientService.update(client).subscribe();
   }
 }

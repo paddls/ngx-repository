@@ -12,11 +12,11 @@ export class FirebaseQueryBuilder implements QueryBuilder<FirebaseResourceContex
 
   // TODO @RMA / @TNI - why multiple method ?
   public buildCreateQuery<K>(query: QuerySettings<FirebaseResourceContext, any>): FirebaseQuery {
-    throw new Error('NOT_IMPLEMENTED');
+    return new FirebaseQuery(query);
   }
 
   public buildDeleteQuery<K>(query: QuerySettings<FirebaseResourceContext, any>): FirebaseQuery {
-    throw new Error('NOT_IMPLEMENTED');
+    return new FirebaseQuery(query);
   }
 
   public buildReadQuery<K>(query: QuerySettings<FirebaseResourceContext, any>): FirebaseQuery {
@@ -24,6 +24,6 @@ export class FirebaseQueryBuilder implements QueryBuilder<FirebaseResourceContex
   }
 
   public buildUpdateQuery<K>(query: QuerySettings<FirebaseResourceContext, any>): FirebaseQuery {
-    throw new Error('NOT_IMPLEMENTED');
+    return new FirebaseQuery(query);
   }
 }

@@ -12,6 +12,10 @@ export class FirebaseQuery {
     let path: string = this.query.resourceConfiguration.path;
 
     if (this.query.settings) {
+      if (this.query.settings.id) {
+        path = `${path}/${this.query.settings.id}`; // TODO @RMA check what happened if query override id symbol
+      }
+
       const params: PathParamContextConfiguration[] = Reflect.getMetadata(PATH_PARAM_METADATA_KEY, this.query.settings) || [];
 
       params.forEach((param: PathParamContextConfiguration) => path = path.replace(`:${param.name}`, this.getSetting(param.propertyKey)));
