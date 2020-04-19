@@ -45,9 +45,7 @@ export class LibrariesComponent {
       switchMap((searchedFirstName: string) => personService.searchByFirstName(searchedFirstName))
     );
 
-    this.client$ = clientService.findAll(0, 10).pipe(
-      tap(console.log)
-    );
+    this.client$ = clientService.findAll(0, 10);
   }
 
   public onSearchedFirstNameChange(): void {

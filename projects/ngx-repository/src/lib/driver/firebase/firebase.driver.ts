@@ -9,9 +9,10 @@ import QuerySnapshot = firebase.firestore.QuerySnapshot;
 import { map, tap } from 'rxjs/operators';
 import DocumentData = firebase.firestore.DocumentData;
 import QueryDocumentSnapshot = firebase.firestore.QueryDocumentSnapshot;
+import { FirebaseQuery } from './firebase.query';
 
 @Injectable()
-export class FirebaseDriver implements Driver<any, Observable<any>> {
+export class FirebaseDriver implements Driver<FirebaseQuery, Observable<any>> {
 
   private firebase: App;
   private firestore: Firestore;
@@ -32,26 +33,23 @@ export class FirebaseDriver implements Driver<any, Observable<any>> {
     this.firestore = this.firebase.firestore();
   }
 
-  public create(object: any, query: any): Observable<any> {
+  public create(object: any, query: FirebaseQuery): Observable<any> {
     return of(null);
   }
 
-  public update(object: any, query: any): Observable<any> {
+  public update(object: any, query: FirebaseQuery): Observable<any> {
     return of(null);
   }
 
-  public delete(query: any): Observable<any> {
+  public delete(query: FirebaseQuery): Observable<any> {
     return of(null);
   }
 
-  public findBy(query: any): Observable<any> {
-    console.log(query);
-
+  public findBy(query: FirebaseQuery): Observable<any> {
     return fromCollection(
-      this.firestore.collection('/clients')
+      this.firestore.collection(query.getPath())
       // .where('state', '==', 'CA')
     ).pipe(
-      tap(console.log),
       map((data: QuerySnapshot<DocumentData>) => data.docs.map((doc: QueryDocumentSnapshot<DocumentData>) => ({
         id: doc.id,
         ...doc.data()
@@ -59,7 +57,7 @@ export class FirebaseDriver implements Driver<any, Observable<any>> {
     );
   }
 
-  public findOne(query: any): Observable<any> {
+  public findOne(query: FirebaseQuery): Observable<any> {
     return of(null);
   }
 }

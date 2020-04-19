@@ -27,6 +27,9 @@
     <li class="title">Clients</li>
     <li *ngFor="let client of client$|async">
       {{ client.fullName }}
+      <ul>
+        <li *ngFor="let purchase of client.purchases$|async">{{purchase.id}}</li>
+      </ul>
     </li>
   </ul>
 </div>
