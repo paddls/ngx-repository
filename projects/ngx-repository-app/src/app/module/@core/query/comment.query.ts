@@ -1,4 +1,4 @@
-import {HttpParam} from 'ngx-repository';
+import {HttpParam} from '@witty-services/ngx-repository';
 
 export class CommentQuery {
 

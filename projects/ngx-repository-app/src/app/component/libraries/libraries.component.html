@@ -23,6 +23,12 @@
       {{ person.fullName }}
     </li>
   </ul>
+  <ul>
+    <li class="title">Clients</li>
+    <li *ngFor="let client of client$|async">
+      {{ client.fullName }}
+    </li>
+  </ul>
 </div>
 <div class="library">
   <router-outlet></router-outlet>

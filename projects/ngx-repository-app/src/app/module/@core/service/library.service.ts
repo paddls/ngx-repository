@@ -3,7 +3,7 @@ import {Library} from '../model/library.model';
 import {Observable} from 'rxjs';
 import {mapTo} from 'rxjs/operators';
 import {LibraryQuery} from '../query/library.query';
-import {HttpConnection, HttpRepository, InjectRepository, Page} from 'ngx-repository';
+import {HttpConnection, HttpRepository, InjectRepository, Page} from '@witty-services/ngx-repository';
 
 @Injectable()
 export class LibraryService {

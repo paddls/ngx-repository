@@ -3,7 +3,7 @@ import {Library} from '../module/@core/model/library.model';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {shareReplay, switchMapTo} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
-import {Page} from 'ngx-repository';
+import { Page } from '@witty-services/ngx-repository';
 
 @Injectable()
 export class LibrariesService {

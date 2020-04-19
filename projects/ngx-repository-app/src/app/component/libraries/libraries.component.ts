@@ -3,9 +3,11 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {Library} from '../../module/@core/model/library.model';
 import {Person} from '../../module/@core/model/person.model';
 import {PersonService} from '../../module/@core/service/person.service';
-import {map, shareReplay, switchMap} from 'rxjs/operators';
+import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import {LibrariesService} from '../../service/libraries.service';
-import {Page} from 'ngx-repository';
+import {Page} from '@witty-services/ngx-repository';
+import { Client } from '../../module/@core/model/client.model';
+import { ClientService } from '../../module/@core/service/client.service';
 
 @Component({
   selector: 'app-libraries',
@@ -25,8 +27,11 @@ export class LibrariesComponent {
   public pages$: Observable<number[]>;
 
   public person$: Observable<Person[]>;
+  public client$: Observable<Client[]>;
 
-  public constructor(librariesService: LibrariesService, personService: PersonService) {
+  public constructor(librariesService: LibrariesService,
+                     personService: PersonService,
+                     clientService: ClientService) {
     this.libraries$ = this.currentPageSubject.pipe(
       switchMap((currentPage: number) => librariesService.findAll(currentPage)),
       shareReplay({bufferSize: 1, refCount:  true})
@@ -38,6 +43,10 @@ export class LibrariesComponent {
 
     this.person$ = this.searchedFirstNameChangeSubject.pipe(
       switchMap((searchedFirstName: string) => personService.searchByFirstName(searchedFirstName))
+    );
+
+    this.client$ = clientService.findAll(0, 10).pipe(
+      tap(console.log)
     );
   }
 

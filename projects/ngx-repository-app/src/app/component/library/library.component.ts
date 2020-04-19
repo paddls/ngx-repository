@@ -1,11 +1,11 @@
-import {Component} from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {Library} from '../../module/@core/model/library.model';
-import {filter, map, switchMap, switchMapTo} from 'rxjs/operators';
-import {LibraryService} from '../../module/@core/service/library.service';
-import {LibrariesService} from '../../service/libraries.service';
-import {Book} from '../../module/@core/model/book.model';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Library } from '../../module/@core/model/library.model';
+import { filter, map, switchMap, switchMapTo } from 'rxjs/operators';
+import { LibraryService } from '../../module/@core/service/library.service';
+import { LibrariesService } from '../../service/libraries.service';
+import { Book } from '../../module/@core/model/book.model';
 
 @Component({
   selector: 'app-library',
@@ -14,11 +14,9 @@ import {Book} from '../../module/@core/model/book.model';
 })
 export class LibraryComponent {
 
-  private reload$: BehaviorSubject<void> = new BehaviorSubject<void>(void 0);
-
-  private expandedBooks: Map<string, boolean> = new Map<string, boolean>();
-
   public library$: Observable<Library>;
+  private reload$: BehaviorSubject<void> = new BehaviorSubject<void>(void 0);
+  private expandedBooks: Map<string, boolean> = new Map<string, boolean>();
 
   public constructor(activatedRoute: ActivatedRoute,
                      private librariesService: LibrariesService,

@@ -1,10 +1,10 @@
 import {Identifiable} from './identifiable.model';
-import {Column, HttpResource} from '@witty-services/ngx-repository';
+import { Column, FirebaseResource } from '@witty-services/ngx-repository';
 
-@HttpResource({
-  path: '/persons'
+@FirebaseResource({
+  path: '/clients'
 })
-export class Person extends Identifiable {
+export class Client extends Identifiable {
 
   @Column()
   public firstName: string;
@@ -12,7 +12,7 @@ export class Person extends Identifiable {
   @Column()
   public lastName: string;
 
-  public constructor(data: Partial<Person> = {}) {
+  public constructor(data: Partial<Client> = {}) {
     super(data);
 
     Object.assign(this, data);

@@ -2,6 +2,7 @@ import {NgModule, Optional, Provider, SkipSelf} from '@angular/core';
 import {LibraryService} from './service/library.service';
 import {PersonService} from './service/person.service';
 import {PersonRepository} from './repository/person.repository';
+import { ClientService } from './service/client.service';
 
 const REPOSITORIES: Provider[] = [
   PersonRepository
@@ -9,7 +10,8 @@ const REPOSITORIES: Provider[] = [
 
 const SERVICES: Provider[] = [
   LibraryService,
-  PersonService
+  PersonService,
+  ClientService
 ];
 
 @NgModule({

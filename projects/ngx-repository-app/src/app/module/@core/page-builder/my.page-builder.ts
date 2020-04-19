@@ -3,7 +3,7 @@ import {HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {map} from 'rxjs/operators';
 import { find } from 'lodash';
-import {Page, PageBuilder} from 'ngx-repository';
+import {Page, PageBuilder} from '@witty-services/ngx-repository';
 
 @Injectable()
 export class MyPageBuilder  implements PageBuilder<Observable<HttpResponse<any>>> {
