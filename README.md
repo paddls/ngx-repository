@@ -171,11 +171,15 @@ export class AppModule {
 ### Create resource
 
 First of all, you must have to create a class model which will then be set up with some decorators to describe how to denormalize data receive from a server.
+All connection type come with theirs own resource type decorator. For example, ```HttpConnection``` come with ```HttpResource``` decorator :
 
 ```typescript
 import {User} from './user.model';
-import {Comment} from './comment.model';
+import {HttpResource} from '@witty-services/ngx-repository';
 
+@HttpResource({
+  path: '/books'
+})
 export class Book {
 
   public id: string;
@@ -184,17 +188,108 @@ export class Book {
   
   public author: User;
 
-  public editor: User;
+  public published: boolean;
 
-  public comments: Comment[];
+  public editorId: string;
 }
 ```
 
 ### Add identifier
 
+Once you have created your resource, you can add the column identifier decorator :
+
+```typescript
+import {User} from './user.model';
+import {HttpResource, Id} from '@witty-services/ngx-repository';
+
+@HttpResource({
+  path: '/books'
+})
+export class Book {
+
+  @Id()
+  public id: string;
+  
+  public title: string;
+  
+  public author: User;
+
+  public published: boolean;
+
+  public editorId: string;
+}
+```
+
+```NgxRepository``` use this decorator to retrieve object id to construct the request for update and delete object from the server.
+
 ### Add columns
 
+After identifier column, you can add much simple column like this :
+
+```typescript
+import {User} from './user.model';
+import {HttpResource, Id, Column} from '@witty-services/ngx-repository';
+
+@HttpResource({
+  path: '/books'
+})
+export class Book {
+
+  @Id()
+  public id: string;
+  
+  @Column()
+  public title: string;
+
+  @Column(User)
+  public author: User;
+
+  @Column('status')
+  public published: boolean;
+
+  @Column({field: 'editor.id'})
+  public editorId: string;
+}
+```
+
+This decorator is used by NgxRepository to normalize your object before sending to the server and to denormalize your object when you retrieve data from the server.
+For more information about the decorator configuration, please see the [Column decorator API reference](#decorators)
+
 ### Add nested resource
+
+Now, imagine you want to add an ```attribute``` in your ```Book``` resource which represent the editor based on ```editorId``` attribute. Normaly you have to make a request in your component to retrieve your data. But with ```NgxRepository```, you have to just add a decorator :
+
+```typescript
+import {User} from './user.model';
+import {HttpResource, Id, Column, JoinColumn} from '@witty-services/ngx-repository';
+import {Observable} from 'rxjs';
+
+@HttpResource({
+  path: '/books'
+})
+export class Book {
+
+  @Id()
+  public id: string;
+  
+  @Column()
+  public title: string;
+
+  @Column(User)
+  public author: User;
+
+  @Column('status')
+  public published: boolean;
+
+  @Column({field: 'editor.id'})
+  public editorId: string;
+
+  @JoinColumn({attribute: 'editorId', resourceType: User})
+  public editor$: Observable<User>;
+}
+```
+
+Now, you just have to use, for example, the ```async``` pipe to retrieve data in your component template.
 
 ### Add sub-collection of resource
 
@@ -204,7 +299,17 @@ export class Book {
 
 ### Make custom repository
 
-## Install and build project
+## API
+
+### Decorators
+
+### Connections
+
+### Repositories
+
+## How to contribute
+
+### Install and build project
 
 To install and build the project, you just have to clone the repository and make the dependency installation : 
 
