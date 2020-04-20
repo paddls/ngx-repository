@@ -3,6 +3,7 @@ import { FirebaseResourceContext } from './decorator/firebase-resource.decorator
 import { PATH_PARAM_METADATA_KEY, PathParamContextConfiguration } from './decorator/path-param.decorator';
 import { get } from 'lodash';
 
+// TODO @RMA rename to Request
 export class FirebaseQuery {
 
   public constructor(private query: QuerySettings<FirebaseResourceContext, any>) {

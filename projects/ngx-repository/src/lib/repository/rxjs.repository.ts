@@ -7,7 +7,7 @@ export abstract class RxjsRepository<T, K, RC, RQ, RS> extends AbstractRepositor
 
   public findBy(query?: any): Observable<Page<T>> {
     return super.findBy(query).pipe(
-      map((datas: Page<T>) => this.denormalizeAll(datas, query))
+      map((data: Page<T>) => this.denormalizeAll(data, query))
     );
   }
 
