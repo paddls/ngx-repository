@@ -10,10 +10,14 @@ import {SystemModule} from './module/@system/system.module';
 import {LibrariesComponent} from './component/libraries/libraries.component';
 import {LibraryComponent} from './component/library/library.component';
 import {LibrariesService} from './service/libraries.service';
-import {HTTP_PAGE_BUILDER_TOKEN, NgxRepositoryModule} from '@witty-services/ngx-repository';
+import {
+  HTTP_PAGE_BUILDER_TOKEN,
+  NgxFirebaseRepositoryModule,
+  NgxHttpRepositoryModule,
+  NgxRepositoryModule
+} from '@witty-services/ngx-repository';
 import {MyPageBuilder} from './module/@core/page-builder/my.page-builder';
-import { NgxFirebaseRepositoryModule } from '@witty-services/ngx-repository';
-import { ClientComponent } from './component/client/client.component';
+import {ClientComponent} from './component/client/client.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,8 @@ import { ClientComponent } from './component/client/client.component';
     FormsModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService, {delay: 100}),
     NgxRepositoryModule.forRoot(),
-    NgxFirebaseRepositoryModule.forRoot(),
+    NgxFirebaseRepositoryModule,
+    NgxHttpRepositoryModule,
     SystemModule
   ],
   providers: [

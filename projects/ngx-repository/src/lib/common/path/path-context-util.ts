@@ -1,13 +1,12 @@
 import {PathContext} from './path-context';
-import {cloneDeep} from 'lodash';
 
 export class PathContextUtil {
 
   public static getReadPath(pathContext: PathContext): string {
     if (pathContext.read) {
-      return cloneDeep(pathContext.read);
+      return pathContext.read;
     } else if (pathContext.path) {
-      return cloneDeep(pathContext.path);
+      return pathContext.path;
     } else {
       throw new Error('You must define one path to read data');
     }
@@ -15,11 +14,11 @@ export class PathContextUtil {
 
   public static getCreatePath(pathContext: PathContext): string {
     if (pathContext.create) {
-      return cloneDeep(pathContext.create);
+      return pathContext.create;
     } else if (pathContext.write) {
-      return cloneDeep(pathContext.write);
+      return pathContext.write;
     }  else if (pathContext.path) {
-      return cloneDeep(pathContext.path);
+      return pathContext.path;
     } else {
       throw new Error('You must define one path to create data');
     }
@@ -27,11 +26,11 @@ export class PathContextUtil {
 
   public static getUpdatePath(pathContext: PathContext): string {
     if (pathContext.update) {
-      return cloneDeep(pathContext.update);
+      return pathContext.update;
     } else if (pathContext.write) {
-      return cloneDeep(pathContext.write);
+      return pathContext.write;
     }  else if (pathContext.path) {
-      return cloneDeep(pathContext.path);
+      return pathContext.path;
     } else {
       throw new Error('You must define one path to update data');
     }
@@ -39,11 +38,11 @@ export class PathContextUtil {
 
   public static getDeletePath(pathContext: PathContext): string {
     if (pathContext.delete) {
-      return cloneDeep(pathContext.delete);
+      return pathContext.delete;
     } else if (pathContext.write) {
-      return cloneDeep(pathContext.write);
+      return pathContext.write;
     }  else if (pathContext.path) {
-      return cloneDeep(pathContext.path);
+      return pathContext.path;
     } else {
       throw new Error('You must define one path to delete data');
     }

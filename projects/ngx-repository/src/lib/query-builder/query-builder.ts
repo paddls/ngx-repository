@@ -1,12 +1,7 @@
 import {QuerySettings} from './query-settings';
+import {Request} from './request';
 
-export interface QueryBuilder<RC, RQ> {
+export interface QueryBuilder<RC> {
 
-  buildReadQuery<K>(query: QuerySettings<RC, K>): RQ;
-
-  buildCreateQuery<K>(query: QuerySettings<RC, K>): RQ;
-
-  buildUpdateQuery<K>(query: QuerySettings<RC, K>): RQ;
-
-  buildDeleteQuery<K>(query: QuerySettings<RC, K>): RQ;
+  buildRequestFromQuery<K>(query: QuerySettings<RC, K>): Request;
 }

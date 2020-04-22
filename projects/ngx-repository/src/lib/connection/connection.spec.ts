@@ -4,13 +4,13 @@ import {REPOSITORY_METADATA_KEY, RESOURCE_CONFIGURATION_METADATA_KEY} from '../d
 
 class MyClass {}
 
-class MyConnection extends Connection<any, any, any> {
+class MyConnection extends Connection<any, any> {
 
   public constructor(resourceContextKey: string) {
     super(resourceContextKey);
   }
 
-  public   getRepositoryInstance<T, K, Q>(resourceType: new(...args: any) => T): AbstractRepository<T, K, any, any, any> {
+  public getRepositoryInstance<T, K, Q>(resourceType: new(...args: any) => T): AbstractRepository<T, K, any, any> {
     return undefined;
   }
 }
@@ -19,7 +19,7 @@ describe('Connection', () => {
 
   it('should throw an error when no metadata exist', () => {
     const connection: MyConnection = new MyConnection('meta');
-    expect(() => connection.getRepository(MyClass)).toThrowError();
+    expect(() => connection.getRepository(MyClass)).toThrow();
   });
 
   it('should return a repository instance', () => {

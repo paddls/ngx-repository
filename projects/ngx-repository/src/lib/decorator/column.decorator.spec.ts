@@ -1,15 +1,15 @@
 import 'reflect-metadata';
-import {Column, ColumnContext, COLUMNS_METADATA_KEY, PropertyColumnContext} from './column.decorator';
+import {Column, ColumnContext, COLUMNS_METADATA_KEY, ColumnContextConfiguration} from './column.decorator';
 import {DateConverter} from '../converter/date.converter';
 
 describe('ColumnDecorator', () => {
 
   let obj: any = null;
 
-  const firstResult: PropertyColumnContext<any, any> = {propertyKey: 'myProperty', field: 'myPropertyName'};
-  const secondResult: PropertyColumnContext<any, any> = {propertyKey: 'mySecondProperty', field: 'myBeautifulProperty'};
-  const thirdResult: PropertyColumnContext<any, any> = {propertyKey: 'myThirdProperty', field: 'myThirdProperty', type: Date};
-  const fourthResult: PropertyColumnContext<any, any> = {propertyKey: 'myFourthProperty', field: 'myFourthProperty'};
+  const firstResult: ColumnContextConfiguration<any, any> = {propertyKey: 'myProperty', field: 'myPropertyName'};
+  const secondResult: ColumnContextConfiguration<any, any> = {propertyKey: 'mySecondProperty', field: 'myBeautifulProperty'};
+  const thirdResult: ColumnContextConfiguration<any, any> = {propertyKey: 'myThirdProperty', field: 'myThirdProperty', type: Date};
+  const fourthResult: ColumnContextConfiguration<any, any> = {propertyKey: 'myFourthProperty', field: 'myFourthProperty'};
 
   beforeEach(() => {
     obj = {

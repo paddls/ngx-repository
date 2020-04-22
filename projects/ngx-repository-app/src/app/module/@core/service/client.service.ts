@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { FirebaseConnection, FirebaseRepository, InjectRepository, Page } from '@witty-services/ngx-repository';
-import { Client } from '../model/client.model';
-import { Chance } from 'chance';
-import { Purchase } from '../model/purchase.model';
-import { PurchaseQuery } from '../query/purchase.query';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {FirebaseConnection, FirebaseRepository, InjectRepository, Page} from '@witty-services/ngx-repository';
+import {Client} from '../model/client.model';
+import {Chance} from 'chance';
+import {Purchase} from '../model/purchase.model';
+import {PurchaseQuery} from '../query/purchase.query';
+import {ClientQuery} from '../query/client.query';
 
 @Injectable()
 export class ClientService {
@@ -17,8 +18,11 @@ export class ClientService {
 
   private chance: Chance.Chance = new Chance.Chance();
 
-  public findAll(): Observable<Page<Client>> {
-    return this.repository.findBy();
+  public searchByLastName(searchedLastName: string): Observable<Page<Client>> {
+    return this.repository.findBy(new ClientQuery({
+      lastNameEqual: searchedLastName,
+      orderBy: ['firstName']
+    }));
   }
 
   public create(): Observable<Client> {

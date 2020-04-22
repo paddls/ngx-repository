@@ -14,13 +14,13 @@ import {
 import {PageBuilder} from '../page-builder/page-builder';
 import {Page} from '../page-builder/page';
 
-export abstract class AbstractRepository<T, K, RC, RQ, RS> {
+export abstract class AbstractRepository<T, K, RC, RS> {
 
   public constructor(protected resourceContextKey: string,
-                     protected driver: Driver<RQ, RS>,
+                     protected driver: Driver<RS>,
                      protected normalizer: Normalizer,
                      protected denormalizer: Denormalizer,
-                     protected queryBuilder: QueryBuilder<RC, RQ>,
+                     protected queryBuilder: QueryBuilder<RC>,
                      protected pageBuilder: PageBuilder<RS>) {
   }
 
@@ -49,20 +49,20 @@ export abstract class AbstractRepository<T, K, RC, RQ, RS> {
 
   public findBy(query?: any): any {
     return this.pageBuilder.buildPage(this.driver.findBy(
-      this.queryBuilder.buildReadQuery(this.buildQuery(query))
+      this.queryBuilder.buildRequestFromQuery(this.buildQuery(query))
     ));
   }
 
   public findOne(id: K, query: any = {}): any {
     query.id = id;
 
-    return this.driver.findOne(this.queryBuilder.buildReadQuery(this.buildQuery(query)));
+    return this.driver.findOne(this.queryBuilder.buildRequestFromQuery(this.buildQuery(query)));
   }
 
   public create(object: T, query?: any): any {
     return this.driver.create(
       this.normalizeOne(object),
-      this.queryBuilder.buildCreateQuery(this.buildQuery(query))
+      this.queryBuilder.buildRequestFromQuery(this.buildQuery(query))
     );
   }
 
@@ -71,14 +71,14 @@ export abstract class AbstractRepository<T, K, RC, RQ, RS> {
 
     return this.driver.update(
       this.normalizeOne(object),
-      this.queryBuilder.buildUpdateQuery(this.buildQuery(query))
+      this.queryBuilder.buildRequestFromQuery(this.buildQuery(query))
     );
   }
 
   public delete(object: T, query: any = {}): any {
     query.id = this.getIdOfObject(object);
 
-    return this.driver.delete(this.queryBuilder.buildDeleteQuery(this.buildQuery(query)));
+    return this.driver.delete(this.queryBuilder.buildRequestFromQuery(this.buildQuery(query)));
   }
 
   protected getIdOfObject(object: T): K {

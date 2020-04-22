@@ -19,10 +19,10 @@ class MyNestedClass {
 }
 
 @Repository(MyNestedClass)
-class MockRepository extends RxjsRepository<MyNestedClass, any, any, any, any> {}
+class MockRepository extends RxjsRepository<MyNestedClass, any, any, any> {}
 
 describe('RxjsRepository', () => {
-  let observableRepository: RxjsRepository<MyNestedClass, number, any, any, any>;
+  let observableRepository: RxjsRepository<MyNestedClass, number, any, any>;
   let configuration: NormalizerConfiguration;
   let denormalizer: Denormalizer;
   let normalizer: Normalizer;

@@ -3,11 +3,11 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {Library} from '../../module/@core/model/library.model';
 import {Person} from '../../module/@core/model/person.model';
 import {PersonService} from '../../module/@core/service/person.service';
-import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import {map, shareReplay, switchMap} from 'rxjs/operators';
 import {LibrariesService} from '../../service/libraries.service';
 import {Page} from '@witty-services/ngx-repository';
-import { Client } from '../../module/@core/model/client.model';
-import { ClientService } from '../../module/@core/service/client.service';
+import {Client} from '../../module/@core/model/client.model';
+import {ClientService} from '../../module/@core/service/client.service';
 
 @Component({
   selector: 'app-libraries',
@@ -18,15 +18,20 @@ export class LibrariesComponent {
 
   private currentPageSubject: BehaviorSubject<number> = new BehaviorSubject<number>(1);
 
-  private searchedFirstNameChangeSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private searchedPersonFirstNameChangeSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-  public searchedFirstName: string;
+  private searchedClientLastNameChangeSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
+  public searchedPersonFirstName: string;
+
+  public searchedClientLastName: string;
 
   public libraries$: Observable<Page<Library>>;
 
   public pages$: Observable<number[]>;
 
   public person$: Observable<Person[]>;
+
   public client$: Observable<Client[]>;
 
   public constructor(librariesService: LibrariesService,
@@ -41,15 +46,21 @@ export class LibrariesComponent {
       map((page: Page<Library>) => Array.from(Array(Math.ceil(page.totalItems / page.itemsPerPage)).keys()))
     );
 
-    this.person$ = this.searchedFirstNameChangeSubject.pipe(
+    this.person$ = this.searchedPersonFirstNameChangeSubject.pipe(
       switchMap((searchedFirstName: string) => personService.searchByFirstName(searchedFirstName))
     );
 
-    this.client$ = clientService.findAll();
+    this.client$ = this.searchedClientLastNameChangeSubject.pipe(
+      switchMap((searchedLastName: string) => clientService.searchByLastName(searchedLastName))
+    );
   }
 
-  public onSearchedFirstNameChange(): void {
-    this.searchedFirstNameChangeSubject.next(this.searchedFirstName);
+  public onSearchedPersonFirstNameChange(): void {
+    this.searchedPersonFirstNameChangeSubject.next(this.searchedPersonFirstName);
+  }
+
+  public onSearchedClientLastNameChange(): void {
+    this.searchedClientLastNameChangeSubject.next(this.searchedClientLastName);
   }
 
   public onClickOnPage(page: number): void {

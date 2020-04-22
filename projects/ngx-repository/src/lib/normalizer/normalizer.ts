@@ -1,4 +1,4 @@
-import {COLUMNS_METADATA_KEY, PropertyColumnContext} from '../decorator/column.decorator';
+import {COLUMNS_METADATA_KEY, ColumnContextConfiguration} from '../decorator/column.decorator';
 import {set} from 'lodash';
 import {NormalizerConfiguration} from './normalizer.configuration';
 import {isArray} from 'lodash';
@@ -19,13 +19,13 @@ export class Normalizer {
   }
 
   protected normalizeColumn<T>(object: T, result: {}): Normalizer {
-    const columns: PropertyColumnContext<T, any>[] = Reflect.getMetadata(COLUMNS_METADATA_KEY, object);
+    const columns: ColumnContextConfiguration<T, any>[] = Reflect.getMetadata(COLUMNS_METADATA_KEY, object);
 
     if (!columns) {
       return this;
     }
 
-    columns.forEach((column: PropertyColumnContext<T, any>) => {
+    columns.forEach((column: ColumnContextConfiguration<T, any>) => {
       if (column.readOnly) {
         return;
       }

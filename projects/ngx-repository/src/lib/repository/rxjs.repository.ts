@@ -3,7 +3,7 @@ import {map} from 'rxjs/operators';
 import {AbstractRepository} from './abstract.repository';
 import {Page} from '../page-builder/page';
 
-export abstract class RxjsRepository<T, K, RC, RQ, RS> extends AbstractRepository<T, K, RC, RQ, RS> {
+export abstract class RxjsRepository<T, K, RC, RS> extends AbstractRepository<T, K, RC, RS> {
 
   public findBy(query?: any): Observable<Page<T>> {
     return super.findBy(query).pipe(

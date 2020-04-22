@@ -1,15 +1,15 @@
 import {Connection} from '../connection/connection';
 import {NgxRepositoryModule} from '../ngx-repository.module';
+import {PropertyKeyConfiguration} from '../common/decorator/property-key-configuration';
 
 export const INJECT_REPOSITORY_METADATA_KEY: string = 'httpQueryParam';
 
 export interface InjectRepositoryContext {
   type: new(...args: any[]) => any;
-  connection: new(...args: any) => Connection<any, any, any>;
+  connection: new(...args: any) => Connection<any, any>;
 }
 
-export interface InjectRepositoryContextConfiguration extends InjectRepositoryContext {
-  propertyKey: string;
+export interface InjectRepositoryContextConfiguration extends InjectRepositoryContext, PropertyKeyConfiguration {
 }
 
 export function InjectRepository(params: InjectRepositoryContext): any {

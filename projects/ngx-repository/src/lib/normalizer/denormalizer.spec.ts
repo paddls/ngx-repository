@@ -15,13 +15,13 @@ class EmptyColumn {
   public name: string = 'myEmptyColumnObject';
 }
 
-class MyConnection extends Connection<any, any, any> {
+class MyConnection extends Connection<any, any> {
 
   public constructor() {
     super(null);
   }
 
-  protected getRepositoryInstance<T, K, P>(): AbstractRepository<T, K, P, any, any> {
+  protected getRepositoryInstance<T, K>(): AbstractRepository<T, K, any, any> {
     return undefined;
   }
 }
@@ -29,7 +29,7 @@ class MyConnection extends Connection<any, any, any> {
 describe('Denormalizer', () => {
   const configuration: NormalizerConfiguration = cloneDeep(DEFAULT_NORMALIZER_CONFIGURATION);
 
-  let connection: Connection<any, any, any>;
+  let connection: Connection<any, any>;
   let denormalizerEmptyColumn: Denormalizer;
   let denormalizer: Denormalizer;
 
@@ -187,7 +187,7 @@ describe('Denormalizer', () => {
     }
 
     @Repository(MyNestedClass)
-    class MockRepository extends AbstractRepository<MyNestedClass, any, any, any, any> {}
+    class MockRepository extends AbstractRepository<MyNestedClass, any, any, any> {}
 
     class MyClass {
 
@@ -240,7 +240,7 @@ describe('Denormalizer', () => {
     }
 
     @Repository(MyNestedClass)
-    class MockRepository extends AbstractRepository<MyNestedClass, any, any, any, any> {}
+    class MockRepository extends AbstractRepository<MyNestedClass, any, any, any> {}
 
     class MyClass {
 

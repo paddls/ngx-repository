@@ -1,12 +1,14 @@
-export interface Driver<RQ, RS> {
+import {Request} from '../query-builder/request';
 
-  findBy(query: RQ): RS;
+export interface Driver<RS> {
 
-  findOne(query: RQ): RS;
+  findBy(request: Request): RS;
 
-  delete(query: RQ): RS;
+  findOne(request: Request): RS;
 
-  create(object: any, query: RQ): RS;
+  delete(request: Request): RS;
 
-  update(object: any, query: RQ): RS;
+  create(object: any, request: Request): RS;
+
+  update(object: any, request: Request): RS;
 }

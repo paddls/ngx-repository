@@ -1,8 +1,8 @@
-import {HttpParam} from '@witty-services/ngx-repository';
+import {PathParam} from '@witty-services/ngx-repository';
 
 export class BookQuery {
 
-  @HttpParam()
+  @PathParam()
   public libraryId: string;
 
   public constructor(data: Partial<BookQuery> = {}) {
