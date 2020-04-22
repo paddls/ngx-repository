@@ -69,7 +69,7 @@ export class HttpQueryBuilder implements QueryBuilder<HttpResourceContext, HttpR
 
     const httpQueryParams: HttpQueryParamContextConfiguration[] = Reflect.getMetadata(HTTP_QUERY_PARAM_METADATA_KEY, query.settings) || [];
     httpQueryParams.forEach((httpQueryParam: HttpQueryParamContextConfiguration) => {
-      if (!query.settings[httpQueryParam.propertyKey]) {
+      if (query.settings[httpQueryParam.propertyKey] != null) {
         return;
       }
 
@@ -83,7 +83,7 @@ export class HttpQueryBuilder implements QueryBuilder<HttpResourceContext, HttpR
 
     const httpHeaders: HttpHeaderContextConfiguration[] = Reflect.getMetadata(HTTP_HEADER_METADATA_KEY, query.settings) || [];
     httpHeaders.forEach((httpHeader: HttpHeaderContextConfiguration) => {
-      if (!query.settings[httpHeader.propertyKey]) {
+      if (query.settings[httpHeader.propertyKey] != null) {
         return;
       }
 
