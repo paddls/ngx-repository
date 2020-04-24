@@ -17,6 +17,26 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@witty-services/ngx-repository": [
+        "dist/ngx-repository"
+      ],
+      "@witty-services/ngx-repository/*": [
+        "dist/ngx-repository/*"
+      ],
+      "@witty-services/ngx-http-repository": [
+        "dist/ngx-http-repository"
+      ],
+      "@witty-services/ngx-http-repository/*": [
+        "dist/ngx-http-repository/*"
+      ],
+      "@witty-services/ngx-firebase-repository": [
+        "dist/ngx-firebase-repository"
+      ],
+      "@witty-services/ngx-firebase-repository/*": [
+        "dist/ngx-firebase-repository/*"
+      ]
+    }
   }
 }

@@ -111,29 +111,11 @@
             "browserTarget": "ngx-repository-app:build"
           }
         },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/ngx-repository-app/src/test.ts",
-            "polyfills": "projects/ngx-repository-app/src/polyfills.ts",
-            "tsConfig": "projects/ngx-repository-app/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-repository-app/karma.conf.js",
-            "assets": [
-              "projects/ngx-repository-app/src/favicon.ico",
-              "projects/ngx-repository-app/src/assets"
-            ],
-            "styles": [
-              "projects/ngx-repository-app/src/styles.css"
-            ],
-            "scripts": []
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/ngx-repository-app/tsconfig.app.json",
-              "projects/ngx-repository-app/tsconfig.spec.json"
+              "projects/ngx-repository-app/tsconfig.app.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -150,6 +132,76 @@
             "production": {
               "devServerTarget": "ngx-repository-app:serve:production"
             }
+          }
+        }
+      }
+    },
+    "ngx-http-repository": {
+      "projectType": "library",
+      "root": "projects/ngx-http-repository",
+      "sourceRoot": "projects/ngx-http-repository/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-http-repository/tsconfig.build.json",
+            "project": "projects/ngx-http-repository/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-http-repository/src/test.ts",
+            "tsConfig": "projects/ngx-http-repository/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-http-repository/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-http-repository/tsconfig.lib.json",
+              "projects/ngx-http-repository/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ngx-firebase-repository": {
+      "projectType": "library",
+      "root": "projects/ngx-firebase-repository",
+      "sourceRoot": "projects/ngx-firebase-repository/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-firebase-repository/tsconfig.build.json",
+            "project": "projects/ngx-firebase-repository/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-firebase-repository/src/test.ts",
+            "tsConfig": "projects/ngx-firebase-repository/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-firebase-repository/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-firebase-repository/tsconfig.lib.json",
+              "projects/ngx-firebase-repository/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }

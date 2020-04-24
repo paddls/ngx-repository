@@ -8,7 +8,7 @@ import {
   FirebaseOrderByParam,
   FirebaseStartAfter,
   FirebaseStartAt
-} from '@witty-services/ngx-repository';
+} from '@witty-services/ngx-firebase-repository';
 
 export class ClientQuery {
 

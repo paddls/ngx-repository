@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {FirebaseConnection, FirebaseRepository, InjectRepository, Page} from '@witty-services/ngx-repository';
+import {InjectRepository, Page} from '@witty-services/ngx-repository';
 import {Client} from '../model/client.model';
 import {Chance} from 'chance';
 import {Purchase} from '../model/purchase.model';
 import {PurchaseQuery} from '../query/purchase.query';
 import {ClientQuery} from '../query/client.query';
+import {FirebaseConnection, FirebaseRepository} from '@witty-services/ngx-firebase-repository';
 
 @Injectable()
 export class ClientService {

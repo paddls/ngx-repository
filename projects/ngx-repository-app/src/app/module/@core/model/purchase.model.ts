@@ -1,7 +1,8 @@
 import {Identifiable} from './identifiable.model';
-import {Column, FirebaseResource} from '@witty-services/ngx-repository';
+import {Column} from '@witty-services/ngx-repository';
 import {EMPTY, Observable} from 'rxjs';
 import {Book} from './book.model';
+import {FirebaseResource} from '@witty-services/ngx-firebase-repository';
 
 @FirebaseResource({
   path: '/clients/:clientId/purchases'

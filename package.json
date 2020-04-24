@@ -4,11 +4,21 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --project ngx-repository-app",
-    "build": "ng build --project ngx-repository && cp README.md dist/ngx-repository",
-    "test": "ng test --project ngx-repository --code-coverage",
-    "test:ci": "npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI",
+    "build:ngx-repository": "ng build --project ngx-repository && cp README.md dist/ngx-repository",
+    "build:ngx-http-repository": "npm run build:ngx-repository && ng build --project ngx-http-repository && cp README.md dist/ngx-http-repository",
+    "build:ngx-firebase-repository": "npm run build:ngx-repository && ng build --project ngx-firebase-repository && cp README.md dist/ngx-firebase-repository",
+    "test:ngx-repository": "ng test --project ngx-repository --code-coverage",
+    "test:ngx-http-repository": "ng test --project ngx-http-repository --code-coverage",
+    "test:ngx-firebase-repository": "ng test --project ngx-firebase-repository --code-coverage",
+    "test:ci:ngx-repository": "npm run test:ngx-repository -- --no-watch --no-progress --browsers=ChromeHeadlessCI",
+    "test:ci:ngx-http-repository": "npm run test:ngx-http-repository -- --no-watch --no-progress --browsers=ChromeHeadlessCI",
+    "test:ci:ngx-firebase-repository": "npm run test:ngx-firebase-repository -- --no-watch --no-progress --browsers=ChromeHeadlessCI",
+    "test:ci": "npm run test:ci:ngx-repository && npm run test:ci:ngx-http-repository && npm run test:ci:ngx-firebase-repository",
+    "posttest:ci": "istanbul-combine -d coverage/merged -p summary -r lcov -r html coverage/ngx-repository/coverage-final.json coverage/ngx-http-repository/coverage-final.json coverage/ngx-firebase-repository/coverage-final.json",
     "lint": "ng lint",
-    "publish": "npm run build && cd dist/ngx-repository && npm publish --access=public"
+    "publish:ngx-repository": "npm run build:ngx-repository && cd dist/ngx-repository && npm publish --access=public",
+    "publish:ngx-http-repository": "npm run build:ngx-http-repository && cd dist/ngx-firebase-repository && npm publish --access=public",
+    "publish:ngx-firebase-repository": "npm run build:ngx-firebase-repository && cd dist/ngx-firebase-repository && npm publish --access=public"
   },
   "private": true,
   "dependencies": {
@@ -39,6 +49,7 @@
     "@types/lodash": "^4.14.150",
     "@types/node": "~8.9.4",
     "codelyzer": "^5.0.0",
+    "istanbul-combine": "^0.3.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",

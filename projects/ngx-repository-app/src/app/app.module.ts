@@ -10,16 +10,12 @@ import {SystemModule} from './module/@system/system.module';
 import {LibrariesComponent} from './component/libraries/libraries.component';
 import {LibraryComponent} from './component/library/library.component';
 import {LibrariesService} from './service/libraries.service';
-import {
-  HTTP_CREATE_RESPONSE_BUILDER,
-  HTTP_PAGE_BUILDER_TOKEN,
-  NgxFirebaseRepositoryModule,
-  NgxHttpRepositoryModule,
-  NgxRepositoryModule
-} from '@witty-services/ngx-repository';
+import {NgxRepositoryModule} from '@witty-services/ngx-repository';
 import {MyPageBuilder} from './module/@core/page-builder/my.page-builder';
 import {ClientComponent} from './component/client/client.component';
 import {MyHttpCreateResponseBuilder} from './module/@core/response-builder/my-http-create.response-builder';
+import {HTTP_CREATE_RESPONSE_BUILDER, HTTP_PAGE_BUILDER_TOKEN, NgxHttpRepositoryModule} from '@witty-services/ngx-http-repository';
+import {NgxFirebaseRepositoryModule} from '@witty-services/ngx-firebase-repository';
 
 @NgModule({
   declarations: [

@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {Library} from '../model/library.model';
 import {Observable} from 'rxjs';
 import {LibraryQuery} from '../query/library.query';
-import {HttpConnection, HttpRepository, InjectRepository, Page} from '@witty-services/ngx-repository';
+import {InjectRepository, Page} from '@witty-services/ngx-repository';
+import {HttpConnection, HttpRepository} from '@witty-services/ngx-http-repository';
 
 @Injectable()
 export class LibraryService {
