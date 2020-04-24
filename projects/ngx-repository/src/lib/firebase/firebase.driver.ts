@@ -21,7 +21,7 @@ export class FirebaseDriver implements Driver<any> {
 
   private firestore: Firestore;
 
-  public constructor(@Inject(FIREBASE_CONFIGURATION_TOKEN) firebaseConfiguration: {[key: string]: any}) {
+  public constructor(@Inject(FIREBASE_CONFIGURATION_TOKEN) firebaseConfiguration: any) {
     this.firebase = firebase.initializeApp(firebaseConfiguration);
     this.firestore = this.firebase.firestore();
   }
