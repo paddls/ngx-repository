@@ -1,3 +1,5 @@
+import {PropertyKeyConfiguration} from '../common/decorator/property-key-configuration';
+
 export const JOIN_COLUMN_METADATA_KEY: string = 'joinColumn';
 
 export interface JoinColumnContext {
@@ -7,13 +9,12 @@ export interface JoinColumnContext {
   resourceType: new(...args: any[]) => any;
 }
 
-export interface PropertyJoinColumnContext extends JoinColumnContext {
-  propertyKey: string;
+export interface JoinColumnContextConfiguration extends JoinColumnContext, PropertyKeyConfiguration {
 }
 
 export function JoinColumn(joinColumnContext: JoinColumnContext): any {
   return (target: object, propertyKey: string) => {
-    let metas: PropertyJoinColumnContext[] = [];
+    let metas: JoinColumnContextConfiguration[] = [];
     if (Reflect.hasMetadata(JOIN_COLUMN_METADATA_KEY, target)) {
       metas = Reflect.getMetadata(JOIN_COLUMN_METADATA_KEY, target);
     }

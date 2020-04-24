@@ -1,46 +1,108 @@
+/**
+ * COMMON PUBLIC API
+ */
+export {PropertyKeyConfiguration} from './lib/common/decorator/property-key-configuration';
+
 export {PathContext} from './lib/common/path/path-context';
 export {PathContextUtil} from './lib/common/path/path-context-util';
 
 export {Connection} from './lib/connection/connection';
-export {HttpConnection} from './lib/connection/http/http.connection';
 
 export {Converter} from './lib/converter/converter';
 export {DateConverter} from './lib/converter/date.converter';
 
-export {HttpHeader, HttpHeaderContext, HTTP_HEADER_METADATA_KEY} from './lib/decorator/http/http-header.decorator';
-export {HttpParam, HttpParamContext, HTTP_PARAM_METADATA_KEY} from './lib/decorator/http/http-param.decorator';
-export {HttpQueryParam, HttpQueryParamContext, HTTP_QUERY_PARAM_METADATA_KEY} from './lib/decorator/http/http-query-param.decorator';
-export {HttpResource, HttpResourceContext, HTTP_RESOURCE_METADATA_KEY} from './lib/decorator/http/http-resource.decorator';
+export {Column, ColumnContext} from './lib/decorator/column.decorator';
+export {Id, IdContext} from './lib/decorator/id.decorator';
+export {InjectRepository, InjectRepositoryContext} from './lib/decorator/inject-repository.decorator';
+export {JoinColumn, JoinColumnContext} from './lib/decorator/join-column.decorator';
+export {PathParam, PathParamContext} from './lib/decorator/path-param.decorator';
+export {Repository, RepositoryContextConfiguration} from './lib/decorator/repository.decorator';
+export {SubCollection, SubCollectionContext} from './lib/decorator/sub-collection.decorator';
 
-export {Column, ColumnContext, COLUMNS_METADATA_KEY} from './lib/decorator/column.decorator';
-export {Id, IdContext, ID_METADATA_KEY} from './lib/decorator/id.decorator';
-export {InjectRepository, InjectRepositoryContext, INJECT_REPOSITORY_METADATA_KEY} from './lib/decorator/inject-repository.decorator';
-export {JoinColumn, JoinColumnContext, JOIN_COLUMN_METADATA_KEY} from './lib/decorator/join-column.decorator';
-export {Repository, RepositoryContextConfiguration, REPOSITORY_METADATA_KEY, RESOURCE_CONFIGURATION_METADATA_KEY} from './lib/decorator/repository.decorator';
-export {SubCollection, SubCollectionContext, SUB_COLLECTION_METADATA_KEY} from './lib/decorator/sub-collection.decorator';
-
-export {HttpDriver} from './lib/driver/http/http.driver';
 export {Driver} from './lib/driver/driver';
+
+export {ResponseBuilder} from './lib/item-builder/response-builder';
 
 export {Denormalizer} from './lib/normalizer/denormalizer';
 export {NormalizerConfiguration} from './lib/normalizer/normalizer.configuration';
 export {Normalizer} from './lib/normalizer/normalizer';
 
-export {HttpNoPageBuilder} from './lib/page-builder/http/http-no.page-builder';
 export {Page} from './lib/page-builder/page';
 export {PageBuilder} from './lib/page-builder/page-builder';
-
-export {HttpQueryBuilder} from './lib/query-builder/http/http.query-builder';
-export {HttpQuerySettings} from './lib/query-builder/http/http.query-settings';
 
 export {Query} from './lib/query-builder/query';
 export {QueryBuilder} from './lib/query-builder/query-builder';
 export {QuerySettings} from './lib/query-builder/query-settings';
+export {PathQueryBuilder} from './lib/query-builder/path.query-builder';
+export {PathQuerySettings} from './lib/query-builder/path.query-settings';
+export {PathRequest} from './lib/query-builder/path.request';
 
-export {HttpRepository} from './lib/repository/http/http.repository';
 export {AbstractRepository} from './lib/repository/abstract.repository';
-export {RxjsRepository} from './lib/repository/rxjs.repository';
 
-export {HTTP_DENORMALIZER_TOKEN, HTTP_PAGE_BUILDER_TOKEN} from './lib/ngx-repository.module.di';
+export {NORMALIZER_CONFIGURATION_TOKEN} from './lib/ngx-repository.module.di';
 
 export {NgxRepositoryModule} from './lib/ngx-repository.module';
+
+
+/**
+ * FIREBASE PUBLIC API
+ */
+export {FirebaseCriteria, FirebaseCriteriaContext} from './lib/firebase/decorator/firebase-criteria.decorator';
+export {FirebaseEndAt} from './lib/firebase/decorator/firebase-end-at.decorator';
+export {FirebaseEndBefore} from './lib/firebase/decorator/firebase-end-before.decorator';
+export {FirebaseLimit} from './lib/firebase/decorator/firebase-limit.decorator';
+export {FirebaseLimitToLast} from './lib/firebase/decorator/firebase-limit-to-last.decorator';
+export {FirebaseOrderBy, FirebaseOrderByParam} from './lib/firebase/decorator/firebase-order-by.decorator';
+export {FirebaseResource, FirebaseResourceContext} from './lib/firebase/decorator/firebase-resource.decorator';
+export {FirebaseStartAfter} from './lib/firebase/decorator/firebase-start-after.decorator';
+export {FirebaseStartAt} from './lib/firebase/decorator/firebase-start-at.decorator';
+
+export {FirebaseConnection} from './lib/firebase/firebase.connection';
+
+export {FirebasePageBuilder} from './lib/firebase/firebase.page-builder';
+
+export {FirebaseQueryBuilder} from './lib/firebase/firebase.query-builder';
+
+export {FirebaseQuerySettings} from './lib/firebase/firebase.query-settings';
+
+export {FirebaseRepository} from './lib/firebase/firebase.repository';
+
+export {
+  FIREBASE_CONFIGURATION_TOKEN,
+  FIREBASE_DENORMALIZER_TOKEN,
+  FIREBASE_CREATE_RESPONSE_BUILDER,
+  FIREBASE_FIND_ONE_RESPONSE_BUILDER,
+  FIREBASE_PAGE_BUILDER_TOKEN
+} from './lib/firebase/ngx-firebase-repository.module.di';
+
+export {NgxFirebaseRepositoryModule} from './lib/firebase/ngx-firebase-repository.module';
+
+
+/**
+ * HTTP PUBLIC API
+ */
+export {HttpHeader, HttpHeaderContext} from './lib/http/decorator/http-header.decorator';
+export {HttpQueryParam, HttpQueryParamContext} from './lib/http/decorator/http-query-param.decorator';
+export {HttpResource, HttpResourceContext} from './lib/http/decorator/http-resource.decorator';
+
+export {HttpConnection} from './lib/http/http.connection';
+
+export {HttpDriver} from './lib/http/http.driver';
+
+export {HttpQueryBuilder} from './lib/http/http.query-builder';
+
+export {HttpQuerySettings} from './lib/http/http.query-settings';
+
+export {HttpRepository} from './lib/http/http.repository';
+
+export {HttpNoPageBuilder} from './lib/http/http-no.page-builder';
+
+export {
+  HTTP_DENORMALIZER_TOKEN,
+  HTTP_PAGE_BUILDER_TOKEN,
+  HTTP_CREATE_RESPONSE_BUILDER,
+  HTTP_FIND_ONE_RESPONSE_BUILDER
+} from './lib/http/ngx-http-repository.module.di';
+
+export {NgxHttpRepositoryModule} from './lib/http/ngx-http-repository.module';
+

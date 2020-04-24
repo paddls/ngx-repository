@@ -1,4 +1,5 @@
 import {Converter} from '../converter/converter';
+import {PropertyKeyConfiguration} from '../common/decorator/property-key-configuration';
 
 export const COLUMNS_METADATA_KEY: string = 'columns';
 
@@ -15,15 +16,14 @@ export interface ColumnContext<T, R> {
   customConverter?: new(...args: any[]) => Converter<T, R>;
 }
 
-export interface PropertyColumnContext<T, R> extends ColumnContext<T, R> {
-  propertyKey: string;
+export interface ColumnContextConfiguration<T, R> extends ColumnContext<T, R>, PropertyKeyConfiguration {
 }
 
 export function Column<T, R>(columnContext?: ColumnContext<T, R>|string|(new(...args: any[]) => T)): any {
   return (target: any, propertyKey: string) => {
-    const columnMetadata: PropertyColumnContext<T, R> = makeColumnMetadata(target, propertyKey, columnContext);
+    const columnMetadata: ColumnContextConfiguration<T, R> = makeColumnMetadata(target, propertyKey, columnContext);
 
-    let metas: PropertyColumnContext<T, R>[] = [];
+    let metas: ColumnContextConfiguration<T, R>[] = [];
     if (Reflect.hasMetadata(COLUMNS_METADATA_KEY, target)) {
       metas = Reflect.getMetadata(COLUMNS_METADATA_KEY, target);
     }
@@ -33,8 +33,8 @@ export function Column<T, R>(columnContext?: ColumnContext<T, R>|string|(new(...
 
 function makeColumnMetadata<T, R>(target: any,
                                   propertyKey: string,
-                                  columnContext?: ColumnContext<T, R>|string|(new(...args: any[]) => T)): PropertyColumnContext<T, R> {
-  let columnMetadata: PropertyColumnContext<T, R> = {
+                                  columnContext?: ColumnContext<T, R>|string|(new(...args: any[]) => T)): ColumnContextConfiguration<T, R> {
+  let columnMetadata: ColumnContextConfiguration<T, R> = {
     propertyKey,
     field: propertyKey
   };

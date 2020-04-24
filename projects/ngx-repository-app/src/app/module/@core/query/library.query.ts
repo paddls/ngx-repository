@@ -1,4 +1,4 @@
-import {HttpHeader, HttpQueryParam} from 'ngx-repository';
+import {HttpHeader, HttpQueryParam} from '@witty-services/ngx-repository';
 
 export class LibraryQuery {
 

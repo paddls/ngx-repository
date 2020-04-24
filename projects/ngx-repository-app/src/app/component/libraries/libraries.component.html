@@ -9,6 +9,7 @@
               [disabled]="page + 1 === (currentPageSubject|async)"
               (click)="onClickOnPage(page + 1)">{{ page + 1 }}</button>
     </li>
+    <li><button (click)="createLibrary()">create</button></li>
   </ul>
   <ul id="users">
     <li class="title">Persons</li>
@@ -16,12 +17,30 @@
       <input type="text"
              id="searchPerson"
              placeholder="Type first name"
-             [(ngModel)]="searchedFirstName"
-             (ngModelChange)="onSearchedFirstNameChange()"/>
+             [(ngModel)]="searchedPersonFirstName"
+             (ngModelChange)="onSearchedPersonFirstNameChange()"/>
     </li>
     <li *ngFor="let person of person$|async">
       {{ person.fullName }}
     </li>
+    <li><button (click)="createPerson()">create</button></li>
+  </ul>
+  <ul>
+    <li class="title">Clients</li>
+    <li>
+      <input type="text"
+             id="searchClient"
+             placeholder="Type first name"
+             [(ngModel)]="searchedClientLastName"
+             (ngModelChange)="onSearchedClientLastNameChange()"/>
+    </li>
+    <li *ngFor="let client of client$|async">
+      {{ client.fullName }}
+      <button (click)="deleteClient(client)">delete</button>
+      <button (click)="updateClient(client)">update</button>
+      <button routerLink="/libraries/clients/{{client.id}}">view</button>
+    </li>
+    <li><button (click)="createClient()">create</button></li>
   </ul>
 </div>
 <div class="library">

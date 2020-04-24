@@ -22,8 +22,5 @@
   "exclude": [
     "src/test.ts",
     "**/*.spec.ts"
-  ],
-  "whiteList": [
-    "@witty-services/repository-core"
   ]
 }

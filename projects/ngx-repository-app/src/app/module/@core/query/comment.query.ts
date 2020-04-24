@@ -1,11 +1,11 @@
-import {HttpParam} from 'ngx-repository';
+import {PathParam} from '@witty-services/ngx-repository';
 
 export class CommentQuery {
 
-  @HttpParam()
+  @PathParam()
   public libraryId: string;
 
-  @HttpParam()
+  @PathParam()
   public bookId: string;
 
   public constructor(data: Partial<CommentQuery> = {}) {

@@ -35,7 +35,7 @@ The first step is to import the ` NgxRepository` module :
 
 ```typescript
 // ...
-import {NgxRepositoryModule} from 'ngx-repository';
+import {NgxRepositoryModule} from '@witty-services/ngx-repository';
 // ...
 
 @NgModule({

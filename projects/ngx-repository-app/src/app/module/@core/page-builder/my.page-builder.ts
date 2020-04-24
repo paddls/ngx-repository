@@ -2,13 +2,13 @@ import {Observable} from 'rxjs';
 import {HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {map} from 'rxjs/operators';
-import { find } from 'lodash';
-import {Page, PageBuilder} from 'ngx-repository';
+import {find} from 'lodash';
+import {Page, PageBuilder} from '@witty-services/ngx-repository';
 
 @Injectable()
-export class MyPageBuilder  implements PageBuilder<Observable<HttpResponse<any>>> {
+export class MyPageBuilder  implements PageBuilder<HttpResponse<any>> {
 
-  public buildPage(response$: Observable<HttpResponse<any>>): any {
+  public buildPage(response$: Observable<HttpResponse<any>>): Observable<Page<any>> {
     return response$.pipe(
       map((response: HttpResponse<any>) => {
         const page: Page<any> = new Page<any>(response.body);

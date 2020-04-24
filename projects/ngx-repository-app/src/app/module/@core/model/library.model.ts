@@ -3,10 +3,10 @@ import {Observable} from 'rxjs';
 import {Book} from './book.model';
 import {Address} from './address.model';
 import {BookQuery} from '../query/book.query';
-import {Column, DateConverter, HttpResource, Page, SubCollection} from 'ngx-repository';
+import {Column, DateConverter, HttpResource, Page, SubCollection} from '@witty-services/ngx-repository';
 
 @HttpResource({
-  read: '/libraries',
+  path: '/libraries',
   update: '/library'
 })
 export class Library extends Identifiable {
@@ -20,13 +20,16 @@ export class Library extends Identifiable {
   @Column({field: 'test', writeOnly: true})
   public test: string;
 
+  @Column()
+  public opened: boolean;
+
   @Column({field: 'createdAt', customConverter: DateConverter})
   public createdAt: Date;
 
   @SubCollection({resourceType: Book, params: (library: Library) => new BookQuery({libraryId: library.id})})
   public books$: Observable<Page<Book>>;
 
-  public constructor(data: Partial<Book> = {}) {
+  public constructor(data: Partial<Library> = {}) {
     super(data);
 
     Object.assign(this, data);

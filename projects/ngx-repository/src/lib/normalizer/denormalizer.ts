@@ -1,7 +1,7 @@
 import {get, isArray} from 'lodash';
-import {COLUMNS_METADATA_KEY, PropertyColumnContext} from '../decorator/column.decorator';
-import {JOIN_COLUMN_METADATA_KEY, PropertyJoinColumnContext} from '../decorator/join-column.decorator';
-import {PropertySubCollectionContext, SUB_COLLECTION_METADATA_KEY} from '../decorator/sub-collection.decorator';
+import {COLUMNS_METADATA_KEY, ColumnContextConfiguration} from '../decorator/column.decorator';
+import {JOIN_COLUMN_METADATA_KEY, JoinColumnContextConfiguration} from '../decorator/join-column.decorator';
+import {SubCollectionContextConfiguration, SUB_COLLECTION_METADATA_KEY} from '../decorator/sub-collection.decorator';
 import {NormalizerConfiguration} from './normalizer.configuration';
 import {Connection} from '../connection/connection';
 import {Inject, Injectable} from '@angular/core';
@@ -11,7 +11,7 @@ import {NORMALIZER_CONFIGURATION_TOKEN} from '../ngx-repository.module.di';
 @Injectable()
 export class Denormalizer {
 
-  public constructor(private connection: Connection<any, any, any>,
+  public constructor(private connection: Connection<any, any>,
                      @Inject(NORMALIZER_CONFIGURATION_TOKEN) private configuration: NormalizerConfiguration) {}
 
   public denormalize<T>(type: new() => T, data: any|any[], query?: Query<any>): T {
@@ -30,13 +30,13 @@ export class Denormalizer {
   }
 
   protected denormalizeColumn<T>(data: any, result: T): Denormalizer {
-    const columns: PropertyColumnContext<T, any>[] = Reflect.getMetadata(COLUMNS_METADATA_KEY, result);
+    const columns: ColumnContextConfiguration<T, any>[] = Reflect.getMetadata(COLUMNS_METADATA_KEY, result);
 
     if (!columns) {
       return this;
     }
 
-    columns.forEach((cc: PropertyColumnContext<T, any>) => {
+    columns.forEach((cc: ColumnContextConfiguration<T, any>) => {
       if (cc.writeOnly) {
         return;
       }
@@ -74,13 +74,13 @@ export class Denormalizer {
   }
 
   protected denormalizeJoinColumn<T>(data: any, result: T): Denormalizer {
-    const joinColumns: PropertyJoinColumnContext[] = Reflect.getMetadata(JOIN_COLUMN_METADATA_KEY, result);
+    const joinColumns: JoinColumnContextConfiguration[] = Reflect.getMetadata(JOIN_COLUMN_METADATA_KEY, result);
 
     if (!joinColumns) {
       return this;
     }
 
-    joinColumns.forEach((jc: PropertyJoinColumnContext) => {
+    joinColumns.forEach((jc: JoinColumnContextConfiguration) => {
       result[jc.propertyKey] = this.connection.getRepository(jc.resourceType).findOne(result[jc.attribute]);
     });
 
@@ -88,14 +88,14 @@ export class Denormalizer {
   }
 
   protected denormalizeSubCollection<T>(data: any, result: T, query?: Query<any>): Denormalizer {
-    const subCollections: PropertySubCollectionContext[] = Reflect.getMetadata(SUB_COLLECTION_METADATA_KEY, result);
+    const subCollections: SubCollectionContextConfiguration[] = Reflect.getMetadata(SUB_COLLECTION_METADATA_KEY, result);
 
     if (!subCollections) {
       return this;
     }
 
-    subCollections.forEach((sc: PropertySubCollectionContext) => {
-      result[sc.propertyKey] = this.connection.getRepository(sc.resourceType).findBy(
+    subCollections.forEach((sc: SubCollectionContextConfiguration) => {
+      result[sc.propertyKey] = this.connection.getRepository(sc.resourceType).findAll(
         sc.params ? sc.params(result, query) : null
       );
     });

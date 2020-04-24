@@ -1,12 +1,15 @@
-export interface Driver<RQ, RS> {
+import {Request} from '../query-builder/request';
+import {Observable} from 'rxjs';
 
-  findBy(query: RQ): RS;
+export interface Driver<RS> {
 
-  findOne(query: RQ): RS;
+  findBy(request: Request): Observable<RS>;
 
-  delete(query: RQ): RS;
+  findOne(request: Request): Observable<RS>;
 
-  create(object: any, query: RQ): RS;
+  delete(request: Request): Observable<RS>;
 
-  update(object: any, query: RQ): RS;
+  create(object: any, request: Request): Observable<RS>;
+
+  update(object: any, request: Request): Observable<RS>;
 }

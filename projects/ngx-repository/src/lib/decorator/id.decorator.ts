@@ -6,9 +6,9 @@ export interface IdContext {
 
   field?: string;
 
-  excludeToJson?: boolean;
+  readOnly?: boolean;
 
-  excludeFromJson?: boolean;
+  writeOnly?: boolean;
 }
 
 export function Id(idContext?: IdContext|string): any {

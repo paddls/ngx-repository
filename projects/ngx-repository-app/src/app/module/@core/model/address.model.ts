@@ -1,4 +1,4 @@
-import {Column} from 'ngx-repository';
+import {Column} from '@witty-services/ngx-repository';
 
 export class Address {
 

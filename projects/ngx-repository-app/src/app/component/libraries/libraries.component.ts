@@ -5,7 +5,9 @@ import {Person} from '../../module/@core/model/person.model';
 import {PersonService} from '../../module/@core/service/person.service';
 import {map, shareReplay, switchMap} from 'rxjs/operators';
 import {LibrariesService} from '../../service/libraries.service';
-import {Page} from 'ngx-repository';
+import {Page} from '@witty-services/ngx-repository';
+import {Client} from '../../module/@core/model/client.model';
+import {ClientService} from '../../module/@core/service/client.service';
 
 @Component({
   selector: 'app-libraries',
@@ -16,9 +18,13 @@ export class LibrariesComponent {
 
   private currentPageSubject: BehaviorSubject<number> = new BehaviorSubject<number>(1);
 
-  private searchedFirstNameChangeSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private searchedPersonFirstNameChangeSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
-  public searchedFirstName: string;
+  private searchedClientLastNameChangeSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+
+  public searchedPersonFirstName: string;
+
+  public searchedClientLastName: string;
 
   public libraries$: Observable<Page<Library>>;
 
@@ -26,7 +32,11 @@ export class LibrariesComponent {
 
   public person$: Observable<Person[]>;
 
-  public constructor(librariesService: LibrariesService, personService: PersonService) {
+  public client$: Observable<Client[]>;
+
+  public constructor(private librariesService: LibrariesService,
+                     private personService: PersonService,
+                     private readonly clientService: ClientService) {
     this.libraries$ = this.currentPageSubject.pipe(
       switchMap((currentPage: number) => librariesService.findAll(currentPage)),
       shareReplay({bufferSize: 1, refCount:  true})
@@ -36,16 +46,47 @@ export class LibrariesComponent {
       map((page: Page<Library>) => Array.from(Array(Math.ceil(page.totalItems / page.itemsPerPage)).keys()))
     );
 
-    this.person$ = this.searchedFirstNameChangeSubject.pipe(
+    this.person$ = this.searchedPersonFirstNameChangeSubject.pipe(
       switchMap((searchedFirstName: string) => personService.searchByFirstName(searchedFirstName))
+    );
+
+    this.client$ = this.searchedClientLastNameChangeSubject.pipe(
+      switchMap((searchedLastName: string) => clientService.searchByLastName(searchedLastName))
     );
   }
 
-  public onSearchedFirstNameChange(): void {
-    this.searchedFirstNameChangeSubject.next(this.searchedFirstName);
+  public onSearchedPersonFirstNameChange(): void {
+    this.searchedPersonFirstNameChangeSubject.next(this.searchedPersonFirstName);
+  }
+
+  public onSearchedClientLastNameChange(): void {
+    this.searchedClientLastNameChangeSubject.next(this.searchedClientLastName);
   }
 
   public onClickOnPage(page: number): void {
     this.currentPageSubject.next(page);
+  }
+
+  public createLibrary(): void {
+    this.librariesService.create().subscribe(console.log);
+  }
+
+  public createPerson(): void {
+    this.personService.create().subscribe((id: string) => {
+      console.log(id);
+      this.searchedPersonFirstNameChangeSubject.next(this.searchedPersonFirstName);
+    });
+  }
+
+  public createClient(): void {
+    this.clientService.create().subscribe(console.log);
+  }
+
+  public deleteClient(client: Client): void {
+    this.clientService.delete(client).subscribe();
+  }
+
+  public updateClient(client: Client): void {
+    this.clientService.update(client).subscribe();
   }
 }
