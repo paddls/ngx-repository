@@ -4,8 +4,9 @@ import {HttpQuerySettings} from './http.query-settings';
 import {HTTP_QUERY_PARAM_METADATA_KEY, HttpQueryParamContextConfiguration} from './decorator/http-query-param.decorator';
 import {HTTP_HEADER_METADATA_KEY, HttpHeaderContextConfiguration} from './decorator/http-header.decorator';
 import {cloneDeep} from 'lodash';
-import {PathQueryBuilder} from '../query-builder/path.query-builder';
 import {HttpRequest} from './http.request';
+import {isNullOrUndefined} from 'util';
+import {PathQueryBuilder} from '../query-builder/path.query-builder';
 
 @Injectable()
 export class HttpQueryBuilder extends PathQueryBuilder<HttpResourceContext> {
@@ -26,7 +27,7 @@ export class HttpQueryBuilder extends PathQueryBuilder<HttpResourceContext> {
   protected makeHttpQueryParams<K>(httpRequest: HttpRequest<K>, query: HttpQuerySettings<K>): HttpQueryBuilder {
     const httpQueryParams: HttpQueryParamContextConfiguration[] = Reflect.getMetadata(HTTP_QUERY_PARAM_METADATA_KEY, query.settings) || [];
     httpQueryParams.forEach((httpQueryParam: HttpQueryParamContextConfiguration) => {
-      if (!query.settings[httpQueryParam.propertyKey]) {
+      if (isNullOrUndefined(query.settings[httpQueryParam.propertyKey])) {
         return;
       }
 
@@ -39,7 +40,7 @@ export class HttpQueryBuilder extends PathQueryBuilder<HttpResourceContext> {
   protected makeHttpHeaders<K>(httpRequest: HttpRequest<K>, query: HttpQuerySettings<K>): HttpQueryBuilder {
     const httpHeaders: HttpHeaderContextConfiguration[] = Reflect.getMetadata(HTTP_HEADER_METADATA_KEY, query.settings) || [];
     httpHeaders.forEach((httpHeader: HttpHeaderContextConfiguration) => {
-      if (!query.settings[httpHeader.propertyKey]) {
+      if (isNullOrUndefined(query.settings[httpHeader.propertyKey])) {
         return;
       }
 

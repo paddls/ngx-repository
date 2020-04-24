@@ -4,9 +4,14 @@ import {Book} from './book.model';
 import {Address} from './address.model';
 import {BookQuery} from '../query/book.query';
 import {Column, DateConverter, HttpResource, Page, SubCollection} from '@witty-services/ngx-repository';
+import {MyHttpCreateResponseBuilder} from '../response-builder/my-http-create.response-builder';
 
 @HttpResource({
-  read: '/libraries',
+  path: '/libraries',
+  create: {
+    path: '/libraries',
+    responseBuilder: MyHttpCreateResponseBuilder
+  },
   update: '/library'
 })
 export class Library extends Identifiable {
@@ -20,13 +25,16 @@ export class Library extends Identifiable {
   @Column({field: 'test', writeOnly: true})
   public test: string;
 
+  @Column()
+  public opened: boolean;
+
   @Column({field: 'createdAt', customConverter: DateConverter})
   public createdAt: Date;
 
   @SubCollection({resourceType: Book, params: (library: Library) => new BookQuery({libraryId: library.id})})
   public books$: Observable<Page<Book>>;
 
-  public constructor(data: Partial<Book> = {}) {
+  public constructor(data: Partial<Library> = {}) {
     super(data);
 
     Object.assign(this, data);

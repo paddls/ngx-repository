@@ -1,9 +1,8 @@
 import {Driver} from '../driver/driver';
 import {asyncScheduler, from, Observable, SchedulerLike, Subscriber} from 'rxjs';
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
-import {map, mapTo} from 'rxjs/operators';
 import {FirebaseRequest, FirebaseRequestOrderBy, FirebaseRequestQuery} from './firebase.request';
 import {isNullOrUndefined} from 'util';
 import App = firebase.app.App;
@@ -12,48 +11,34 @@ import QuerySnapshot = firebase.firestore.QuerySnapshot;
 import DocumentData = firebase.firestore.DocumentData;
 import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
 import Query = firebase.firestore.Query;
+import DocumentReference = firebase.firestore.DocumentReference;
+import {FIREBASE_CONFIGURATION_TOKEN} from './ngx-firebase-repository.module.di';
 
 @Injectable()
-export class FirebaseDriver implements Driver<Observable<any>> {
+export class FirebaseDriver implements Driver<any> {
 
   private firebase: App;
+
   private firestore: Firestore;
 
-  public constructor() {
-    // TODO @RMA inject configuration
-    const firebaseConfiguration: any = {
-      apiKey: 'AIzaSyDSd6EXdQWaWcBMxbTYp-kFAV3zxNu-ArM',
-      authDomain: 'ngx-repository.firebaseapp.com',
-      databaseURL: 'https://ngx-repository.firebaseio.com',
-      projectId: 'ngx-repository',
-      storageBucket: 'ngx-repository.appspot.com',
-      messagingSenderId: '352664344689',
-      appId: '1:352664344689:web:20ec56387616cba621e3d0',
-      measurementId: 'G-0RD9MTX3PB'
-    };
+  public constructor(@Inject(FIREBASE_CONFIGURATION_TOKEN) firebaseConfiguration: {[key: string]: any}) {
     this.firebase = firebase.initializeApp(firebaseConfiguration);
     this.firestore = this.firebase.firestore();
   }
 
-  public create<K>(object: any, request: FirebaseRequest<K>): Observable<any> {
-    return from(this.firestore.collection(request.createPath).add(object)).pipe(
-      mapTo(void 0) // TODO @RMA serialization
-    );
+  public create<K>(object: any, request: FirebaseRequest<K>): Observable<DocumentReference<DocumentData>> {
+    return from(this.firestore.collection(request.createPath).add(object));
   }
 
-  public update<K>(object: any, request: FirebaseRequest<K>): Observable<any> {
-    return from(this.firestore.doc(request.updatePath).set(object)).pipe(
-      mapTo(void 0) // TODO @RMA serialization
-    );
+  public update<K>(object: any, request: FirebaseRequest<K>): Observable<void> {
+    return from(this.firestore.doc(request.updatePath).set(object));
   }
 
   public delete<K>(request: FirebaseRequest<K>): Observable<any> {
-    return from(this.firestore.doc(request.deletePath).delete()).pipe(
-      mapTo(void 0) // TODO @RMA serialization
-    );
+    return from(this.firestore.doc(request.deletePath).delete());
   }
 
-  public findBy<K>(request: FirebaseRequest<K>): Observable<any> {
+  public findBy<K>(request: FirebaseRequest<K>): Observable<QuerySnapshot<DocumentData>> {
     let collection: Query = this.firestore.collection(request.readPath);
 
     (request.queries || []).forEach((firebaseRequestQuery: FirebaseRequestQuery) => {
@@ -95,17 +80,11 @@ export class FirebaseDriver implements Driver<Observable<any>> {
     return fromRef<QuerySnapshot<DocumentData>>(collection);
   }
 
-  public findOne<K>(query: FirebaseRequest<K>): Observable<any> {
-    return fromRef<DocumentSnapshot>(this.firestore.doc(query.readPath)).pipe(
-      map((data: DocumentSnapshot) => ({
-        id: data.id,
-        ...data.data()
-      }))
-    );
+  public findOne<K>(query: FirebaseRequest<K>): Observable<DocumentSnapshot> {
+    return fromRef<DocumentSnapshot>(this.firestore.doc(query.readPath));
   }
 }
 
-// @TODO @TNI => there is a function already exists in firestore rxfire package ?
 export function fromRef<T>(ref: any, scheduler: SchedulerLike = asyncScheduler): Observable<T> {
   return new Observable((subscriber: Subscriber<T>) => {
     let unsubscribe: any;

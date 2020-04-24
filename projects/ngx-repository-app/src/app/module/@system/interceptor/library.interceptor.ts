@@ -27,7 +27,7 @@ export class LibraryInterceptor implements HttpInterceptor {
           return response.clone({
             body: response.body.slice(pageLength, pageLength + parseInt(req.headers.get('apiPerPage'), 10)),
             headers: response.headers
-              .append('apiTotalItems', '3')
+              .append('apiTotalItems', '6')
               .append('apiPerPage', req.headers.get('apiPerPage'))
               .append('apiCurrentPage', req.headers.get('apiCurrentPage'))
           });

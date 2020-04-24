@@ -1,14 +1,20 @@
-import { Injectable, InjectionToken, Injector, StaticProvider } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Normalizer } from '../normalizer/normalizer';
-import { Denormalizer } from '../normalizer/denormalizer';
-import { PageBuilder } from '../page-builder/page-builder';
-import { FIREBASE_RESOURCE_METADATA_KEY, FirebaseResourceContext } from './decorator/firebase-resource.decorator';
-import { Connection } from '../connection/connection';
-import { FirebaseRepository } from './firebase.repository';
-import { FirebaseDriver } from './firebase.driver';
-import { FirebaseQueryBuilder } from './firebase.query-builder';
-import { FIREBASE_DENORMALIZER_TOKEN, FIREBASE_PAGE_BUILDER_TOKEN } from '../ngx-firebase-repository.module.di';
+import {Injectable, InjectionToken, Injector, StaticProvider} from '@angular/core';
+import {Observable} from 'rxjs';
+import {Normalizer} from '../normalizer/normalizer';
+import {Denormalizer} from '../normalizer/denormalizer';
+import {PageBuilder} from '../page-builder/page-builder';
+import {FIREBASE_RESOURCE_METADATA_KEY, FirebaseResourceContext} from './decorator/firebase-resource.decorator';
+import {Connection} from '../connection/connection';
+import {FirebaseRepository} from './firebase.repository';
+import {FirebaseDriver} from './firebase.driver';
+import {FirebaseQueryBuilder} from './firebase.query-builder';
+import {
+  FIREBASE_DENORMALIZER_TOKEN,
+  FIREBASE_CREATE_RESPONSE_BUILDER,
+  FIREBASE_FIND_ONE_RESPONSE_BUILDER,
+  FIREBASE_PAGE_BUILDER_TOKEN
+} from './ngx-firebase-repository.module.di';
+import {ResponseBuilder} from '../item-builder/response-builder';
 
 // TODO @RMA generalize this class (copy paste from httpConnection)
 @Injectable()
@@ -42,16 +48,28 @@ export class FirebaseConnection extends Connection<FirebaseResourceContext, Obse
                      normalizer: Normalizer,
                      denormalizer: Denormalizer,
                      queryBuilder: FirebaseQueryBuilder,
-                     pageBuilder: PageBuilder<Observable<any>>): FirebaseRepository<T, K> => {
+                     pageBuilder: PageBuilder<any>,
+                     firebaseItemCreateBuilder: ResponseBuilder<any>,
+                     firebaseItemFindOneBuilder: ResponseBuilder<any>): FirebaseRepository<T, K> => {
           return new FirebaseRepository<T, K>(
             driver,
             normalizer,
             denormalizer,
             queryBuilder,
-            pageBuilder
+            pageBuilder,
+            firebaseItemCreateBuilder,
+            firebaseItemFindOneBuilder
           );
         },
-        deps: [FirebaseDriver, Normalizer, FIREBASE_DENORMALIZER_TOKEN, FirebaseQueryBuilder, FIREBASE_PAGE_BUILDER_TOKEN]
+        deps: [
+          FirebaseDriver,
+          Normalizer,
+          FIREBASE_DENORMALIZER_TOKEN,
+          FirebaseQueryBuilder,
+          FIREBASE_PAGE_BUILDER_TOKEN,
+          FIREBASE_CREATE_RESPONSE_BUILDER,
+          FIREBASE_FIND_ONE_RESPONSE_BUILDER
+        ]
       });
 
       this.injector = Injector.create({

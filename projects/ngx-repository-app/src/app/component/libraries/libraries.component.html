@@ -9,6 +9,7 @@
               [disabled]="page + 1 === (currentPageSubject|async)"
               (click)="onClickOnPage(page + 1)">{{ page + 1 }}</button>
     </li>
+    <li><button (click)="createLibrary()">create</button></li>
   </ul>
   <ul id="users">
     <li class="title">Persons</li>
@@ -22,6 +23,7 @@
     <li *ngFor="let person of person$|async">
       {{ person.fullName }}
     </li>
+    <li><button (click)="createPerson()">create</button></li>
   </ul>
   <ul>
     <li class="title">Clients</li>

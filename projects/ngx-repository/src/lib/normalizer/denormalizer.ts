@@ -95,7 +95,7 @@ export class Denormalizer {
     }
 
     subCollections.forEach((sc: SubCollectionContextConfiguration) => {
-      result[sc.propertyKey] = this.connection.getRepository(sc.resourceType).findBy(
+      result[sc.propertyKey] = this.connection.getRepository(sc.resourceType).findAll(
         sc.params ? sc.params(result, query) : null
       );
     });

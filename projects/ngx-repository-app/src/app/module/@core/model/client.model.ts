@@ -1,8 +1,8 @@
-import { Identifiable } from './identifiable.model';
-import { Column, FirebaseResource, Page, SubCollection } from '@witty-services/ngx-repository';
-import { Observable } from 'rxjs';
-import { Purchase } from './purchase.model';
-import { PurchaseQuery } from '../query/purchase.query';
+import {Identifiable} from './identifiable.model';
+import {Column, FirebaseResource, Page, SubCollection} from '@witty-services/ngx-repository';
+import {Observable} from 'rxjs';
+import {Purchase} from './purchase.model';
+import {PurchaseQuery} from '../query/purchase.query';
 
 @FirebaseResource({
   path: '/clients'

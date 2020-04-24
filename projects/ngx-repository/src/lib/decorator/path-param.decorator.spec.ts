@@ -44,7 +44,7 @@ describe('PathParamDecorator', () => {
     ]);
   });
 
-  it('should concat all http params configuration', () => {
+  it('should concat all path params configuration', () => {
     const obj: any = {
       test: 'value',
       test2: 'value2'

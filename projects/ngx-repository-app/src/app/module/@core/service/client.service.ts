@@ -19,28 +19,31 @@ export class ClientService {
   private chance: Chance.Chance = new Chance.Chance();
 
   public searchByLastName(searchedLastName: string): Observable<Page<Client>> {
-    return this.repository.findBy(new ClientQuery({
+    return this.repository.findAll(new ClientQuery({
       lastNameEqual: searchedLastName,
       orderBy: ['firstName']
     }));
   }
 
-  public create(): Observable<Client> {
+  public create(): Observable<string> {
     return this.repository.create(new Client({
       firstName: this.chance.first(),
       lastName: this.chance.last()
     }));
   }
 
-  public addPurchase(client: Client): Observable<void> {
-    return this.purchaseRepository.create(new Purchase({
-      bookId: `${this.chance.integer({
-        min: 1,
-        max: 3
-      })}`,
-    }), new PurchaseQuery({
+  public addPurchase(client: Client): Observable<string> {
+    return this.purchaseRepository.create(
+      new Purchase({
+        bookId: `${this.chance.integer({
+          min: 1,
+          max: 3
+        })}`,
+      }),
+      new PurchaseQuery({
       clientId: client.id
-    }));
+      })
+    );
   }
 
   public findById(id: string): Observable<Client> {
@@ -51,7 +54,7 @@ export class ClientService {
     return this.repository.delete(client);
   }
 
-  public update(client: Client): Observable<Client> {
+  public update(client: Client): Observable<void> {
     const clientToUpdate: Client = new Client(client);
 
     clientToUpdate.firstName = this.chance.last();

@@ -9,7 +9,7 @@ import QuerySnapshot = firebase.firestore.QuerySnapshot;
 import QueryDocumentSnapshot = firebase.firestore.QueryDocumentSnapshot;
 
 @Injectable()
-export class FirebasePageBuilder implements PageBuilder<Observable<any>> {
+export class FirebasePageBuilder implements PageBuilder<any> {
 
   public buildPage(response$: Observable<QuerySnapshot<DocumentData>>): Observable<Page<any>> {
     return response$.pipe(

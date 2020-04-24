@@ -43,7 +43,7 @@ export class FirebaseQueryBuilder extends PathQueryBuilder<FirebaseResourceConte
   protected makeCriteria<K>(firebaseRequest: FirebaseRequest<K>, query: FirebaseQuerySettings<K>): FirebaseQueryBuilder {
     const firebaseCriterias: FirebaseCriteriaContextConfiguration[] = Reflect.getMetadata(FIREBASE_CRITERIA_METADATA_KEY, query.settings) || [];
     firebaseCriterias.forEach((firebaseCriteria: FirebaseCriteriaContextConfiguration) => {
-      if (!query.settings[firebaseCriteria.propertyKey]) {
+      if (isNullOrUndefined(query.settings[firebaseCriteria.propertyKey])) {
         return;
       }
 
@@ -59,7 +59,7 @@ export class FirebaseQueryBuilder extends PathQueryBuilder<FirebaseResourceConte
 
   protected makeOrderBy<K>(firebaseRequest: FirebaseRequest<K>, query: FirebaseQuerySettings<K>): FirebaseQueryBuilder {
     const firebaseOrderBy: FirebaseOrderByContextConfiguration = Reflect.getMetadata(FIREBASE_ORDER_BY_METADATA_KEY, query.settings);
-    if (!firebaseOrderBy || !query.settings[firebaseOrderBy.propertyKey]) {
+    if (!firebaseOrderBy || isNullOrUndefined(query.settings[firebaseOrderBy.propertyKey])) {
       return this;
     }
 

@@ -141,7 +141,7 @@ describe('HttpDriver', () => {
     expect(httpClient.get).toHaveBeenCalledTimes(1);
     expect(httpClient.get).toHaveBeenCalledWith('my-url', {
       headers,
-      observe: 'body',
+      observe: 'response',
       params,
       responseType: 'json'
     });

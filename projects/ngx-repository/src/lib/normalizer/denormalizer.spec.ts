@@ -10,6 +10,8 @@ import {Repository} from '../decorator/repository.decorator';
 import {SubCollection} from '../decorator/sub-collection.decorator';
 import {Connection} from '../connection/connection';
 import {cloneDeep} from 'lodash';
+import {Observable, of} from 'rxjs';
+import {Page} from '../page-builder/page';
 
 class EmptyColumn {
   public name: string = 'myEmptyColumnObject';
@@ -198,34 +200,39 @@ describe('Denormalizer', () => {
       public nestedId: string = null;
 
       @JoinColumn({attribute: 'nestedId', resourceType: MyNestedClass})
-      public nested: MyNestedClass;
+      public nested$: Observable<MyNestedClass>;
     }
 
     let mockRepository: MockRepository;
 
     beforeEach(() => {
-      mockRepository = new MockRepository(null, null, null, null, null, null);
+      mockRepository = new MockRepository(null, null, null, null, null, null, null, null);
       spyOn(connection, 'getRepository').and.returnValue(mockRepository);
-      spyOn(mockRepository, 'findOne').and.returnValue({
+      spyOn(mockRepository, 'findOne').and.returnValue(of({
         id: 'myNestedId',
         nestedName: 'myNestedName'
-      });
+      }));
     });
 
-    it('should denormalize join column', () => {
+    it('should denormalize join column', (done: DoneFn) => {
       const myClass: MyClass = denormalizer.denormalize(MyClass, {
         id: 'myClassId',
         nestedId: 'myNestedId'
       }) as MyClass;
-
-      expect(myClass.nested.id = 'myNestedId');
-      expect(myClass.nested.nestedName = 'myNestedName');
 
       expect(connection.getRepository).toHaveBeenCalledTimes(1);
       expect(connection.getRepository).toHaveBeenCalledWith(MyNestedClass);
 
       expect(mockRepository.findOne).toHaveBeenCalledTimes(1);
       expect(mockRepository.findOne).toHaveBeenCalledWith('myNestedId');
+
+      myClass.nested$.subscribe({
+        next: (nested: MyNestedClass) => {
+          expect(nested.id = 'myNestedId');
+          expect(nested.nestedName = 'myNestedName');
+        },
+        complete: () => done()
+      });
     });
   });
 
@@ -248,35 +255,40 @@ describe('Denormalizer', () => {
       public id: string;
 
       @SubCollection({resourceType: MyNestedClass, params: (model: MyClass, params: any) => ({m: model.id, p: params})})
-      public nested: MyNestedClass[];
+      public nested$: Observable<MyNestedClass[]>;
     }
 
     let mockRepository: MockRepository;
 
     beforeEach(() => {
-      mockRepository = new MockRepository(null, null, null, null, null, null);
+      mockRepository = new MockRepository(null, null, null, null, null, null, null, null);
       spyOn(connection, 'getRepository').and.returnValue(mockRepository);
-      spyOn(mockRepository, 'findBy').and.returnValue([{
+      spyOn(mockRepository, 'findAll').and.returnValue(of(new Page([{
         id: 'myNestedId',
         nestedName: 'myNestedName'
-      }]);
+      }])));
     });
 
-    it('should denormalize sub collection', () => {
+    it('should denormalize sub collection', (done: DoneFn) => {
       const params: any = {p: 'myParam'};
       const myClass: MyClass = denormalizer.denormalize(MyClass, {
         id: 'myClassId'
       }, params) as MyClass;
 
-      expect(myClass.nested.length).toEqual(1);
-      expect(myClass.nested[0].id).toEqual('myNestedId');
-      expect(myClass.nested[0].nestedName).toEqual('myNestedName');
-
       expect(connection.getRepository).toHaveBeenCalledTimes(1);
       expect(connection.getRepository).toHaveBeenCalledWith(MyNestedClass);
 
-      expect(mockRepository.findBy).toHaveBeenCalledTimes(1);
-      expect(mockRepository.findBy).toHaveBeenCalledWith({m: 'myClassId', p: params});
+      expect(mockRepository.findAll).toHaveBeenCalledTimes(1);
+      expect(mockRepository.findAll).toHaveBeenCalledWith({m: 'myClassId', p: params});
+
+      myClass.nested$.subscribe({
+        next: (nesteds: MyNestedClass[]) => {
+          expect(nesteds.length).toEqual(1);
+          expect(nesteds[0].id).toEqual('myNestedId');
+          expect(nesteds[0].nestedName).toEqual('myNestedName');
+        },
+        complete: () => done()
+      });
     });
   });
 });

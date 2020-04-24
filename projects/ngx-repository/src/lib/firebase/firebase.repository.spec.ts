@@ -11,7 +11,7 @@ class MyFirebaseRepository extends FirebaseRepository<any, any> {
 describe('FirebaseRepository', () => {
 
   it('should have the good resource context key', () => {
-    const myFirebaseRepository: MyFirebaseRepository = new MyFirebaseRepository(null, null, null, null, null);
+    const myFirebaseRepository: MyFirebaseRepository = new MyFirebaseRepository(null, null, null, null, null, null, null);
     expect(myFirebaseRepository.getResourceContextKey()).toEqual(FIREBASE_RESOURCE_METADATA_KEY);
   });
 });

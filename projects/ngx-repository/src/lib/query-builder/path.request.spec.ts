@@ -1,5 +1,5 @@
 import {PathRequest} from './path.request';
-import {PathContextUtil} from '../../public-api';
+import {PathContextUtil} from '../common/path/path-context-util';
 
 describe('PathRequest', () => {
   let pathRequest: PathRequest<string>;

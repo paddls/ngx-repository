@@ -14,7 +14,11 @@ export class PathContextUtil {
 
   public static getCreatePath(pathContext: PathContext): string {
     if (pathContext.create) {
-      return pathContext.create;
+      if (pathContext.create instanceof Object) {
+        return pathContext.create[`path`];
+      } else {
+        return pathContext.create;
+      }
     } else if (pathContext.write) {
       return pathContext.write;
     }  else if (pathContext.path) {

@@ -1,11 +1,11 @@
-import {Driver} from '../driver/driver';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {HttpRequest} from './http.request';
+import {Driver} from '../driver/driver';
 
 @Injectable()
-export class HttpDriver implements Driver<Observable<HttpResponse<any>>> {
+export class HttpDriver implements Driver<HttpResponse<any>> {
 
   public constructor(protected httpClient: HttpClient) {
   }
@@ -40,7 +40,7 @@ export class HttpDriver implements Driver<Observable<HttpResponse<any>>> {
   public findOne<K>(request: HttpRequest<K>): Observable<any> {
     return this.httpClient.get<any>(request.readPath, {
       headers: request.headers,
-      observe: 'body',
+      observe: 'response',
       params: request.queryParams,
       responseType: 'json'
     });

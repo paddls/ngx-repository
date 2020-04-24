@@ -18,9 +18,9 @@ export class LibrariesComponent {
 
   private currentPageSubject: BehaviorSubject<number> = new BehaviorSubject<number>(1);
 
-  private searchedPersonFirstNameChangeSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private searchedPersonFirstNameChangeSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
-  private searchedClientLastNameChangeSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private searchedClientLastNameChangeSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
   public searchedPersonFirstName: string;
 
@@ -34,8 +34,8 @@ export class LibrariesComponent {
 
   public client$: Observable<Client[]>;
 
-  public constructor(librariesService: LibrariesService,
-                     personService: PersonService,
+  public constructor(private librariesService: LibrariesService,
+                     private personService: PersonService,
                      private readonly clientService: ClientService) {
     this.libraries$ = this.currentPageSubject.pipe(
       switchMap((currentPage: number) => librariesService.findAll(currentPage)),
@@ -67,8 +67,19 @@ export class LibrariesComponent {
     this.currentPageSubject.next(page);
   }
 
+  public createLibrary(): void {
+    this.librariesService.create().subscribe(console.log);
+  }
+
+  public createPerson(): void {
+    this.personService.create().subscribe((id: string) => {
+      console.log(id);
+      this.searchedPersonFirstNameChangeSubject.next(this.searchedPersonFirstName);
+    });
+  }
+
   public createClient(): void {
-    this.clientService.create().subscribe(console.warn);
+    this.clientService.create().subscribe(console.log);
   }
 
   public deleteClient(client: Client): void {

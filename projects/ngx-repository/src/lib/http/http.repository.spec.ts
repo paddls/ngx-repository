@@ -11,7 +11,7 @@ class MyHttpRepository extends HttpRepository<any, any> {
 describe('HttpRepository', () => {
 
   it('should have the good resource context key', () => {
-    const myHttpRepository: MyHttpRepository = new MyHttpRepository(null, null, null, null, null);
+    const myHttpRepository: MyHttpRepository = new MyHttpRepository(null, null, null, null, null, null, null);
     expect(myHttpRepository.getResourceContextKey()).toEqual(HTTP_RESOURCE_METADATA_KEY);
   });
 });
