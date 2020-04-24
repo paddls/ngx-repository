@@ -1,13 +1,8 @@
 import {Identifiable} from './identifiable.model';
 import {Column, HttpResource} from '@witty-services/ngx-repository';
-import {MyHttpCreateResponseBuilder} from '../response-builder/my-http-create.response-builder';
 
 @HttpResource({
-  path: '/persons',
-  create: {
-    path: '/persons',
-    responseBuilder: MyHttpCreateResponseBuilder
-  }
+  path: '/persons'
 })
 export class Person extends Identifiable {
 

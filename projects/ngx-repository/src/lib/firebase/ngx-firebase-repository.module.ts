@@ -52,7 +52,7 @@ const MODULE_PROVIDERS: Provider[] = [
 })
 export class NgxFirebaseRepositoryModule {
 
-  public static forRoot(firebaseConfiguration: {[key: string]: any}): ModuleWithProviders<NgxFirebaseRepositoryModule> {
+  public static forRoot(firebaseConfiguration?: {[key: string]: any}): ModuleWithProviders<NgxFirebaseRepositoryModule> {
     return {
       ngModule: NgxFirebaseRepositoryModule,
       providers: [

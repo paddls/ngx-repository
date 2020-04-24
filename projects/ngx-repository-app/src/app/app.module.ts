@@ -10,9 +10,16 @@ import {SystemModule} from './module/@system/system.module';
 import {LibrariesComponent} from './component/libraries/libraries.component';
 import {LibraryComponent} from './component/library/library.component';
 import {LibrariesService} from './service/libraries.service';
-import {HTTP_PAGE_BUILDER_TOKEN, NgxFirebaseRepositoryModule, NgxHttpRepositoryModule, NgxRepositoryModule} from '@witty-services/ngx-repository';
+import {
+  HTTP_CREATE_RESPONSE_BUILDER,
+  HTTP_PAGE_BUILDER_TOKEN,
+  NgxFirebaseRepositoryModule,
+  NgxHttpRepositoryModule,
+  NgxRepositoryModule
+} from '@witty-services/ngx-repository';
 import {MyPageBuilder} from './module/@core/page-builder/my.page-builder';
 import {ClientComponent} from './component/client/client.component';
+import {MyHttpCreateResponseBuilder} from './module/@core/response-builder/my-http-create.response-builder';
 
 @NgModule({
   declarations: [
@@ -46,11 +53,11 @@ import {ClientComponent} from './component/client/client.component';
     {
       provide: HTTP_PAGE_BUILDER_TOKEN,
       useClass: MyPageBuilder
-    }/*,
+    },
     {
       provide: HTTP_CREATE_RESPONSE_BUILDER,
       useClass: MyHttpCreateResponseBuilder
-    }*/
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -4,14 +4,9 @@ import {Book} from './book.model';
 import {Address} from './address.model';
 import {BookQuery} from '../query/book.query';
 import {Column, DateConverter, HttpResource, Page, SubCollection} from '@witty-services/ngx-repository';
-import {MyHttpCreateResponseBuilder} from '../response-builder/my-http-create.response-builder';
 
 @HttpResource({
   path: '/libraries',
-  create: {
-    path: '/libraries',
-    responseBuilder: MyHttpCreateResponseBuilder
-  },
   update: '/library'
 })
 export class Library extends Identifiable {

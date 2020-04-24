@@ -3,7 +3,6 @@ import {LibraryService} from './service/library.service';
 import {PersonService} from './service/person.service';
 import {PersonRepository} from './repository/person.repository';
 import { ClientService } from './service/client.service';
-import {MyHttpCreateResponseBuilder} from './response-builder/my-http-create.response-builder';
 
 const REPOSITORIES: Provider[] = [
   PersonRepository
@@ -18,8 +17,7 @@ const SERVICES: Provider[] = [
 @NgModule({
   providers: [
     ...REPOSITORIES,
-    ...SERVICES,
-    MyHttpCreateResponseBuilder
+    ...SERVICES
   ]
 })
 export class CoreModule {
