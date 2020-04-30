@@ -15,7 +15,22 @@ import {MyPageBuilder} from './module/@core/page-builder/my.page-builder';
 import {ClientComponent} from './component/client/client.component';
 import {MyHttpCreateResponseBuilder} from './module/@core/response-builder/my-http-create.response-builder';
 import {HTTP_CREATE_RESPONSE_BUILDER, HTTP_PAGE_BUILDER_TOKEN, NgxHttpRepositoryModule} from '@witty-services/ngx-http-repository';
-import {NgxFirebaseRepositoryModule} from '@witty-services/ngx-firebase-repository';
+import {FIREBASE_APP, NgxFirebaseRepositoryModule} from '@witty-services/ngx-firebase-repository';
+import * as firebase from 'firebase';
+import App = firebase.app.App;
+
+function createFirebaseApp(): App {
+  return firebase.initializeApp({
+    apiKey: 'AIzaSyDSd6EXdQWaWcBMxbTYp-kFAV3zxNu-ArM',
+    authDomain: 'ngx-repository.firebaseapp.com',
+    databaseURL: 'https://ngx-repository.firebaseio.com',
+    projectId: 'ngx-repository',
+    storageBucket: 'ngx-repository.appspot.com',
+    messagingSenderId: '352664344689',
+    appId: '1:352664344689:web:20ec56387616cba621e3d0',
+    measurementId: 'G-0RD9MTX3PB'
+  });
+}
 
 @NgModule({
   declarations: [
@@ -31,16 +46,7 @@ import {NgxFirebaseRepositoryModule} from '@witty-services/ngx-firebase-reposito
     FormsModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService, {delay: 100}),
     NgxRepositoryModule.forRoot(),
-    NgxFirebaseRepositoryModule.forRoot({
-      apiKey: 'AIzaSyDSd6EXdQWaWcBMxbTYp-kFAV3zxNu-ArM',
-      authDomain: 'ngx-repository.firebaseapp.com',
-      databaseURL: 'https://ngx-repository.firebaseio.com',
-      projectId: 'ngx-repository',
-      storageBucket: 'ngx-repository.appspot.com',
-      messagingSenderId: '352664344689',
-      appId: '1:352664344689:web:20ec56387616cba621e3d0',
-      measurementId: 'G-0RD9MTX3PB'
-    }),
+    NgxFirebaseRepositoryModule.forRoot(),
     NgxHttpRepositoryModule,
     SystemModule
   ],
@@ -53,6 +59,10 @@ import {NgxFirebaseRepositoryModule} from '@witty-services/ngx-firebase-reposito
     {
       provide: HTTP_CREATE_RESPONSE_BUILDER,
       useClass: MyHttpCreateResponseBuilder
+    },
+    {
+      provide: FIREBASE_APP,
+      useFactory: createFirebaseApp
     }
   ],
   bootstrap: [AppComponent]

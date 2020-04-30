@@ -4,7 +4,7 @@ import {ModuleWithProviders, NgModule, Provider} from '@angular/core';
 import {FirebaseConnection} from './firebase.connection';
 import {FirebaseDriver} from './firebase.driver';
 import {
-  FIREBASE_CONFIGURATION_TOKEN,
+  FIREBASE_APP,
   FIREBASE_CREATE_RESPONSE_BUILDER,
   FIREBASE_DENORMALIZER_TOKEN,
   FIREBASE_FIND_ONE_RESPONSE_BUILDER,
@@ -15,6 +15,8 @@ import {FirebasePageBuilder} from './firebase.page-builder';
 import {FirebaseCreateResponseBuilder} from './firebase-create.response-builder';
 import {FirebaseFindOneResponseBuilder} from './firebase-find-one.response-builder';
 import {Denormalizer, NORMALIZER_CONFIGURATION_TOKEN, NormalizerConfiguration} from '@witty-services/ngx-repository';
+import * as firebase from 'firebase';
+import App = firebase.app.App;
 
 export function denormalizerTokenFactory(connection: FirebaseConnection, normalizerConfiguration: NormalizerConfiguration): Denormalizer {
   return new Denormalizer(connection, normalizerConfiguration);
@@ -50,14 +52,14 @@ const MODULE_PROVIDERS: Provider[] = [
 })
 export class NgxFirebaseRepositoryModule {
 
-  public static forRoot(firebaseConfiguration?: any): ModuleWithProviders<NgxFirebaseRepositoryModule> {
+  public static forRoot(firebaseApp?: App): ModuleWithProviders<NgxFirebaseRepositoryModule> {
     return {
       ngModule: NgxFirebaseRepositoryModule,
       providers: [
         ...MODULE_PROVIDERS,
         {
-          provide: FIREBASE_CONFIGURATION_TOKEN,
-          useValue: firebaseConfiguration
+          provide: FIREBASE_APP,
+          useValue: firebaseApp
         }
       ]
     };

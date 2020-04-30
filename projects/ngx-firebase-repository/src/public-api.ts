@@ -19,7 +19,7 @@ export {FirebaseQuerySettings} from './lib/firebase.query-settings';
 export {FirebaseRepository} from './lib/firebase.repository';
 
 export {
-  FIREBASE_CONFIGURATION_TOKEN,
+  FIREBASE_APP,
   FIREBASE_DENORMALIZER_TOKEN,
   FIREBASE_CREATE_RESPONSE_BUILDER,
   FIREBASE_FIND_ONE_RESPONSE_BUILDER,

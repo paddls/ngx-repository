@@ -1,7 +1,9 @@
 import {InjectionToken} from '@angular/core';
 import {Denormalizer, PageBuilder} from '@witty-services/ngx-repository';
+import * as firebase from 'firebase';
+import App = firebase.app.App;
 
-export const FIREBASE_CONFIGURATION_TOKEN: InjectionToken<any> = new InjectionToken<any>('FIREBASE_CONFIGURATION_TOKEN');
+export const FIREBASE_APP: InjectionToken<App> = new InjectionToken<App>('FIREBASE_APP');
 
 export const FIREBASE_DENORMALIZER_TOKEN: InjectionToken<Denormalizer> = new InjectionToken<Denormalizer>('FIREBASE_DENORMALIZER_TOKEN');
 

@@ -10,7 +10,7 @@ export class FirebaseFindOneResponseBuilder implements ResponseBuilder<DocumentS
     return response$.pipe(
       map((documentSnapshot: DocumentSnapshot) => ({
         id: documentSnapshot.id,
-        ...documentSnapshot.data
+        ...documentSnapshot.data()
       }))
     );
   }

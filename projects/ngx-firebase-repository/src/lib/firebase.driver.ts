@@ -12,18 +12,15 @@ import DocumentData = firebase.firestore.DocumentData;
 import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
 import Query = firebase.firestore.Query;
 import DocumentReference = firebase.firestore.DocumentReference;
-import {FIREBASE_CONFIGURATION_TOKEN} from './ngx-firebase-repository.module.di';
+import {FIREBASE_APP} from './ngx-firebase-repository.module.di';
 
 @Injectable()
 export class FirebaseDriver implements Driver<any> {
 
-  private firebase: App;
-
   private firestore: Firestore;
 
-  public constructor(@Inject(FIREBASE_CONFIGURATION_TOKEN) firebaseConfiguration: any) {
-    this.firebase = firebase.initializeApp(firebaseConfiguration);
-    this.firestore = this.firebase.firestore();
+  public constructor(@Inject(FIREBASE_APP) private firebaseApp: App) {
+    this.firestore = this.firebaseApp.firestore();
   }
 
   public create<K>(object: any, request: FirebaseRequest<K>): Observable<DocumentReference<DocumentData>> {
