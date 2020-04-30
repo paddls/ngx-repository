@@ -19,7 +19,7 @@ import {FIREBASE_APP, NgxFirebaseRepositoryModule} from '@witty-services/ngx-fir
 import * as firebase from 'firebase';
 import App = firebase.app.App;
 
-function createFirebaseApp(): App {
+export function createFirebaseApp(): App {
   return firebase.initializeApp({
     apiKey: 'AIzaSyDSd6EXdQWaWcBMxbTYp-kFAV3zxNu-ArM',
     authDomain: 'ngx-repository.firebaseapp.com',

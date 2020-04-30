@@ -15,8 +15,6 @@ import {FirebasePageBuilder} from './firebase.page-builder';
 import {FirebaseCreateResponseBuilder} from './firebase-create.response-builder';
 import {FirebaseFindOneResponseBuilder} from './firebase-find-one.response-builder';
 import {Denormalizer, NORMALIZER_CONFIGURATION_TOKEN, NormalizerConfiguration} from '@witty-services/ngx-repository';
-import * as firebase from 'firebase';
-import App = firebase.app.App;
 
 export function denormalizerTokenFactory(connection: FirebaseConnection, normalizerConfiguration: NormalizerConfiguration): Denormalizer {
   return new Denormalizer(connection, normalizerConfiguration);
@@ -52,7 +50,7 @@ const MODULE_PROVIDERS: Provider[] = [
 })
 export class NgxFirebaseRepositoryModule {
 
-  public static forRoot(firebaseApp?: App): ModuleWithProviders<NgxFirebaseRepositoryModule> {
+  public static forRoot(firebaseApp?: firebase.app.App): ModuleWithProviders<NgxFirebaseRepositoryModule> {
     return {
       ngModule: NgxFirebaseRepositoryModule,
       providers: [

@@ -1,11 +1,9 @@
 import {Driver} from '@witty-services/ngx-repository';
 import {asyncScheduler, from, Observable, SchedulerLike, Subscriber} from 'rxjs';
 import {Inject, Injectable} from '@angular/core';
-import * as firebase from 'firebase/app';
-import 'firebase/firestore';
+import * as firebase from 'firebase';
 import {FirebaseRequest, FirebaseRequestOrderBy, FirebaseRequestQuery} from './firebase.request';
 import {isNullOrUndefined} from 'util';
-import App = firebase.app.App;
 import Firestore = firebase.firestore.Firestore;
 import QuerySnapshot = firebase.firestore.QuerySnapshot;
 import DocumentData = firebase.firestore.DocumentData;
@@ -19,8 +17,8 @@ export class FirebaseDriver implements Driver<any> {
 
   private firestore: Firestore;
 
-  public constructor(@Inject(FIREBASE_APP) private firebaseApp: App) {
-    this.firestore = this.firebaseApp.firestore();
+  public constructor(@Inject(FIREBASE_APP) firebaseApp: any) {
+    this.firestore = firebaseApp.firestore();
   }
 
   public create<K>(object: any, request: FirebaseRequest<K>): Observable<DocumentReference<DocumentData>> {
