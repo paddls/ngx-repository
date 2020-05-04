@@ -11,6 +11,7 @@ import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
 import Query = firebase.firestore.Query;
 import {FIREBASE_APP} from './ngx-firebase-repository.module.di';
 import {mapTo} from 'rxjs/operators';
+import {isNotNullOrUndefined} from 'codelyzer/util/isNotNullOrUndefined';
 
 @Injectable()
 export class FirebaseDriver implements Driver<any> {
@@ -22,7 +23,7 @@ export class FirebaseDriver implements Driver<any> {
   }
 
   public create<K>(object: any, request: FirebaseRequest<K>): Observable<{id: any}> {
-    if (request.id) {
+    if (isNotNullOrUndefined(request.id)) {
       return from(this.firestore.doc(request.createPath).set(object)).pipe(
         mapTo(object)
       );

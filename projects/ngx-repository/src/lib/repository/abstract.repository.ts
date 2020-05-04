@@ -17,6 +17,7 @@ import {ResponseBuilder} from '../item-builder/response-builder';
 import {Observable} from 'rxjs';
 import {map, mapTo} from 'rxjs/operators';
 import {ColumnContextConfiguration, COLUMNS_METADATA_KEY} from '../decorator/column.decorator';
+import {isNullOrUndefined} from 'util';
 
 export abstract class AbstractRepository<T, K, RC, RS> {
 
@@ -92,6 +93,9 @@ export abstract class AbstractRepository<T, K, RC, RS> {
 
   public update(object: T, query: any = {}): Observable<void> {
     query.id = this.getResourceId(object);
+    if (isNullOrUndefined(query.id)) {
+      throw new Error('There is no id column configured. See @Id() decorator.');
+    }
 
     return this.driver.update(
       this.normalizeOne(object),
@@ -103,6 +107,9 @@ export abstract class AbstractRepository<T, K, RC, RS> {
 
   public delete(object: T, query: any = {}): Observable<void> {
     query.id = this.getResourceId(object);
+    if (isNullOrUndefined(query.id)) {
+      throw new Error('There is no id column configured. See @Id() decorator.');
+    }
 
     return this.driver.delete(this.queryBuilder.buildRequestFromQuery(this.buildQuery(query))).pipe(
       mapTo(void 0)
@@ -110,10 +117,6 @@ export abstract class AbstractRepository<T, K, RC, RS> {
   }
 
   public getResourceId(object: T): K {
-    if (!object[Reflect.getMetadata(ID_METADATA_KEY, object)]) {
-      throw new Error('There is no id column configured. See @Id() decorator.');
-    }
-
     return get(object, Reflect.getMetadata(ID_METADATA_KEY, object));
   }
 
