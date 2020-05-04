@@ -1,3 +1,6 @@
+export {FbTimestampConverter} from './lib/converter/fb-timestamp.converter';
+
+export {FirebaseCreatedAt, FirebaseCreatedAtContext} from './lib/decorator/firebase-created-at.decorator';
 export {FirebaseCriteria, FirebaseCriteriaContext} from './lib/decorator/firebase-criteria.decorator';
 export {FirebaseEndAt} from './lib/decorator/firebase-end-at.decorator';
 export {FirebaseEndBefore} from './lib/decorator/firebase-end-before.decorator';
@@ -7,8 +10,11 @@ export {FirebaseOrderBy, FirebaseOrderByParam} from './lib/decorator/firebase-or
 export {FirebaseResource, FirebaseResourceContext} from './lib/decorator/firebase-resource.decorator';
 export {FirebaseStartAfter} from './lib/decorator/firebase-start-after.decorator';
 export {FirebaseStartAt} from './lib/decorator/firebase-start-at.decorator';
+export {FirebaseUpdatedAt, FirebaseUpdatedAtContext} from './lib/decorator/firebase-updated-at.decorator';
 
 export {FirebaseConnection} from './lib/firebase.connection';
+
+export {FirebaseNormalizer} from './lib/firebase.normalizer';
 
 export {FirebasePageBuilder} from './lib/firebase.page-builder';
 

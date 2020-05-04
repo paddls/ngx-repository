@@ -5,12 +5,13 @@ import {FirebaseRepository} from './firebase.repository';
 import {FirebaseDriver} from './firebase.driver';
 import {FirebaseQueryBuilder} from './firebase.query-builder';
 import {
-  FIREBASE_DENORMALIZER_TOKEN,
   FIREBASE_CREATE_RESPONSE_BUILDER,
+  FIREBASE_DENORMALIZER_TOKEN,
   FIREBASE_FIND_ONE_RESPONSE_BUILDER,
   FIREBASE_PAGE_BUILDER_TOKEN
 } from './ngx-firebase-repository.module.di';
-import {Connection, Denormalizer, Normalizer, PageBuilder, ResponseBuilder} from '@witty-services/ngx-repository';
+import {Connection, Denormalizer, PageBuilder, ResponseBuilder} from '@witty-services/ngx-repository';
+import {FirebaseNormalizer} from './firebase.normalizer';
 
 // TODO @RMA generalize this class (copy paste from httpConnection)
 @Injectable()
@@ -41,7 +42,7 @@ export class FirebaseConnection extends Connection<FirebaseResourceContext, Obse
       this.providers.push({
         provide: token,
         useFactory: (driver: FirebaseDriver,
-                     normalizer: Normalizer,
+                     normalizer: FirebaseNormalizer,
                      denormalizer: Denormalizer,
                      queryBuilder: FirebaseQueryBuilder,
                      pageBuilder: PageBuilder<any>,
@@ -59,7 +60,7 @@ export class FirebaseConnection extends Connection<FirebaseResourceContext, Obse
         },
         deps: [
           FirebaseDriver,
-          Normalizer,
+          FirebaseNormalizer,
           FIREBASE_DENORMALIZER_TOKEN,
           FirebaseQueryBuilder,
           FIREBASE_PAGE_BUILDER_TOKEN,

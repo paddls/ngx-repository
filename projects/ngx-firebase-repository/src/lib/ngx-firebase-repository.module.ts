@@ -15,6 +15,7 @@ import {FirebasePageBuilder} from './firebase.page-builder';
 import {FirebaseCreateResponseBuilder} from './firebase-create.response-builder';
 import {FirebaseFindOneResponseBuilder} from './firebase-find-one.response-builder';
 import {Denormalizer, NORMALIZER_CONFIGURATION_TOKEN, NormalizerConfiguration} from '@witty-services/ngx-repository';
+import {FirebaseNormalizer} from './firebase.normalizer';
 
 export function denormalizerTokenFactory(connection: FirebaseConnection, normalizerConfiguration: NormalizerConfiguration): Denormalizer {
   return new Denormalizer(connection, normalizerConfiguration);
@@ -24,6 +25,7 @@ const MODULE_PROVIDERS: Provider[] = [
   FirebaseDriver,
   FirebaseConnection,
   FirebaseQueryBuilder,
+  FirebaseNormalizer,
   {
     provide: FIREBASE_DENORMALIZER_TOKEN,
     useFactory: denormalizerTokenFactory,

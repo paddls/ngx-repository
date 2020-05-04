@@ -2,14 +2,25 @@ import {Observable} from 'rxjs';
 import {Inject, Injector, Optional} from '@angular/core';
 import {FirebaseDriver} from './firebase.driver';
 import {
-  FIREBASE_DENORMALIZER_TOKEN,
   FIREBASE_CREATE_RESPONSE_BUILDER,
+  FIREBASE_DENORMALIZER_TOKEN,
   FIREBASE_FIND_ONE_RESPONSE_BUILDER,
   FIREBASE_PAGE_BUILDER_TOKEN
 } from './ngx-firebase-repository.module.di';
 import {FIREBASE_RESOURCE_METADATA_KEY, FirebaseResourceContext} from './decorator/firebase-resource.decorator';
 import {FirebaseQueryBuilder} from './firebase.query-builder';
-import {AbstractRepository, Denormalizer, Normalizer, PageBuilder, ResponseBuilder} from '@witty-services/ngx-repository';
+import {
+  AbstractRepository,
+  ColumnContextConfiguration,
+  COLUMNS_METADATA_KEY,
+  Denormalizer,
+  Normalizer,
+  PageBuilder,
+  PropertyKeyConfiguration,
+  ResponseBuilder
+} from '@witty-services/ngx-repository';
+import {FIREBASE_CREATED_AT_METADATA_KEY, FirebaseCreatedAtContextConfiguration} from './decorator/firebase-created-at.decorator';
+import {intersectionBy} from 'lodash';
 
 export class FirebaseRepository<T, K> extends AbstractRepository<T, K, FirebaseResourceContext, any> {
 
@@ -45,5 +56,17 @@ export class FirebaseRepository<T, K> extends AbstractRepository<T, K, FirebaseR
     }
 
     this.createResponseBuilder = injector.get(this.resourceContextConfiguration.create.responseBuilder);
+  }
+
+  public update(object: T, query: any = {}): Observable<void> {
+    const createdAts: FirebaseCreatedAtContextConfiguration[] = Reflect.getMetadata(FIREBASE_CREATED_AT_METADATA_KEY, object) || [];
+    const columns: ColumnContextConfiguration<any, any>[] = Reflect.getMetadata(COLUMNS_METADATA_KEY, object) || [];
+    const columnsToUpdate: ColumnContextConfiguration<any, any>[] = intersectionBy(columns, createdAts, (meta: PropertyKeyConfiguration) => meta.propertyKey);
+    columnsToUpdate.forEach((columnToUpdate: ColumnContextConfiguration<any, any>) => columnToUpdate.readOnly = false);
+
+    Reflect.defineMetadata(FIREBASE_CREATED_AT_METADATA_KEY, [], object);
+    Reflect.defineMetadata(COLUMNS_METADATA_KEY, columns, object);
+
+    return super.update(object, query);
   }
 }

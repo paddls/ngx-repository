@@ -8,7 +8,7 @@ export {Connection} from './lib/connection/connection';
 export {Converter} from './lib/converter/converter';
 export {DateConverter} from './lib/converter/date.converter';
 
-export {Column, ColumnContext} from './lib/decorator/column.decorator';
+export {Column, ColumnContext, COLUMNS_METADATA_KEY, ColumnContextConfiguration} from './lib/decorator/column.decorator';
 export {Id, IdContext} from './lib/decorator/id.decorator';
 export {InjectRepository, InjectRepositoryContext} from './lib/decorator/inject-repository.decorator';
 export {JoinColumn, JoinColumnContext} from './lib/decorator/join-column.decorator';
