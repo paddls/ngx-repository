@@ -58,6 +58,15 @@ export class FirebaseRepository<T, K> extends AbstractRepository<T, K, FirebaseR
     this.createResponseBuilder = injector.get(this.resourceContextConfiguration.create.responseBuilder);
   }
 
+  public create(object: T, query?: any): Observable<K> {
+    if (!query) {
+      query = {};
+    }
+    query.id = this.getResourceId(object);
+
+    return super.create(object, query);
+  }
+
   public update(object: T, query: any = {}): Observable<void> {
     const createdAts: FirebaseCreatedAtContextConfiguration[] = Reflect.getMetadata(FIREBASE_CREATED_AT_METADATA_KEY, object) || [];
     const columns: ColumnContextConfiguration<any, any>[] = Reflect.getMetadata(COLUMNS_METADATA_KEY, object) || [];

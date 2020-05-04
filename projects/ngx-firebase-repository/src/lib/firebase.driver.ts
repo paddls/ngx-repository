@@ -9,8 +9,8 @@ import QuerySnapshot = firebase.firestore.QuerySnapshot;
 import DocumentData = firebase.firestore.DocumentData;
 import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
 import Query = firebase.firestore.Query;
-import DocumentReference = firebase.firestore.DocumentReference;
 import {FIREBASE_APP} from './ngx-firebase-repository.module.di';
+import {mapTo} from 'rxjs/operators';
 
 @Injectable()
 export class FirebaseDriver implements Driver<any> {
@@ -21,12 +21,18 @@ export class FirebaseDriver implements Driver<any> {
     this.firestore = firebaseApp.firestore();
   }
 
-  public create<K>(object: any, request: FirebaseRequest<K>): Observable<DocumentReference<DocumentData>> {
-    return from(this.firestore.collection(request.createPath).add(object));
+  public create<K>(object: any, request: FirebaseRequest<K>): Observable<{id: any}> {
+    if (request.id) {
+      return from(this.firestore.doc(request.createPath).set(object)).pipe(
+        mapTo(object)
+      );
+    } else {
+      return from(this.firestore.collection(request.createPath).add(object));
+    }
   }
 
   public update<K>(object: any, request: FirebaseRequest<K>): Observable<void> {
-    return from(this.firestore.doc(request.updatePath).set(object));
+    return from(this.firestore.doc(request.updatePath).update(object));
   }
 
   public delete<K>(request: FirebaseRequest<K>): Observable<any> {
