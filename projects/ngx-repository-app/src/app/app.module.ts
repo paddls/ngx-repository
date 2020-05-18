@@ -14,11 +14,11 @@ import {NgxRepositoryModule} from '@witty-services/ngx-repository';
 import {MyPageBuilder} from './module/@core/page-builder/my.page-builder';
 import {ClientComponent} from './component/client/client.component';
 import {HTTP_PAGE_BUILDER_TOKEN, NgxHttpRepositoryModule} from '@witty-services/ngx-http-repository';
-import {FIREBASE_APP, NgxFirebaseRepositoryModule} from '@witty-services/ngx-firebase-repository';
+import {FIRESTORE_APP, NgxFirebaseRepositoryModule} from '@witty-services/ngx-firebase-repository';
 import * as firebase from 'firebase';
-import App = firebase.app.App;
+import Firestore = firebase.firestore.Firestore;
 
-export function createFirebaseApp(): App {
+export function createFirestore(): Firestore {
   return firebase.initializeApp({
     apiKey: 'AIzaSyDSd6EXdQWaWcBMxbTYp-kFAV3zxNu-ArM',
     authDomain: 'ngx-repository.firebaseapp.com',
@@ -28,7 +28,7 @@ export function createFirebaseApp(): App {
     messagingSenderId: '352664344689',
     appId: '1:352664344689:web:20ec56387616cba621e3d0',
     measurementId: 'G-0RD9MTX3PB'
-  });
+  }).firestore();
 }
 
 @NgModule({
@@ -56,8 +56,8 @@ export function createFirebaseApp(): App {
       useClass: MyPageBuilder
     },
     {
-      provide: FIREBASE_APP,
-      useFactory: createFirebaseApp
+      provide: FIRESTORE_APP,
+      useFactory: createFirestore
     }
   ],
   bootstrap: [AppComponent]

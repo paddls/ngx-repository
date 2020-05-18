@@ -1,9 +1,9 @@
 import {InjectionToken} from '@angular/core';
 import {PageBuilder} from '@witty-services/ngx-repository';
 import * as firebase from 'firebase';
-import App = firebase.app.App;
+import Firestore = firebase.firestore.Firestore;
 
-export const FIREBASE_APP: InjectionToken<App> = new InjectionToken<App>('FIREBASE_APP');
+export const FIRESTORE_APP: InjectionToken<Firestore> = new InjectionToken<Firestore>('FIRESTORE_APP');
 
 export const FIREBASE_PAGE_BUILDER_TOKEN: InjectionToken<PageBuilder<any>> = new InjectionToken<PageBuilder<any>>('FIREBASE_PAGE_BUILDER_TOKEN');
 

@@ -4,25 +4,25 @@ import {Inject, Injectable} from '@angular/core';
 import * as firebase from 'firebase';
 import {FirebaseRequest, FirebaseRequestOrderBy, FirebaseRequestQuery} from './firebase.request';
 import {isNullOrUndefined} from 'util';
+import {FIRESTORE_APP} from './ngx-firebase-repository.module.di';
+import {mapTo} from 'rxjs/operators';
+import {isNotNullOrUndefined} from 'codelyzer/util/isNotNullOrUndefined';
 import Firestore = firebase.firestore.Firestore;
 import QuerySnapshot = firebase.firestore.QuerySnapshot;
 import DocumentData = firebase.firestore.DocumentData;
 import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
 import Query = firebase.firestore.Query;
-import {FIREBASE_APP} from './ngx-firebase-repository.module.di';
-import {mapTo} from 'rxjs/operators';
-import {isNotNullOrUndefined} from 'codelyzer/util/isNotNullOrUndefined';
 
 @Injectable()
 export class FirebaseDriver implements Driver<any> {
 
-  private firestore: Firestore;
+  private readonly firestore: Firestore;
 
-  public constructor(@Inject(FIREBASE_APP) firebaseApp: any) {
-    this.firestore = firebaseApp.firestore();
+  public constructor(@Inject(FIRESTORE_APP) firestore: any) {
+    this.firestore = firestore;
   }
 
-  public create<K>(object: any, request: FirebaseRequest<K>): Observable<{id: any}> {
+  public create<K>(object: any, request: FirebaseRequest<K>): Observable<{ id: any }> {
     if (isNotNullOrUndefined(request.id)) {
       return from(this.firestore.doc(request.createPath).set(object)).pipe(
         mapTo(object)

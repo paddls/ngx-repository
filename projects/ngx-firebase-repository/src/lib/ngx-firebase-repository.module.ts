@@ -4,7 +4,7 @@ import {ModuleWithProviders, NgModule, Provider} from '@angular/core';
 import {FirebaseConnection} from './firebase.connection';
 import {FirebaseDriver} from './firebase.driver';
 import {
-  FIREBASE_APP,
+  FIRESTORE_APP,
   FIREBASE_CREATE_RESPONSE_BUILDER,
   FIREBASE_FIND_ONE_RESPONSE_BUILDER,
   FIREBASE_PAGE_BUILDER_TOKEN
@@ -15,6 +15,8 @@ import {FirebaseCreateResponseBuilder} from './firebase-create.response-builder'
 import {FirebaseFindOneResponseBuilder} from './firebase-find-one.response-builder';
 import {CONNECTIONS_TOKEN} from '@witty-services/ngx-repository';
 import {FirebaseNormalizer} from './firebase.normalizer';
+import * as firebase from 'firebase';
+import Firestore = firebase.firestore.Firestore;
 
 const MODULE_PROVIDERS: Provider[] = [
   FirebaseDriver,
@@ -47,13 +49,13 @@ const MODULE_PROVIDERS: Provider[] = [
 })
 export class NgxFirebaseRepositoryModule {
 
-  public static forRoot(firebaseApp?: firebase.app.App): ModuleWithProviders<NgxFirebaseRepositoryModule> {
+  public static forRoot(firestore?: Firestore): ModuleWithProviders<NgxFirebaseRepositoryModule> {
     return {
       ngModule: NgxFirebaseRepositoryModule,
       providers: [
         {
-          provide: FIREBASE_APP,
-          useValue: firebaseApp
+          provide: FIRESTORE_APP,
+          useValue: firestore
         }
       ]
     };

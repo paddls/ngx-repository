@@ -25,7 +25,7 @@ export {FirebaseQuerySettings} from './lib/firebase.query-settings';
 export {FirebaseRepository} from './lib/firebase.repository';
 
 export {
-  FIREBASE_APP,
+  FIRESTORE_APP,
   FIREBASE_CREATE_RESPONSE_BUILDER,
   FIREBASE_FIND_ONE_RESPONSE_BUILDER,
   FIREBASE_PAGE_BUILDER_TOKEN
