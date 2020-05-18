@@ -16,7 +16,6 @@ export abstract class Connection<RC, RS> {
   public abstract supports<T, K>(repositoryType: Type<AbstractRepository<T, K, RC, RS>>): boolean;
 
   public getRepository<T, K>(resourceType: new(...args: any) => T): AbstractRepository<T, K, RC, RS> {
-    console.log('New instance of a repository for ', resourceType.name);
     if (!Reflect.hasMetadata(this.resourceContextKey, resourceType)) {
       throw new Error(`${resourceType.name} is not a valid resource.`);
     }
