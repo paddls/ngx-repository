@@ -33,7 +33,7 @@ export function FirebaseCreatedAt(firebaseCreatedAtContext?: FirebaseCreatedAtCo
       columnMetadata.field = firebaseCreatedAtMetadata.field = firebaseCreatedAtContext;
     }
 
-    columnMetadata.customConverter = FbTimestampConverter;
+    columnMetadata.customConverter = () => FbTimestampConverter;
     columnMetadata.readOnly = true;
     Column(columnMetadata)(target, propertyKey);
 

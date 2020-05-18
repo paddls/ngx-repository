@@ -1,7 +1,6 @@
-import {COLUMNS_METADATA_KEY, ColumnContextConfiguration} from '../decorator/column.decorator';
-import {set} from 'lodash';
+import {ColumnContextConfiguration, COLUMNS_METADATA_KEY} from '../decorator/column.decorator';
+import {isArray, set} from 'lodash';
 import {NormalizerConfiguration} from './normalizer.configuration';
-import {isArray} from 'lodash';
 import {Inject, Injectable} from '@angular/core';
 import {NORMALIZER_CONFIGURATION_TOKEN} from '../ngx-repository.module.di';
 
@@ -44,7 +43,7 @@ export class Normalizer {
         if (column.type && !!columnData) {
           set(result, column.field, columnData.map((d: any) => this.normalize(d)));
         } else if (column.customConverter) {
-          set(result, column.field, columnData.map((d: any) => new column.customConverter().toJson(d)));
+          set(result, column.field, columnData.map((d: any) => new (column.customConverter())().toJson(d)));
         } else {
           set(result, column.field, columnData);
         }
@@ -52,7 +51,7 @@ export class Normalizer {
         if (column.type && !!columnData) {
           set(result, column.field, this.normalize(columnData));
         } else if (column.customConverter) {
-          set(result, column.field, new column.customConverter().toJson(columnData));
+          set(result, column.field, new (column.customConverter())().toJson(columnData));
         } else {
           set(result, column.field, columnData);
         }

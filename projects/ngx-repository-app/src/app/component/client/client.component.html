@@ -4,7 +4,7 @@
 
   <ul>
     <li *ngFor="let purchase of client.purchases$|async">
-      <p>{{purchase.bookId}}</p>
+      <p>{{ purchase.bookId }} - {{ (purchase.book$|async)?.title }}</p>
     </li>
     <li><button (click)="addPurchase(client)">add</button></li>
   </ul>

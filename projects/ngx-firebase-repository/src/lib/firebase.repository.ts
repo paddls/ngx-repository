@@ -3,7 +3,6 @@ import {Inject, Injector, Optional} from '@angular/core';
 import {FirebaseDriver} from './firebase.driver';
 import {
   FIREBASE_CREATE_RESPONSE_BUILDER,
-  FIREBASE_DENORMALIZER_TOKEN,
   FIREBASE_FIND_ONE_RESPONSE_BUILDER,
   FIREBASE_PAGE_BUILDER_TOKEN
 } from './ngx-firebase-repository.module.di';
@@ -26,7 +25,7 @@ export class FirebaseRepository<T, K> extends AbstractRepository<T, K, FirebaseR
 
   public constructor(driver: FirebaseDriver,
                      normalizer: Normalizer,
-                     @Inject(FIREBASE_DENORMALIZER_TOKEN) denormalizer: Denormalizer,
+                     denormalizer: Denormalizer,
                      queryBuilder: FirebaseQueryBuilder,
                      @Inject(FIREBASE_PAGE_BUILDER_TOKEN) pageBuilder: PageBuilder<Observable<any>>,
                      @Inject(FIREBASE_CREATE_RESPONSE_BUILDER) firebaseItemCreateBuilder: ResponseBuilder<any>,
@@ -55,7 +54,7 @@ export class FirebaseRepository<T, K> extends AbstractRepository<T, K, FirebaseR
       return;
     }
 
-    this.createResponseBuilder = injector.get(this.resourceContextConfiguration.create.responseBuilder);
+    this.createResponseBuilder = injector.get(this.resourceContextConfiguration.create.responseBuilder());
   }
 
   public create(object: T, query?: any): Observable<K> {

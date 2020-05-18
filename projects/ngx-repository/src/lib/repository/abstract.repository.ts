@@ -44,7 +44,7 @@ export abstract class AbstractRepository<T, K, RC, RS> {
   protected get resourceContextConfiguration(): RC {
     if (Reflect.hasMetadata(RESOURCE_CONFIGURATION_METADATA_KEY, Object.getPrototypeOf(this).constructor)) {
       return Reflect.getMetadata(RESOURCE_CONFIGURATION_METADATA_KEY, Object.getPrototypeOf(this).constructor);
-    } else if (Reflect.getMetadata(RESOURCE_CONFIGURATION_METADATA_KEY, this)) {
+    } else if (Reflect.hasMetadata(RESOURCE_CONFIGURATION_METADATA_KEY, this)) {
       return Reflect.getMetadata(RESOURCE_CONFIGURATION_METADATA_KEY, this);
     } else {
       const repositoryContextConfiguration: RepositoryContextConfiguration = this.repositoryContextConfiguration;
@@ -52,7 +52,7 @@ export abstract class AbstractRepository<T, K, RC, RS> {
         throw new Error('There is no Resource type configuration for this repository.');
       }
 
-      const resourceContextConfiguration: RC = Reflect.getMetadata(this.resourceContextKey, repositoryContextConfiguration.type);
+      const resourceContextConfiguration: RC = Reflect.getMetadata(this.resourceContextKey, repositoryContextConfiguration.resourceType());
       Reflect.defineMetadata(RESOURCE_CONFIGURATION_METADATA_KEY, resourceContextConfiguration, Object.getPrototypeOf(this).constructor);
 
       return resourceContextConfiguration;
@@ -126,7 +126,7 @@ export abstract class AbstractRepository<T, K, RC, RS> {
       throw new Error('There is no Resource type configuration for this repository.');
     }
 
-    const resourceType: new(...args: any[]) => any = repositoryContextConfiguration.type;
+    const resourceType: () => new(...args: any[]) => any = repositoryContextConfiguration.resourceType;
     const propertyKey: string = Reflect.getMetadata(ID_METADATA_KEY, resourceType.prototype);
     if (!propertyKey) {
       throw new Error(`There is no id column configured for ${resourceType.name}. See @Id() decorator.`);
@@ -157,7 +157,7 @@ export abstract class AbstractRepository<T, K, RC, RS> {
       throw new Error('There is no Resource type configuration for this repository.');
     }
 
-    return this.denormalizer.denormalize(repositoryContextConfiguration.type, data, query);
+    return this.denormalizer.denormalize(repositoryContextConfiguration.resourceType(), data, query);
   }
 
   protected normalizeOne(data: T): any {

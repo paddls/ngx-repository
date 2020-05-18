@@ -4,7 +4,6 @@ import {HttpDriver} from './http.driver';
 import {HttpQueryBuilder} from './http.query-builder';
 import {Inject, Injector, Optional} from '@angular/core';
 import {
-  HTTP_DENORMALIZER_TOKEN,
   HTTP_CREATE_RESPONSE_BUILDER,
   HTTP_FIND_ONE_RESPONSE_BUILDER,
   HTTP_PAGE_BUILDER_TOKEN
@@ -15,7 +14,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T, K, HttpResourceC
 
   public constructor(httpDriver: HttpDriver,
                      normalizer: Normalizer,
-                     @Inject(HTTP_DENORMALIZER_TOKEN) denormalizer: Denormalizer,
+                     denormalizer: Denormalizer,
                      httpQueryBuilder: HttpQueryBuilder,
                      @Inject(HTTP_PAGE_BUILDER_TOKEN) httpPageBuilder: PageBuilder<HttpResponse<any>>,
                      @Inject(HTTP_CREATE_RESPONSE_BUILDER) httpCreateResponseBuilder: ResponseBuilder<HttpResponse<any>>,
@@ -44,6 +43,6 @@ export class HttpRepository<T, K> extends AbstractRepository<T, K, HttpResourceC
       return;
     }
 
-    this.createResponseBuilder = injector.get(this.resourceContextConfiguration.create.responseBuilder);
+    this.createResponseBuilder = injector.get(this.resourceContextConfiguration.create.responseBuilder());
   }
 }

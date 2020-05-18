@@ -7,19 +7,19 @@ export interface ColumnContext<T, R> {
 
   field?: string;
 
-  type?: new(...args: any[]) => T;
+  type?: () => new(...args: any[]) => T;
 
   readOnly?: boolean;
 
   writeOnly?: boolean;
 
-  customConverter?: new(...args: any[]) => Converter<T, R>;
+  customConverter?: () => new(...args: any[]) => Converter<T, R>;
 }
 
 export interface ColumnContextConfiguration<T, R> extends ColumnContext<T, R>, PropertyKeyConfiguration {
 }
 
-export function Column<T, R>(columnContext?: ColumnContext<T, R>|string|(new(...args: any[]) => T)): any {
+export function Column<T, R>(columnContext?: ColumnContext<T, R>|string|(() => new(...args: any[]) => T)): any {
   return (target: any, propertyKey: string) => {
     const columnMetadata: ColumnContextConfiguration<T, R> = makeColumnMetadata(target, propertyKey, columnContext);
 
@@ -33,7 +33,7 @@ export function Column<T, R>(columnContext?: ColumnContext<T, R>|string|(new(...
 
 function makeColumnMetadata<T, R>(target: any,
                                   propertyKey: string,
-                                  columnContext?: ColumnContext<T, R>|string|(new(...args: any[]) => T)): ColumnContextConfiguration<T, R> {
+                                  columnContext?: ColumnContext<T, R>|string|(() => new(...args: any[]) => T)): ColumnContextConfiguration<T, R> {
   let columnMetadata: ColumnContextConfiguration<T, R> = {
     propertyKey,
     field: propertyKey

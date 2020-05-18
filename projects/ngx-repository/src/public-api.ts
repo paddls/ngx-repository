@@ -34,8 +34,10 @@ export {PathQueryBuilder} from './lib/query-builder/path.query-builder';
 export {PathQuerySettings} from './lib/query-builder/path.query-settings';
 export {PathRequest} from './lib/query-builder/path.request';
 
+export {TokenRegistry} from './lib/registry/token.registry';
+
 export {AbstractRepository} from './lib/repository/abstract.repository';
 
-export {NORMALIZER_CONFIGURATION_TOKEN} from './lib/ngx-repository.module.di';
+export {NORMALIZER_CONFIGURATION_TOKEN, CONNECTIONS_TOKEN} from './lib/ngx-repository.module.di';
 
 export {NgxRepositoryModule} from './lib/ngx-repository.module';

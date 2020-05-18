@@ -1,4 +1,6 @@
 import {InjectionToken} from '@angular/core';
 import {NormalizerConfiguration} from './normalizer/normalizer.configuration';
+import {Connection} from './connection/connection';
 
 export const NORMALIZER_CONFIGURATION_TOKEN: InjectionToken<NormalizerConfiguration> = new InjectionToken<NormalizerConfiguration>('NORMALIZER_CONFIGURATION_TOKEN');
+export const CONNECTIONS_TOKEN: InjectionToken<Connection<any, any>> = new InjectionToken<Connection<any, any>>('CONNECTIONS');

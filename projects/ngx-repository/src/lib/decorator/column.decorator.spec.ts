@@ -8,7 +8,6 @@ describe('ColumnDecorator', () => {
 
   const firstResult: ColumnContextConfiguration<any, any> = {propertyKey: 'myProperty', field: 'myPropertyName'};
   const secondResult: ColumnContextConfiguration<any, any> = {propertyKey: 'mySecondProperty', field: 'myBeautifulProperty'};
-  const thirdResult: ColumnContextConfiguration<any, any> = {propertyKey: 'myThirdProperty', field: 'myThirdProperty', type: Date};
   const fourthResult: ColumnContextConfiguration<any, any> = {propertyKey: 'myFourthProperty', field: 'myFourthProperty'};
 
   beforeEach(() => {
@@ -39,10 +38,10 @@ describe('ColumnDecorator', () => {
   });
 
   it('should set up with a type', () => {
-    Column(Date)(obj, 'myThirdProperty');
-    expect(Reflect.getMetadata(COLUMNS_METADATA_KEY, obj)).toEqual([
-      thirdResult
-    ]);
+    Column(() => Date)(obj, 'myThirdProperty');
+    expect(Reflect.getMetadata(COLUMNS_METADATA_KEY, obj).length).toEqual(1);
+    expect(Reflect.getMetadata(COLUMNS_METADATA_KEY, obj)[0].type instanceof Function).toBe(true);
+    expect(Reflect.getMetadata(COLUMNS_METADATA_KEY, obj)[0].type()).toBe(Date);
   });
 
   it('should set up with nothing', () => {
@@ -53,17 +52,17 @@ describe('ColumnDecorator', () => {
   });
 
   it('should set up two properties', () => {
-    Column(Date)(obj, 'myThirdProperty');
+    Column(() => Date)(obj, 'myThirdProperty');
     Column()(obj, 'myFourthProperty');
-    expect(Reflect.getMetadata(COLUMNS_METADATA_KEY, obj)).toEqual([
-      thirdResult,
-      fourthResult
-    ]);
+    expect(Reflect.getMetadata(COLUMNS_METADATA_KEY, obj).length).toEqual(2);
+    expect(Reflect.getMetadata(COLUMNS_METADATA_KEY, obj)[0].type instanceof Function).toBe(true);
+    expect(Reflect.getMetadata(COLUMNS_METADATA_KEY, obj)[0].type()).toBe(Date);
+    expect(Reflect.getMetadata(COLUMNS_METADATA_KEY, obj)[1]).toEqual(fourthResult);
   });
 
   it('should throw an error when type and custom converter are passed together', () => {
     expect(
-      () => Column({type: Date, customConverter: DateConverter})(obj, 'myFifthProperty')
+      () => Column({type: () => Date, customConverter: () => DateConverter})(obj, 'myFifthProperty')
     ).toThrowError('You cannot specify both the converter and type attributes at the same time.');
 
     expect(Reflect.getMetadata(COLUMNS_METADATA_KEY, obj)).toBeUndefined();

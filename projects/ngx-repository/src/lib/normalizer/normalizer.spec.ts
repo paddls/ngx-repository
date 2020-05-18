@@ -70,10 +70,10 @@ describe('Normalizer', () => {
       @Column({field: 'complexNested.nestedName'})
       public nestedName: string = null;
 
-      @Column({customConverter: DateConverter})
+      @Column({customConverter: () => DateConverter})
       public createdAt: Date = null;
 
-      @Column({customConverter: DateConverter})
+      @Column({customConverter: () => DateConverter})
       public otherDates: Date[];
 
       @Column()
@@ -82,10 +82,10 @@ describe('Normalizer', () => {
 
     class MyClass extends ClassWithColumn {
 
-      @Column(MyNestedClass)
+      @Column(() => MyNestedClass)
       public nested: MyNestedClass = null;
 
-      @Column(MyNestedClass)
+      @Column(() => MyNestedClass)
       public nesteds: MyNestedClass[] = null;
     }
 

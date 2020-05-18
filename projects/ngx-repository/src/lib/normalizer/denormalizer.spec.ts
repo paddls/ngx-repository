@@ -1,44 +1,23 @@
 import 'reflect-metadata';
 import {Denormalizer} from './denormalizer';
 import {DEFAULT_NORMALIZER_CONFIGURATION, NormalizerConfiguration} from './normalizer.configuration';
-import {AbstractRepository} from '../repository/abstract.repository';
 import {Column} from '../decorator/column.decorator';
 import {DateConverter} from '../converter/date.converter';
-import {Id} from '../decorator/id.decorator';
-import {JoinColumn} from '../decorator/join-column.decorator';
-import {Repository} from '../decorator/repository.decorator';
-import {SubCollection} from '../decorator/sub-collection.decorator';
-import {Connection} from '../connection/connection';
 import {cloneDeep} from 'lodash';
-import {Observable, of} from 'rxjs';
-import {Page} from '../page-builder/page';
 
 class EmptyColumn {
   public name: string = 'myEmptyColumnObject';
 }
 
-class MyConnection extends Connection<any, any> {
-
-  public constructor() {
-    super(null);
-  }
-
-  protected getRepositoryInstance<T, K>(): AbstractRepository<T, K, any, any> {
-    return undefined;
-  }
-}
-
 describe('Denormalizer', () => {
   const configuration: NormalizerConfiguration = cloneDeep(DEFAULT_NORMALIZER_CONFIGURATION);
 
-  let connection: Connection<any, any>;
   let denormalizerEmptyColumn: Denormalizer;
   let denormalizer: Denormalizer;
 
   beforeEach(() => {
-    connection = new MyConnection();
-    denormalizerEmptyColumn = new Denormalizer(connection, configuration);
-    denormalizer = new Denormalizer(connection, configuration);
+    denormalizerEmptyColumn = new Denormalizer(configuration);
+    denormalizer = new Denormalizer(configuration);
   });
 
   it('should not denormalize an null object', () => {
@@ -91,10 +70,10 @@ describe('Denormalizer', () => {
       @Column({field: 'complexNested.nestedName'})
       public nestedName: string = null;
 
-      @Column({customConverter: DateConverter})
+      @Column({customConverter: () => DateConverter})
       public createdAt: Date = null;
 
-      @Column({customConverter: DateConverter})
+      @Column({customConverter: () => DateConverter})
       public otherDates: Date[];
 
       @Column()
@@ -103,10 +82,10 @@ describe('Denormalizer', () => {
 
     class MyClass {
 
-      @Column(MyNestedClass)
+      @Column(() => MyNestedClass)
       public nested: MyNestedClass = null;
 
-      @Column(MyNestedClass)
+      @Column(() => MyNestedClass)
       public nesteds: MyNestedClass[] = null;
     }
 
@@ -174,121 +153,6 @@ describe('Denormalizer', () => {
           ]
         }
       )).toEqual(obj);
-    });
-  });
-
-  describe('Denormalize JoinColumn', () => {
-
-    class MyNestedClass {
-
-      @Id()
-      public id: string;
-
-      @Column()
-      public nestedName: string = null;
-    }
-
-    @Repository(MyNestedClass)
-    class MockRepository extends AbstractRepository<MyNestedClass, any, any, any> {}
-
-    class MyClass {
-
-      @Id()
-      public id: string;
-
-      @Column()
-      public nestedId: string = null;
-
-      @JoinColumn({attribute: 'nestedId', resourceType: MyNestedClass})
-      public nested$: Observable<MyNestedClass>;
-    }
-
-    let mockRepository: MockRepository;
-
-    beforeEach(() => {
-      mockRepository = new MockRepository(null, null, null, null, null, null, null, null);
-      spyOn(connection, 'getRepository').and.returnValue(mockRepository);
-      spyOn(mockRepository, 'findOne').and.returnValue(of({
-        id: 'myNestedId',
-        nestedName: 'myNestedName'
-      }));
-    });
-
-    it('should denormalize join column', (done: DoneFn) => {
-      const myClass: MyClass = denormalizer.denormalize(MyClass, {
-        id: 'myClassId',
-        nestedId: 'myNestedId'
-      }) as MyClass;
-
-      expect(connection.getRepository).toHaveBeenCalledTimes(1);
-      expect(connection.getRepository).toHaveBeenCalledWith(MyNestedClass);
-
-      expect(mockRepository.findOne).toHaveBeenCalledTimes(1);
-      expect(mockRepository.findOne).toHaveBeenCalledWith('myNestedId');
-
-      myClass.nested$.subscribe({
-        next: (nested: MyNestedClass) => {
-          expect(nested.id = 'myNestedId');
-          expect(nested.nestedName = 'myNestedName');
-        },
-        complete: () => done()
-      });
-    });
-  });
-
-  describe('Denormalize SubCollection', () => {
-    class MyNestedClass {
-
-      @Id()
-      public id: string;
-
-      @Column()
-      public nestedName: string = null;
-    }
-
-    @Repository(MyNestedClass)
-    class MockRepository extends AbstractRepository<MyNestedClass, any, any, any> {}
-
-    class MyClass {
-
-      @Id()
-      public id: string;
-
-      @SubCollection({resourceType: MyNestedClass, params: (model: MyClass, params: any) => ({m: model.id, p: params})})
-      public nested$: Observable<MyNestedClass[]>;
-    }
-
-    let mockRepository: MockRepository;
-
-    beforeEach(() => {
-      mockRepository = new MockRepository(null, null, null, null, null, null, null, null);
-      spyOn(connection, 'getRepository').and.returnValue(mockRepository);
-      spyOn(mockRepository, 'findAll').and.returnValue(of(new Page([{
-        id: 'myNestedId',
-        nestedName: 'myNestedName'
-      }])));
-    });
-
-    it('should denormalize sub collection', (done: DoneFn) => {
-      const params: any = {p: 'myParam'};
-      const myClass: MyClass = denormalizer.denormalize(MyClass, {
-        id: 'myClassId'
-      }, params) as MyClass;
-
-      expect(connection.getRepository).toHaveBeenCalledTimes(1);
-      expect(connection.getRepository).toHaveBeenCalledWith(MyNestedClass);
-
-      expect(mockRepository.findAll).toHaveBeenCalledTimes(1);
-      expect(mockRepository.findAll).toHaveBeenCalledWith({m: 'myClassId', p: params});
-
-      myClass.nested$.subscribe({
-        next: (nesteds: MyNestedClass[]) => {
-          expect(nesteds.length).toEqual(1);
-          expect(nesteds[0].id).toEqual('myNestedId');
-          expect(nesteds[0].nestedName).toEqual('myNestedName');
-        },
-        complete: () => done()
-      });
     });
   });
 });

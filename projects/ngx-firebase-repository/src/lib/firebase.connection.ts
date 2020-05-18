@@ -1,4 +1,4 @@
-import {Injectable, InjectionToken, Injector, StaticProvider} from '@angular/core';
+import {Inject, Injectable, Type} from '@angular/core';
 import {Observable} from 'rxjs';
 import {FIREBASE_RESOURCE_METADATA_KEY, FirebaseResourceContext} from './decorator/firebase-resource.decorator';
 import {FirebaseRepository} from './firebase.repository';
@@ -6,81 +6,38 @@ import {FirebaseDriver} from './firebase.driver';
 import {FirebaseQueryBuilder} from './firebase.query-builder';
 import {
   FIREBASE_CREATE_RESPONSE_BUILDER,
-  FIREBASE_DENORMALIZER_TOKEN,
   FIREBASE_FIND_ONE_RESPONSE_BUILDER,
   FIREBASE_PAGE_BUILDER_TOKEN
 } from './ngx-firebase-repository.module.di';
-import {Connection, Denormalizer, PageBuilder, ResponseBuilder} from '@witty-services/ngx-repository';
+import {AbstractRepository, Connection, Denormalizer, PageBuilder, ResponseBuilder} from '@witty-services/ngx-repository';
 import {FirebaseNormalizer} from './firebase.normalizer';
 
-// TODO @RMA generalize this class (copy paste from httpConnection)
 @Injectable()
 export class FirebaseConnection extends Connection<FirebaseResourceContext, Observable<any>> {
 
-  protected injector: Injector;
-
-  protected providers: StaticProvider[];
-
-  public constructor(protected parentInjector: Injector) {
+  public constructor(private readonly driver: FirebaseDriver,
+                     private readonly normalizer: FirebaseNormalizer,
+                     private readonly denormalizer: Denormalizer,
+                     private readonly queryBuilder: FirebaseQueryBuilder,
+                     @Inject(FIREBASE_PAGE_BUILDER_TOKEN) private readonly pageBuilder: PageBuilder<any>,
+                     @Inject(FIREBASE_CREATE_RESPONSE_BUILDER) private readonly firebaseItemCreateBuilder: ResponseBuilder<any>,
+                     @Inject(FIREBASE_FIND_ONE_RESPONSE_BUILDER) private readonly firebaseItemFindOneBuilder: ResponseBuilder<any>) {
     super(FIREBASE_RESOURCE_METADATA_KEY);
-
-    this.providers = [];
-
-    this.injector = Injector.create({
-      providers: this.providers,
-      parent: this.parentInjector
-    });
   }
 
   protected getRepositoryInstance<T, K>(resourceType: new(...args: any) => T): FirebaseRepository<T, K> {
-    const token: InjectionToken<FirebaseRepository<T, K>> = this.makeToken(resourceType);
-    let repository: FirebaseRepository<T, K>;
-
-    try {
-      repository = this.injector.get(token);
-    } catch (err) {
-      this.providers.push({
-        provide: token,
-        useFactory: (driver: FirebaseDriver,
-                     normalizer: FirebaseNormalizer,
-                     denormalizer: Denormalizer,
-                     queryBuilder: FirebaseQueryBuilder,
-                     pageBuilder: PageBuilder<any>,
-                     firebaseItemCreateBuilder: ResponseBuilder<any>,
-                     firebaseItemFindOneBuilder: ResponseBuilder<any>): FirebaseRepository<T, K> => {
-          return new FirebaseRepository<T, K>(
-            driver,
-            normalizer,
-            denormalizer,
-            queryBuilder,
-            pageBuilder,
-            firebaseItemCreateBuilder,
-            firebaseItemFindOneBuilder
-          );
-        },
-        deps: [
-          FirebaseDriver,
-          FirebaseNormalizer,
-          FIREBASE_DENORMALIZER_TOKEN,
-          FirebaseQueryBuilder,
-          FIREBASE_PAGE_BUILDER_TOKEN,
-          FIREBASE_CREATE_RESPONSE_BUILDER,
-          FIREBASE_FIND_ONE_RESPONSE_BUILDER
-        ]
-      });
-
-      this.injector = Injector.create({
-        providers: this.providers,
-        parent: this.parentInjector
-      });
-
-      repository = this.injector.get(token);
-    }
-
-    return repository;
+    return new FirebaseRepository<T, K>(
+      this.driver,
+      this.normalizer,
+      this.denormalizer,
+      this.queryBuilder,
+      this.pageBuilder,
+      this.firebaseItemCreateBuilder,
+      this.firebaseItemFindOneBuilder
+    );
   }
 
-  protected makeToken<T, K>(resourceType: new(...args: any) => T): InjectionToken<FirebaseRepository<T, K>> {
-    return new InjectionToken<FirebaseRepository<T, K>>(`${resourceType.name}_FirebaseRepository$`);
+  public supports<T, K>(repositoryType: Type<AbstractRepository<T, K, FirebaseResourceContext, Observable<any>>>): boolean {
+    return repositoryType === FirebaseRepository;
   }
 }

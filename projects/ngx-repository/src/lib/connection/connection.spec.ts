@@ -1,6 +1,7 @@
 import {Connection} from './connection';
 import {AbstractRepository} from '../repository/abstract.repository';
 import {REPOSITORY_METADATA_KEY, RESOURCE_CONFIGURATION_METADATA_KEY} from '../decorator/repository.decorator';
+import {Type} from '@angular/core';
 
 class MyClass {}
 
@@ -12,6 +13,10 @@ class MyConnection extends Connection<any, any> {
 
   public getRepositoryInstance<T, K, Q>(resourceType: new(...args: any) => T): AbstractRepository<T, K, any, any> {
     return undefined;
+  }
+
+  public supports<T, K>(repositoryType: Type<AbstractRepository<T, K, any, any>>): boolean {
+    return false;
   }
 }
 
@@ -35,6 +40,7 @@ describe('Connection', () => {
     expect(connection.getRepositoryInstance).toHaveBeenCalledWith(MyClass);
     expect(repositoryInstance).toBe(repository);
     expect(Reflect.getMetadata(RESOURCE_CONFIGURATION_METADATA_KEY, repositoryInstance)).toBe(meta);
-    expect(Reflect.getMetadata(REPOSITORY_METADATA_KEY, repositoryInstance)).toEqual({type: MyClass});
+    expect(Reflect.getMetadata(REPOSITORY_METADATA_KEY, repositoryInstance).resourceType instanceof Function).toBe(true);
+    expect(Reflect.getMetadata(REPOSITORY_METADATA_KEY, repositoryInstance).resourceType()).toEqual(MyClass);
   });
 });

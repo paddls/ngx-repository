@@ -5,7 +5,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
 @Injectable()
-export class MyHttpCreateResponseBuilder implements ResponseBuilder<HttpResponse<any>> {
+export class BodyIdResponseBuilder implements ResponseBuilder<HttpResponse<any>> {
 
   public build(response$: Observable<HttpResponse<any>>, repository: AbstractRepository<any, any, any, any>): Observable<any> {
     return response$.pipe(

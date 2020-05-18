@@ -5,12 +5,12 @@ import {Mock} from '../../test/mock.model';
 describe('JoinColumnDecorator', () => {
 
   it('should place all JoinColumnContext parameter in the good place', () => {
-    const joinColumnContext1: JoinColumnContext = {
-      resourceType: Mock,
+    const joinColumnContext1: JoinColumnContext<Mock> = {
+      resourceType: () => Mock,
       attribute: 'myProperty'
     };
-    const joinColumnContext2: JoinColumnContext = {
-      resourceType: Mock,
+    const joinColumnContext2: JoinColumnContext<Mock> = {
+      resourceType: () => Mock,
       attribute: 'mySecondProperty'
     };
 

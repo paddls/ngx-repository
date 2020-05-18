@@ -6,7 +6,7 @@ import {Repository} from '@witty-services/ngx-repository';
 import {HttpRepository} from '@witty-services/ngx-http-repository';
 
 @Injectable()
-@Repository(Person)
+@Repository(() => Person)
 export class PersonRepository extends HttpRepository<Person, string> {
 
   public searchByFirstName(searchedFirstName: string): Observable<Person[]> {

@@ -1,16 +1,11 @@
 import {HttpRepository} from './http.repository';
-import {Injectable, InjectionToken, Injector, StaticProvider} from '@angular/core';
-import {HttpDriver} from './http.driver';
+import {Inject, Injectable, Injector, StaticProvider, Type} from '@angular/core';
 import {HTTP_RESOURCE_METADATA_KEY, HttpResourceContext} from './decorator/http-resource.decorator';
 import {HttpResponse} from '@angular/common/http';
+import {AbstractRepository, Connection, Denormalizer, Normalizer, PageBuilder, ResponseBuilder} from '@witty-services/ngx-repository';
+import {HttpDriver} from './http.driver';
 import {HttpQueryBuilder} from './http.query-builder';
-import {
-  HTTP_DENORMALIZER_TOKEN,
-  HTTP_CREATE_RESPONSE_BUILDER,
-  HTTP_FIND_ONE_RESPONSE_BUILDER,
-  HTTP_PAGE_BUILDER_TOKEN
-} from './ngx-http-repository.module.di';
-import {Connection, Denormalizer, Normalizer, PageBuilder, ResponseBuilder} from '@witty-services/ngx-repository';
+import {HTTP_CREATE_RESPONSE_BUILDER, HTTP_FIND_ONE_RESPONSE_BUILDER, HTTP_PAGE_BUILDER_TOKEN} from './ngx-http-repository.module.di';
 
 @Injectable()
 export class HttpConnection extends Connection<HttpResourceContext, HttpResponse<any>> {
@@ -19,77 +14,39 @@ export class HttpConnection extends Connection<HttpResourceContext, HttpResponse
 
   protected providers: StaticProvider[];
 
-  public constructor(protected parentInjector: Injector) {
+  public constructor(private readonly httpDriver: HttpDriver,
+                     private readonly normalizer: Normalizer,
+                     private readonly denormalizer: Denormalizer,
+                     private readonly httpQueryBuilder: HttpQueryBuilder,
+                     @Inject(HTTP_PAGE_BUILDER_TOKEN) private readonly httpPageBuilder: PageBuilder<HttpResponse<any>>,
+                     @Inject(HTTP_CREATE_RESPONSE_BUILDER) private httpItemCreateBuilder: ResponseBuilder<HttpResponse<any>>,
+                     @Inject(HTTP_FIND_ONE_RESPONSE_BUILDER) private readonly httpItemFindOneBuilder: ResponseBuilder<HttpResponse<any>>,
+                     private readonly parentInjector: Injector) {
     super(HTTP_RESOURCE_METADATA_KEY);
-
-    this.providers = [];
-
-    this.injector = Injector.create({
-      providers: this.providers,
-      parent: this.parentInjector
-    });
   }
 
   protected getRepositoryInstance<T, K>(resourceType: new(...args: any) => T): HttpRepository<T, K> {
-    const token: InjectionToken<HttpRepository<T, K>> = this.makeToken(resourceType);
-    let repository: HttpRepository<T, K>;
-
-    try {
-      repository = this.injector.get(token);
-    } catch (err) {
-      this.providers.push({
-        provide: token,
-        useFactory: (httpDriver: HttpDriver,
-                     normalizer: Normalizer,
-                     denormalizer: Denormalizer,
-                     httpQueryBuilder: HttpQueryBuilder,
-                     httpPageBuilder: PageBuilder<HttpResponse<any>>,
-                     httpItemCreateBuilder: ResponseBuilder<HttpResponse<any>>,
-                     httpItemFindOneBuilder: ResponseBuilder<HttpResponse<any>>,
-                     injector: Injector): HttpRepository<T, K> => {
-          const httpResourceContext: HttpResourceContext = Reflect.getMetadata(this.resourceContextKey, resourceType);
-          if (httpResourceContext.create && httpResourceContext.create instanceof Object) {
-            const createResponseBuilder: ResponseBuilder<HttpResponse<any>> = injector.get(httpResourceContext.create.responseBuilder);
-            if (!createResponseBuilder) {
-              throw new Error(`${httpResourceContext.create.responseBuilder.name} is not found in Angular Injector.`);
-            }
-            httpItemCreateBuilder = createResponseBuilder;
-          }
-
-          return new HttpRepository<T, K>(
-            httpDriver,
-            normalizer,
-            denormalizer,
-            httpQueryBuilder,
-            httpPageBuilder,
-            httpItemCreateBuilder,
-            httpItemFindOneBuilder
-          );
-        },
-        deps: [
-          HttpDriver,
-          Normalizer,
-          HTTP_DENORMALIZER_TOKEN,
-          HttpQueryBuilder,
-          HTTP_PAGE_BUILDER_TOKEN,
-          HTTP_CREATE_RESPONSE_BUILDER,
-          HTTP_FIND_ONE_RESPONSE_BUILDER,
-          Injector
-        ]
-      });
-
-      this.injector = Injector.create({
-        providers: this.providers,
-        parent: this.parentInjector
-      });
-
-      repository = this.injector.get(token);
+    const httpResourceContext: HttpResourceContext = Reflect.getMetadata(this.resourceContextKey, resourceType);
+    if (httpResourceContext.create && httpResourceContext.create instanceof Object) {
+      const createResponseBuilder: ResponseBuilder<HttpResponse<any>> = this.parentInjector.get(httpResourceContext.create.responseBuilder);
+      if (!createResponseBuilder) {
+        throw new Error(`${httpResourceContext.create.responseBuilder.name} is not found in Angular Injector.`);
+      }
+      this.httpItemCreateBuilder = createResponseBuilder;
     }
 
-    return repository;
+    return new HttpRepository<T, K>(
+      this.httpDriver,
+      this.normalizer,
+      this.denormalizer,
+      this.httpQueryBuilder,
+      this.httpPageBuilder,
+      this.httpItemCreateBuilder,
+      this.httpItemFindOneBuilder
+    );
   }
 
-  protected makeToken<T, K>(resourceType: new(...args: any) => T): InjectionToken<HttpRepository<T, K>> {
-    return new InjectionToken<HttpRepository<T, K>>(`${resourceType.name}_HttpRepository$`);
+  public supports<T, K>(repositoryType: Type<AbstractRepository<T, K, HttpResourceContext, HttpResponse<any>>>): boolean {
+    return repositoryType === HttpRepository;
   }
 }

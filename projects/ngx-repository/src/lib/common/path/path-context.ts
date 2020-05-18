@@ -11,5 +11,5 @@ export interface PathContext {
 
 export interface CreatePathContext {
   path: string;
-  responseBuilder: (new(...args: any[]) => ResponseBuilder<any>);
+  responseBuilder: () => new(...args: any[]) => ResponseBuilder<any>;
 }

@@ -15,7 +15,6 @@ export {HttpRepository} from './lib/http.repository';
 export {HttpNoPageBuilder} from './lib/http-no.page-builder';
 
 export {
-  HTTP_DENORMALIZER_TOKEN,
   HTTP_PAGE_BUILDER_TOKEN,
   HTTP_CREATE_RESPONSE_BUILDER,
   HTTP_FIND_ONE_RESPONSE_BUILDER

@@ -1,7 +1,5 @@
 import {InjectionToken} from '@angular/core';
-import {Denormalizer, PageBuilder} from '@witty-services/ngx-repository';
-
-export const HTTP_DENORMALIZER_TOKEN: InjectionToken<Denormalizer> = new InjectionToken<Denormalizer>('HTTP_DENORMALIZER_TOKEN');
+import {PageBuilder} from '@witty-services/ngx-repository';
 
 export const HTTP_PAGE_BUILDER_TOKEN: InjectionToken<PageBuilder<any>> = new InjectionToken<PageBuilder<any>>('HTTP_PAGE_BUILDER_TOKEN');
 

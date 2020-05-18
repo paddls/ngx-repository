@@ -5,8 +5,8 @@ import {Mock} from '../../test/mock.model';
 describe('SubCollectionDecorator', () => {
 
   it('should place all SubCollectionContext parameter in the good place', () => {
-    const subCollectionContext: SubCollectionContext = {
-      resourceType: Mock,
+    const subCollectionContext: SubCollectionContext<Mock> = {
+      resourceType: () => Mock,
       params: () => ({})
     };
 

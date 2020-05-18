@@ -3,15 +3,15 @@ import {Library} from '../model/library.model';
 import {Observable} from 'rxjs';
 import {LibraryQuery} from '../query/library.query';
 import {InjectRepository, Page} from '@witty-services/ngx-repository';
-import {HttpConnection, HttpRepository} from '@witty-services/ngx-http-repository';
+import {HttpRepository} from '@witty-services/ngx-http-repository';
 
 @Injectable()
 export class LibraryService {
 
-  @InjectRepository({type: Library, connection: HttpConnection})
+  @InjectRepository({resourceType: () => Library, repository: () => HttpRepository})
   private readLibraryRepository: HttpRepository<Library, string>;
 
-  @InjectRepository({type: Library, connection: HttpConnection})
+  @InjectRepository({resourceType: () => Library, repository: () => HttpRepository})
   private writeLibraryRepository: HttpRepository<Library, string>;
 
   public findAll(currentPage: number, itemPerPage: number): Observable<Page<Library>> {

@@ -2,7 +2,7 @@ import {Identifiable} from './identifiable.model';
 import {Person} from './person.model';
 import {Observable} from 'rxjs';
 import {Column, JoinColumn} from '@witty-services/ngx-repository';
-import {HttpResource} from '@witty-services/ngx-http-repository';
+import {HttpRepository, HttpResource} from '@witty-services/ngx-http-repository';
 
 @HttpResource({
   path: '/libraries/:libraryId/books/:bookId/comments'
@@ -18,7 +18,7 @@ export class Comment extends Identifiable {
   @Column()
   public book: string;
 
-  @JoinColumn({attribute: 'author', resourceType: Person})
+  @JoinColumn({attribute: 'author', resourceType: () => Person, repository: () => HttpRepository})
   public author$: Observable<Person>;
 
   public constructor(data: Partial<Comment> = {}) {

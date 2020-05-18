@@ -34,7 +34,7 @@ export function FirebaseUpdatedAt(firebaseUpdatedAtContext?: FirebaseUpdatedAtCo
       columnMetadata.field = firebaseUpdatedAtMetadata.field = firebaseUpdatedAtContext;
     }
 
-    columnMetadata.customConverter = FbTimestampConverter;
+    columnMetadata.customConverter = () => FbTimestampConverter;
     columnMetadata.readOnly = true;
     Column(columnMetadata)(target, propertyKey);
 

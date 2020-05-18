@@ -13,8 +13,7 @@ import {LibrariesService} from './service/libraries.service';
 import {NgxRepositoryModule} from '@witty-services/ngx-repository';
 import {MyPageBuilder} from './module/@core/page-builder/my.page-builder';
 import {ClientComponent} from './component/client/client.component';
-import {MyHttpCreateResponseBuilder} from './module/@core/response-builder/my-http-create.response-builder';
-import {HTTP_CREATE_RESPONSE_BUILDER, HTTP_PAGE_BUILDER_TOKEN, NgxHttpRepositoryModule} from '@witty-services/ngx-http-repository';
+import {HTTP_PAGE_BUILDER_TOKEN, NgxHttpRepositoryModule} from '@witty-services/ngx-http-repository';
 import {FIREBASE_APP, NgxFirebaseRepositoryModule} from '@witty-services/ngx-firebase-repository';
 import * as firebase from 'firebase';
 import App = firebase.app.App;
@@ -55,10 +54,6 @@ export function createFirebaseApp(): App {
     {
       provide: HTTP_PAGE_BUILDER_TOKEN,
       useClass: MyPageBuilder
-    },
-    {
-      provide: HTTP_CREATE_RESPONSE_BUILDER,
-      useClass: MyHttpCreateResponseBuilder
     },
     {
       provide: FIREBASE_APP,

@@ -3,7 +3,7 @@ import {Column, Page, SubCollection} from '@witty-services/ngx-repository';
 import {Observable} from 'rxjs';
 import {Purchase} from './purchase.model';
 import {PurchaseQuery} from '../query/purchase.query';
-import {FirebaseCreatedAt, FirebaseResource, FirebaseUpdatedAt} from '@witty-services/ngx-firebase-repository';
+import {FirebaseCreatedAt, FirebaseRepository, FirebaseResource, FirebaseUpdatedAt} from '@witty-services/ngx-firebase-repository';
 
 @FirebaseResource({
   path: '/clients'
@@ -19,7 +19,11 @@ export class Client extends Identifiable {
   @Column()
   public lastName: string;
 
-  @SubCollection({resourceType: Purchase, params: (client: Client) => new PurchaseQuery({clientId: client.id})})
+  @SubCollection({
+    resourceType: () => Purchase,
+    params: (client: Client) => new PurchaseQuery({clientId: client.id}),
+    repository: () => FirebaseRepository
+  })
   public purchases$: Observable<Page<Purchase>>;
 
   @FirebaseCreatedAt()

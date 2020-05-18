@@ -15,7 +15,9 @@ import {Book} from '../../module/@core/model/book.model';
 export class LibraryComponent {
 
   public library$: Observable<Library>;
+
   private reload$: BehaviorSubject<void> = new BehaviorSubject<void>(void 0);
+
   private expandedBooks: Map<string, boolean> = new Map<string, boolean>();
 
   public constructor(activatedRoute: ActivatedRoute,

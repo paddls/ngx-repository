@@ -1,51 +1,41 @@
-import {Injector} from '@angular/core';
 import {NgxRepositoryModule} from '../ngx-repository.module';
 import {INJECT_REPOSITORY_METADATA_KEY, InjectRepository} from './inject-repository.decorator';
 import {Mock} from '../../test/mock.model';
 
-const connection: any = {
+const ngxRepositoryService: any = {
   getRepository: () => void 0
 };
 
 class MyService {
-  @InjectRepository({type: Mock, connection})
+  @InjectRepository({resourceType: () => Mock})
   public test: any;
 
-  @InjectRepository({type: Mock, connection})
+  @InjectRepository({resourceType: () => Mock})
   public test2: any;
 }
 
 describe('InjectRepositoryDecorator', () => {
 
-  it('should place all context in good place and define a new property with the good value', () => {
+  it('should place all context in good place and define a new property with the good value without repository type', () => {
     const repository: any = {};
-    const injector: Injector = {
-      get: () => void 0
-    };
 
-    NgxRepositoryModule.injector = injector;
-    spyOn(injector, 'get').and.returnValue(connection);
-    spyOn(connection, 'getRepository').and.returnValue(repository);
+    NgxRepositoryModule.ngxRepositoryService = ngxRepositoryService;
+    spyOn(ngxRepositoryService, 'getRepository').and.returnValue(repository);
 
     const obj: MyService = new MyService();
 
-    expect(Reflect.getMetadata(INJECT_REPOSITORY_METADATA_KEY, MyService.prototype)).toEqual([
-      {
-        propertyKey: 'test',
-        type: Mock,
-        connection
-      },
-      {
-        propertyKey: 'test2',
-        type: Mock,
-        connection
-      }
-    ]);
+    expect(Reflect.getMetadata(INJECT_REPOSITORY_METADATA_KEY, MyService.prototype).length).toEqual(2);
+
+    expect(Reflect.getMetadata(INJECT_REPOSITORY_METADATA_KEY, MyService.prototype)[0].propertyKey).toEqual('test');
+    expect(Reflect.getMetadata(INJECT_REPOSITORY_METADATA_KEY, MyService.prototype)[0].resourceType instanceof Function).toBe(true);
+    expect(Reflect.getMetadata(INJECT_REPOSITORY_METADATA_KEY, MyService.prototype)[0].resourceType()).toEqual(Mock);
+
+    expect(Reflect.getMetadata(INJECT_REPOSITORY_METADATA_KEY, MyService.prototype)[1].propertyKey).toEqual('test2');
+    expect(Reflect.getMetadata(INJECT_REPOSITORY_METADATA_KEY, MyService.prototype)[1].resourceType instanceof Function).toBe(true);
+    expect(Reflect.getMetadata(INJECT_REPOSITORY_METADATA_KEY, MyService.prototype)[1].resourceType()).toEqual(Mock);
 
     expect(obj.test).toEqual(repository);
-    expect(injector.get).toHaveBeenCalledTimes(1);
-    expect(injector.get).toHaveBeenCalledWith(connection);
-    expect(connection.getRepository).toHaveBeenCalledTimes(1);
-    expect(connection.getRepository).toHaveBeenCalledWith(Mock);
+    expect(ngxRepositoryService.getRepository).toHaveBeenCalledTimes(1);
+    expect(ngxRepositoryService.getRepository).toHaveBeenCalledWith(Mock, null);
   });
 });

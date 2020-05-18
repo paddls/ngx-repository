@@ -9,6 +9,11 @@
     <button type="submit" (click)="onUpdateLibrary(library)">Submit</button>
   </form>
 
+  <h2>Library address</h2>
+  <p>{{ library.address.address }}</p>
+  <p>{{ library.address.postCode }}</p>
+  <p>{{ library.address.city }}</p>
+
   <h2>Books</h2>
   <ul class="books" *ngIf="library.books$|async as books">
     <li *ngFor="let book of books" class="book">
@@ -21,7 +26,8 @@
         <h4>Description</h4>
         <ul class="book-settings">
           <li>Written by {{ (book.author$|async)?.fullName }}</li>
-          <li>Edited by {{ (book.author$|async)?.fullName }}</li>
+          <li>Edited by {{ (book.editor$|async)?.fullName }}</li>
+          <li>Library : {{ (book.library$|async)?.identity }}</li>
         </ul>
 
         <h4>Comments</h4>
