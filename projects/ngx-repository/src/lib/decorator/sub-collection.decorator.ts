@@ -34,7 +34,7 @@ export function SubCollection<T>(subCollectionContext: SubCollectionContext<T>):
           return Reflect.getOwnMetadata(`${SUB_COLLECTION_OBS_METADATA_KEY}:${propertyKey}`, this);
         }
 
-        const obs$: Observable<any> = NgxRepositoryModule.ngxRepositoryService
+        const obs$: Observable<any> = NgxRepositoryModule.getNgxRepositoryService()
           .getRepository(subCollectionContext.resourceType(), subCollectionContext.repository ? subCollectionContext.repository() : null)
           .findAll(
             subCollectionContext.params ? subCollectionContext.params(this, Reflect.getOwnMetadata(ORIGINAL_QUERY_METADATA_KEY, this)) : null

@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import {ModuleWithProviders, NgModule, Provider} from '@angular/core';
+import {Injector, ModuleWithProviders, NgModule, Provider} from '@angular/core';
 import {Normalizer} from './normalizer/normalizer';
 import {DEFAULT_NORMALIZER_CONFIGURATION, NormalizerConfiguration} from './normalizer/normalizer.configuration';
 import {NORMALIZER_CONFIGURATION_TOKEN} from './ngx-repository.module.di';
@@ -24,10 +24,10 @@ const MODULE_PROVIDERS: Provider[] = [
 })
 export class NgxRepositoryModule {
 
-  public static ngxRepositoryService: NgxRepositoryService = null;
+  public static injector: Injector = null;
 
-  public constructor(ngxRepositoryService: NgxRepositoryService) {
-    NgxRepositoryModule.ngxRepositoryService = ngxRepositoryService;
+  public constructor(injector: Injector) {
+    NgxRepositoryModule.injector = injector;
   }
 
   public static forRoot(config: Config = {}): ModuleWithProviders<NgxRepositoryModule> {
@@ -43,5 +43,9 @@ export class NgxRepositoryModule {
         }
       ]
     };
+  }
+
+  public static getNgxRepositoryService(): NgxRepositoryService {
+    return NgxRepositoryModule.injector.get(NgxRepositoryService);
   }
 }

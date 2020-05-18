@@ -36,7 +36,7 @@ export function InjectRepository<T>(params: InjectRepositoryContext<T>): any {
           return Reflect.getOwnMetadata(`${INJECT_REPOSITORY_INSTANCE_METADATA_KEY}:${propertyKey}`, this);
         }
 
-        const repository: AbstractRepository<T, any, any, any> = NgxRepositoryModule.ngxRepositoryService
+        const repository: AbstractRepository<T, any, any, any> = NgxRepositoryModule.getNgxRepositoryService()
           .getRepository(
             injectRepositoryContextConfiguration.resourceType(),
             injectRepositoryContextConfiguration.repository ? injectRepositoryContextConfiguration.repository() : null

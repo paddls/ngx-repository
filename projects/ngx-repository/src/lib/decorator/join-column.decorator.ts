@@ -33,7 +33,7 @@ export function JoinColumn<T>(joinColumnContext: JoinColumnContext<T>): any {
           return Reflect.getOwnMetadata(`${JOIN_COLUMN_OBS_METADATA_KEY}:${propertyKey}`, this);
         }
 
-        const obs$: Observable<any> = NgxRepositoryModule.ngxRepositoryService
+        const obs$: Observable<any> = NgxRepositoryModule.getNgxRepositoryService()
           .getRepository(joinColumnContext.resourceType(), joinColumnContext.repository ? joinColumnContext.repository() : null)
           .findOne(this[joinColumnContext.attribute]);
 

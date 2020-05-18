@@ -19,7 +19,7 @@ describe('InjectRepositoryDecorator', () => {
   it('should place all context in good place and define a new property with the good value without repository type', () => {
     const repository: any = {};
 
-    NgxRepositoryModule.ngxRepositoryService = ngxRepositoryService;
+    spyOn(NgxRepositoryModule, 'getNgxRepositoryService').and.returnValue(ngxRepositoryService);
     spyOn(ngxRepositoryService, 'getRepository').and.returnValue(repository);
 
     const obj: MyService = new MyService();
