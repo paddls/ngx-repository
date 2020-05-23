@@ -4,6 +4,7 @@ import {NormalizerConfiguration} from './normalizer.configuration';
 import {Inject, Injectable} from '@angular/core';
 import {Query} from '../query-builder/query';
 import {NORMALIZER_CONFIGURATION_TOKEN} from '../ngx-repository.module.di';
+import {Request} from '../query-builder/request';
 
 export const ORIGINAL_QUERY_METADATA_KEY: string = 'originalQuery';
 
@@ -12,7 +13,7 @@ export class Denormalizer {
 
   public constructor(@Inject(NORMALIZER_CONFIGURATION_TOKEN) private configuration: NormalizerConfiguration) {}
 
-  public denormalize<T>(type: new() => T, data: any|any[], query?: Query<any>): T {
+  public denormalize<T>(type: new() => T, data: any|any[], query?: Query<any>, request?: Request): T {
     if (!data) {
       return null;
     }

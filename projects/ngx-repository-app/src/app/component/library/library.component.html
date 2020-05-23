@@ -28,6 +28,7 @@
           <li>Written by {{ (book.author$|async)?.fullName }}</li>
           <li>Edited by {{ (book.editor$|async)?.fullName }}</li>
           <li>Library : {{ (book.library$|async)?.identity }}</li>
+          <li><button (click)="onUpdateBookTitle(book)">Update title</button></li>
         </ul>
 
         <h4>Comments</h4>

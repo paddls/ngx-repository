@@ -3,7 +3,7 @@ import {Comment} from './comment.model';
 import {Observable} from 'rxjs';
 import {Identifiable} from './identifiable.model';
 import {CommentQuery} from '../query/comment.query';
-import {Column, JoinColumn, SubCollection} from '@witty-services/ngx-repository';
+import {Column, JoinColumn, PathColumn, SubCollection} from '@witty-services/ngx-repository';
 import {HttpRepository, HttpResource} from '@witty-services/ngx-http-repository';
 import {Library} from './library.model';
 import {PersonRepository} from '../repository/person.repository';
@@ -22,10 +22,13 @@ export class Book extends Identifiable {
   @Column({field: 'editor.id'})
   public editorId: string;
 
+  @PathColumn('libraryId')
+  public LIBRARYID: string;
+
   @Column()
   public library: string;
 
-  @JoinColumn({attribute: 'library', resourceType: () => Library, repository: () => HttpRepository})
+  @JoinColumn({attribute: 'LIBRARYID', resourceType: () => Library, repository: () => HttpRepository})
   public library$: Observable<Library>;
 
   @JoinColumn({attribute: 'authorId', resourceType: () => Person, repository: () => PersonRepository})
@@ -36,7 +39,7 @@ export class Book extends Identifiable {
 
   @SubCollection({
     resourceType: () => Comment,
-    params: (book: Book, params: any) => new CommentQuery({bookId: book.id, libraryId: params.libraryId}),
+    params: (book: Book, params: any) => new CommentQuery({bookId: book.id, libraryId: params.LIBRARY_ID}),
     repository: () => HttpRepository
   })
   public comments$: Observable<Comment[]>;

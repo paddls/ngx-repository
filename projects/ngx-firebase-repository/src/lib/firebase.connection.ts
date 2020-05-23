@@ -9,7 +9,7 @@ import {
   FIREBASE_FIND_ONE_RESPONSE_BUILDER,
   FIREBASE_PAGE_BUILDER_TOKEN
 } from './ngx-firebase-repository.module.di';
-import {AbstractRepository, Connection, Denormalizer, PageBuilder, ResponseBuilder} from '@witty-services/ngx-repository';
+import {AbstractRepository, Connection, PageBuilder, PathDenormalizer, ResponseBuilder} from '@witty-services/ngx-repository';
 import {FirebaseNormalizer} from './firebase.normalizer';
 
 @Injectable()
@@ -17,7 +17,7 @@ export class FirebaseConnection extends Connection<FirebaseResourceContext, Obse
 
   public constructor(private readonly driver: FirebaseDriver,
                      private readonly normalizer: FirebaseNormalizer,
-                     private readonly denormalizer: Denormalizer,
+                     private readonly pathDenormalizer: PathDenormalizer,
                      private readonly queryBuilder: FirebaseQueryBuilder,
                      @Inject(FIREBASE_PAGE_BUILDER_TOKEN) private readonly pageBuilder: PageBuilder<any>,
                      @Inject(FIREBASE_CREATE_RESPONSE_BUILDER) private readonly firebaseItemCreateBuilder: ResponseBuilder<any>,
@@ -29,7 +29,7 @@ export class FirebaseConnection extends Connection<FirebaseResourceContext, Obse
     return new FirebaseRepository<T, K>(
       this.driver,
       this.normalizer,
-      this.denormalizer,
+      this.pathDenormalizer,
       this.queryBuilder,
       this.pageBuilder,
       this.firebaseItemCreateBuilder,

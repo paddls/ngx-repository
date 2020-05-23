@@ -29,7 +29,7 @@ export class Library extends Identifiable {
 
   @SubCollection({
     resourceType: () => Book,
-    params: (library: Library) => new BookQuery({libraryId: library.id}),
+    params: (library: Library) => new BookQuery({LIBRARY_ID: library.id}),
     repository: () => HttpRepository
   })
   public books$: Observable<Page<Book>>;

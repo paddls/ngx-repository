@@ -2,6 +2,9 @@ import {HttpHeader, HttpQueryParam} from '@witty-services/ngx-http-repository';
 
 export class LibraryQuery {
 
+  @HttpQueryParam('id')
+  public libraryId: string;
+
   @HttpQueryParam()
   public opened: boolean;
 

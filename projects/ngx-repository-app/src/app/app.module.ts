@@ -17,6 +17,7 @@ import {HTTP_PAGE_BUILDER_TOKEN, NgxHttpRepositoryModule} from '@witty-services/
 import {FIRESTORE_APP, NgxFirebaseRepositoryModule} from '@witty-services/ngx-firebase-repository';
 import * as firebase from 'firebase';
 import Firestore = firebase.firestore.Firestore;
+import {BookService} from './module/@core/service/book.service';
 
 export function createFirestore(): Firestore {
   return firebase.initializeApp({
@@ -51,6 +52,7 @@ export function createFirestore(): Firestore {
   ],
   providers: [
     LibrariesService,
+    BookService,
     {
       provide: HTTP_PAGE_BUILDER_TOKEN,
       useClass: MyPageBuilder

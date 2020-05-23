@@ -6,6 +6,7 @@ import {filter, map, switchMap, switchMapTo} from 'rxjs/operators';
 import {LibraryService} from '../../module/@core/service/library.service';
 import {LibrariesService} from '../../service/libraries.service';
 import {Book} from '../../module/@core/model/book.model';
+import {BookService} from '../../module/@core/service/book.service';
 
 @Component({
   selector: 'app-library',
@@ -23,6 +24,7 @@ export class LibraryComponent {
   public constructor(activatedRoute: ActivatedRoute,
                      private librariesService: LibrariesService,
                      private libraryService: LibraryService,
+                     private bookService: BookService,
                      private router: Router) {
     this.library$ = this.reload$.pipe(
       switchMapTo(activatedRoute.params),
@@ -60,5 +62,9 @@ export class LibraryComponent {
         this.librariesService.refresh();
       }
     );
+  }
+
+  public onUpdateBookTitle(book: Book): void {
+    this.bookService.update(book).subscribe();
   }
 }

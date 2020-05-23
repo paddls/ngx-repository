@@ -11,8 +11,8 @@ import {PathQueryBuilder} from '@witty-services/ngx-repository';
 @Injectable()
 export class HttpQueryBuilder extends PathQueryBuilder<HttpResourceContext> {
 
-  public buildRequestFromQuery<K>(query: HttpQuerySettings<K>): HttpRequest<K> {
-    const httpRequest: HttpRequest<K> = new HttpRequest(super.buildRequestFromQuery(query));
+  public buildRequestFromQuery<T, K>(query: HttpQuerySettings<K>, object?: T): HttpRequest<K> {
+    const httpRequest: HttpRequest<K> = new HttpRequest(super.buildRequestFromQuery(query, object));
 
     if (!query || !query.settings) {
       return httpRequest;

@@ -12,6 +12,7 @@ export {Column, ColumnContext, COLUMNS_METADATA_KEY, ColumnContextConfiguration}
 export {Id, IdContext} from './lib/decorator/id.decorator';
 export {InjectRepository, InjectRepositoryContext} from './lib/decorator/inject-repository.decorator';
 export {JoinColumn, JoinColumnContext} from './lib/decorator/join-column.decorator';
+export {PathColumn, PathColumnContext} from './lib/decorator/path-column.decorator';
 export {PathParam, PathParamContext} from './lib/decorator/path-param.decorator';
 export {Repository, RepositoryContextConfiguration} from './lib/decorator/repository.decorator';
 export {SubCollection, SubCollectionContext} from './lib/decorator/sub-collection.decorator';
@@ -23,6 +24,7 @@ export {ResponseBuilder} from './lib/item-builder/response-builder';
 export {Denormalizer} from './lib/normalizer/denormalizer';
 export {NormalizerConfiguration} from './lib/normalizer/normalizer.configuration';
 export {Normalizer} from './lib/normalizer/normalizer';
+export {PathDenormalizer} from './lib/normalizer/path.denormalizer';
 
 export {Page} from './lib/page-builder/page';
 export {PageBuilder} from './lib/page-builder/page-builder';

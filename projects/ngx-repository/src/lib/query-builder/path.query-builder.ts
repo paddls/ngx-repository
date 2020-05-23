@@ -4,10 +4,11 @@ import {PATH_PARAM_METADATA_KEY, PathParamContextConfiguration} from '../decorat
 import {PathRequest} from './path.request';
 import {PathContext} from '../common/path/path-context';
 import {isNullOrUndefined} from 'util';
+import {PATH_COLUMN_METADATA_KEY, PathColumnContextConfiguration} from '../decorator/path-column.decorator';
 
 export abstract class PathQueryBuilder<RC extends PathContext> implements QueryBuilder<RC> {
 
-  public buildRequestFromQuery<K>(query: PathQuerySettings<RC, K>): PathRequest<K> {
+  public buildRequestFromQuery<T, K>(query: PathQuerySettings<RC, K>, object?: T): PathRequest<K> {
     const pathRequest: PathRequest<K> = new PathRequest<K>({
       pathParams : {}
     });
@@ -17,6 +18,17 @@ export abstract class PathQueryBuilder<RC extends PathContext> implements QueryB
     }
 
     pathRequest.paths = query.resourceConfiguration;
+
+    if (object) {
+      const pathColumns: PathColumnContextConfiguration[] = Reflect.getMetadata(PATH_COLUMN_METADATA_KEY, object) || [];
+      pathColumns.forEach((pc: PathParamContextConfiguration) => {
+        if (isNullOrUndefined(object[pc.propertyKey])) {
+          return;
+        }
+
+        pathRequest.pathParams[`:${pc.name}`] = object[pc.propertyKey];
+      });
+    }
 
     if (!query.settings) {
       return pathRequest;

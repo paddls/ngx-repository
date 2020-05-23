@@ -1,10 +1,10 @@
 {
   "name": "@witty-services/ngx-firebase-repository",
-  "version": "2.0.0-rc.16",
+  "version": "2.0.0-rc.17",
   "peerDependencies": {
     "@angular/common": ">=8.0.3-rc.0 || >=8.0.3",
     "@angular/core": ">=8.0.3-rc.0 || >=8.0.3",
-    "@witty-services/ngx-repository": "2.0.0-rc.13",
+    "@witty-services/ngx-repository": "2.0.0-rc.14",
     "firebase": "^7.14.1"
   },
   "repository": {

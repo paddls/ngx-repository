@@ -6,6 +6,7 @@ import {DEFAULT_NORMALIZER_CONFIGURATION, NormalizerConfiguration} from './norma
 import {NORMALIZER_CONFIGURATION_TOKEN} from './ngx-repository.module.di';
 import {Denormalizer} from './normalizer/denormalizer';
 import {NgxRepositoryService} from './ngx-repository.service';
+import {PathDenormalizer} from './normalizer/path.denormalizer';
 
 export interface Config {
   normalizerConfiguration?: NormalizerConfiguration;
@@ -14,7 +15,8 @@ export interface Config {
 const MODULE_PROVIDERS: Provider[] = [
   Denormalizer,
   NgxRepositoryService,
-  Normalizer
+  Normalizer,
+  PathDenormalizer
 ];
 
 @NgModule({

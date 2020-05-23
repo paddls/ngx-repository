@@ -48,7 +48,7 @@ export class ClientService {
   }
 
   public findById(id: string): Observable<Client> {
-    return this.repository.findOne(id);
+    return this.repository.findById(id);
   }
 
   public delete(client: Client): Observable<void> {

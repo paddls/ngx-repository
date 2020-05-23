@@ -20,8 +20,8 @@ import {PathQueryBuilder, PropertyKeyConfiguration} from '@witty-services/ngx-re
 @Injectable()
 export class FirebaseQueryBuilder extends PathQueryBuilder<FirebaseResourceContext> {
 
-  public buildRequestFromQuery<K>(query: FirebaseQuerySettings<K>): FirebaseRequest<K> {
-    const firebaseRequest: FirebaseRequest<K> = new FirebaseRequest<K>(super.buildRequestFromQuery(query));
+  public buildRequestFromQuery<T, K>(query: FirebaseQuerySettings<K>, object?: T): FirebaseRequest<K> {
+    const firebaseRequest: FirebaseRequest<K> = new FirebaseRequest<K>(super.buildRequestFromQuery(query, object));
 
     if (!query || !query.settings) {
       return firebaseRequest;

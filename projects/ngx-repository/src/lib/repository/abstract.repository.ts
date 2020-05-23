@@ -18,6 +18,7 @@ import {Observable} from 'rxjs';
 import {map, mapTo} from 'rxjs/operators';
 import {ColumnContextConfiguration, COLUMNS_METADATA_KEY} from '../decorator/column.decorator';
 import {isNullOrUndefined} from 'util';
+import {Request} from '../query-builder/request';
 
 export abstract class AbstractRepository<T, K, RC, RS> {
 
@@ -60,24 +61,31 @@ export abstract class AbstractRepository<T, K, RC, RS> {
   }
 
   public findAll(query?: any): Observable<Page<T>> {
-    return this.pageBuilder.buildPage(
-      this.driver.findBy(
-        this.queryBuilder.buildRequestFromQuery(this.buildQuery(query)),
-      ),
-      this
-    ).pipe(
-      map((data: Page<T>) => this.denormalizeAll(data, query))
+    const request: Request = this.queryBuilder.buildRequestFromQuery(this.buildQuery(query));
+
+    return this.pageBuilder.buildPage(this.driver.findBy(request), this).pipe(
+      map((data: Page<T>) => this.denormalizeAll(data, query, request))
     );
   }
 
-  public findOne(id: K, query: any = {}): Observable<T> {
+  public findById(id: K, query: any = {}): Observable<T> {
     query.id = id;
+    const request: Request = this.queryBuilder.buildRequestFromQuery(this.buildQuery(query));
 
     return this.findOneResponseBuilder.build(
-      this.driver.findOne(this.queryBuilder.buildRequestFromQuery(this.buildQuery(query))),
+      this.driver.findOne(request),
       this
     ).pipe(
-      map((data: any) => this.denormalizeOne(data, query))
+      map((data: any) => this.denormalizeOne(data, query, request))
+    );
+  }
+
+  public findOneBy(query: any = {}): Observable<T> {
+    const request: Request = this.queryBuilder.buildRequestFromQuery(this.buildQuery(query));
+
+    return this.findOneResponseBuilder.build(this.driver.findBy(request), this).pipe(
+      map((data: any) => Array.isArray(data) ? data[0] : data),
+      map((data: any) => this.denormalizeOne(data, query, request))
     );
   }
 
@@ -85,7 +93,7 @@ export abstract class AbstractRepository<T, K, RC, RS> {
     return this.createResponseBuilder.build(
       this.driver.create(
         this.normalizeOne(object),
-        this.queryBuilder.buildRequestFromQuery(this.buildQuery(query))
+        this.queryBuilder.buildRequestFromQuery(this.buildQuery(query), object)
       ),
       this
     );
@@ -99,7 +107,7 @@ export abstract class AbstractRepository<T, K, RC, RS> {
 
     return this.driver.update(
       this.normalizeOne(object),
-      this.queryBuilder.buildRequestFromQuery(this.buildQuery(query))
+      this.queryBuilder.buildRequestFromQuery(this.buildQuery(query), object)
     ).pipe(
       mapTo(void 0)
     );
@@ -111,7 +119,7 @@ export abstract class AbstractRepository<T, K, RC, RS> {
       throw new Error('There is no id column configured. See @Id() decorator.');
     }
 
-    return this.driver.delete(this.queryBuilder.buildRequestFromQuery(this.buildQuery(query))).pipe(
+    return this.driver.delete(this.queryBuilder.buildRequestFromQuery(this.buildQuery(query), object)).pipe(
       mapTo(void 0)
     );
   }
@@ -139,7 +147,7 @@ export abstract class AbstractRepository<T, K, RC, RS> {
     );
   }
 
-  protected denormalizeAll(datas: Page<any>, query: Query<K>): Page<T> {
+  protected denormalizeAll(datas: Page<any>, query: Query<K>, request: Request): Page<T> {
     if (!datas) {
       return new Page();
     }
@@ -148,16 +156,16 @@ export abstract class AbstractRepository<T, K, RC, RS> {
       throw new Error('Data is not an array, please pass only array in denormalizeAll method.');
     }
 
-    return datas.map((d: any) => this.denormalizeOne(d, query));
+    return datas.map((d: any) => this.denormalizeOne(d, query, request));
   }
 
-  protected denormalizeOne(data: any, query: Query<K>): T {
+  protected denormalizeOne(data: any, query: Query<K>, request: Request): T {
     const repositoryContextConfiguration: RepositoryContextConfiguration = this.repositoryContextConfiguration;
     if (!repositoryContextConfiguration) {
       throw new Error('There is no Resource type configuration for this repository.');
     }
 
-    return this.denormalizer.denormalize(repositoryContextConfiguration.resourceType(), data, query);
+    return this.denormalizer.denormalize(repositoryContextConfiguration.resourceType(), data, query, request);
   }
 
   protected normalizeOne(data: T): any {
