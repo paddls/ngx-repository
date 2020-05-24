@@ -1,21 +1,27 @@
 import 'reflect-metadata';
 
 import {Injector, ModuleWithProviders, NgModule, Provider} from '@angular/core';
-import {Normalizer} from './normalizer/normalizer';
-import {DEFAULT_NORMALIZER_CONFIGURATION, NormalizerConfiguration} from './normalizer/normalizer.configuration';
 import {NORMALIZER_CONFIGURATION_TOKEN} from './ngx-repository.module.di';
-import {Denormalizer} from './normalizer/denormalizer';
 import {NgxRepositoryService} from './ngx-repository.service';
 import {PathDenormalizer} from './normalizer/path.denormalizer';
+import {DEFAULT_NORMALIZER_CONFIGURATION, Normalizer, NormalizerConfiguration} from '@witty-services/ts-serializer';
+
+export function normalizerFactory(configuration: NormalizerConfiguration): Normalizer {
+  return new Normalizer(configuration);
+}
 
 export interface Config {
   normalizerConfiguration?: NormalizerConfiguration;
 }
 
 const MODULE_PROVIDERS: Provider[] = [
-  Denormalizer,
+  PathDenormalizer,
   NgxRepositoryService,
-  Normalizer,
+  {
+    provide: Normalizer,
+    useFactory: normalizerFactory,
+    deps: [NORMALIZER_CONFIGURATION_TOKEN]
+  },
   PathDenormalizer
 ];
 

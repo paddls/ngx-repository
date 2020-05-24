@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import {Book} from './book.model';
 import {Address} from './address.model';
 import {BookQuery} from '../query/book.query';
-import {Column, DateConverter, Page, SubCollection} from '@witty-services/ngx-repository';
+import {Page, SubCollection, Column, DateConverter} from '@witty-services/ngx-repository';
 import {HttpRepository, HttpResource} from '@witty-services/ngx-http-repository';
 
 @HttpResource({

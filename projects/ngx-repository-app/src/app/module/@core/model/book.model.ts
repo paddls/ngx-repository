@@ -3,7 +3,7 @@ import {Comment} from './comment.model';
 import {Observable} from 'rxjs';
 import {Identifiable} from './identifiable.model';
 import {CommentQuery} from '../query/comment.query';
-import {Column, JoinColumn, PathColumn, SubCollection} from '@witty-services/ngx-repository';
+import {JoinColumn, PathColumn, SubCollection, Column} from '@witty-services/ngx-repository';
 import {HttpRepository, HttpResource} from '@witty-services/ngx-http-repository';
 import {Library} from './library.model';
 import {PersonRepository} from '../repository/person.repository';

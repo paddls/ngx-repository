@@ -1,4 +1,4 @@
-import {Column} from './column.decorator';
+import {Column} from '@witty-services/ts-serializer';
 
 export const ID_METADATA_KEY: string = 'id';
 

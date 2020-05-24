@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import {AbstractRepository} from '../repository/abstract.repository';
 import {NgxRepositoryModule} from '../ngx-repository.module';
 import {Type} from '@angular/core';
-import {ORIGINAL_QUERY_METADATA_KEY} from '../normalizer/denormalizer';
+import {ORIGINAL_QUERY_METADATA_KEY} from '../normalizer/path.denormalizer';
 
 export const SUB_COLLECTION_METADATA_KEY: string = 'subCollections';
 export const SUB_COLLECTION_OBS_METADATA_KEY: string = 'subCollectionObs';

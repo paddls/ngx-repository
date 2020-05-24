@@ -1,12 +1,16 @@
-import {Normalizer} from '@witty-services/ngx-repository';
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {set} from 'lodash';
 import * as firebase from 'firebase';
 import {FIREBASE_CREATED_AT_METADATA_KEY, FirebaseCreatedAtContextConfiguration} from './decorator/firebase-created-at.decorator';
 import {FIREBASE_UPDATED_AT_METADATA_KEY, FirebaseUpdatedAtContextConfiguration} from './decorator/firebase-updated-at.decorator';
+import {Normalizer, NORMALIZER_CONFIGURATION_TOKEN, NormalizerConfiguration} from '@witty-services/ngx-repository';
 
 @Injectable()
 export class FirebaseNormalizer extends Normalizer {
+
+  public constructor(@Inject(NORMALIZER_CONFIGURATION_TOKEN) configuration: NormalizerConfiguration) {
+    super(configuration);
+  }
 
   public normalize<T>(object: T): any {
     const result: {} = super.normalize(object);

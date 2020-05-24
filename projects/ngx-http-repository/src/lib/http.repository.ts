@@ -3,18 +3,14 @@ import {HTTP_RESOURCE_METADATA_KEY, HttpResourceContext} from './decorator/http-
 import {HttpDriver} from './http.driver';
 import {HttpQueryBuilder} from './http.query-builder';
 import {Inject, Injector, Optional} from '@angular/core';
-import {
-  HTTP_CREATE_RESPONSE_BUILDER,
-  HTTP_FIND_ONE_RESPONSE_BUILDER,
-  HTTP_PAGE_BUILDER_TOKEN
-} from './ngx-http-repository.module.di';
-import {AbstractRepository, Denormalizer, Normalizer, PageBuilder, ResponseBuilder} from '@witty-services/ngx-repository';
+import {HTTP_CREATE_RESPONSE_BUILDER, HTTP_FIND_ONE_RESPONSE_BUILDER, HTTP_PAGE_BUILDER_TOKEN} from './ngx-http-repository.module.di';
+import {AbstractRepository, Normalizer, PageBuilder, PathDenormalizer, ResponseBuilder} from '@witty-services/ngx-repository';
 
 export class HttpRepository<T, K> extends AbstractRepository<T, K, HttpResourceContext, HttpResponse<any>> {
 
   public constructor(httpDriver: HttpDriver,
                      normalizer: Normalizer,
-                     denormalizer: Denormalizer,
+                     denormalizer: PathDenormalizer,
                      httpQueryBuilder: HttpQueryBuilder,
                      @Inject(HTTP_PAGE_BUILDER_TOKEN) httpPageBuilder: PageBuilder<HttpResponse<any>>,
                      @Inject(HTTP_CREATE_RESPONSE_BUILDER) httpCreateResponseBuilder: ResponseBuilder<HttpResponse<any>>,

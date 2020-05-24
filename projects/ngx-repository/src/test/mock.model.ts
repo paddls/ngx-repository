@@ -1,4 +1,4 @@
-import {Column} from '../lib/decorator/column.decorator';
+import {Column} from '@witty-services/ts-serializer';
 
 export class Mock {
 

@@ -1,7 +1,7 @@
 import {Identifiable} from './identifiable.model';
 import {Person} from './person.model';
 import {Observable} from 'rxjs';
-import {Column, JoinColumn} from '@witty-services/ngx-repository';
+import {JoinColumn, Column} from '@witty-services/ngx-repository';
 import {HttpRepository, HttpResource} from '@witty-services/ngx-http-repository';
 
 @HttpResource({
