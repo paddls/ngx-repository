@@ -37,4 +37,16 @@ export {NORMALIZER_CONFIGURATION_TOKEN, CONNECTIONS_TOKEN} from './lib/ngx-repos
 
 export {NgxRepositoryModule} from './lib/ngx-repository.module';
 
-export {Column, ColumnContext, ColumnContextConfiguration, COLUMNS_METADATA_KEY, NormalizerConfiguration, Normalizer, DEFAULT_NORMALIZER_CONFIGURATION, Denormalizer, Serializer, DateConverter, Converter} from '@witty-services/ts-serializer';
+export {
+  Column,
+  ColumnContext,
+  ColumnContextConfiguration,
+  COLUMNS_METADATA_KEY,
+  NormalizerConfiguration,
+  Normalizer,
+  DEFAULT_NORMALIZER_CONFIGURATION,
+  Denormalizer,
+  Serializer,
+  DateConverter,
+  Converter
+} from '@witty-services/ts-serializer';
