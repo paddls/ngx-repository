@@ -75,7 +75,7 @@ export abstract class AbstractRepository<T, K, RC, RS> {
     );
   }
 
-  public findOneBy(query: any = {}): Observable<T> {
+  public findOne(query: any = {}): Observable<T> {
     const request: Request = this.queryBuilder.buildRequestFromQuery(this.buildQuery(query));
 
     return this.findOneResponseBuilder.build(this.driver.findBy(request), this).pipe(

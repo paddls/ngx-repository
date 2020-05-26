@@ -3,12 +3,12 @@ import {InjectionToken} from '@angular/core';
 export class TokenRegistry {
 
   private static tokenRegistry: Map<string, Map<string, InjectionToken<any>>> = new Map<string, Map<string, InjectionToken<any>>>(
-    [['general', new Map<string, InjectionToken<any>>()]]
+    [['general', new Map<any, InjectionToken<any>>()]]
   );
 
-  public static addTokenToRegistry<T>(tokenKey: string, registry: string = 'general'): InjectionToken<T> {
+  public static addTokenToRegistry<T>(tokenKey: any, registry: string = 'general'): InjectionToken<T> {
     if (!TokenRegistry.tokenRegistry.has(registry)) {
-      TokenRegistry.tokenRegistry.set(registry, new Map<string, InjectionToken<any>>());
+      TokenRegistry.tokenRegistry.set(registry, new Map<any, InjectionToken<any>>());
     }
 
     const token: InjectionToken<T> = new InjectionToken<T>(tokenKey);
@@ -17,7 +17,7 @@ export class TokenRegistry {
     return token;
   }
 
-  public static findToken<T>(tokenKey: string, registry: string = 'general'): InjectionToken<T> {
+  public static findToken<T>(tokenKey: any, registry: string = 'general'): InjectionToken<T> {
     if (!TokenRegistry.tokenRegistry.has(registry)) {
       return null;
     }
