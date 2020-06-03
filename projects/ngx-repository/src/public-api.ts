@@ -5,6 +5,7 @@ export {PathContextUtil} from './lib/common/path/path-context-util';
 
 export {Connection} from './lib/connection/connection';
 
+export {Column, ColumnContext, ColumnContextConfiguration, COLUMNS_METADATA_KEY} from './lib/decorator/column.decorator';
 export {Id, IdContext} from './lib/decorator/id.decorator';
 export {InjectRepository, InjectRepositoryContext} from './lib/decorator/inject-repository.decorator';
 export {JoinColumn, JoinColumnContext} from './lib/decorator/join-column.decorator';
@@ -38,10 +39,6 @@ export {NORMALIZER_CONFIGURATION_TOKEN, CONNECTIONS_TOKEN} from './lib/ngx-repos
 export {NgxRepositoryModule} from './lib/ngx-repository.module';
 
 export {
-  Column,
-  ColumnContext,
-  ColumnContextConfiguration,
-  COLUMNS_METADATA_KEY,
   NormalizerConfiguration,
   Normalizer,
   DEFAULT_NORMALIZER_CONFIGURATION,

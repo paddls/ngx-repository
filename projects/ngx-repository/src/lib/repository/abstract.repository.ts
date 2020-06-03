@@ -12,8 +12,9 @@ import {Observable} from 'rxjs';
 import {map, mapTo} from 'rxjs/operators';
 import {isNullOrUndefined} from 'util';
 import {Request} from '../query-builder/request';
-import {ColumnContextConfiguration, COLUMNS_METADATA_KEY, Normalizer} from '@witty-services/ts-serializer';
+import {Normalizer} from '@witty-services/ts-serializer';
 import {RepositoryDenormalizer} from '../normalizer/repository-denormalizer';
+import {ColumnContextConfiguration, COLUMNS_METADATA_KEY} from '../decorator/column.decorator';
 
 export abstract class AbstractRepository<T, K, RC, RS> {
 

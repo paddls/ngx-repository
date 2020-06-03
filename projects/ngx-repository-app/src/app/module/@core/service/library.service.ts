@@ -23,7 +23,7 @@ export class LibraryService {
   }
 
   public findById(id: string): Observable<Library> {
-    return this.readLibraryRepository.findOneBy(new LibraryQuery({libraryId: id}));
+    return this.readLibraryRepository.findOne(new LibraryQuery({libraryId: id}));
   }
 
   public create(library: Library): Observable<string> {
