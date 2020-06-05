@@ -3,6 +3,7 @@ import {AbstractRepository} from '../repository/abstract.repository';
 import {Type} from '@angular/core';
 import {NgxRepositoryModule} from '../ngx-repository.module';
 import {Observable} from 'rxjs';
+import {get} from 'lodash';
 
 export const JOIN_COLUMN_METADATA_KEY: string = 'joinColumns';
 export const JOIN_COLUMN_OBS_METADATA_KEY: string = 'joinColumnObs';
@@ -35,7 +36,7 @@ export function JoinColumn<T>(joinColumnContext: JoinColumnContext<T>): any {
 
         const obs$: Observable<any> = NgxRepositoryModule.getNgxRepositoryService()
           .getRepository(joinColumnContext.resourceType(), joinColumnContext.repository ? joinColumnContext.repository() : null)
-          .findById(this[joinColumnContext.attribute]);
+          .findById(get(this, joinColumnContext.attribute, null));
 
         Reflect.defineMetadata(`${JOIN_COLUMN_OBS_METADATA_KEY}:${propertyKey}`, obs$, this);
 

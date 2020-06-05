@@ -130,7 +130,7 @@ export abstract class AbstractRepository<T, K, RC, RS> {
       throw new Error('There is no Resource type configuration for this repository.');
     }
 
-    const resourceType: () => new(...args: any[]) => any = repositoryContextConfiguration.resourceType;
+    const resourceType: new(...args: any[]) => T = repositoryContextConfiguration.resourceType();
     const propertyKey: string = Reflect.getMetadata(ID_METADATA_KEY, resourceType.prototype);
     if (!propertyKey) {
       throw new Error(`There is no id column configured for ${resourceType.name}. See @Id() decorator.`);
