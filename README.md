@@ -13,42 +13,315 @@ NgxRepository is an Angular library to make a software DAO layer to access resou
 
 ## Summary
 
-* [Installation](#installation)
-* [How to use](#how-to-use)
+* [Installation](#how-to-install)
     * [Import module](#import-module)
+    * [Http Driver](#http-driver)
+    * [Firebase Driver](#firebase-driver)
+* [How to use](#how-to-use)
 * [Install and build project](#install-and-build-project)
 
 
-## Installation
+## How to install
 
-For installing the library in your Angular with NPM, just run this command :
+First install the library in your project :
 
 ```shell script
-npm i ngx-repository
+npm install --save ngx-repository
+```
+
+Then install the corresponding driver :
+
+### Http Driver
+```shell script
+npm install --save ngx-http-repository
+```
+
+### Firebase Driver
+
+```shell script
+npm install --save ngx-firebase-repository
+```
+
+### Import module
+
+First, import the ` NgxRepositoryModule` and it's driver : 
+
+```typescript
+import {NgxRepositoryModule} from '@witty-services/ngx-repository'; 
+import {NgxHttpRepositoryModule} from '@witty-services/ngx-http-repository';
+import {NgxFirebaseRepositoryModule} from '@witty-services/ngx-firebase-repository';
+
+@NgModule({
+    imports: [
+        NgxRepositoryModule.forRoot(),
+        NgxHttpRepositoryModule, // Http driver
+        NgxFirebaseRepositoryModule.forRoot(), // Firebase driver
+    ]
+})
+export class AppModule {
+}
+```
+
+#### HttpRepository
+
+Define the strategy for page building
+
+```typescript
+@Injectable()
+export class PageBuilderService implements PageBuilder<HttpResponse<any>> {
+
+    public buildPage(response$: Observable<HttpResponse<any>>, repository: HttpRepository<any, any>): Observable<Page<any>> {
+        return response$.pipe(
+            map((response: HttpResponse<any>) => {
+                const page: Page<any> = new Page<any>(response.body);
+
+                page.totalItems =; ... // get total items from response;
+                page.itemsPerPage =; ... // get item per page from response;
+                page.currentPage =; ... // get current page from response;
+
+                return page;
+            })
+        );
+    }
+}
+```
+
+then provide it inside AppModule as HTTP_PAGE_BUILDER_TOKEN
+```typescript
+@NgModule({
+    providers: [
+        {
+            provide: HTTP_PAGE_BUILDER_TOKEN,
+            useClass: PageBuilderService
+        },
+    ]
+})
+export class AppModule {
+}
+```
+
+#### FirebaseRepository
+
+```typescript
+export function createFirestore(): Firestore {
+  return firebase.initializeApp({
+    apiKey: 'TODO',
+    authDomain: 'TODO',
+    databaseURL: 'TODO',
+    projectId: 'TODO',
+    storageBucket: 'TODO',
+    messagingSenderId: 'TODO',
+    appId: 'TODO',
+    measurementId: 'TODO'
+  }).firestore();
+}
+
+@NgModule({
+    // ...
+    providers: [
+        {
+           provide: FIRESTORE_APP,
+           useFactory: createFirestore
+        },
+        // ...
+    ]
+    // ...
+})
+export class AppModule {
+}
 ```
 
 ## How to use
 
-### Import module
+### Ressource
 
-The first step is to import the ` NgxRepository` module : 
+Define the model, the mapping, and the location of the resource. Then the system will build the corresponding repository.
 
 ```typescript
-// ...
-import {NgxRepositoryModule} from '@witty-services/ngx-repository';
-// ...
-
-@NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    NgxRepositoryModule
-  ],
-  bootstrap: [AppComponent]
+// for Firebase
+@FirebaseResource({
+    path: '/users'
 })
-export class AppModule {
+// or for Http
+@HttpResource({
+    path: '/api/users'
+})
+export class User {
+
+    @Id() // define the resource id
+    public id: number;
+
+    @Column() // define a column
+    public firstName: string;
+
+    @Column('lastname')  // define a column with special mapping
+    public lastName: string;
+
+    @Column(() => Address) // define a column with a child model
+    public address: Address;
+
+    @Column({ type: () => Job, field: 'job' }) // combine model and special mapping
+    public myJob: Job;
+
+    @Column({field: 'createdAt', customConverter: () => DateConverter}) // use custom converter for special type
+    public createdAt: Date;
+
+}
+```
+
+### JoinColumn
+
+You can fetch associated resource using JoinColumn.
+
+```typescript
+@HttpResource({
+    path: '/libraries/:libraryId/books'
+})
+export class Book {
+
+    @Id()
+    public id: number;
+
+    @Column()
+    public title: string;
+    
+    @Column()
+    public authorId: string;
+    
+    // initialize the request to get associated author, using instance attribute 'authorId' with User FirebaseRepository
+    @JoinColumn({attribute: 'authorId', resourceType: () => User, repository: () => FirebaseRepository})
+    public author$: Observable<Person>; // data will be lazy fetched on subscribe
+}
+```
+
+### SubCollection
+
+You can fetch associated resources using SubCollection.
+
+```typescript
+@HttpResource({
+    path: '/libraries/:libraryId/books'
+})
+export class Book {
+
+    @Id()
+    public id: number;
+
+    @Column()
+    public title: string;
+    
+    // you should specify the corresponding resource, how to request resources and the repository to use
+    @SubCollection({
+        resourceType: () => Comment,
+        // params are extra information context request (for example libraryId in path) 
+        params: (book: Book, params: any) => new CommentQuery({bookId: book.id, libraryId: params.libraryId}),
+        repository: () => HttpRepository
+    })
+    public comments$: Observable<Comment[]>;
+}
+```
+
+### PathColumn
+
+PathColumn allow you to fetch field from path request.
+
+```typescript
+@HttpResource({
+    path: '/libraries/:libraryId/books'
+})
+export class Book {
+
+    @Id()
+    public id: number;
+
+    @Column()
+    public title: string;
+    
+    @PathColumn()
+    public libraryId: string;
+
+    // or
+
+    @PathColumn('libraryId')
+    public theLibraryId: string;
+
+}
+```
+
+### Query
+
+To request data, you can provide Query object with annotated field.
+
+```typescript
+export class BookQuery {
+
+    // use http query param
+
+    @HttpQueryParam() // param is forwarded into http query param
+    public title: string;
+
+    // or
+
+    @HttpQueryParam('title')
+    public theTitle: string;
+
+    // use path param
+
+    @PathParam() // param replace :libraryId into resource path
+    public libraryId: string;
+
+    // or
+
+    @PathParam('libraryId')
+    public library: string;
+
+    // use http header
+    
+    @HttpHeader() // path is forwarded into http header
+    public page: number = 1;
+
+    // or
+    
+    @HttpHeader('itemPerPage')
+    public size: number = 2;
+    
+    public constructor(data: Partial<BookQuery> = {}) {
+        Object.assign(this, data);
+    }
+}
+```
+
+### Repository
+
+#### Generated Repository
+
+```typescript
+@Injectable()
+export class BookService {
+
+    // repository is build with Http driver for User resource
+    @InjectRepository({ resourceType: () => Book, repository: () => HttpRepository })
+    private readonly bookRepository: HttpRepository<Book, number>;
+
+    public findAllByLibraryId(libraryId: string): Observable<Page<User>> {
+        return this.bookRepository.findAll(new BookQuery({
+            libraryId
+        }));
+    }
+}
+
+```
+
+#### Custom Repository
+
+```typescript
+@Injectable()
+@Repository(() => Person)
+export class PersonRepository extends HttpRepository<Person, string> {
+    
+    public searchByFirstName(searchedFirstName: string): Observable<Person[]> {
+        // write your custom logic here
+    }
 }
 ```
 
