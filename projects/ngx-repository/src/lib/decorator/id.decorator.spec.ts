@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import {Id, ID_METADATA_KEY, IdContext} from './id.decorator';
-import {ColumnContextConfiguration, COLUMNS_METADATA_KEY} from '@witty-services/ts-serializer';
+import {ColumnContextConfiguration, COLUMNS_METADATA_KEY} from './column.decorator';
 
 describe('IdDecorator', () => {
   let obj: any;
