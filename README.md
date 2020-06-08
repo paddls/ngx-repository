@@ -13,25 +13,29 @@ NgxRepository is an Angular library to make a software DAO layer to access resou
 
 ## Summary
 
-* [Installation](#how-to-install)
-    * [Import module](#import-module)
+* [How to install](#how-to-install)
+    * [Main module](#main-module)
     * [Http Driver](#http-driver)
     * [Firebase Driver](#firebase-driver)
+    * [Import Module](#import-module)
 * [How to use](#how-to-use)
 * [Install and build project](#install-and-build-project)
 
 
 ## How to install
 
-First install the library in your project :
+### Main module
+
+First install the main library in your project :
 
 ```shell script
 npm install --save ngx-repository
 ```
 
-Then install the corresponding driver :
+After that, choose drivers and install them as follow.
 
 ### Http Driver
+
 ```shell script
 npm install --save ngx-http-repository
 ```
@@ -42,9 +46,9 @@ npm install --save ngx-http-repository
 npm install --save ngx-firebase-repository
 ```
 
-### Import module
+### Import modules
 
-First, import the ` NgxRepositoryModule` and it's driver : 
+First, import the ` NgxRepositoryModule` and its drivers : 
 
 ```typescript
 import {NgxRepositoryModule} from '@witty-services/ngx-repository'; 
@@ -55,89 +59,54 @@ import {NgxFirebaseRepositoryModule} from '@witty-services/ngx-firebase-reposito
     imports: [
         NgxRepositoryModule.forRoot(),
         NgxHttpRepositoryModule, // Http driver
-        NgxFirebaseRepositoryModule.forRoot(), // Firebase driver
+        NgxFirebaseRepositoryModule.forRoot(
+            firebase.initializeApp({
+                apiKey: 'TODO',
+                authDomain: 'TODO',
+                databaseURL: 'TODO',
+                projectId: 'TODO',
+                storageBucket: 'TODO',
+                messagingSenderId: 'TODO',
+                appId: 'TODO',
+                measurementId: 'TODO'
+              }).firestore()
+        ), // Firebase driver
     ]
 })
 export class AppModule {
 }
 ```
 
-#### HttpRepository
-
-Define the strategy for page building
-
-```typescript
-@Injectable()
-export class PageBuilderService implements PageBuilder<HttpResponse<any>> {
-
-    public buildPage(response$: Observable<HttpResponse<any>>, repository: HttpRepository<any, any>): Observable<Page<any>> {
-        return response$.pipe(
-            map((response: HttpResponse<any>) => {
-                const page: Page<any> = new Page<any>(response.body);
-
-                page.totalItems =; ... // get total items from response;
-                page.itemsPerPage =; ... // get item per page from response;
-                page.currentPage =; ... // get current page from response;
-
-                return page;
-            })
-        );
-    }
-}
-```
-
-then provide it inside AppModule as HTTP_PAGE_BUILDER_TOKEN
-```typescript
-@NgModule({
-    providers: [
-        {
-            provide: HTTP_PAGE_BUILDER_TOKEN,
-            useClass: PageBuilderService
-        },
-    ]
-})
-export class AppModule {
-}
-```
-
-#### FirebaseRepository
-
-```typescript
-export function createFirestore(): Firestore {
-  return firebase.initializeApp({
-    apiKey: 'TODO',
-    authDomain: 'TODO',
-    databaseURL: 'TODO',
-    projectId: 'TODO',
-    storageBucket: 'TODO',
-    messagingSenderId: 'TODO',
-    appId: 'TODO',
-    measurementId: 'TODO'
-  }).firestore();
-}
-
-@NgModule({
-    // ...
-    providers: [
-        {
-           provide: FIRESTORE_APP,
-           useFactory: createFirestore
-        },
-        // ...
-    ]
-    // ...
-})
-export class AppModule {
-}
-```
-
-## How to use
-
-### Ressource
+## Basic usage
 
 Define the model, the mapping, and the location of the resource. Then the system will build the corresponding repository.
 
+### Resource
+
 ```typescript
+import {FirebaseResource} from '@witty-services/ngx-firebase-repository';
+import {HttpResource} from '@witty-services/ngx-http-repository';
+
+// for Firebase
+@FirebaseResource({
+    path: '/users'
+})
+// or for Http
+@HttpResource({
+    path: '/api/users'
+})
+export class User {
+    // ...
+}
+```
+
+### Id and Column
+
+```typescript
+import {FirebaseResource} from '@witty-services/ngx-firebase-repository';
+import {HttpResource} from '@witty-services/ngx-http-repository';
+import {Id, Column, DateConverter} from '@witty-services/ngx-repository';
+
 // for Firebase
 @FirebaseResource({
     path: '/users'
@@ -171,9 +140,13 @@ export class User {
 
 ### JoinColumn
 
-You can fetch associated resource using JoinColumn.
+You can fetch associated resource using ```JoinColumn```.
 
 ```typescript
+import {HttpResource} from '@witty-services/ngx-http-repository';
+import {Id, Column, JoinColumn} from '@witty-services/ngx-repository';
+import {FirebaseRepository} from '@witty-services/ngx-firebase-repository';
+
 @HttpResource({
     path: '/libraries/:libraryId/books'
 })
@@ -196,9 +169,12 @@ export class Book {
 
 ### SubCollection
 
-You can fetch associated resources using SubCollection.
+You can fetch associated resources using ```SubCollection```.
 
 ```typescript
+import {HttpResource, HttpRepository} from '@witty-services/ngx-http-repository';
+import {Id, Column, SubCollection} from '@witty-services/ngx-repository';
+
 @HttpResource({
     path: '/libraries/:libraryId/books'
 })
@@ -223,9 +199,12 @@ export class Book {
 
 ### PathColumn
 
-PathColumn allow you to fetch field from path request.
+```PathColumn``` allow you to fetch field from path request.
 
 ```typescript
+import {HttpResource} from '@witty-services/ngx-http-repository';
+import {Id, Column, PathColumn} from '@witty-services/ngx-repository';
+
 @HttpResource({
     path: '/libraries/:libraryId/books'
 })
@@ -248,11 +227,16 @@ export class Book {
 }
 ```
 
+```PathColumn``` is also useful when you write some resource, because valued ```PathColumn``` will be re-inject into the path request.
+
 ### Query
 
 To request data, you can provide Query object with annotated field.
 
 ```typescript
+import {HttpQueryParam, HttpHeader} from '@witty-services/ngx-http-repository';
+import {PathParam} from '@witty-services/ngx-repository';
+
 export class BookQuery {
 
     // use http query param
@@ -296,6 +280,9 @@ export class BookQuery {
 #### Generated Repository
 
 ```typescript
+import {InjectRepository, Page} from '@witty-services/ngx-repository';
+import {HttpRepository} from '@witty-services/ngx-http-repository'
+
 @Injectable()
 export class BookService {
 
@@ -315,6 +302,9 @@ export class BookService {
 #### Custom Repository
 
 ```typescript
+import {Repository} from '@witty-services/ng-repository';
+import {HttpRepository} from '@witty-services/ng-http-repository';
+
 @Injectable()
 @Repository(() => Person)
 export class PersonRepository extends HttpRepository<Person, string> {
