@@ -18,7 +18,18 @@ NgxRepository is an Angular library to make a software DAO layer to access resou
     * [Http Driver](#http-driver)
     * [Firebase Driver](#firebase-driver)
     * [Import Module](#import-module)
-* [How to use](#how-to-use)
+* [Basic usage](#basic-usage)
+    * [Resource](#resource)
+        * [HttpResource and FirebaseResource](#httpresource-and-firebaseresource)
+        * [Id and Column](#id-and-column)
+        * [JoinColumn](#joincolumn)
+        * [SubCollection](#subcollection)
+        * [PathColumn](#pathcolumn)
+        * [Query](#query)
+    * [Repository](#repository)
+        * [Generated repository](#generated-repository)
+        * [Custom repository](#custom-repository)
+* [Advanced usage](#advanced-usage)
 * [Install and build project](#install-and-build-project)
 
 
@@ -83,6 +94,8 @@ Define the model, the mapping, and the location of the resource. Then the system
 
 ### Resource
 
+#### HttpResource and FirebaseResource
+
 ```typescript
 import {FirebaseResource} from '@witty-services/ngx-firebase-repository';
 import {HttpResource} from '@witty-services/ngx-http-repository';
@@ -100,7 +113,7 @@ export class User {
 }
 ```
 
-### Id and Column
+#### Id and Column
 
 ```typescript
 import {FirebaseResource} from '@witty-services/ngx-firebase-repository';
@@ -138,7 +151,7 @@ export class User {
 }
 ```
 
-### JoinColumn
+#### JoinColumn
 
 You can fetch associated resource using ```JoinColumn```.
 
@@ -167,7 +180,7 @@ export class Book {
 }
 ```
 
-### SubCollection
+#### SubCollection
 
 You can fetch associated resources using ```SubCollection```.
 
@@ -197,7 +210,7 @@ export class Book {
 }
 ```
 
-### PathColumn
+#### PathColumn
 
 ```PathColumn``` allow you to fetch field from path request.
 
@@ -229,7 +242,7 @@ export class Book {
 
 ```PathColumn``` is also useful when you write some resource, because valued ```PathColumn``` will be re-inject into the path request.
 
-### Query
+#### Query
 
 To request data, you can provide Query object with annotated field.
 
@@ -279,6 +292,10 @@ export class BookQuery {
 
 #### Generated Repository
 
+Right, now you have your resources. NgxRepository will generate all repositories on demand. You just have to use repository in your services.
+
+Each repository of a resource made from ```FirebaseDriver``` or ```HttpDriver``` are singleton services stored in Angular Injector.
+
 ```typescript
 import {InjectRepository, Page} from '@witty-services/ngx-repository';
 import {HttpRepository} from '@witty-services/ngx-http-repository'
@@ -296,10 +313,11 @@ export class BookService {
         }));
     }
 }
-
 ```
 
 #### Custom Repository
+
+In specific case, you can define a custom repository like that :
 
 ```typescript
 import {Repository} from '@witty-services/ng-repository';
@@ -314,6 +332,8 @@ export class PersonRepository extends HttpRepository<Person, string> {
     }
 }
 ```
+
+## Advanced usage
 
 ## Install and build project
 
