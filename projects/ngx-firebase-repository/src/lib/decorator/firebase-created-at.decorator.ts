@@ -3,6 +3,9 @@ import {FbTimestampConverter} from '../converter/fb-timestamp.converter';
 import * as firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
 
+/**
+ * @ignore
+ */
 export const FIREBASE_CREATED_AT_METADATA_KEY: string = 'firebaseCreatedAts';
 
 export interface FirebaseCreatedAtContext {
@@ -10,6 +13,9 @@ export interface FirebaseCreatedAtContext {
   field: string;
 }
 
+/**
+ * @ignore
+ */
 export interface FirebaseCreatedAtContextConfiguration extends FirebaseCreatedAtContext, PropertyKeyConfiguration {
 }
 

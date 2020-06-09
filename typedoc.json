@@ -1,0 +1,6 @@
+{
+  "name": "ngx-repository",
+  "exclude": ["**/*.spec.*", "**/test/**/*.*", "**/test.ts"],
+  "mode": "file",
+  "out": "./docs"
+}

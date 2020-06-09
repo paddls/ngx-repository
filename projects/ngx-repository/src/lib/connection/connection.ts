@@ -1,11 +1,10 @@
 import {AbstractRepository} from '../repository/abstract.repository';
-import {
-  REPOSITORY_METADATA_KEY,
-  RepositoryContextConfiguration,
-  RESOURCE_CONFIGURATION_METADATA_KEY
-} from '../decorator/repository.decorator';
+import {REPOSITORY_METADATA_KEY, RepositoryContextConfiguration, RESOURCE_CONFIGURATION_METADATA_KEY} from '../decorator/repository.decorator';
 import {Type} from '@angular/core';
 
+/**
+ * @ignore
+ */
 export abstract class Connection<RC, RS> {
 
   protected constructor(protected resourceContextKey: string) {

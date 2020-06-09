@@ -1,7 +1,13 @@
 import {PropertyKeyConfiguration} from '@witty-services/ngx-repository';
 
+/**
+ * @ignore
+ */
 export const FIREBASE_START_AFTER_METADATA_KEY: string = 'firebaseStartAfter';
 
+/**
+ * @ignore
+ */
 export interface FirebaseStartAfterContextConfiguration extends PropertyKeyConfiguration {
 }
 

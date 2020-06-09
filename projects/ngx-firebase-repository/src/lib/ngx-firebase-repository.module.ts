@@ -42,6 +42,9 @@ const MODULE_PROVIDERS: Provider[] = [
   }
 ];
 
+/**
+ * @ignore
+ */
 @NgModule({
   providers: [
     ...MODULE_PROVIDERS

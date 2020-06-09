@@ -16,6 +16,9 @@ import {Normalizer} from '@witty-services/ts-serializer';
 import {RepositoryDenormalizer} from '../normalizer/repository-denormalizer';
 import {ColumnContextConfiguration, COLUMNS_METADATA_KEY} from '../decorator/column.decorator';
 
+/**
+ * @ignore
+ */
 export abstract class AbstractRepository<T, K, RC, RS> {
 
   public constructor(protected resourceContextKey: string,

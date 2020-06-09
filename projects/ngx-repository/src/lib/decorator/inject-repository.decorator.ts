@@ -4,7 +4,14 @@ import {SUB_COLLECTION_OBS_METADATA_KEY} from './sub-collection.decorator';
 import {Type} from '@angular/core';
 import {AbstractRepository} from '../repository/abstract.repository';
 
+/**
+ * @ignore
+ */
 export const INJECT_REPOSITORY_METADATA_KEY: string = 'injectRepositories';
+
+/**
+ * @ignore
+ */
 export const INJECT_REPOSITORY_INSTANCE_METADATA_KEY: string = 'injectRepositorieInstance';
 
 export interface InjectRepositoryContext<T> {
@@ -14,6 +21,9 @@ export interface InjectRepositoryContext<T> {
   repository?: () => Type<AbstractRepository<T, any, any, any>>;
 }
 
+/**
+ * @ignore
+ */
 export interface InjectRepositoryContextConfiguration<T = any> extends InjectRepositoryContext<T>, PropertyKeyConfiguration {
 }
 

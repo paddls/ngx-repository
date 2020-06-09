@@ -1,5 +1,8 @@
 import {PathContext} from './path-context';
 
+/**
+ * @ignore
+ */
 export class PathContextUtil {
 
   public static getReadPath(pathContext: PathContext): string {

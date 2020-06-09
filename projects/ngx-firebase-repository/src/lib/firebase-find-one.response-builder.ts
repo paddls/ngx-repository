@@ -4,6 +4,9 @@ import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
+/**
+ * @ignore
+ */
 export class FirebaseFindOneResponseBuilder implements ResponseBuilder<DocumentSnapshot> {
 
   public build(response$: Observable<DocumentSnapshot>): Observable<any> {

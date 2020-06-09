@@ -6,7 +6,7 @@ import {FIREBASE_CRITERIA_METADATA_KEY, FirebaseCriteriaContextConfiguration} fr
 import {
   FIREBASE_ORDER_BY_METADATA_KEY,
   FirebaseOrderByContextConfiguration,
-  FirebaseOrderByParam
+  FirebaseOrderByContext
 } from './decorator/firebase-order-by.decorator';
 import {FIREBASE_START_AT_METADATA_KEY} from './decorator/firebase-start-at.decorator';
 import {FIREBASE_LIMIT_METADATA_KEY} from './decorator/firebase-limit.decorator';
@@ -17,6 +17,9 @@ import {isNullOrUndefined} from 'util';
 import {FIREBASE_END_BEFORE_METADATA_KEY} from './decorator/firebase-end-before.decorator';
 import {PathQueryBuilder, PropertyKeyConfiguration} from '@witty-services/ngx-repository';
 
+/**
+ * @ignore
+ */
 @Injectable()
 export class FirebaseQueryBuilder extends PathQueryBuilder<FirebaseResourceContext> {
 
@@ -62,9 +65,9 @@ export class FirebaseQueryBuilder extends PathQueryBuilder<FirebaseResourceConte
       return this;
     }
 
-    const value: string|FirebaseOrderByParam|(string|FirebaseOrderByParam)[] = query.settings[firebaseOrderBy.propertyKey];
+    const value: string|FirebaseOrderByContext|(string|FirebaseOrderByContext)[] = query.settings[firebaseOrderBy.propertyKey];
 
-    function addOrderBy(v: string|FirebaseOrderByParam): void {
+    function addOrderBy(v: string|FirebaseOrderByContext): void {
       if (!(v instanceof Object)) {
         v = {
           field: v

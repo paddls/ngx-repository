@@ -153,7 +153,7 @@ export class User {
 
 #### JoinColumn
 
-You can fetch associated resource using ```JoinColumn```.
+You can fetch associated resources using ```JoinColumn```.
 
 ```typescript
 import {HttpResource} from '@witty-services/ngx-http-repository';
@@ -331,9 +331,102 @@ export class PersonRepository extends HttpRepository<Person, string> {
         // write your custom logic here
     }
 }
+
+@Injectable()
+export class PersonService {
+
+  // Like a standard service, you can inject your custom repository
+  public constructor(private readonly personRepository: PersonRepository) {}
+}
 ```
 
 ## Advanced usage
+
+You can override response transformation for each NgxRepository driver.
+
+### HttpPageBuilder
+
+In HttpDriver, you can override response which return some items by developing a page builder.
+
+```typescript
+import {Page} from '@witty-services/ngx-repository';
+import {HttpPageBuilder, HttpRepository} from '@witty-services/ngx-http-repository';
+
+@Injectable()
+export class MyHttpPageBuilder implements HttpPageBuilder {
+
+    public buildPage(response$: Observable<HttpResponse<any>>, repository: HttpRepository<any, any>): Observable<Page<any>> {
+        return response$.pipe(
+            map((response: HttpResponse<any>) => {
+                const page: Page<any> = new Page<any>(response.body);
+
+                page.totalItems = ... ; // get total items from response;
+                page.itemsPerPage = ... ; // get item per page from response;
+                page.currentPage = ... ; // get current page from response;
+
+                return page;
+            })
+        );
+    }
+}
+```
+
+And to use your new builder, you just have to provide a service behind a specific token with your class : 
+
+```typescript
+import {NgxRepositoryModule} from '@witty-services/ngx-repository';
+import {NgxHttpRepositoryModule, HTTP_PAGE_BUILDER_TOKEN} from '@witty-services/ngx-http-repository';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    NgxRepositoryModule.forRoot(),
+    NgxHttpRepositoryModule
+  ],
+  providers: [
+    {
+      provide: HTTP_PAGE_BUILDER_TOKEN,
+      useClass: MyHttpPageBuilder
+    }
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule {
+}
+```
+
+### HttpCreateResponseBuilder
+
+```typescript
+import {Page} from '@witty-services/ngx-repository';
+import {HttpResponseBuilder, HttpRepository} from '@witty-services/ngx-http-repository';
+
+@Injectable()
+export class MyHttpCreateResponseBuilder implements HttpResponseBuilder {
+
+    public buildPage(response$: Observable<HttpResponse<any>>, repository: HttpRepository<any, any>): Observable<Page<any>> {
+        return response$.pipe(
+            map((response: HttpResponse<any>) => {
+                const page: Page<any> = new Page<any>(response.body);
+
+                page.totalItems = ... ; // get total items from response;
+                page.itemsPerPage = ... ; // get item per page from response;
+                page.currentPage = ... ; // get current page from response;
+
+                return page;
+            })
+        );
+    }
+}
+```
+
+### HttpFindOneResponseBuilder
+
+### FirebasePageBuilder
+
+### FirebaseCreateResponseBuilder
+
+### FirebaseFindOneResponseBuilder
 
 ## Install and build project
 

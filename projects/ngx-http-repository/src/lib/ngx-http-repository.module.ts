@@ -34,6 +34,9 @@ const MODULE_PROVIDERS: Provider[] = [
   }
 ];
 
+/**
+ * @ignore
+ */
 @NgModule({
   imports: [
     HttpClientModule

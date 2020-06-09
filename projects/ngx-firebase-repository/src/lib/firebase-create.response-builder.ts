@@ -6,12 +6,15 @@ import {Injectable} from '@angular/core';
 import DocumentData = firebase.firestore.DocumentData;
 import DocumentReference = firebase.firestore.DocumentReference;
 
+/**
+ * @ignore
+ */
 @Injectable()
 export class FirebaseCreateResponseBuilder implements ResponseBuilder<DocumentReference<DocumentData>> {
 
-  public build(response$: Observable<{id: any}>): Observable<any> {
+  public build(response$: Observable<DocumentReference<DocumentData>>): Observable<any> {
     return response$.pipe(
-      map((documentReference: {id: any}) => documentReference.id)
+      map((documentReference: DocumentReference<DocumentData>) => documentReference.id)
     );
   }
 }

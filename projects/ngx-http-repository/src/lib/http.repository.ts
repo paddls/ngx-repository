@@ -6,6 +6,9 @@ import {Inject, Injector, Optional} from '@angular/core';
 import {HTTP_CREATE_RESPONSE_BUILDER, HTTP_FIND_ONE_RESPONSE_BUILDER, HTTP_PAGE_BUILDER_TOKEN} from './ngx-http-repository.module.di';
 import {AbstractRepository, Normalizer, PageBuilder, PathDenormalizer, ResponseBuilder} from '@witty-services/ngx-repository';
 
+/**
+ * @ignore
+ */
 export class HttpRepository<T, K> extends AbstractRepository<T, K, HttpResourceContext, HttpResponse<any>> {
 
   public constructor(httpDriver: HttpDriver,

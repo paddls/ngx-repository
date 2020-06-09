@@ -6,14 +6,23 @@ import {NgxRepositoryService} from './ngx-repository.service';
 import {PathDenormalizer} from './normalizer/path.denormalizer';
 import {DEFAULT_NORMALIZER_CONFIGURATION, Normalizer, NormalizerConfiguration} from '@witty-services/ts-serializer';
 
+/**
+ * @ignore
+ */
 export function normalizerFactory(configuration: NormalizerConfiguration): Normalizer {
   return new Normalizer(configuration);
 }
 
+/**
+ * @ignore
+ */
 export interface Config {
   normalizerConfiguration?: NormalizerConfiguration;
 }
 
+/**
+ * @ignore
+ */
 const MODULE_PROVIDERS: Provider[] = [
   PathDenormalizer,
   NgxRepositoryService,
@@ -25,6 +34,9 @@ const MODULE_PROVIDERS: Provider[] = [
   PathDenormalizer
 ];
 
+/**
+ * @ignore
+ */
 @NgModule({
   providers: [
     ...MODULE_PROVIDERS

@@ -4,6 +4,9 @@ import {Injectable} from '@angular/core';
 import {HttpRequest} from './http.request';
 import {Driver} from '@witty-services/ngx-repository';
 
+/**
+ * @ignore
+ */
 @Injectable()
 export class HttpDriver implements Driver<HttpResponse<any>> {
 

@@ -1,11 +1,17 @@
 import {PropertyKeyConfiguration} from '../common/decorator/property-key-configuration';
 
+/**
+ * @ignore
+ */
 export const PATH_COLUMN_METADATA_KEY: string = 'pathColumns';
 
 export interface PathColumnContext {
   name: string;
 }
 
+/**
+ * @ignore
+ */
 export interface PathColumnContextConfiguration extends PathColumnContext, PropertyKeyConfiguration {
 }
 

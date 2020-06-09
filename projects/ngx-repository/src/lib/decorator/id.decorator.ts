@@ -1,5 +1,8 @@
 import {Column} from './column.decorator';
 
+/**
+ * @ignore
+ */
 export const ID_METADATA_KEY: string = 'id';
 
 export interface IdContext {

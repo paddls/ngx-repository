@@ -12,6 +12,9 @@ import DocumentData = firebase.firestore.DocumentData;
 import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
 import Query = firebase.firestore.Query;
 
+/**
+ * @ignore
+ */
 @Injectable()
 export class FirebaseDriver implements Driver<any> {
 

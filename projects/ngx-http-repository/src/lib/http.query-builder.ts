@@ -8,6 +8,9 @@ import {HttpRequest} from './http.request';
 import {isNullOrUndefined} from 'util';
 import {PathQueryBuilder} from '@witty-services/ngx-repository';
 
+/**
+ * @ignore
+ */
 @Injectable()
 export class HttpQueryBuilder extends PathQueryBuilder<HttpResourceContext> {
 

@@ -7,8 +7,11 @@ import QuerySnapshot = firebase.firestore.QuerySnapshot;
 import QueryDocumentSnapshot = firebase.firestore.QueryDocumentSnapshot;
 import {Page, PageBuilder} from '@witty-services/ngx-repository';
 
+/**
+ * @ignore
+ */
 @Injectable()
-export class FirebasePageBuilder implements PageBuilder<any> {
+export class FirebasePageBuilder implements PageBuilder<QuerySnapshot<DocumentData>> {
 
   public buildPage(response$: Observable<QuerySnapshot<DocumentData>>): Observable<Page<any>> {
     return response$.pipe(

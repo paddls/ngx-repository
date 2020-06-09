@@ -1,5 +1,8 @@
 import {InjectionToken} from '@angular/core';
 
+/**
+ * @ignore
+ */
 export class TokenRegistry {
 
   private static tokenRegistry: Map<string, Map<string, InjectionToken<any>>> = new Map<string, Map<string, InjectionToken<any>>>(
