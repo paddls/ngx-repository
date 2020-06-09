@@ -59,7 +59,7 @@
 					<a href="pagebuilder.html">PageBuilder</a>
 				</li>
 			</ul>
-			<h1>Interface PageBuilder&lt;RS&gt;</h1>
+			<h1>Interface PageBuilder&lt;RS, R&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -71,6 +71,9 @@
 				<ul class="tsd-type-parameters">
 					<li>
 						<h4>RS</h4>
+					</li>
+					<li>
+						<h4>R<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AbstractRepository</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 				</ul>
 			</section>
@@ -101,13 +104,13 @@
 					<a name="buildpage" class="tsd-anchor"></a>
 					<h3>build<wbr>Page</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">build<wbr>Page<span class="tsd-signature-symbol">(</span>response<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">RS</span><span class="tsd-signature-symbol">&gt;</span>, repository<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AbstractRepository</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/page.html" class="tsd-signature-type">Page</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">build<wbr>Page<span class="tsd-signature-symbol">(</span>response<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">RS</span><span class="tsd-signature-symbol">&gt;</span>, repository<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/page.html" class="tsd-signature-type">Page</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/witty-services/ngx-repository/blob/20df027/projects/ngx-repository/src/lib/page-builder/page-builder.ts#L7">ngx-repository/src/lib/page-builder/page-builder.ts:7</a></li>
+									<li>Defined in <a href="https://github.com/witty-services/ngx-repository/blob/20c00b1/projects/ngx-repository/src/lib/page-builder/page-builder.ts#L7">ngx-repository/src/lib/page-builder/page-builder.ts:7</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -116,7 +119,7 @@
 									<h5>response: <span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">RS</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>repository: <span class="tsd-signature-type">AbstractRepository</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>repository: <span class="tsd-signature-type">R</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/page.html" class="tsd-signature-type">Page</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>

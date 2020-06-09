@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>PathColumnContext | ngx-repository</title>
+	<title>FirebasePageBuilder | ngx-repository</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="pathcolumncontext.html">PathColumnContext</a>
+					<a href="firebasepagebuilder.html">FirebasePageBuilder</a>
 				</li>
 			</ul>
-			<h1>Interface PathColumnContext</h1>
+			<h1>Interface FirebasePageBuilder</h1>
 		</div>
 	</div>
 </header>
@@ -70,7 +70,12 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">PathColumnContext</span>
+						<span class="tsd-signature-type">PageBuilder</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">QuerySnapshot</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DocumentData</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">FirebaseRepository</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">FirebasePageBuilder</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -78,26 +83,43 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section ">
-							<h3>Properties</h3>
+						<section class="tsd-index-section tsd-is-inherited">
+							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="pathcolumncontext.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="firebasepagebuilder.html#buildpage" class="tsd-kind-icon">build<wbr>Page</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="name" class="tsd-anchor"></a>
-					<h3>name</h3>
-					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/witty-services/ngx-repository/blob/20c00b1/projects/ngx-repository/src/lib/decorator/path-column.decorator.ts#L9">ngx-repository/src/lib/decorator/path-column.decorator.ts:9</a></li>
-						</ul>
-					</aside>
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a name="buildpage" class="tsd-anchor"></a>
+					<h3>build<wbr>Page</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">build<wbr>Page<span class="tsd-signature-symbol">(</span>response<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">QuerySnapshot</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DocumentData</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span>, repository<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">FirebaseRepository</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Page</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from PageBuilder.buildPage</p>
+								<ul>
+									<li>Defined in /Users/thomasnisole/Projects/witty-services/ngx-repository/dist/ngx-repository/lib/page-builder/page-builder.d.ts:5</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>response: <span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">QuerySnapshot</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DocumentData</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+								<li>
+									<h5>repository: <span class="tsd-signature-type">FirebaseRepository</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Observable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Page</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -114,10 +136,10 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="pathcolumncontext.html" class="tsd-kind-icon">Path<wbr>Column<wbr>Context</a>
+						<a href="firebasepagebuilder.html" class="tsd-kind-icon">Firebase<wbr>Page<wbr>Builder</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="pathcolumncontext.html#name" class="tsd-kind-icon">name</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+								<a href="firebasepagebuilder.html#buildpage" class="tsd-kind-icon">build<wbr>Page</a>
 							</li>
 						</ul>
 					</li>
