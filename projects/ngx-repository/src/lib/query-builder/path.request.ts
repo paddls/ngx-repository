@@ -4,6 +4,9 @@ import {PathContext} from '../common/path/path-context';
 import {cloneDeep} from 'lodash';
 import {isNullOrUndefined} from 'util';
 
+/**
+ * @ignore
+ */
 export class PathRequest<K> extends Request {
 
   public id: K;

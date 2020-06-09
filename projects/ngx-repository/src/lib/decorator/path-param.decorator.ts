@@ -1,11 +1,17 @@
 import {PropertyKeyConfiguration} from '../common/decorator/property-key-configuration';
 
+/**
+ * @ignore
+ */
 export const PATH_PARAM_METADATA_KEY: string = 'pathParams';
 
 export interface PathParamContext {
   name: string;
 }
 
+/**
+ * @ignore
+ */
 export interface PathParamContextConfiguration extends PathParamContext, PropertyKeyConfiguration {
 }
 

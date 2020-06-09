@@ -4,6 +4,9 @@ import {Connection} from './connection/connection';
 import {CONNECTIONS_TOKEN} from './ngx-repository.module.di';
 import {TokenRegistry} from './registry/token.registry';
 
+/**
+ * @ignore
+ */
 @Injectable()
 export class NgxRepositoryService {
 

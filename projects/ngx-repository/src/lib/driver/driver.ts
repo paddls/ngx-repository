@@ -1,6 +1,9 @@
 import {Request} from '../query-builder/request';
 import {Observable} from 'rxjs';
 
+/**
+ * @ignore
+ */
 export interface Driver<RS> {
 
   findBy(request: Request): Observable<RS>;

@@ -14,6 +14,9 @@ export {HttpRepository} from './lib/http.repository';
 
 export {HttpNoPageBuilder} from './lib/http-no.page-builder';
 
+export {HttpPageBuilder} from './lib/http-page-builder';
+export {HttpResponseBuilder} from './lib/http-response-builder';
+
 export {
   HTTP_PAGE_BUILDER_TOKEN,
   HTTP_CREATE_RESPONSE_BUILDER,

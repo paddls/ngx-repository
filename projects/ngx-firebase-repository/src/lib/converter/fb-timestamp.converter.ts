@@ -1,6 +1,9 @@
 import * as firebase from 'firebase/app';
 import {Converter} from '@witty-services/ngx-repository';
 
+/**
+ * @ignore
+ */
 export class FbTimestampConverter implements Converter<Date, firebase.firestore.Timestamp> {
 
   public fromJson(value: firebase.firestore.Timestamp): Date {

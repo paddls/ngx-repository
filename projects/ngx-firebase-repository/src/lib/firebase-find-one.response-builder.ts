@@ -1,10 +1,13 @@
-import {ResponseBuilder} from '@witty-services/ngx-repository';
 import * as firebase from 'firebase';
-import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {FirebaseResponseBuilder} from './firebase-response-builder';
+import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
 
-export class FirebaseFindOneResponseBuilder implements ResponseBuilder<DocumentSnapshot> {
+/**
+ * @ignore
+ */
+export class FirebaseFindOneResponseBuilder implements FirebaseResponseBuilder {
 
   public build(response$: Observable<DocumentSnapshot>): Observable<any> {
     return response$.pipe(

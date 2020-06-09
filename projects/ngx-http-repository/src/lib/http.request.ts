@@ -1,5 +1,8 @@
 import {PathRequest} from '@witty-services/ngx-repository';
 
+/**
+ * @ignore
+ */
 export class HttpRequest<K> extends PathRequest<K> {
 
   public headers: { [key: string]: string|string[] } = {};

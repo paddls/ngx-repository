@@ -5,7 +5,14 @@ import {NgxRepositoryModule} from '../ngx-repository.module';
 import {Type} from '@angular/core';
 import {ORIGINAL_QUERY_METADATA_KEY} from '../normalizer/path.denormalizer';
 
+/**
+ * @ignore
+ */
 export const SUB_COLLECTION_METADATA_KEY: string = 'subCollections';
+
+/**
+ * @ignore
+ */
 export const SUB_COLLECTION_OBS_METADATA_KEY: string = 'subCollectionObs';
 
 export interface SubCollectionContext<T> {
@@ -17,6 +24,9 @@ export interface SubCollectionContext<T> {
   repository?: () => Type<AbstractRepository<T, any, any, any>>;
 }
 
+/**
+ * @ignore
+ */
 export interface SubCollectionContextConfiguration<T = any> extends SubCollectionContext<T>, PropertyKeyConfiguration {
 }
 

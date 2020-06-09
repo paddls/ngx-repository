@@ -4,14 +4,13 @@ import {FIREBASE_RESOURCE_METADATA_KEY, FirebaseResourceContext} from './decorat
 import {FirebaseRepository} from './firebase.repository';
 import {FirebaseDriver} from './firebase.driver';
 import {FirebaseQueryBuilder} from './firebase.query-builder';
-import {
-  FIREBASE_CREATE_RESPONSE_BUILDER,
-  FIREBASE_FIND_ONE_RESPONSE_BUILDER,
-  FIREBASE_PAGE_BUILDER_TOKEN
-} from './ngx-firebase-repository.module.di';
+import {FIREBASE_CREATE_RESPONSE_BUILDER, FIREBASE_FIND_ONE_RESPONSE_BUILDER, FIREBASE_PAGE_BUILDER_TOKEN} from './ngx-firebase-repository.module.di';
 import {AbstractRepository, Connection, PageBuilder, PathDenormalizer, ResponseBuilder} from '@witty-services/ngx-repository';
 import {FirebaseNormalizer} from './firebase.normalizer';
 
+/**
+ * @ignore
+ */
 @Injectable()
 export class FirebaseConnection extends Connection<FirebaseResourceContext, Observable<any>> {
 

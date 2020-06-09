@@ -1,5 +1,8 @@
 import {PathContext} from '@witty-services/ngx-repository';
 
+/**
+ * @ignore
+ */
 export const HTTP_RESOURCE_METADATA_KEY: string = 'httpResource';
 
 export interface HttpResourceContext extends PathContext {

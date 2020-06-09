@@ -5,6 +5,9 @@ import {FIREBASE_CREATED_AT_METADATA_KEY, FirebaseCreatedAtContextConfiguration}
 import {FIREBASE_UPDATED_AT_METADATA_KEY, FirebaseUpdatedAtContextConfiguration} from './decorator/firebase-updated-at.decorator';
 import {Normalizer, NORMALIZER_CONFIGURATION_TOKEN, NormalizerConfiguration} from '@witty-services/ngx-repository';
 
+/**
+ * @ignore
+ */
 @Injectable()
 export class FirebaseNormalizer extends Normalizer {
 

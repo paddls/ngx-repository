@@ -4,6 +4,9 @@ import FieldPath = firebase.firestore.FieldPath;
 import OrderByDirection = firebase.firestore.OrderByDirection;
 import {PathRequest} from '@witty-services/ngx-repository';
 
+/**
+ * @ignore
+ */
 export class FirebaseRequest<K> extends PathRequest<K> {
 
   public queries: FirebaseRequestQuery[] = [];

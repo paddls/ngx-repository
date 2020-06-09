@@ -1,6 +1,9 @@
 import WhereFilterOp = firebase.firestore.WhereFilterOp;
 import {PropertyKeyConfiguration} from '@witty-services/ngx-repository';
 
+/**
+ * @ignore
+ */
 export const FIREBASE_CRITERIA_METADATA_KEY: string = 'firebaseCriterias';
 
 export interface FirebaseCriteriaContext {
@@ -8,6 +11,9 @@ export interface FirebaseCriteriaContext {
   operator: WhereFilterOp;
 }
 
+/**
+ * @ignore
+ */
 export interface FirebaseCriteriaContextConfiguration extends FirebaseCriteriaContext, PropertyKeyConfiguration {
 }
 

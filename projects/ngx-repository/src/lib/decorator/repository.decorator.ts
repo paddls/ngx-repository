@@ -1,5 +1,13 @@
+/**
+ * @ignore
+ */
 export const REPOSITORY_METADATA_KEY: string = 'repository';
+
+/**
+ * @ignore
+ */
 export const RESOURCE_CONFIGURATION_METADATA_KEY: string = 'resourceConfiguration';
+
 
 export interface RepositoryContextConfiguration {
   resourceType: () => new(...args: any[]) => any;

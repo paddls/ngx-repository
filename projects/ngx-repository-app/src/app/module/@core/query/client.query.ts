@@ -5,7 +5,7 @@ import {
   FirebaseLimit,
   FirebaseLimitToLast,
   FirebaseOrderBy,
-  FirebaseOrderByParam,
+  FirebaseOrderByContext,
   FirebaseStartAfter,
   FirebaseStartAt
 } from '@witty-services/ngx-firebase-repository';
@@ -16,7 +16,7 @@ export class ClientQuery {
   public lastNameEqual?: string;
 
   @FirebaseOrderBy()
-  public orderBy?: string|FirebaseOrderByParam|(FirebaseOrderByParam|string)[];
+  public orderBy?: string|FirebaseOrderByContext|(FirebaseOrderByContext|string)[];
 
   @FirebaseStartAt()
   public startAt?: any;

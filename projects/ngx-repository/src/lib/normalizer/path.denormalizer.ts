@@ -6,8 +6,14 @@ import {Denormalizer, NormalizerConfiguration} from '@witty-services/ts-serializ
 import {NORMALIZER_CONFIGURATION_TOKEN} from '../ngx-repository.module.di';
 import {RepositoryDenormalizer} from './repository-denormalizer';
 
+/**
+ * @ignore
+ */
 export const ORIGINAL_QUERY_METADATA_KEY: string = 'originalQuery';
 
+/**
+ * @ignore
+ */
 @Injectable()
 export class PathDenormalizer extends Denormalizer implements RepositoryDenormalizer {
 

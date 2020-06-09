@@ -1,5 +1,8 @@
 import {PropertyKeyConfiguration} from '@witty-services/ngx-repository';
 
+/**
+ * @ignore
+ */
 export const HTTP_QUERY_PARAM_METADATA_KEY: string = 'httpQueryParams';
 
 export interface HttpQueryParamContext {
@@ -7,6 +10,9 @@ export interface HttpQueryParamContext {
   format?: string;
 }
 
+/**
+ * @ignore
+ */
 export interface HttpQueryParamContextConfiguration extends HttpQueryParamContext, PropertyKeyConfiguration {
 }
 

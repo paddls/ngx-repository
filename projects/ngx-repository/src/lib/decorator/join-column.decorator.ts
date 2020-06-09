@@ -5,7 +5,14 @@ import {NgxRepositoryModule} from '../ngx-repository.module';
 import {Observable} from 'rxjs';
 import {get} from 'lodash';
 
+/**
+ * @ignore
+ */
 export const JOIN_COLUMN_METADATA_KEY: string = 'joinColumns';
+
+/**
+ * @ignore
+ */
 export const JOIN_COLUMN_OBS_METADATA_KEY: string = 'joinColumnObs';
 
 export interface JoinColumnContext<T> {
@@ -17,6 +24,9 @@ export interface JoinColumnContext<T> {
   repository?: () => Type<AbstractRepository<T, any, any, any>>;
 }
 
+/**
+ * @ignore
+ */
 export interface JoinColumnContextConfiguration<T = any> extends JoinColumnContext<T>, PropertyKeyConfiguration {
 }
 

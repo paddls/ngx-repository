@@ -3,6 +3,9 @@ import {FbTimestampConverter} from '../converter/fb-timestamp.converter';
 import * as firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
 
+/**
+ * @ignore
+ */
 export const FIREBASE_UPDATED_AT_METADATA_KEY: string = 'firebaseUpdatedAts';
 
 export interface FirebaseUpdatedAtContext {
@@ -10,8 +13,10 @@ export interface FirebaseUpdatedAtContext {
   field: string;
 }
 
+/**
+ * @ignore
+ */
 export interface FirebaseUpdatedAtContextConfiguration extends FirebaseUpdatedAtContext, PropertyKeyConfiguration {
-
 }
 
 export function FirebaseUpdatedAt(firebaseUpdatedAtContext?: FirebaseUpdatedAtContext|string): any {

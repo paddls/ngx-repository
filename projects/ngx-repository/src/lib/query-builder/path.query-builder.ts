@@ -6,6 +6,9 @@ import {PathContext} from '../common/path/path-context';
 import {isNullOrUndefined} from 'util';
 import {PATH_COLUMN_METADATA_KEY, PathColumnContextConfiguration} from '../decorator/path-column.decorator';
 
+/**
+ * @ignore
+ */
 export abstract class PathQueryBuilder<RC extends PathContext> implements QueryBuilder<RC> {
 
   public buildRequestFromQuery<T, K>(query: PathQuerySettings<RC, K>, object?: T): PathRequest<K> {

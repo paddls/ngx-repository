@@ -7,6 +7,9 @@ import {HttpDriver} from './http.driver';
 import {HttpQueryBuilder} from './http.query-builder';
 import {HTTP_CREATE_RESPONSE_BUILDER, HTTP_FIND_ONE_RESPONSE_BUILDER, HTTP_PAGE_BUILDER_TOKEN} from './ngx-http-repository.module.di';
 
+/**
+ * @ignore
+ */
 @Injectable()
 export class HttpConnection extends Connection<HttpResourceContext, HttpResponse<any>> {
 

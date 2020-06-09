@@ -10,6 +10,10 @@
     "test:ngx-repository": "ng test --project ngx-repository --code-coverage",
     "test:ngx-http-repository": "ng test --project ngx-http-repository --code-coverage",
     "test:ngx-firebase-repository": "ng test --project ngx-firebase-repository --code-coverage",
+    "doc:all": "typedoc ./projects/ngx-repository ./projects/ngx-http-repository ./projects/ngx-firebase-repository",
+    "doc:ngx-repository": "typedoc ./projects/ngx-repository",
+    "doc:ngx-http-repository": "typedoc ./projects/ngx-http-repository",
+    "doc:ngx-firebase-repository": "typedoc ./projects/ngx-firebase-repository",
     "test:ci:ngx-repository": "npm run test:ngx-repository -- --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "test:ci:ngx-http-repository": "npm run test:ngx-http-repository -- --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "test:ci:ngx-firebase-repository": "npm run test:ngx-firebase-repository -- --no-watch --no-progress --browsers=ChromeHeadlessCI",
@@ -64,6 +68,7 @@
     "ts-node": "~7.0.0",
     "tsickle": "^0.35.0",
     "tslint": "~5.15.0",
+    "typedoc": "^0.15.0-0",
     "typescript": "~3.4.3"
   }
 }

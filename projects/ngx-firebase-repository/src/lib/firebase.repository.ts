@@ -9,6 +9,9 @@ import {FIREBASE_CREATED_AT_METADATA_KEY, FirebaseCreatedAtContextConfiguration}
 import {intersectionBy} from 'lodash';
 import {FirebaseNormalizer} from './firebase.normalizer';
 
+/**
+ * @ignore
+ */
 export class FirebaseRepository<T, K> extends AbstractRepository<T, K, FirebaseResourceContext, any> {
 
   public constructor(driver: FirebaseDriver,

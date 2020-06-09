@@ -6,7 +6,7 @@ export {FirebaseEndAt} from './lib/decorator/firebase-end-at.decorator';
 export {FirebaseEndBefore} from './lib/decorator/firebase-end-before.decorator';
 export {FirebaseLimit} from './lib/decorator/firebase-limit.decorator';
 export {FirebaseLimitToLast} from './lib/decorator/firebase-limit-to-last.decorator';
-export {FirebaseOrderBy, FirebaseOrderByParam} from './lib/decorator/firebase-order-by.decorator';
+export {FirebaseOrderBy, FirebaseOrderByContext} from './lib/decorator/firebase-order-by.decorator';
 export {FirebaseResource, FirebaseResourceContext} from './lib/decorator/firebase-resource.decorator';
 export {FirebaseStartAfter} from './lib/decorator/firebase-start-after.decorator';
 export {FirebaseStartAt} from './lib/decorator/firebase-start-at.decorator';
@@ -16,13 +16,15 @@ export {FirebaseConnection} from './lib/firebase.connection';
 
 export {FirebaseNormalizer} from './lib/firebase.normalizer';
 
-export {FirebasePageBuilder} from './lib/firebase.page-builder';
-
 export {FirebaseQueryBuilder} from './lib/firebase.query-builder';
 
 export {FirebaseQuerySettings} from './lib/firebase.query-settings';
 
 export {FirebaseRepository} from './lib/firebase.repository';
+
+export {FirebasePageBuilder} from './lib/firebase-page-builder';
+
+export {FirebaseResponseBuilder} from './lib/firebase-response-builder';
 
 export {
   FIRESTORE_APP,
