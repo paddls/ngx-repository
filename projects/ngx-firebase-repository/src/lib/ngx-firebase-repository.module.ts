@@ -10,7 +10,7 @@ import {
   FIREBASE_PAGE_BUILDER_TOKEN
 } from './ngx-firebase-repository.module.di';
 import {FirebaseQueryBuilder} from './firebase.query-builder';
-import {FirebasePageBuilder} from './firebase.page-builder';
+import {FirebaseNoPageBuilder} from './firebase-no.page-builder';
 import {FirebaseCreateResponseBuilder} from './firebase-create.response-builder';
 import {FirebaseFindOneResponseBuilder} from './firebase-find-one.response-builder';
 import {CONNECTIONS_TOKEN} from '@witty-services/ngx-repository';
@@ -30,7 +30,7 @@ const MODULE_PROVIDERS: Provider[] = [
   },
   {
     provide: FIREBASE_PAGE_BUILDER_TOKEN,
-    useClass: FirebasePageBuilder
+    useClass: FirebaseNoPageBuilder
   },
   {
     provide: FIREBASE_CREATE_RESPONSE_BUILDER,

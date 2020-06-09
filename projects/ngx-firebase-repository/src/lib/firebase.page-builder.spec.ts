@@ -1,6 +1,6 @@
 import {of} from 'rxjs';
 import {Page} from '@witty-services/ngx-repository';
-import {FirebasePageBuilder} from './firebase.page-builder';
+import {FirebaseNoPageBuilder} from './firebase.page-builder';
 import * as firebase from 'firebase';
 import DocumentData = firebase.firestore.DocumentData;
 import QuerySnapshot = firebase.firestore.QuerySnapshot;
@@ -9,7 +9,7 @@ import QueryDocumentSnapshot = firebase.firestore.QueryDocumentSnapshot;
 describe('FirebasePageBuilder', () => {
 
   it('should return a simple page without any informations of page', (done: DoneFn) => {
-    const builder: FirebasePageBuilder = new FirebasePageBuilder();
+    const builder: FirebaseNoPageBuilder = new FirebaseNoPageBuilder();
     const querySnapshot: QuerySnapshot<DocumentData> = {
       docs: [
         {id: '1', data: () => void 0} as QueryDocumentSnapshot<DocumentData>,

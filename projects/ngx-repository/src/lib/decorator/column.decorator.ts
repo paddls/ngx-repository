@@ -68,7 +68,7 @@ export interface ColumnContextConfiguration<T, R> extends JsonPropertyContextCon
  *
  * @param columnContext Decorator configuration
  */
-export function Column<T, R>(columnContext: ColumnContext<T, R>|string|(() => new(...args: any[]) => T)): any {
+export function Column<T, R>(columnContext?: ColumnContext<T, R>|string|(() => new(...args: any[]) => T)): any {
   return (target: any, propertyKey: string) => {
     JsonProperty(columnContext)(target, propertyKey);
   };

@@ -16,13 +16,15 @@ export {FirebaseConnection} from './lib/firebase.connection';
 
 export {FirebaseNormalizer} from './lib/firebase.normalizer';
 
-export {FirebasePageBuilder} from './lib/firebase.page-builder';
-
 export {FirebaseQueryBuilder} from './lib/firebase.query-builder';
 
 export {FirebaseQuerySettings} from './lib/firebase.query-settings';
 
 export {FirebaseRepository} from './lib/firebase.repository';
+
+export {FirebasePageBuilder} from './lib/firebase-page-builder';
+
+export {FirebaseResponseBuilder} from './lib/firebase-response-builder';
 
 export {
   FIRESTORE_APP,
