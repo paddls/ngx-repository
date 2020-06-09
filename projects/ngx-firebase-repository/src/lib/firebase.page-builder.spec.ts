@@ -1,10 +1,10 @@
 import {of} from 'rxjs';
 import {Page} from '@witty-services/ngx-repository';
-import {FirebaseNoPageBuilder} from './firebase.page-builder';
 import * as firebase from 'firebase';
 import DocumentData = firebase.firestore.DocumentData;
 import QuerySnapshot = firebase.firestore.QuerySnapshot;
 import QueryDocumentSnapshot = firebase.firestore.QueryDocumentSnapshot;
+import {FirebaseNoPageBuilder} from './firebase-no.page-builder';
 
 describe('FirebasePageBuilder', () => {
 
