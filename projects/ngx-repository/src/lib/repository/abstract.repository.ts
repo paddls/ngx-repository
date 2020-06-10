@@ -82,8 +82,8 @@ export abstract class AbstractRepository<T, K, RC, RS> {
   public findOne(query: any = {}): Observable<T> {
     const request: Request = this.queryBuilder.buildRequestFromQuery(this.buildQuery(query));
 
-    return this.findOneResponseBuilder.build(this.driver.findBy(request), this).pipe(
-      map((data: any) => Array.isArray(data) ? data[0] : data),
+    return this.pageBuilder.buildPage(this.driver.findBy(request), this).pipe(
+      map((data: Page<T>) => data[0]),
       map((data: any) => this.denormalizeOne(data, query, request))
     );
   }

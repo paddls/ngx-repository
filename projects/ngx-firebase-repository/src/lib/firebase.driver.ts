@@ -16,7 +16,7 @@ import Query = firebase.firestore.Query;
  * @ignore
  */
 @Injectable()
-export class FirebaseDriver implements Driver<any> {
+export class FirebaseDriver implements Driver<{ id: any }|QuerySnapshot<DocumentData>|DocumentSnapshot> {
 
   private readonly firestore: Firestore;
 
@@ -34,7 +34,7 @@ export class FirebaseDriver implements Driver<any> {
     }
   }
 
-  public update<K>(object: any, request: FirebaseRequest<K>): Observable<void> {
+  public update<K>(object: any, request: FirebaseRequest<K>): Observable<any> {
     return from(this.firestore.doc(request.updatePath).update(object));
   }
 

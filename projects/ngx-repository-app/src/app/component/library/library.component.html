@@ -10,9 +10,9 @@
   </form>
 
   <h2>Library address</h2>
-  <p>{{ library.address.address }}</p>
-  <p>{{ library.address.postCode }}</p>
-  <p>{{ library.address.city }}</p>
+  <p>{{ library.address?.address }}</p>
+  <p>{{ library.address?.postCode }}</p>
+  <p>{{ library.address?.city }}</p>
 
   <h2>Books</h2>
   <ul class="books" *ngIf="library.books$|async as books">

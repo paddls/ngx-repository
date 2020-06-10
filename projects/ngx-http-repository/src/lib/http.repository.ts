@@ -4,7 +4,9 @@ import {HttpDriver} from './http.driver';
 import {HttpQueryBuilder} from './http.query-builder';
 import {Inject, Injector, Optional} from '@angular/core';
 import {HTTP_CREATE_RESPONSE_BUILDER, HTTP_FIND_ONE_RESPONSE_BUILDER, HTTP_PAGE_BUILDER_TOKEN} from './ngx-http-repository.module.di';
-import {AbstractRepository, Normalizer, PageBuilder, PathDenormalizer, ResponseBuilder} from '@witty-services/ngx-repository';
+import {AbstractRepository, Normalizer, PathDenormalizer} from '@witty-services/ngx-repository';
+import {HttpPageBuilder} from './http-page-builder';
+import {HttpResponseBuilder} from './http-response-builder';
 
 /**
  * @ignore
@@ -15,9 +17,9 @@ export class HttpRepository<T, K> extends AbstractRepository<T, K, HttpResourceC
                      normalizer: Normalizer,
                      denormalizer: PathDenormalizer,
                      httpQueryBuilder: HttpQueryBuilder,
-                     @Inject(HTTP_PAGE_BUILDER_TOKEN) httpPageBuilder: PageBuilder<HttpResponse<any>>,
-                     @Inject(HTTP_CREATE_RESPONSE_BUILDER) httpCreateResponseBuilder: ResponseBuilder<HttpResponse<any>>,
-                     @Inject(HTTP_FIND_ONE_RESPONSE_BUILDER) httpFineOneResponseBuilder: ResponseBuilder<HttpResponse<any>>,
+                     @Inject(HTTP_PAGE_BUILDER_TOKEN) httpPageBuilder: HttpPageBuilder,
+                     @Inject(HTTP_CREATE_RESPONSE_BUILDER) httpCreateResponseBuilder: HttpResponseBuilder,
+                     @Inject(HTTP_FIND_ONE_RESPONSE_BUILDER) httpFineOneResponseBuilder: HttpResponseBuilder,
                      @Optional() injector?: Injector) {
     super(
       HTTP_RESOURCE_METADATA_KEY,

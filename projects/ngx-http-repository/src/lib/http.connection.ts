@@ -1,11 +1,13 @@
 import {HttpRepository} from './http.repository';
-import {Inject, Injectable, Injector, StaticProvider, Type} from '@angular/core';
+import {Inject, Injectable, Injector, Type} from '@angular/core';
 import {HTTP_RESOURCE_METADATA_KEY, HttpResourceContext} from './decorator/http-resource.decorator';
 import {HttpResponse} from '@angular/common/http';
-import {AbstractRepository, Connection, Normalizer, PageBuilder, PathDenormalizer, ResponseBuilder} from '@witty-services/ngx-repository';
+import {AbstractRepository, Connection, Normalizer, PathDenormalizer, ResponseBuilder} from '@witty-services/ngx-repository';
 import {HttpDriver} from './http.driver';
 import {HttpQueryBuilder} from './http.query-builder';
 import {HTTP_CREATE_RESPONSE_BUILDER, HTTP_FIND_ONE_RESPONSE_BUILDER, HTTP_PAGE_BUILDER_TOKEN} from './ngx-http-repository.module.di';
+import {HttpPageBuilder} from './http-page-builder';
+import {HttpResponseBuilder} from './http-response-builder';
 
 /**
  * @ignore
@@ -13,17 +15,13 @@ import {HTTP_CREATE_RESPONSE_BUILDER, HTTP_FIND_ONE_RESPONSE_BUILDER, HTTP_PAGE_
 @Injectable()
 export class HttpConnection extends Connection<HttpResourceContext, HttpResponse<any>> {
 
-  protected injector: Injector;
-
-  protected providers: StaticProvider[];
-
   public constructor(private readonly httpDriver: HttpDriver,
                      private readonly normalizer: Normalizer,
                      private readonly pathDenormalizer: PathDenormalizer,
                      private readonly httpQueryBuilder: HttpQueryBuilder,
-                     @Inject(HTTP_PAGE_BUILDER_TOKEN) private readonly httpPageBuilder: PageBuilder<HttpResponse<any>>,
-                     @Inject(HTTP_CREATE_RESPONSE_BUILDER) private httpItemCreateBuilder: ResponseBuilder<HttpResponse<any>>,
-                     @Inject(HTTP_FIND_ONE_RESPONSE_BUILDER) private readonly httpItemFindOneBuilder: ResponseBuilder<HttpResponse<any>>,
+                     @Inject(HTTP_PAGE_BUILDER_TOKEN) private readonly httpPageBuilder: HttpPageBuilder,
+                     @Inject(HTTP_CREATE_RESPONSE_BUILDER) private httpItemCreateBuilder: HttpResponseBuilder,
+                     @Inject(HTTP_FIND_ONE_RESPONSE_BUILDER) private readonly httpItemFindOneBuilder: HttpResponseBuilder,
                      private readonly parentInjector: Injector) {
     super(HTTP_RESOURCE_METADATA_KEY);
   }
