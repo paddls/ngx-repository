@@ -121,6 +121,16 @@ export class InMemoryDataService implements InMemoryDbService {
           id: '4'
         },
         revision: 'rev1.2'
+      },
+      {
+        id: '4',
+        library: '2',
+        title: 'Le quatrième livre',
+        author: '2',
+        editor: {
+          id: '2'
+        },
+        revision: 'rev1.2'
       }
     ];
   }

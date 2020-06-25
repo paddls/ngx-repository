@@ -1,6 +1,6 @@
 <div class="list">
   <ul id="libraries">
-    <li class="title">Libraries</li>
+    <li class="title"><a [routerLink]="['/', 'libraries']">Libraries</a></li>
     <li *ngFor="let library of libraries$|async">
       <a [routerLink]="['/', 'libraries', library.id]">{{ library.name }}</a>
     </li>

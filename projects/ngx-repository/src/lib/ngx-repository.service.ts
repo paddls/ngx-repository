@@ -43,7 +43,7 @@ export class NgxRepositoryService {
   }
 
   private searchForExistingToken<T, K, RC, RS>(resourceType: new(...args: any) => T, repositoryType?: Type<AbstractRepository<T, K, RC, RS>>): AbstractRepository<T, K, RC, RS> {
-    const token: InjectionToken<any> = TokenRegistry.findToken(resourceType);
+    const token: InjectionToken<any> = TokenRegistry.findToken(resourceType.name, repositoryType.name);
 
     if (!token) {
       return null;
@@ -86,7 +86,7 @@ export class NgxRepositoryService {
       repository = connection.getRepository(resourceType);
     }
 
-    const token: InjectionToken<AbstractRepository<T, K, RC, RS>> = TokenRegistry.addTokenToRegistry(resourceType.name);
+    const token: InjectionToken<AbstractRepository<T, K, RC, RS>> = TokenRegistry.addTokenToRegistry(resourceType.name, repositoryType.name);
 
     this.injector = Injector.create({
       providers: [{

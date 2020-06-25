@@ -1,3 +1,5 @@
+export {CacheScope} from './lib/common/decorator/cache-scope.enum';
+
 export {PropertyKeyConfiguration} from './lib/common/decorator/property-key-configuration';
 
 export {PathContext} from './lib/common/path/path-context';
@@ -12,6 +14,8 @@ export {JoinColumn, JoinColumnContext} from './lib/decorator/join-column.decorat
 export {PathColumn, PathColumnContext} from './lib/decorator/path-column.decorator';
 export {PathParam, PathParamContext} from './lib/decorator/path-param.decorator';
 export {Repository, RepositoryContextConfiguration} from './lib/decorator/repository.decorator';
+export {SoftCache, SoftCacheContext} from './lib/decorator/soft-cache.decorator';
+export {HardCache, HardCacheContext} from './lib/decorator/hard-cache.decorator';
 export {SubCollection, SubCollectionContext} from './lib/decorator/sub-collection.decorator';
 
 export {Driver} from './lib/driver/driver';

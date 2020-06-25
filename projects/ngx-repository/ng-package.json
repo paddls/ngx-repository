@@ -5,6 +5,8 @@
     "entryFile": "src/public-api.ts"
   },
   "whitelistedNonPeerDependencies": [
-    "@witty-services/ts-serializer"
+    "@witty-services/ts-serializer",
+    "@witty-services/rxjs-common",
+    "object-hash"
   ]
 }
