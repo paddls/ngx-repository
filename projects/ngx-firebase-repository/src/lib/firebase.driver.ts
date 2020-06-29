@@ -1,11 +1,15 @@
 import {Driver} from '@witty-services/ngx-repository';
-import {asyncScheduler, from, Observable, SchedulerLike, Subscriber} from 'rxjs';
+import {asyncScheduler, from, Observable, SchedulerLike, Subscriber, throwError} from 'rxjs';
 import {Inject, Injectable} from '@angular/core';
 import * as firebase from 'firebase';
 import {FirebaseRequest, FirebaseRequestOrderBy, FirebaseRequestQuery} from './firebase.request';
 import {isNullOrUndefined} from 'util';
 import {FIRESTORE_APP} from './ngx-firebase-repository.module.di';
-import {mapTo} from 'rxjs/operators';
+import {catchError, mapTo} from 'rxjs/operators';
+import {NgxFirebaseRepositoryReadRequestError} from './error/ngx-firebase-repository-read-request.error';
+import {NgxFirebaseRepositoryDeleteRequestError} from './error/ngx-firebase-repository-delete-request.error';
+import {NgxFirebaseRepositoryUpdateRequestError} from './error/ngx-firebase-repository-update-request.error';
+import {NgxFirebaseRepositoryCreateRequestError} from './error/ngx-firebase-repository-create-request.error';
 import Firestore = firebase.firestore.Firestore;
 import QuerySnapshot = firebase.firestore.QuerySnapshot;
 import DocumentData = firebase.firestore.DocumentData;
@@ -27,19 +31,50 @@ export class FirebaseDriver implements Driver<{ id: any }|QuerySnapshot<Document
   public create<K>(object: any, request: FirebaseRequest<K>): Observable<{ id: any }> {
     if (request.id !== null && request.id !== undefined) {
       return from(this.firestore.doc(request.createPath).set(object)).pipe(
-        mapTo(object)
+        mapTo(object),
+        catchError((err: any) => {
+          if (err.name === 'FirebaseError') {
+            return throwError(new NgxFirebaseRepositoryCreateRequestError(request, err));
+          } else {
+            return throwError(err);
+          }
+        })
       );
     } else {
-      return from(this.firestore.collection(request.createPath).add(object));
+      return from(this.firestore.collection(request.createPath).add(object)).pipe(
+        catchError((err: any) => {
+          if (err.name === 'FirebaseError') {
+            return throwError(new NgxFirebaseRepositoryCreateRequestError(request, err));
+          } else {
+            return throwError(err);
+          }
+        })
+      );
     }
   }
 
   public update<K>(object: any, request: FirebaseRequest<K>): Observable<any> {
-    return from(this.firestore.doc(request.updatePath).update(object));
+    return from(this.firestore.doc(request.updatePath).update(object)).pipe(
+      catchError((err: any) => {
+        if (err.name === 'FirebaseError') {
+          return throwError(new NgxFirebaseRepositoryUpdateRequestError(request, err));
+        } else {
+          return throwError(err);
+        }
+      })
+    );
   }
 
   public delete<K>(request: FirebaseRequest<K>): Observable<any> {
-    return from(this.firestore.doc(request.deletePath).delete());
+    return from(this.firestore.doc(request.deletePath).delete()).pipe(
+      catchError((err: any) => {
+        if (err.name === 'FirebaseError') {
+          return throwError(new NgxFirebaseRepositoryDeleteRequestError(request, err));
+        } else {
+          return throwError(err);
+        }
+      })
+    );
   }
 
   public findBy<K>(request: FirebaseRequest<K>): Observable<QuerySnapshot<DocumentData>> {
@@ -81,11 +116,27 @@ export class FirebaseDriver implements Driver<{ id: any }|QuerySnapshot<Document
       collection = collection.limitToLast(request.limitToLast);
     }
 
-    return fromRef<QuerySnapshot<DocumentData>>(collection);
+    return fromRef<QuerySnapshot<DocumentData>>(collection).pipe(
+      catchError((err: any) => {
+        if (err.name === 'FirebaseError') {
+          return throwError(new NgxFirebaseRepositoryReadRequestError(request, err));
+        } else {
+          return throwError(err);
+        }
+      })
+    );
   }
 
-  public findOne<K>(query: FirebaseRequest<K>): Observable<DocumentSnapshot> {
-    return fromRef<DocumentSnapshot>(this.firestore.doc(query.readPath));
+  public findOne<K>(request: FirebaseRequest<K>): Observable<DocumentSnapshot> {
+    return fromRef<DocumentSnapshot>(this.firestore.doc(request.readPath)).pipe(
+      catchError((err: any) => {
+        if (err.name === 'FirebaseError') {
+          return throwError(new NgxFirebaseRepositoryReadRequestError(request, err));
+        } else {
+          return throwError(err);
+        }
+      })
+    );
   }
 }
 
