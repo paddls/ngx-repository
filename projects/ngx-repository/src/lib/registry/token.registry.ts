@@ -1,30 +1,29 @@
-import {InjectionToken} from '@angular/core';
+import {InjectionToken, Type} from '@angular/core';
+import {AbstractRepository} from '../repository/abstract.repository';
 
 /**
  * @ignore
  */
 export class TokenRegistry {
 
-  private static tokenRegistry: Map<string, Map<string, InjectionToken<any>>> = new Map<string, Map<string, InjectionToken<any>>>(
-    [['general', new Map<any, InjectionToken<any>>()]]
-  );
+  private static tokenRegistry: Map<Type<AbstractRepository<any, any, any, any>>, Map<new(...args: any) => any, InjectionToken<any>>> = new Map();
 
-  public static addTokenToRegistry<T>(tokenKey: any, registry: string = 'general'): InjectionToken<T> {
+  public static addTokenToRegistry<T>(resourceType: new(...args: any) => T, registry: Type<AbstractRepository<T, any, any, any>>): InjectionToken<T> {
     if (!TokenRegistry.tokenRegistry.has(registry)) {
       TokenRegistry.tokenRegistry.set(registry, new Map<any, InjectionToken<any>>());
     }
 
-    const token: InjectionToken<T> = new InjectionToken<T>(tokenKey);
-    TokenRegistry.tokenRegistry.get(registry).set(tokenKey, token);
+    const token: InjectionToken<T> = new InjectionToken<T>(resourceType.name);
+    TokenRegistry.tokenRegistry.get(registry).set(resourceType, token);
 
     return token;
   }
 
-  public static findToken<T>(tokenKey: any, registry: string = 'general'): InjectionToken<T> {
+  public static findToken<T>(resourceType: new(...args: any) => T, registry: Type<AbstractRepository<T, any, any, any>>): InjectionToken<T> {
     if (!TokenRegistry.tokenRegistry.has(registry)) {
       return null;
     }
 
-    return TokenRegistry.tokenRegistry.get(registry).get(tokenKey);
+    return TokenRegistry.tokenRegistry.get(registry).get(resourceType);
   }
 }
