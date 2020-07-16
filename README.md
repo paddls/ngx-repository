@@ -40,7 +40,7 @@ NgxRepository is an Angular library to make a software DAO layer to access resou
 First install the main library in your project :
 
 ```shell script
-npm install --save ngx-repository
+npm install --save @witty-services/ngx-repository
 ```
 
 After that, choose drivers and install them as follow.
@@ -48,13 +48,13 @@ After that, choose drivers and install them as follow.
 ### Http Driver
 
 ```shell script
-npm install --save ngx-http-repository
+npm install --save @witty-services/ngx-http-repository
 ```
 
 ### Firebase Driver
 
 ```shell script
-npm install --save ngx-firebase-repository
+npm install --save @witty-services/ngx-firebase-repository
 ```
 
 ### Import modules
