@@ -34,7 +34,7 @@ export class HttpQueryBuilder extends PathQueryBuilder<HttpResourceContext> {
         return;
       }
 
-      httpRequest.queryParams[httpQueryParam.name] = cloneDeep(httpQueryParam.format).replace(/:value/gi, query.settings[httpQueryParam.propertyKey]);
+      httpRequest.queryParams = httpRequest.queryParams.append(httpQueryParam.name, cloneDeep(httpQueryParam.format).replace(/:value/gi, query.settings[httpQueryParam.propertyKey]));
     });
 
     return this;

@@ -1,4 +1,4 @@
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {HttpDriver} from './http.driver';
 import {HttpRequest} from './http.request';
 
@@ -16,9 +16,11 @@ describe('HttpDriver', () => {
     const headers: { [key: string]: string|string[] } = {
       header1: 'header1-value'
     };
-    const params: { [key: string]: string|string[] } = {
-      param1: 'param1-value'
-    };
+    const params: HttpParams = new HttpParams({
+      fromObject: {
+        param1: 'param1-value'
+      }
+    });
     const httpRequest: HttpRequest<string> = new HttpRequest<string>({
       headers,
       queryParams: params
@@ -44,9 +46,11 @@ describe('HttpDriver', () => {
     const headers: { [key: string]: string|string[] } = {
       header1: 'header1-value'
     };
-    const params: { [key: string]: string|string[] } = {
-      param1: 'param1-value'
-    };
+    const params: HttpParams = new HttpParams({
+      fromObject: {
+        param1: 'param1-value'
+      }
+    });
     const httpRequest: HttpRequest<string> = new HttpRequest<string>({
       headers,
       queryParams: params
@@ -71,9 +75,11 @@ describe('HttpDriver', () => {
     const headers: { [key: string]: string|string[] } = {
       header1: 'header1-value'
     };
-    const params: { [key: string]: string|string[] } = {
-      param1: 'param1-value'
-    };
+    const params: HttpParams = new HttpParams({
+      fromObject: {
+        param1: 'param1-value'
+      }
+    });
     const httpRequest: HttpRequest<string> = new HttpRequest<string>({
       headers,
       queryParams: params
@@ -98,9 +104,11 @@ describe('HttpDriver', () => {
     const headers: { [key: string]: string|string[] } = {
       header1: 'header1-value'
     };
-    const params: { [key: string]: string|string[] } = {
-      param1: 'param1-value'
-    };
+    const params: HttpParams = new HttpParams({
+      fromObject: {
+        param1: 'param1-value'
+      }
+    });
     const httpRequest: HttpRequest<string> = new HttpRequest<string>({
       headers,
       queryParams: params
@@ -125,9 +133,11 @@ describe('HttpDriver', () => {
     const headers: { [key: string]: string|string[] } = {
       header1: 'header1-value'
     };
-    const params: { [key: string]: string|string[] } = {
-      param1: 'param1-value'
-    };
+    const params: HttpParams = new HttpParams({
+      fromObject: {
+        param1: 'param1-value'
+      }
+    });
     const httpRequest: HttpRequest<string> = new HttpRequest<string>({
       headers,
       queryParams: params
