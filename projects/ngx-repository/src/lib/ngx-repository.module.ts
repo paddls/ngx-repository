@@ -37,11 +37,7 @@ const MODULE_PROVIDERS: Provider[] = [
 /**
  * @ignore
  */
-@NgModule({
-  providers: [
-    ...MODULE_PROVIDERS
-  ]
-})
+@NgModule({})
 export class NgxRepositoryModule {
 
   public static injector: Injector = null;
@@ -50,17 +46,15 @@ export class NgxRepositoryModule {
     NgxRepositoryModule.injector = injector;
   }
 
-  public static forRoot(config: Config = {}): ModuleWithProviders<NgxRepositoryModule> {
+  public static forRoot(config?: Config): ModuleWithProviders<NgxRepositoryModule> {
     return {
       ngModule: NgxRepositoryModule,
       providers: [
         {
           provide: NORMALIZER_CONFIGURATION_TOKEN,
-          useValue: {
-            ...DEFAULT_NORMALIZER_CONFIGURATION,
-            ...(config.normalizerConfiguration || {})
-          }
-        }
+          useValue: config && config.normalizerConfiguration ? config.normalizerConfiguration : DEFAULT_NORMALIZER_CONFIGURATION
+        },
+        ...MODULE_PROVIDERS
       ]
     };
   }
