@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import * as firebase from 'firebase';
 import {Page} from '@witty-services/ngx-repository';
 import DocumentData = firebase.firestore.DocumentData;
@@ -20,7 +20,10 @@ export class FirebaseNoPageBuilder implements FirebasePageBuilder {
           id: doc.id,
           ...doc.data()
         })))
-      )
+      ),
+      tap((page: Page<any>) => page.currentPage = 1),
+      tap((page: Page<any>) => page.itemsPerPage = page.length),
+      tap((page: Page<any>) => page.totalItems = page.length)
     );
   }
 }
