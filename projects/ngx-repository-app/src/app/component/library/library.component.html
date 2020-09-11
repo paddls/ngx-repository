@@ -9,6 +9,8 @@
     <button type="submit" (click)="onUpdateLibrary(library)">Submit</button>
   </form>
 
+  <p *ngIf="library.description !== null">Description : {{ library.description }}</p>
+
   <h2>Library address</h2>
   <p>{{ library.address?.address }}</p>
   <p>{{ library.address?.postCode }}</p>

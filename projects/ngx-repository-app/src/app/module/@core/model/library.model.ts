@@ -15,6 +15,9 @@ export class Library extends Identifiable {
   @Column()
   public name: string;
 
+  @Column({denormalizeNull: true})
+  public description: string;
+
   @Column(() => Address)
   public address: Address;
 

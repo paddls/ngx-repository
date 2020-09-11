@@ -34,6 +34,26 @@ export interface ColumnContext<T, R> extends JsonPropertyContext<T, R> {
    * A converter to make a custom serialization/deserialization
    */
   customConverter?: () => new(...args: any[]) => Converter<T, R>;
+
+  /**
+   * Boolean to override global configuration to denormalize the column when is set to null value
+   */
+  denormalizeNull?: boolean;
+
+  /**
+   * Boolean to override global configuration to denormalize the column when is set to undefined value
+   */
+  denormalizeUndefined?: boolean;
+
+  /**
+   * Boolean to override global configuration to normalize the column when is set to null value
+   */
+  normalizeNull?: boolean;
+
+  /**
+   * Boolean to override global configuration to normalize the column when is set to undefined value
+   */
+  normalizeUndefined?: boolean;
 }
 
 /**

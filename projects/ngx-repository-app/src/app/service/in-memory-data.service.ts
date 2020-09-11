@@ -20,6 +20,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         id: '1',
         name: 'Library 1',
+        description: 'Description library 1',
         address: {
           address: '1 rue de la république',
           postCode: 35000,
@@ -30,6 +31,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         id: '2',
         name: 'Library 2',
+        description: 'Description library 2',
         test: 'coucou',
         createdAt: new Date('Wed, 09 Aug 1995 00:00:00 GMT'),
         address: {
@@ -42,6 +44,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         id: '3',
         name: 'Library 3',
+        description: null,
         createdAt: new Date('Wed, 10 Sep 1990 00:00:00 GMT'),
         address: {
           address: '3 rue de la république',
