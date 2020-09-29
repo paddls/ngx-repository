@@ -10,10 +10,11 @@ describe('HttpNoPageBuilder', () => {
 
     builder.buildPage(of({body: [1, 2, 3]} as HttpResponse<any>)).subscribe({
       next: (page: Page<any>) => {
-        expect(page).toEqual([1, 2, 3]);
-        expect(page.currentPage).toBeUndefined();
-        expect(page.itemsPerPage).toBeUndefined();
-        expect(page.totalItems).toBeUndefined();
+        const pageExpected: Page<any> = new Page<any>([1, 2, 3]);
+        pageExpected.currentPage = 1;
+        pageExpected.itemsPerPage = 3;
+        pageExpected.totalItems = 3;
+        expect(page).toEqual(pageExpected);
       },
       complete: () => done()
     });

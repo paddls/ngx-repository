@@ -1,6 +1,5 @@
 import {NgxRepositoryModule} from '../ngx-repository.module';
 import {PropertyKeyConfiguration} from '../common/decorator/property-key-configuration';
-import {SUB_COLLECTION_OBS_METADATA_KEY} from './sub-collection.decorator';
 import {Type} from '@angular/core';
 import {AbstractRepository} from '../repository/abstract.repository';
 
@@ -52,7 +51,7 @@ export function InjectRepository<T>(params: InjectRepositoryContext<T>): any {
             injectRepositoryContextConfiguration.repository ? injectRepositoryContextConfiguration.repository() : null
           );
 
-        Reflect.defineMetadata(`${SUB_COLLECTION_OBS_METADATA_KEY}:${propertyKey}`, repository, this);
+        Reflect.defineMetadata(`${INJECT_REPOSITORY_INSTANCE_METADATA_KEY}:${propertyKey}`, repository, this);
 
         return repository;
       },

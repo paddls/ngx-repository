@@ -20,14 +20,15 @@ describe('FirebasePageBuilder', () => {
 
     builder.buildPage(of(querySnapshot)).subscribe({
       next: (page: Page<any>) => {
-        expect(page).toEqual([
+        const expectedPage: Page<any> = new Page<any>([
           {id: '1'},
           {id: '2'},
           {id: '3'}
         ]);
-        expect(page.currentPage).toBeUndefined();
-        expect(page.itemsPerPage).toBeUndefined();
-        expect(page.totalItems).toBeUndefined();
+        expectedPage.currentPage = 1;
+        expectedPage.itemsPerPage = 3;
+        expectedPage.totalItems = 3;
+        expect(page).toEqual(expectedPage);
       },
       complete: () => done()
     });
