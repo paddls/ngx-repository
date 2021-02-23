@@ -1,26 +1,14 @@
 export {HttpHeader, HttpHeaderContext} from './lib/decorator/http-header.decorator';
 export {HttpQueryParam, HttpQueryParamContext} from './lib/decorator/http-query-param.decorator';
-export {HttpResource, HttpResourceContext} from './lib/decorator/http-resource.decorator';
+export {HttpResource} from './lib/decorator/http-resource.decorator';
 
-export {HttpConnection} from './lib/http.connection';
+export {HttpRepositoryBuilder} from './lib/repository/http-repository.builder';
 
-export {HttpDriver} from './lib/http.driver';
+export {HttpRepository} from './lib/repository/http.repository';
+export {HttpRepositoryDriver} from './lib/driver/http-repository.driver';
 
-export {HttpQueryBuilder} from './lib/http.query-builder';
+export {HttpRepositoryResponse} from './lib/response/http-repository.response';
 
-export {HttpQuerySettings} from './lib/http.query-settings';
-
-export {HttpRepository} from './lib/http.repository';
-
-export {HttpNoPageBuilder} from './lib/http-no.page-builder';
-
-export {HttpPageBuilder} from './lib/http-page-builder';
-export {HttpResponseBuilder} from './lib/http-response-builder';
-
-export {
-  HTTP_PAGE_BUILDER_TOKEN,
-  HTTP_CREATE_RESPONSE_BUILDER,
-  HTTP_FIND_ONE_RESPONSE_BUILDER
-} from './lib/ngx-http-repository.module.di';
+export {HttpResponseBuilder} from './lib/response/http-response.builder';
 
 export {NgxHttpRepositoryModule} from './lib/ngx-http-repository.module';

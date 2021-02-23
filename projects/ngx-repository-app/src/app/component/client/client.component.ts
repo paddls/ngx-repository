@@ -23,6 +23,6 @@ export class ClientComponent {
   }
 
   public addPurchase(client: Client): void {
-    this.clientService.addPurchase(client);
+    this.clientService.addPurchase(client).subscribe();
   }
 }

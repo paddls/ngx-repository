@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {HttpRepository} from '@witty-services/ngx-http-repository';
-import {Book} from '../model/book.model';
-import {InjectRepository} from '@witty-services/ngx-repository';
-import {Observable} from 'rxjs';
-import {Chance} from 'chance';
+import { Injectable } from '@angular/core';
+import { HttpRepository } from '@witty-services/ngx-http-repository';
+import { Book } from '../model/book.model';
+import { InjectRepository } from '@witty-services/ngx-repository';
+import { Observable } from 'rxjs';
+import { Chance } from 'chance';
 
 @Injectable()
 export class BookService {

@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {Person} from '../model/person.model';
-import {PersonRepository} from '../repository/person.repository';
-import {Chance} from 'chance';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Person } from '../model/person.model';
+import { PersonRepository } from '../repository/person.repository';
+import { Chance } from 'chance';
 
 @Injectable()
 export class PersonService {

@@ -1,11 +1,11 @@
-import {FirebaseRequest} from '../firebase.request';
-import {FirebaseError} from 'firebase';
-import {NgxFirebaseRepositoryError} from './ngx-firebase-repository.error';
+import { FirebaseError } from 'firebase';
+import { NgxFirebaseRepositoryError } from './ngx-firebase-repository.error';
+import { FirebaseRepositoryRequest } from '../request/firebase-repository.request';
 
 export class NgxFirebaseRepositoryDeleteRequestError extends NgxFirebaseRepositoryError {
 
-  public constructor(request: FirebaseRequest<any>, firebaseError: FirebaseError) {
-    super(request.deletePath, request, firebaseError);
+  public constructor(request: FirebaseRepositoryRequest, firebaseError: FirebaseError) {
+    super(request, firebaseError);
 
     this.name = 'NgxFirebaseRepositoryDeleteRequestError';
   }

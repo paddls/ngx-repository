@@ -1,4 +1,4 @@
-import {HTTP_RESOURCE_METADATA_KEY, HttpResource, HttpResourceContext} from './http-resource.decorator';
+import { HTTP_RESOURCE_METADATA_KEY, HttpResource, HttpResourceContext } from './http-resource.decorator';
 
 describe('HttpResourceDecorator', () => {
 

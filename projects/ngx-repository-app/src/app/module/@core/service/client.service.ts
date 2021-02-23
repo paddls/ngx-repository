@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {InjectRepository, Page} from '@witty-services/ngx-repository';
-import {Client} from '../model/client.model';
-import {Chance} from 'chance';
-import {Purchase} from '../model/purchase.model';
-import {PurchaseQuery} from '../query/purchase.query';
-import {ClientQuery} from '../query/client.query';
-import {FirebaseRepository} from '@witty-services/ngx-firebase-repository';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { InjectRepository, Page } from '@witty-services/ngx-repository';
+import { Client } from '../model/client.model';
+import { Chance } from 'chance';
+import { Purchase } from '../model/purchase.model';
+import { ClientQuery } from '../query/client.query';
+import { FirebaseRepository } from '@witty-services/ngx-firebase-repository';
+import { PurchaseQuery } from '../query/purchase.query';
 
 @Injectable()
 export class ClientService {
@@ -42,7 +42,7 @@ export class ClientService {
         })}`,
       }),
       new PurchaseQuery({
-      clientId: client.id
+        clientId: client.id
       })
     );
   }
