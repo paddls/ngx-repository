@@ -10,6 +10,7 @@ import { ConfigurationContextProvider } from '../configuration/configuration-con
 export abstract class Repository2 {
 
   protected readonly repositoryConfiguration: RepositoryConfiguration;
+  
   protected readonly resourceConfigurationProvider: ConfigurationProvider;
 
   protected constructor(protected readonly requestManager: RequestManager,

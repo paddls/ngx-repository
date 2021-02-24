@@ -1,6 +1,7 @@
 import { Observable, of } from 'rxjs';
 import { cloneDeep } from 'lodash';
 import {
+  ConfigurationContextProvider,
   Path,
   RepositoryNormalizer,
   RepositoryRequest,
@@ -16,9 +17,8 @@ import {
 } from '../decorator/http-query-param.decorator';
 import { HttpParams } from '@angular/common/http';
 import { HTTP_HEADER_METADATA_KEY, HttpHeaderContextConfiguration } from '../decorator/http-header.decorator';
-import { ConfigurationContextProvider } from '../../../../ngx-repository/src/lib/core/configuration/configuration-context.provider';
-import { FirebaseRepositoryParamConfiguration } from '../../../../ngx-firebase-repository/src/lib/configuration/firebase-repository-param.configuration';
 import { HttpOperation } from './http.operation';
+import {HttpRepositoryParamConfiguration} from '../configuration/http-repository-param.configuration';
 
 @Injectable()
 export class HttpRequestBuilder implements RequestBuilder {
@@ -37,7 +37,7 @@ export class HttpRequestBuilder implements RequestBuilder {
   }
 
   protected getPath(body: any, query: any, configuration: ConfigurationContextProvider): Path {
-    const path: string = configuration.getConfiguration<FirebaseRepositoryParamConfiguration>('path');
+    const path: string = configuration.getConfiguration<HttpRepositoryParamConfiguration>('path');
 
     return new Path(body, query, path);
   }

@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --project ngx-repository-app",
+    "build:all": "ng build --project ngx-repository && ng build --project ngx-http-repository && ng build --project ngx-firebase-repository",
     "build:ngx-repository": "ng build --project ngx-repository && cp README.md dist/ngx-repository",
     "build:ngx-http-repository": "npm run build:ngx-repository && ng build --project ngx-http-repository && cp README.md dist/ngx-http-repository",
     "build:ngx-firebase-repository": "npm run build:ngx-repository && ng build --project ngx-firebase-repository && cp README.md dist/ngx-firebase-repository",

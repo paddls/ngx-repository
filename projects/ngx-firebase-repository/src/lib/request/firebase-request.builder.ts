@@ -1,11 +1,10 @@
 import { Observable, of } from 'rxjs';
-import { Path, RepositoryRequest, RequestBuilder, RequestManagerContext } from '@witty-services/ngx-repository';
+import {ConfigurationContextProvider, Path, RepositoryRequest, RequestBuilder, RequestManagerContext} from '@witty-services/ngx-repository';
 import { FirebaseRepositoryRequest } from './firebase-repository.request';
 import { Inject, Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import { FIRESTORE_APP } from '../ngx-firebase-repository.module.di';
 import { FirebaseCriteria } from './firebase.criteria';
-import { ConfigurationContextProvider } from '../../../../ngx-repository/src/lib/core/configuration/configuration-context.provider';
 import { FirebaseRepositoryParamConfiguration } from '../configuration/firebase-repository-param.configuration';
 import { FirebaseOperation } from './firebase.operation';
 import { FirebaseNormalizer } from '../normalizer/firebase.normalizer';

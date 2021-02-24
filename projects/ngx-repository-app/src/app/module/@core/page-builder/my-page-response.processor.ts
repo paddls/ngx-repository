@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Page, RequestManagerContext } from '@witty-services/ngx-repository';
+import {Page, RequestManagerContext, ResponseProcessor} from '@witty-services/ngx-repository';
 import { HttpRepositoryResponse } from '@witty-services/ngx-http-repository';
-import { ResponseProcessor } from '../../../../../../ngx-repository/src/lib/core/response/transformer/response.processor';
 
 @Injectable()
 export class MyPageResponseProcessor implements ResponseProcessor {

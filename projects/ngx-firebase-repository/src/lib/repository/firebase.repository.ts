@@ -1,23 +1,19 @@
 import { FIREBASE_RESOURCE_METADATA_KEY } from '../decorator/firebase-resource.decorator';
 import {
-  FindAllRepository,
+  CreateRepository, DeleteRepository,
+  FindAllRepository, FindByIdRepository, FindOneRepository,
   IdQuery,
   Page,
   Repository,
   Repository2,
-  RequestManager
+  RequestManager, UpdateRepository
 } from '@witty-services/ngx-repository';
-import { HttpRepositoryDriver } from '../../../../ngx-http-repository/src/lib/driver/http-repository.driver';
 import { Observable } from 'rxjs';
 import { FirebaseRequestBuilder } from '../request/firebase-request.builder';
 import { FirebaseResponseBuilder } from '../response/firebase-response.builder';
 import { first } from 'lodash';
 import { map } from 'rxjs/operators';
-import { FindOneRepository } from '../../../../ngx-repository/src/lib/core/repository/find-one.repository';
-import { FindByIdRepository } from '../../../../ngx-repository/src/lib/core/repository/find-by-id.repository';
-import { CreateRepository } from '../../../../ngx-repository/src/lib/core/repository/create.repository';
-import { UpdateRepository } from '../../../../ngx-repository/src/lib/core/repository/update.repository';
-import { DeleteRepository } from '../../../../ngx-repository/src/lib/core/repository/delete.repository';
+import {FirebaseRepositoryDriver} from '../driver/firebase-repository.driver';
 
 /**
  * @ignore
@@ -26,10 +22,10 @@ import { DeleteRepository } from '../../../../ngx-repository/src/lib/core/reposi
   request: () => FirebaseRequestBuilder,
   response: FirebaseResponseBuilder.withParams()
 })
-export class FirebaseRepository<T, K> extends Repository2 implements FindAllRepository, FindOneRepository, FindByIdRepository, CreateRepository, UpdateRepository, DeleteRepository {
+export class FirebaseRepository<T, K = string> extends Repository2 implements FindAllRepository, FindOneRepository, FindByIdRepository, CreateRepository, UpdateRepository, DeleteRepository {
 
   public constructor(requestManager: RequestManager,
-                     driver: HttpRepositoryDriver) {
+                     driver: FirebaseRepositoryDriver) {
     super(requestManager, driver);
   }
 

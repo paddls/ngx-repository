@@ -1,13 +1,17 @@
-import { BuilderParam, RequestManagerContext, ResponseBuilder } from '@witty-services/ngx-repository';
+import {
+  BuilderParam,
+  ConfigurationContextProvider,
+  DenormalizeResponseProcessor,
+  PageResponseProcessor,
+  RequestManagerContext,
+  ResponseBuilder,
+  ResponseProcessor,
+  TypeGetter
+} from '@witty-services/ngx-repository';
 import { Injectable, Type } from '@angular/core';
 import { get, isObject, merge } from 'lodash';
 import { HttpRepositoryResponse } from './http-repository.response';
-import { ResponseProcessor } from '../../../../ngx-repository/src/lib/core/response/transformer/response.processor';
-import { TypeGetter } from '../../../../ngx-repository/src/lib/core/common/model/type-getter.type';
-import { ConfigurationContextProvider } from '../../../../ngx-repository/src/lib/core/configuration/configuration-context.provider';
 import { Observable, of } from 'rxjs';
-import { DenormalizeResponseProcessor } from '../../../../ngx-repository/src/lib/core/response/transformer/denormalize-response.processor';
-import { PageResponseProcessor } from '../../../../ngx-repository/src/lib/core/response/transformer/page-response.processor';
 
 export interface HttpResponseBuilderParam {
   denormalizeResponseProcessor?: TypeGetter<ResponseProcessor>;

@@ -20,8 +20,8 @@ export class HttpRepositoryBuilder extends RepositoryBuilder {
   }
 
   // TODO @RMA refactor repository builder
-  protected getRepositoryInstance(resourceType: Type<any>): HttpRepository<any, any> {
-    const repositoryClass: Type<HttpRepository<any, any>> = this.createRepositoryClass(HttpRepository, resourceType);
+  protected getRepositoryInstance<T, K>(resourceType: Type<T>): HttpRepository<T, K> {
+    const repositoryClass: Type<HttpRepository<T, K>> = this.createRepositoryClass<T>(HttpRepository, resourceType);
 
     return new repositoryClass(this.requestManger, this.driver);
   }

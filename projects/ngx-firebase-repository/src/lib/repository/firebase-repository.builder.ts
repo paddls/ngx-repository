@@ -20,8 +20,8 @@ export class FirebaseRepositoryBuilder extends RepositoryBuilder {
   }
 
   // TODO @RMA refactor repository builder
-  protected getRepositoryInstance(resourceType: Type<any>): FirebaseRepository<any, any> {
-    const repositoryClass: Type<FirebaseRepository<any, any>> = this.createRepositoryClass(FirebaseRepository, resourceType);
+  protected getRepositoryInstance<T, K>(resourceType: Type<T>): FirebaseRepository<T, K> {
+    const repositoryClass: Type<FirebaseRepository<T, K>> = this.createRepositoryClass(FirebaseRepository, resourceType);
 
     return new repositoryClass(this.requestManger, this.driver);
   }

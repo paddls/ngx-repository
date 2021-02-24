@@ -1,23 +1,23 @@
-import { HttpRepositoryDriver } from '../driver/http-repository.driver';
-import { Observable } from 'rxjs';
-import { first } from 'lodash';
+import {HttpRepositoryDriver} from '../driver/http-repository.driver';
+import {Observable} from 'rxjs';
+import {first} from 'lodash';
 import {
+  CreateRepository,
+  DeleteRepository,
   FindAllRepository,
-  HttpRequestBuilder,
+  FindByIdRepository,
+  FindOneRepository,
   IdQuery,
   Page,
   Repository,
   Repository2,
-  RequestManager
+  RequestManager,
+  UpdateRepository
 } from '@witty-services/ngx-repository';
-import { HTTP_RESOURCE_METADATA_KEY } from '../decorator/http-resource.decorator';
-import { HttpResponseBuilder } from '../response/http-response.builder';
-import { FindOneRepository } from '../../../../ngx-repository/src/lib/core/repository/find-one.repository';
-import { map } from 'rxjs/operators';
-import { FindByIdRepository } from '../../../../ngx-repository/src/lib/core/repository/find-by-id.repository';
-import { CreateRepository } from '../../../../ngx-repository/src/lib/core/repository/create.repository';
-import { UpdateRepository } from '../../../../ngx-repository/src/lib/core/repository/update.repository';
-import { DeleteRepository } from '../../../../ngx-repository/src/lib/core/repository/delete.repository';
+import {HTTP_RESOURCE_METADATA_KEY} from '../decorator/http-resource.decorator';
+import {HttpResponseBuilder} from '../response/http-response.builder';
+import {map} from 'rxjs/operators';
+import {HttpRequestBuilder} from '../request/http-request.builder';
 
 @Repository(null, {
   request: () => HttpRequestBuilder,

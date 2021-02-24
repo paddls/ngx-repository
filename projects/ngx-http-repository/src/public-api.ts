@@ -9,6 +9,7 @@ export {HttpRepositoryDriver} from './lib/driver/http-repository.driver';
 
 export {HttpRepositoryResponse} from './lib/response/http-repository.response';
 
+export {HttpRequestBuilder} from './lib/request/http-request.builder';
 export {HttpResponseBuilder} from './lib/response/http-response.builder';
 
 export {NgxHttpRepositoryModule} from './lib/ngx-http-repository.module';

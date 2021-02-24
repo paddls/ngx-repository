@@ -19,12 +19,12 @@ export abstract class RepositoryBuilder {
 
   public abstract supports(repositoryType: Type<Repository2>): boolean;
 
-  public getRepository(resourceType: Type<any>): Repository2 {
+  public getRepository<T>(resourceType: Type<T>): Repository2 {
     if (!Reflect.hasMetadata(this.resourceContextKey, resourceType)) {
       throw new Error(`${ resourceType.name } is not a valid resource.`);
     }
 
-    const repository: Repository2 = this.getRepositoryInstance(resourceType);
+    const repository: Repository2 = this.getRepositoryInstance<T>(resourceType);
 
     const resourceContextConfiguration: ConfigurationProvider = Reflect.getMetadata(this.resourceContextKey, resourceType);
     Reflect.defineMetadata(RESOURCE_CONFIGURATION_METADATA_KEY, resourceContextConfiguration, repository);
@@ -37,9 +37,9 @@ export abstract class RepositoryBuilder {
     return repository;
   }
 
-  protected abstract getRepositoryInstance(resourceType: Type<any>): Repository2;
+  protected abstract getRepositoryInstance<T>(resourceType: Type<T>): Repository2;
 
-  protected createRepositoryClass(repositoryType: Type<any>, resourceType: Type<any>): Type<any> {
+  protected createRepositoryClass<T>(repositoryType: Type<any>, resourceType: Type<T>): Type<any> {
     const defaultConfiguration: ResourceConfiguration = {
       responseType: () => resourceType
     };

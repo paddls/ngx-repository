@@ -26,7 +26,7 @@ export class FirebaseRepositoryDriver implements RepositoryDriver {
 
   private readonly firestore: Firestore;
 
-  public constructor(@Inject(FIRESTORE_APP) firestore: any) {
+  public constructor(@Inject(FIRESTORE_APP) firestore: Firestore) {
     this.firestore = firestore;
   }
 
