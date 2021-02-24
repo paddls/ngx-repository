@@ -25,7 +25,7 @@ export class RequestManager {
     const driver: RepositoryDriver = context.driver;
     const configuration: ConfigurationContextProvider = context.configuration;
     const requestBuilderParam: BuilderParam<RequestBuilder> = configuration.getConfiguration('request');
-    const requestBuilder: RequestBuilder = this.injector.get(get(requestBuilderParam, 'builder', requestBuilderParam)());
+    const requestBuilder: RequestBuilder = this.injector.get(get(requestBuilderParam, 'builder', requestBuilderParam));
 
     const responseBuilder: ResponseBuilder = this.injector.get(this.getResponseBuilderType(configuration));
     const responseProcessors: ResponseProcessor[] = [
@@ -55,7 +55,7 @@ export class RequestManager {
   protected getResponseBuilderType(configuration: ConfigurationContextProvider): Type<ResponseBuilder> {
     const responseBuilderParam: BuilderParam<ResponseBuilder> = configuration.getConfiguration('response');
 
-    return get(responseBuilderParam, 'builder', responseBuilderParam)();
+    return get(responseBuilderParam, 'builder', responseBuilderParam);
   }
 
   protected getResponseProcessor(responseBuilder: ResponseBuilder, configuration: ConfigurationContextProvider): ResponseProcessor[] {

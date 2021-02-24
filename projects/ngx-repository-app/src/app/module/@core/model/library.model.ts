@@ -12,7 +12,7 @@ import { MyPageResponseProcessor } from '../page-builder/my-page-response.proces
   update: '/library', // FIXME @RMA path ignored
   findAll: {
     response: HttpResponseBuilder.withParams({
-      pageResponseProcessor: () => MyPageResponseProcessor
+      pageResponseProcessor: MyPageResponseProcessor
     })
   }
 })

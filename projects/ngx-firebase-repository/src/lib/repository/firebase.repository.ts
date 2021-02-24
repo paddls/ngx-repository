@@ -1,25 +1,29 @@
 import { FIREBASE_RESOURCE_METADATA_KEY } from '../decorator/firebase-resource.decorator';
 import {
-  CreateRepository, DeleteRepository,
-  FindAllRepository, FindByIdRepository, FindOneRepository,
+  CreateRepository,
+  DeleteRepository,
+  FindAllRepository,
+  FindByIdRepository,
+  FindOneRepository,
   IdQuery,
   Page,
   Repository,
   Repository2,
-  RequestManager, UpdateRepository
+  RequestManager,
+  UpdateRepository
 } from '@witty-services/ngx-repository';
 import { Observable } from 'rxjs';
 import { FirebaseRequestBuilder } from '../request/firebase-request.builder';
 import { FirebaseResponseBuilder } from '../response/firebase-response.builder';
 import { first } from 'lodash';
 import { map } from 'rxjs/operators';
-import {FirebaseRepositoryDriver} from '../driver/firebase-repository.driver';
+import { FirebaseRepositoryDriver } from '../driver/firebase-repository.driver';
 
 /**
  * @ignore
  */
 @Repository(null, {
-  request: () => FirebaseRequestBuilder,
+  request: FirebaseRequestBuilder,
   response: FirebaseResponseBuilder.withParams()
 })
 export class FirebaseRepository<T, K = string> extends Repository2 implements FindAllRepository, FindOneRepository, FindByIdRepository, CreateRepository, UpdateRepository, DeleteRepository {

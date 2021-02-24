@@ -1,6 +1,6 @@
-import {HttpRepositoryDriver} from '../driver/http-repository.driver';
-import {Observable} from 'rxjs';
-import {first} from 'lodash';
+import { HttpRepositoryDriver } from '../driver/http-repository.driver';
+import { Observable } from 'rxjs';
+import { first } from 'lodash';
 import {
   CreateRepository,
   DeleteRepository,
@@ -14,13 +14,13 @@ import {
   RequestManager,
   UpdateRepository
 } from '@witty-services/ngx-repository';
-import {HTTP_RESOURCE_METADATA_KEY} from '../decorator/http-resource.decorator';
-import {HttpResponseBuilder} from '../response/http-response.builder';
-import {map} from 'rxjs/operators';
-import {HttpRequestBuilder} from '../request/http-request.builder';
+import { HTTP_RESOURCE_METADATA_KEY } from '../decorator/http-resource.decorator';
+import { HttpResponseBuilder } from '../response/http-response.builder';
+import { map } from 'rxjs/operators';
+import { HttpRequestBuilder } from '../request/http-request.builder';
 
 @Repository(null, {
-  request: () => HttpRequestBuilder,
+  request: HttpRequestBuilder,
   response: HttpResponseBuilder.withParams()
 })
 export class HttpRepository<T, K> extends Repository2 implements FindAllRepository, FindOneRepository, FindByIdRepository, CreateRepository, UpdateRepository, DeleteRepository {
