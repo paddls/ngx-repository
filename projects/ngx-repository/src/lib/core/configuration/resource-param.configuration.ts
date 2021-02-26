@@ -8,7 +8,7 @@ export type BuilderParam<T> = Type<T> | TypeGetter<T> | { builder: Type<T>, para
 
 export interface ResourceParamConfiguration {
   request?: BuilderParam<RequestBuilder>;
-  normalizer?: NormalizerConfiguration;
+  normalizerConfiguration?: NormalizerConfiguration;
   response?: BuilderParam<ResponseBuilder>;
   responseType?: TypeGetter;
 }

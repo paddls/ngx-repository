@@ -24,8 +24,7 @@ import { FirebaseRepositoryDriver } from '../driver/firebase-repository.driver';
  */
 @Repository(null, {
   request: FirebaseRequestBuilder,
-  response: FirebaseResponseBuilder.withParams(),
-  findAll
+  response: FirebaseResponseBuilder.withParams()
 })
 export class FirebaseRepository<T, K = string> extends Repository2 implements FindAllRepository, FindOneRepository, FindByIdRepository, CreateRepository, UpdateRepository, DeleteRepository {
 

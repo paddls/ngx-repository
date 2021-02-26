@@ -14,7 +14,7 @@ export class DenormalizeResponseProcessor implements ResponseProcessor {
 
   public transform(response: any, origin: RepositoryResponse, { configuration }: RequestManagerContext): any {
     const responseType: Type<any> = configuration.getConfiguration('responseType')();
-    const normalizerConfiguration: NormalizerConfiguration = configuration.findConfiguration('normalizer');
+    const normalizerConfiguration: NormalizerConfiguration = configuration.findConfiguration('normalizerConfiguration');
 
     return this.normalizer.denormalize(responseType, response, normalizerConfiguration);
   }
