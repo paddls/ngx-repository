@@ -19,8 +19,6 @@ export {SubCollection, SubCollectionContext} from './lib/core/decorator/sub-coll
 
 export {RepositoryNormalizer} from './lib/normalizer/repository-denormalizer';
 
-export {PathRequest} from './lib/core/request/path.request';
-
 export {TokenRegistry} from './lib/core/registry/token.registry';
 
 export {NORMALIZER_CONFIGURATION_TOKEN, CONNECTIONS_TOKEN} from './lib/ngx-repository.module.di';

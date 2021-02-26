@@ -15,12 +15,12 @@ import { MyPageResponseProcessor } from './module/@core/page-builder/my-page-res
 import { ClientComponent } from './component/client/client.component';
 import { NgxHttpRepositoryModule } from '@witty-services/ngx-http-repository';
 import { FIRESTORE_APP, NgxFirebaseRepositoryModule } from '@witty-services/ngx-firebase-repository';
-import * as firebase from 'firebase';
+import { firestore, initializeApp } from 'firebase';
 import { BookService } from './module/@core/service/book.service';
-import Firestore = firebase.firestore.Firestore;
+import Firestore = firestore.Firestore;
 
 export function createFirestore(): Firestore {
-  return firebase.initializeApp({
+  return initializeApp({
     apiKey: 'AIzaSyDSd6EXdQWaWcBMxbTYp-kFAV3zxNu-ArM',
     authDomain: 'ngx-repository.firebaseapp.com',
     databaseURL: 'https://ngx-repository.firebaseio.com',

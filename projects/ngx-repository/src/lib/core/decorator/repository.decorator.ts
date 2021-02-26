@@ -17,6 +17,7 @@ export interface RepositoryConfiguration {
   defaultConfiguration?: ResourceConfiguration;
 }
 
+// @dynamic
 export function Repository(resourceType: () => Type<any>, configuration: ResourceConfiguration = null): any {
   return (target: any): void => {
     const defaultRepositoryConfiguration: RepositoryConfiguration = Reflect.getMetadata(REPOSITORY_METADATA_KEY, Object.getPrototypeOf(target));

@@ -3,7 +3,7 @@ import { CacheScope } from '../common/decorator/cache-scope.enum';
 import { Observable, timer } from 'rxjs';
 import { softCache } from '@witty-services/rxjs-common';
 import { takeUntil } from 'rxjs/operators';
-import { isObject } from 'util';
+import { isObject } from 'lodash';
 
 /**
  * @ignore

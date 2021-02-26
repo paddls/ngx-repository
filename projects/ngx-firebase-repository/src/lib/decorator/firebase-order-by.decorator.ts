@@ -1,7 +1,7 @@
-import * as firebase from 'firebase';
-import FieldPath = firebase.firestore.FieldPath;
-import OrderByDirection = firebase.firestore.OrderByDirection;
-import {PropertyKeyConfiguration} from '@witty-services/ngx-repository';
+import { firestore } from 'firebase';
+import { PropertyKeyConfiguration } from '@witty-services/ngx-repository';
+import FieldPath = firestore.FieldPath;
+import OrderByDirection = firestore.OrderByDirection;
 
 /**
  * @ignore

@@ -1,8 +1,8 @@
-import { PathParamConfiguration } from '@witty-services/ngx-repository';
+import { FirebaseRepositoryParamConfiguration } from './firebase-repository-param.configuration';
 
 /**
  * @ignore
  */
-export interface FirebaseResourceConfiguration extends PathParamConfiguration {
-  firebaseConfiguration?: string; // TODO @RMA multiple firebase project configuration
+export interface FirebaseResourceConfiguration extends FirebaseRepositoryParamConfiguration {
+  // TODO multiple firebase project configuration
 }

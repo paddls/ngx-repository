@@ -1,5 +1,4 @@
 import { PATH_PARAM_METADATA_KEY, PathParamContextConfiguration } from '../decorator/path-param.decorator';
-import { isNullOrUndefined } from 'util';
 import { PATH_COLUMN_METADATA_KEY, PathColumnContextConfiguration } from '../decorator/path-column.decorator';
 import { ID_METADATA_KEY } from '../decorator/id.decorator';
 
@@ -23,7 +22,7 @@ export class Path {
     if (this.query != null) {
       const queryPathParams: PathParamContextConfiguration[] = Reflect.getMetadata(PATH_PARAM_METADATA_KEY, this.query) || [];
       queryPathParams.forEach((pathParam: PathParamContextConfiguration) => {
-        if (isNullOrUndefined(this.query[pathParam.propertyKey])) {
+        if (this.query[pathParam.propertyKey] == null) {
           return;
         }
 
@@ -34,7 +33,7 @@ export class Path {
     if (this.body) {
       const bodyPathParams: PathColumnContextConfiguration[] = Reflect.getMetadata(PATH_COLUMN_METADATA_KEY, this.body) || [];
       bodyPathParams.forEach((pc: PathParamContextConfiguration) => {
-        if (isNullOrUndefined(this.body[pc.propertyKey])) {
+        if (this.body[pc.propertyKey] == null) {
           return;
         }
 
@@ -51,7 +50,7 @@ export class Path {
 
     Object.keys(pathParams).forEach((key: string) => path = path.replace(key, pathParams[key]));
 
-    if (!isNullOrUndefined(this.id)) {
+    if (this.id != null) {
       path += `/${ this.id }`;
     }
 

@@ -5,11 +5,11 @@ import { FirebaseRepositoryBuilder } from './repository/firebase-repository.buil
 import { FIRESTORE_APP } from './ngx-firebase-repository.module.di';
 import { CONNECTIONS_TOKEN } from '@witty-services/ngx-repository';
 import { FirebaseNormalizer } from './normalizer/firebase.normalizer';
-import * as firebase from 'firebase';
+import { firestore as fs } from 'firebase';
 import { FirebaseRepositoryDriver } from './driver/firebase-repository.driver';
 import { FirebaseRequestBuilder } from './request/firebase-request.builder';
 import { FirebaseResponseBuilder } from './response/firebase-response.builder';
-import Firestore = firebase.firestore.Firestore;
+import Firestore = fs.Firestore;
 
 const MODULE_PROVIDERS: Provider[] = [
   FirebaseRepositoryBuilder,

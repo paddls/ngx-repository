@@ -1,6 +1,5 @@
 import { PropertyKeyConfiguration } from '@witty-services/ngx-repository';
-import { isNullOrUndefined } from 'util';
-import * as firebase from 'firebase';
+import { firestore } from 'firebase';
 import {
   FIREBASE_CRITERIA_METADATA_KEY,
   FirebaseCriteriaContextConfiguration
@@ -16,9 +15,9 @@ import { FIREBASE_END_AT_METADATA_KEY } from '../decorator/firebase-end-at.decor
 import { FIREBASE_END_BEFORE_METADATA_KEY } from '../decorator/firebase-end-before.decorator';
 import { FIREBASE_LIMIT_METADATA_KEY } from '../decorator/firebase-limit.decorator';
 import { FIREBASE_LIMIT_TO_LAST_METADATA_KEY } from '../decorator/firebase-limit-to-last.decorator';
-import OrderByDirection = firebase.firestore.OrderByDirection;
-import FieldPath = firebase.firestore.FieldPath;
-import WhereFilterOp = firebase.firestore.WhereFilterOp;
+import OrderByDirection = firestore.OrderByDirection;
+import FieldPath = firestore.FieldPath;
+import WhereFilterOp = firestore.WhereFilterOp;
 
 
 export interface FirebaseRequestQuery {
@@ -74,7 +73,7 @@ export class FirebaseCriteria {
     const queries: FirebaseRequestQuery[] = [];
     const firebaseCriterias: FirebaseCriteriaContextConfiguration[] = Reflect.getMetadata(FIREBASE_CRITERIA_METADATA_KEY, query) || [];
     firebaseCriterias.forEach((firebaseCriteria: FirebaseCriteriaContextConfiguration) => {
-      if (isNullOrUndefined(query[firebaseCriteria.propertyKey])) {
+      if (query[firebaseCriteria.propertyKey] == null) {
         return;
       }
 
@@ -91,7 +90,7 @@ export class FirebaseCriteria {
   protected getOrderBy<K>(query: any): FirebaseRequestOrderBy[] {
     const orderBys: FirebaseRequestOrderBy[] = [];
     const firebaseOrderBy: FirebaseOrderByContextConfiguration = Reflect.getMetadata(FIREBASE_ORDER_BY_METADATA_KEY, query);
-    if (!firebaseOrderBy || isNullOrUndefined(query[firebaseOrderBy.propertyKey])) {
+    if (!firebaseOrderBy || query[firebaseOrderBy.propertyKey] == null) {
       return orderBys;
     }
 
@@ -160,7 +159,7 @@ export class FirebaseCriteria {
 
   protected getArrayValuesFromPropertyKey<K>(query: any, metadataKey: string): any[] {
     const propertyKeyConfiguration: PropertyKeyConfiguration = Reflect.getMetadata(metadataKey, query);
-    if (!propertyKeyConfiguration || isNullOrUndefined(query[propertyKeyConfiguration.propertyKey])) {
+    if (!propertyKeyConfiguration || query[propertyKeyConfiguration.propertyKey] == null) {
       return null;
     }
 
@@ -173,7 +172,7 @@ export class FirebaseCriteria {
 
   protected getValueFromPropertyKey<K>(query: any, metadataKey: string): any {
     const propertyKeyConfiguration: PropertyKeyConfiguration = Reflect.getMetadata(metadataKey, query);
-    if (!propertyKeyConfiguration || isNullOrUndefined(query[propertyKeyConfiguration.propertyKey])) {
+    if (!propertyKeyConfiguration || query[propertyKeyConfiguration.propertyKey] == null) {
       return null;
     }
 

@@ -5,7 +5,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { RepositoryRequest } from '../request/repository.request';
 import { RepositoryResponse } from '../response/repository.response';
 import { RequestBuilder } from '../request/request.builder';
-import { Injector, Type } from '@angular/core';
+import { Injectable, Injector, Type } from '@angular/core';
 import { ResponseBuilder } from '../response/response.builder';
 import { BuilderParam } from '../configuration/resource-param.configuration';
 import { ConfigurationContextProvider } from '../configuration/configuration-context.provider';
@@ -14,6 +14,7 @@ import { ResponseProcessor } from '../response/transformer/response.processor';
 import { PathColumnResponseProcessor } from '../response/transformer/path-column-response.processor';
 import { OriginalQueryResponseProcessor } from '../response/transformer/original-query-response.processor';
 
+@Injectable()
 export class RequestManager {
 
   public constructor(protected readonly injector: Injector,

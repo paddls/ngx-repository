@@ -1,7 +1,7 @@
-import {Column, ColumnContext, PropertyKeyConfiguration} from '@witty-services/ngx-repository';
-import {FbTimestampConverter} from '../converter/fb-timestamp.converter';
-import * as firebase from 'firebase';
-import Timestamp = firebase.firestore.Timestamp;
+import { Column, ColumnContext, PropertyKeyConfiguration } from '@witty-services/ngx-repository';
+import { FbTimestampConverter } from '../converter/fb-timestamp.converter';
+import { firestore } from 'firebase';
+import Timestamp = firestore.Timestamp;
 
 /**
  * @ignore

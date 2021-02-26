@@ -10,7 +10,6 @@ import {
 } from '@witty-services/ngx-repository';
 import { HttpRepositoryRequest } from './http-repository.request';
 import { Injectable } from '@angular/core';
-import { isNullOrUndefined } from 'util';
 import {
   HTTP_QUERY_PARAM_METADATA_KEY,
   HttpQueryParamContextConfiguration
@@ -51,7 +50,7 @@ export class HttpRequestBuilder implements RequestBuilder {
     if (query) {
       const httpQueryParams: HttpQueryParamContextConfiguration[] = Reflect.getMetadata(HTTP_QUERY_PARAM_METADATA_KEY, query) || [];
       httpQueryParams.forEach((httpQueryParam: HttpQueryParamContextConfiguration) => {
-        if (isNullOrUndefined(query[httpQueryParam.propertyKey])) {
+        if (query[httpQueryParam.propertyKey] == null) {
           return;
         }
 
@@ -68,7 +67,7 @@ export class HttpRequestBuilder implements RequestBuilder {
     if (query) {
       const httpHeaders: HttpHeaderContextConfiguration[] = Reflect.getMetadata(HTTP_HEADER_METADATA_KEY, query) || [];
       httpHeaders.forEach((httpHeader: HttpHeaderContextConfiguration) => {
-        if (isNullOrUndefined(query[httpHeader.propertyKey])) {
+        if (query[httpHeader.propertyKey] != null) {
           return;
         }
 

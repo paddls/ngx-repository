@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@angular/core';
-import * as firebase from 'firebase';
 import { FirebaseRepositoryRequest } from '../request/firebase-repository.request';
 import { from, Observable, throwError } from 'rxjs';
 import { RepositoryDriver, RepositoryResponse } from '@witty-services/ngx-repository';
@@ -14,13 +13,15 @@ import { FirebaseDocumentReferenceRepositoryResponse } from '../response/firebas
 import { NgxFirebaseRepositoryUpdateRequestError } from '../error/ngx-firebase-repository-update-request.error';
 import { NgxFirebaseRepositoryDeleteRequestError } from '../error/ngx-firebase-repository-delete-request.error';
 import { FirebaseEmptyRepositoryResponse } from '../response/firebase-empty-repository.response';
-import Firestore = firebase.firestore.Firestore;
-import QuerySnapshot = firebase.firestore.QuerySnapshot;
-import DocumentData = firebase.firestore.DocumentData;
-import Query = firebase.firestore.Query;
-import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
-import DocumentReference = firebase.firestore.DocumentReference;
+import { firestore as fs } from 'firebase';
+import Firestore = fs.Firestore;
+import QuerySnapshot = fs.QuerySnapshot;
+import DocumentData = fs.DocumentData;
+import Query = fs.Query;
+import DocumentSnapshot = fs.DocumentSnapshot;
+import DocumentReference = fs.DocumentReference;
 
+// @dynamic
 @Injectable()
 export class FirebaseRepositoryDriver implements RepositoryDriver {
 

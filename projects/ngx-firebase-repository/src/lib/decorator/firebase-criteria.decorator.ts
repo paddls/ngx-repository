@@ -1,5 +1,6 @@
-import WhereFilterOp = firebase.firestore.WhereFilterOp;
-import {PropertyKeyConfiguration} from '@witty-services/ngx-repository';
+import { firestore } from 'firebase';
+import { PropertyKeyConfiguration } from '@witty-services/ngx-repository';
+import WhereFilterOp = firestore.WhereFilterOp;
 
 /**
  * @ignore
