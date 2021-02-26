@@ -15,7 +15,6 @@ export class FirebaseCriteriaRepositoryRequest extends FirebaseRepositoryRequest
     super(operation, path, body);
   }
 
-  // TODO @RMA bind to driver
   public getQuery(firestore: Firestore): Query {
     let query: Query = firestore.collection(this.path.value);
 

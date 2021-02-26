@@ -20,6 +20,7 @@ import DocumentData = fs.DocumentData;
 import Query = fs.Query;
 import DocumentSnapshot = fs.DocumentSnapshot;
 import DocumentReference = fs.DocumentReference;
+import {FirebaseCriteriaRepositoryRequest} from '../request/firebase-criteria-repository.request';
 
 // @dynamic
 @Injectable()
@@ -118,7 +119,11 @@ export class FirebaseRepositoryDriver implements RepositoryDriver {
   }
 
   protected findBy(request: FirebaseRepositoryRequest): Observable<RepositoryResponse> {
-    const query: Query = request.getQuery(this.firestore);
+    if (!(request instanceof FirebaseCriteriaRepositoryRequest)) {
+      throw new Error('Request must be typeof FirebaseCriteriaRepositoryRequest');
+    }
+
+    const query: Query = (request as FirebaseCriteriaRepositoryRequest).getQuery(this.firestore);
 
     return fromRef<QuerySnapshot<DocumentData>>(query).pipe(
       catchError((err: any) => {
