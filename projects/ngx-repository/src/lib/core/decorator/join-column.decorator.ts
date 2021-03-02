@@ -1,25 +1,15 @@
-import { PropertyKeyConfiguration } from '../common/decorator/property-key-configuration';
-import { Type } from '@angular/core';
-import { NgxRepositoryModule } from '../../ngx-repository.module';
-import { Observable } from 'rxjs';
-import { get } from 'lodash';
-import {
-  getSoftCacheContextConfiguration,
-  hasSoftCache,
-  setSoftCache,
-  SoftCacheContextConfiguration
-} from './soft-cache.decorator';
-import { CacheScope } from '../common/decorator/cache-scope.enum';
-import { RequestCacheRegistry } from '../common/decorator/request-cache.registry';
-import { InstanceCacheRegistry } from '../common/decorator/instance-cache.registry';
-import {
-  getHardCacheContextConfiguration,
-  HardCacheContextConfiguration,
-  hasHardCache,
-  setHardCache
-} from './hard-cache.decorator';
-import { Repository2 } from '../repository/repository2';
-import { FindByIdRepository } from '../repository/find-by-id.repository';
+import {NgxRepositoryModule} from '../../ngx-repository.module';
+import {Observable} from 'rxjs';
+import {get} from 'lodash';
+import {getSoftCacheContextConfiguration, hasSoftCache, setSoftCache} from './soft-cache.decorator';
+import {CacheScope} from '../common/decorator/cache-scope.enum';
+import {RequestCacheRegistry} from '../common/decorator/request-cache.registry';
+import {InstanceCacheRegistry} from '../common/decorator/instance-cache.registry';
+import {getHardCacheContextConfiguration, hasHardCache, setHardCache} from './hard-cache.decorator';
+import {FindByIdRepository} from '../repository/find-by-id.repository';
+import {JoinColumnContext, JoinColumnContextConfiguration} from '../configuration/context/join-column-context.configuration';
+import {HardCacheContextConfiguration} from '../configuration/context/hard-cache-context.configuration';
+import {SoftCacheContextConfiguration} from '../configuration/context/soft-cache-context.configuration';
 
 /**
  * @ignore
@@ -30,21 +20,6 @@ export const JOIN_COLUMN_METADATA_KEY: string = 'joinColumns';
  * @ignore
  */
 export const JOIN_COLUMN_OBS_METADATA_KEY: string = 'joinColumnObs';
-
-export interface JoinColumnContext<T> {
-
-  attribute: string;
-
-  resourceType: () => new(...args: any[]) => T;
-
-  repository?: () => Type<Repository2>;
-}
-
-/**
- * @ignore
- */
-export interface JoinColumnContextConfiguration<T = any> extends JoinColumnContext<T>, PropertyKeyConfiguration {
-}
 
 export function JoinColumn<T>(joinColumnContext: JoinColumnContext<T>): any {
   return (target: object, propertyKey: string) => {

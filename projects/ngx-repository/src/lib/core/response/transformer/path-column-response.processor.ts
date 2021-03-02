@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { RepositoryResponse } from '../repository.response';
 import { RequestManagerContext } from '../../manager/request-manager.context';
-import { PATH_COLUMN_METADATA_KEY, PathColumnContextConfiguration } from '../../decorator/path-column.decorator';
+import { PATH_COLUMN_METADATA_KEY } from '../../decorator/path-column.decorator';
 import { first, get, isArray } from 'lodash';
 import { Path } from '../../request/path';
 import { ResponseProcessor } from './response.processor';
+import {PathColumnContextConfiguration} from '../../configuration/context/path-column-context.configuration';
 
 @Injectable()
 export class PathColumnResponseProcessor implements ResponseProcessor {

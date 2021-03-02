@@ -1,6 +1,8 @@
-import { PATH_PARAM_METADATA_KEY, PathParamContextConfiguration } from '../decorator/path-param.decorator';
-import { PATH_COLUMN_METADATA_KEY, PathColumnContextConfiguration } from '../decorator/path-column.decorator';
+import { PATH_PARAM_METADATA_KEY } from '../decorator/path-param.decorator';
+import { PATH_COLUMN_METADATA_KEY } from '../decorator/path-column.decorator';
 import { ID_METADATA_KEY } from '../decorator/id.decorator';
+import {PathParamContextConfiguration} from '../configuration/context/path-param-context.configuration';
+import {PathColumnContextConfiguration} from '../configuration/context/path-column-context.configuration';
 
 export class Path {
 

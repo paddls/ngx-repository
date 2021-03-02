@@ -1,74 +1,10 @@
-import {
-  Converter,
-  JSON_PROPERTY_METADATA_KEY,
-  JsonProperty,
-  JsonPropertyContext,
-  JsonPropertyContextConfiguration
-} from '@witty-services/ts-serializer';
+import {JSON_PROPERTY_METADATA_KEY, JsonProperty} from '@witty-services/ts-serializer';
+import {ColumnContext} from '../configuration/context/column-context.configuration';
 
 /**
  * @ignore
  */
 export const COLUMNS_METADATA_KEY: string = JSON_PROPERTY_METADATA_KEY;
-
-/**
- * Describe advanced configuration for Column decorator.
- */
-export interface ColumnContext<T, R> extends JsonPropertyContext<T, R> {
-
-  /**
-   * Field name in json.
-   */
-  field?: string;
-
-  /**
-   * Field type after deserialization.
-   */
-  type?: () => new(...args: any[]) => T;
-
-  /**
-   * Boolean to indicate to not send the value in json to the server.
-   */
-  readOnly?: boolean;
-
-  /**
-   * Boolean to indicate to ignore the field in json.
-   */
-  writeOnly?: boolean;
-
-  /**
-   * A converter to make a custom serialization/deserialization
-   */
-  customConverter?: () => new(...args: any[]) => Converter<T, R>;
-
-  /**
-   * Boolean to override global configuration to denormalize the column when is set to null value
-   */
-  denormalizeNull?: boolean;
-
-  /**
-   * Boolean to override global configuration to denormalize the column when is set to undefined value
-   */
-  denormalizeUndefined?: boolean;
-
-  /**
-   * Boolean to override global configuration to normalize the column when is set to null value
-   */
-  normalizeNull?: boolean;
-
-  /**
-   * Boolean to override global configuration to normalize the column when is set to undefined value
-   */
-  normalizeUndefined?: boolean;
-}
-
-/**
- * @ignore
- */
-export interface ColumnContextConfiguration<T, R> extends JsonPropertyContextConfiguration<T, R> {
-
-  propertyKey: string;
-}
 
 /**
  * Column decorator allow you to configure the serialization/deserialization process.

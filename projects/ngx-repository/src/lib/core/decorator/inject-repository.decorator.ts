@@ -1,7 +1,6 @@
-import { NgxRepositoryModule } from '../../ngx-repository.module';
-import { PropertyKeyConfiguration } from '../common/decorator/property-key-configuration';
-import { Type } from '@angular/core';
-import { Repository2 } from '../repository/repository2';
+import {NgxRepositoryModule} from '../../ngx-repository.module';
+import {AbstractRepository} from '../repository/abstractRepository';
+import {InjectRepositoryContext, InjectRepositoryContextConfiguration} from '../configuration/context/inject-repository-context.configuration';
 
 /**
  * @ignore
@@ -12,19 +11,6 @@ export const INJECT_REPOSITORY_METADATA_KEY: string = 'injectRepositories';
  * @ignore
  */
 export const INJECT_REPOSITORY_INSTANCE_METADATA_KEY: string = 'injectRepositorieInstance';
-
-export interface InjectRepositoryContext<T> {
-
-  resourceType: () => Type<T>;
-
-  repository?: () => Type<Repository2>;
-}
-
-/**
- * @ignore
- */
-export interface InjectRepositoryContextConfiguration<T = any> extends InjectRepositoryContext<T>, PropertyKeyConfiguration {
-}
 
 export function InjectRepository<T>(params: InjectRepositoryContext<T>): any {
   return (target: any, propertyKey: string) => {
@@ -40,12 +26,12 @@ export function InjectRepository<T>(params: InjectRepositoryContext<T>): any {
     Reflect.defineMetadata(INJECT_REPOSITORY_METADATA_KEY, metas.concat(injectRepositoryContextConfiguration), target);
 
     Object.defineProperty(target.constructor.prototype, propertyKey, {
-      get(): Repository2 {
+      get(): AbstractRepository<T> {
         if (Reflect.hasOwnMetadata(`${ INJECT_REPOSITORY_INSTANCE_METADATA_KEY }:${ propertyKey }`, this)) {
           return Reflect.getOwnMetadata(`${ INJECT_REPOSITORY_INSTANCE_METADATA_KEY }:${ propertyKey }`, this);
         }
 
-        const repository: Repository2 = NgxRepositoryModule.getNgxRepositoryService().getRepository(
+        const repository: AbstractRepository<T> = NgxRepositoryModule.getNgxRepositoryService().getRepository(
           injectRepositoryContextConfiguration.resourceType(),
           injectRepositoryContextConfiguration.repository ? injectRepositoryContextConfiguration.repository() : null
         );

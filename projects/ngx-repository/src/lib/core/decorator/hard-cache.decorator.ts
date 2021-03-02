@@ -1,27 +1,14 @@
-import { PropertyKeyConfiguration } from '../common/decorator/property-key-configuration';
-import { CacheScope } from '../common/decorator/cache-scope.enum';
-import { Observable, timer } from 'rxjs';
-import { hardCache } from '@witty-services/rxjs-common';
-import { takeUntil } from 'rxjs/operators';
-import { isObject } from 'lodash';
+import {CacheScope} from '../common/decorator/cache-scope.enum';
+import {Observable, timer} from 'rxjs';
+import {hardCache} from '@witty-services/rxjs-common';
+import {takeUntil} from 'rxjs/operators';
+import {isObject} from 'lodash';
+import {HardCacheContext, HardCacheContextConfiguration} from '../configuration/context/hard-cache-context.configuration';
 
 /**
  * @ignore
  */
 export const HARD_CACHE_METADATA_KEY: string = 'hardCache';
-
-export interface HardCacheContext {
-
-  scope?: CacheScope;
-
-  expires?: number;
-}
-
-/**
- * @ignore
- */
-export interface HardCacheContextConfiguration extends HardCacheContext, PropertyKeyConfiguration {
-}
 
 export function HardCache(hardCacheContext?: HardCacheContext|CacheScope): any {
   return (target: object, propertyKey: string) => {

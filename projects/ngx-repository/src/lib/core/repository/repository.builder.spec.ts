@@ -1,7 +1,7 @@
 import { RepositoryBuilder } from './repository.builder';
 import { REPOSITORY_METADATA_KEY, RESOURCE_CONFIGURATION_METADATA_KEY } from '../decorator/repository.decorator';
 import { Type } from '@angular/core';
-import {Repository2} from './repository2';
+import {AbstractRepository} from './abstractRepository';
 
 class MyClass {}
 
@@ -11,11 +11,11 @@ class MyConnection extends RepositoryBuilder {
     super(resourceContextKey);
   }
 
-  public getRepositoryInstance<T, K, Q>(resourceType: new(...args: any) => T): Repository2 {
+  public getRepositoryInstance<T, K, Q>(resourceType: new(...args: any) => T): AbstractRepository {
     return undefined;
   }
 
-  public supports<T, K>(repositoryType: Type<Repository2>): boolean {
+  public supports<T, K>(repositoryType: Type<AbstractRepository>): boolean {
     return false;
   }
 }

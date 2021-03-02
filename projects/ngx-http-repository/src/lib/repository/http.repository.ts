@@ -10,7 +10,7 @@ import {
   IdQuery,
   Page,
   Repository,
-  Repository2,
+  AbstractRepository,
   RequestManager,
   UpdateRepository
 } from '@witty-services/ngx-repository';
@@ -23,7 +23,7 @@ import { HttpRequestBuilder } from '../request/http-request.builder';
   request: HttpRequestBuilder,
   response: HttpResponseBuilder.withParams()
 })
-export class HttpRepository<T, K> extends Repository2 implements FindAllRepository, FindOneRepository, FindByIdRepository, CreateRepository, UpdateRepository, DeleteRepository {
+export class HttpRepository<T, K> extends AbstractRepository<T> implements FindAllRepository, FindOneRepository, FindByIdRepository, CreateRepository, UpdateRepository, DeleteRepository {
 
   public constructor(requestManager: RequestManager,
                      driver: HttpRepositoryDriver) {

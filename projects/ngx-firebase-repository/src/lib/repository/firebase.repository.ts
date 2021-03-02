@@ -8,7 +8,7 @@ import {
   IdQuery,
   Page,
   Repository,
-  Repository2,
+  AbstractRepository,
   RequestManager,
   UpdateRepository
 } from '@witty-services/ngx-repository';
@@ -26,7 +26,7 @@ import { FirebaseRepositoryDriver } from '../driver/firebase-repository.driver';
   request: FirebaseRequestBuilder,
   response: FirebaseResponseBuilder.withParams()
 })
-export class FirebaseRepository<T, K = string> extends Repository2 implements FindAllRepository, FindOneRepository, FindByIdRepository, CreateRepository, UpdateRepository, DeleteRepository {
+export class FirebaseRepository<T, K = string> extends AbstractRepository<T> implements FindAllRepository, FindOneRepository, FindByIdRepository, CreateRepository, UpdateRepository, DeleteRepository {
 
   public constructor(requestManager: RequestManager,
                      driver: FirebaseRepositoryDriver) {

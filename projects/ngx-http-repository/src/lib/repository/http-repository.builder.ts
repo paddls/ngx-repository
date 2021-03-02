@@ -1,6 +1,6 @@
 import { Injectable, Type } from '@angular/core';
 import { HTTP_RESOURCE_METADATA_KEY } from '../decorator/http-resource.decorator';
-import { Repository2, RepositoryBuilder, RequestManager } from '@witty-services/ngx-repository';
+import { AbstractRepository, RepositoryBuilder, RequestManager } from '@witty-services/ngx-repository';
 import { HttpRepository } from './http.repository';
 import { HttpRepositoryDriver } from '../driver/http-repository.driver';
 
@@ -15,7 +15,7 @@ export class HttpRepositoryBuilder extends RepositoryBuilder {
     super(HTTP_RESOURCE_METADATA_KEY);
   }
 
-  public supports(repositoryType: Type<Repository2>): boolean {
+  public supports<T>(repositoryType: Type<AbstractRepository<T>>): boolean {
     return repositoryType === HttpRepository;
   }
 

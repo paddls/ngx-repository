@@ -1,14 +1,14 @@
 import { InjectionToken, Type } from '@angular/core';
-import { Repository2 } from '../repository/repository2';
+import { AbstractRepository } from '../repository/abstractRepository';
 
 /**
  * @ignore
  */
 export class TokenRegistry {
 
-  private static tokenRegistry: Map<Type<Repository2>, Map<Type<any>, InjectionToken<any>>> = new Map();
+  private static tokenRegistry: Map<Type<AbstractRepository<any>>, Map<Type<any>, InjectionToken<any>>> = new Map();
 
-  public static addTokenToRegistry<T>(resourceType: Type<T>, registry: Type<Repository2>): InjectionToken<T> {
+  public static addTokenToRegistry<T>(resourceType: Type<T>, registry: Type<AbstractRepository<T>>): InjectionToken<T> {
     if (!TokenRegistry.tokenRegistry.has(registry)) {
       TokenRegistry.tokenRegistry.set(registry, new Map<any, InjectionToken<any>>());
     }
@@ -19,7 +19,7 @@ export class TokenRegistry {
     return token;
   }
 
-  public static findToken<T>(resourceType: Type<T>, registry: Type<Repository2>): InjectionToken<T> {
+  public static findToken<T>(resourceType: Type<T>, registry: Type<AbstractRepository<T>>): InjectionToken<T> {
     if (!TokenRegistry.tokenRegistry.has(registry)) {
       return null;
     }

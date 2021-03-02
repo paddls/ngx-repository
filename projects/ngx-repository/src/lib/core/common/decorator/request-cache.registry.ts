@@ -1,12 +1,12 @@
 import { Observable } from 'rxjs';
 import objectHash from 'object-hash';
-import { Repository2 } from '../../repository/repository2';
+import { AbstractRepository } from '../../repository/abstractRepository';
 
 export class RequestCacheRegistry {
 
-  public static readonly cacheRegistry: Map<Repository2, Map<string, Observable<any>>> = new Map();
+  public static readonly cacheRegistry: Map<AbstractRepository<any>, Map<string, Observable<any>>> = new Map();
 
-  public static addCache<T>(repository: Repository2, query: any, obs$: Observable<any>): void {
+  public static addCache<T>(repository: AbstractRepository<T>, query: any, obs$: Observable<any>): void {
     if (!RequestCacheRegistry.cacheRegistry.has(repository)) {
       RequestCacheRegistry.cacheRegistry.set(repository, new Map());
     }
@@ -14,7 +14,7 @@ export class RequestCacheRegistry {
     RequestCacheRegistry.cacheRegistry.get(repository).set(objectHash(query), obs$);
   }
 
-  public static findCache<T>(repository: Repository2, query: any): Observable<any> {
+  public static findCache<T>(repository: AbstractRepository<T>, query: any): Observable<any> {
     if (!RequestCacheRegistry.cacheRegistry.has(repository)) {
       return null;
     }

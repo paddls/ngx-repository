@@ -1,24 +1,14 @@
-import { PropertyKeyConfiguration } from '../common/decorator/property-key-configuration';
-import { Observable } from 'rxjs';
-import { NgxRepositoryModule } from '../../ngx-repository.module';
-import { Type } from '@angular/core';
-import {
-  getSoftCacheContextConfiguration,
-  hasSoftCache,
-  setSoftCache,
-  SoftCacheContextConfiguration
-} from './soft-cache.decorator';
-import { CacheScope } from '../common/decorator/cache-scope.enum';
-import { RequestCacheRegistry } from '../common/decorator/request-cache.registry';
-import {
-  getHardCacheContextConfiguration,
-  HardCacheContextConfiguration,
-  hasHardCache,
-  setHardCache
-} from './hard-cache.decorator';
-import { Repository2 } from '../repository/repository2';
-import { FindAllRepository } from '../repository/find-all.repository';
-import { ORIGINAL_QUERY_METADATA_KEY } from '../response/transformer/original-query-response.processor';
+import {Observable} from 'rxjs';
+import {NgxRepositoryModule} from '../../ngx-repository.module';
+import {getSoftCacheContextConfiguration, hasSoftCache, setSoftCache} from './soft-cache.decorator';
+import {CacheScope} from '../common/decorator/cache-scope.enum';
+import {RequestCacheRegistry} from '../common/decorator/request-cache.registry';
+import {getHardCacheContextConfiguration, hasHardCache, setHardCache} from './hard-cache.decorator';
+import {FindAllRepository} from '../repository/find-all.repository';
+import {ORIGINAL_QUERY_METADATA_KEY} from '../response/transformer/original-query-response.processor';
+import {SubCollectionContext, SubCollectionContextConfiguration} from '../configuration/context/sub-collection-context.configuration';
+import {HardCacheContextConfiguration} from '../configuration/context/hard-cache-context.configuration';
+import {SoftCacheContextConfiguration} from '../configuration/context/soft-cache-context.configuration';
 
 /**
  * @ignore
@@ -29,21 +19,6 @@ export const SUB_COLLECTION_METADATA_KEY: string = 'subCollections';
  * @ignore
  */
 export const SUB_COLLECTION_OBS_METADATA_KEY: string = 'subCollectionObs';
-
-export interface SubCollectionContext<T> {
-
-  resourceType: () => new(...args: any[]) => T;
-
-  params?: (model: any, query?: any) => any;
-
-  repository?: () => Type<Repository2>;
-}
-
-/**
- * @ignore
- */
-export interface SubCollectionContextConfiguration<T = any> extends SubCollectionContext<T>, PropertyKeyConfiguration {
-}
 
 export function SubCollection<T>(subCollectionContext: SubCollectionContext<T>): any {
   return (target: object, propertyKey: string) => {

@@ -2,7 +2,7 @@ import { Inject, Injectable, InjectionToken, Injector, Type } from '@angular/cor
 import { RepositoryBuilder } from './core/repository/repository.builder';
 import { CONNECTIONS_TOKEN } from './ngx-repository.module.di';
 import { TokenRegistry } from './core/registry/token.registry';
-import { Repository2 } from './core/repository/repository2';
+import { AbstractRepository } from './core/repository/abstractRepository';
 
 /**
  * @ignore
@@ -20,8 +20,8 @@ export class NgxRepositoryService {
     });
   }
 
-  public getRepository(resourceType: Type<any>, repositoryType?: Type<Repository2>): Repository2 {
-    let finalRepository: Repository2 = this.searchForExistingService(repositoryType);
+  public getRepository<T>(resourceType: Type<T>, repositoryType?: Type<AbstractRepository<T>>): AbstractRepository<T> {
+    let finalRepository: AbstractRepository<T> = this.searchForExistingService(repositoryType);
     if (finalRepository) {
       return finalRepository;
     }
@@ -34,7 +34,7 @@ export class NgxRepositoryService {
     return this.createNewRepository(resourceType, repositoryType);
   }
 
-  private searchForExistingService(repositoryType?: Type<Repository2>): Repository2 {
+  private searchForExistingService<T>(repositoryType?: Type<AbstractRepository<T>>): AbstractRepository<T> {
     if (!repositoryType) {
       return null;
     }
@@ -42,14 +42,14 @@ export class NgxRepositoryService {
     return this.injector.get(repositoryType, null);
   }
 
-  private searchForExistingToken(resourceType: Type<any>, repositoryType?: Type<Repository2>): Repository2 {
+  private searchForExistingToken<T>(resourceType: Type<T>, repositoryType?: Type<AbstractRepository<T>>): AbstractRepository<T> {
     const token: InjectionToken<any> = TokenRegistry.findToken(resourceType, repositoryType);
 
     if (!token) {
       return null;
     }
 
-    const repositories: Repository2 | Repository2[] = this.injector.get(token);
+    const repositories: AbstractRepository<T> | AbstractRepository<T>[] = this.injector.get(token);
 
     if (repositories && Array.isArray(repositories)) {
       if (!repositoryType) {
@@ -58,18 +58,18 @@ export class NgxRepositoryService {
         );
       }
 
-      return repositories.find((rep: Repository2) => rep instanceof repositoryType);
+      return repositories.find((rep: AbstractRepository<T>) => rep instanceof repositoryType);
     } else {
-      return repositories as Repository2;
+      return repositories as AbstractRepository<T>;
     }
   }
 
-  private createNewRepository(resourceType: Type<any>, repositoryType?: Type<Repository2>): Repository2 {
+  private createNewRepository<T>(resourceType: Type<T>, repositoryType?: Type<AbstractRepository<T>>): AbstractRepository<T> {
     if (this.repositoryBuilders.length === 0) {
       throw new Error('There is not connection configured.');
     }
 
-    let repository: Repository2;
+    let repository: AbstractRepository<T>;
     if (this.repositoryBuilders.length === 1) {
       repository = this.repositoryBuilders[0].getRepository(resourceType);
     } else if (this.repositoryBuilders.length > 1) {
@@ -86,7 +86,7 @@ export class NgxRepositoryService {
       repository = connection.getRepository(resourceType);
     }
 
-    const token: InjectionToken<Repository2> = TokenRegistry.addTokenToRegistry(resourceType, repositoryType);
+    const token: InjectionToken<AbstractRepository<T>> = TokenRegistry.addTokenToRegistry(resourceType, repositoryType);
 
     this.injector = Injector.create({
       providers: [{

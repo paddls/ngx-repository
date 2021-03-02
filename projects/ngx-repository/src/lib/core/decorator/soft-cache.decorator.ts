@@ -1,27 +1,14 @@
-import { PropertyKeyConfiguration } from '../common/decorator/property-key-configuration';
-import { CacheScope } from '../common/decorator/cache-scope.enum';
-import { Observable, timer } from 'rxjs';
-import { softCache } from '@witty-services/rxjs-common';
-import { takeUntil } from 'rxjs/operators';
-import { isObject } from 'lodash';
+import {CacheScope} from '../common/decorator/cache-scope.enum';
+import {Observable, timer} from 'rxjs';
+import {softCache} from '@witty-services/rxjs-common';
+import {takeUntil} from 'rxjs/operators';
+import {isObject} from 'lodash';
+import {SoftCacheContext, SoftCacheContextConfiguration} from '../configuration/context/soft-cache-context.configuration';
 
 /**
  * @ignore
  */
 export const SOFT_CACHE_METADATA_KEY: string = 'softCache';
-
-export interface SoftCacheContext {
-
-  scope?: CacheScope;
-
-  expires?: number;
-}
-
-/**
- * @ignore
- */
-export interface SoftCacheContextConfiguration extends SoftCacheContext, PropertyKeyConfiguration {
-}
 
 export function SoftCache(softCacheContext?: SoftCacheContext|CacheScope): any {
   return (target: object, propertyKey: string) => {

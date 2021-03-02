@@ -1,7 +1,7 @@
 import { Injectable, Type } from '@angular/core';
 import { FIREBASE_RESOURCE_METADATA_KEY } from '../decorator/firebase-resource.decorator';
 import { FirebaseRepository } from './firebase.repository';
-import { Repository2, RepositoryBuilder, RequestManager } from '@witty-services/ngx-repository';
+import { AbstractRepository, RepositoryBuilder, RequestManager } from '@witty-services/ngx-repository';
 import { FirebaseRepositoryDriver } from '../driver/firebase-repository.driver';
 
 /**
@@ -15,7 +15,7 @@ export class FirebaseRepositoryBuilder extends RepositoryBuilder {
     super(FIREBASE_RESOURCE_METADATA_KEY);
   }
 
-  public supports(repositoryType: Type<Repository2>): boolean {
+  public supports<T>(repositoryType: Type<AbstractRepository<T>>): boolean {
     return repositoryType === FirebaseRepository;
   }
 
