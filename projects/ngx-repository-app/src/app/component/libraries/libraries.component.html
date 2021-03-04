@@ -21,7 +21,7 @@
              (ngModelChange)="onSearchedPersonFirstNameChange()"/>
     </li>
     <li *ngFor="let person of person$|async">
-      {{ person.fullName }}
+      {{ person.fullName }} <button (click)="patchPerson(person)">patch</button>
     </li>
     <li><button (click)="createPerson()">create</button></li>
   </ul>

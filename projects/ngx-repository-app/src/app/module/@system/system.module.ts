@@ -5,12 +5,18 @@ import {BookInterceptor} from './interceptor/book.interceptor';
 import {CommentInterceptor} from './interceptor/comment.interceptor';
 import {UrlLoggerInterceptor} from './interceptor/url-logger.interceptor';
 import {LibraryInterceptor} from './interceptor/library.interceptor';
+import { PatchInterceptor } from './interceptor/patch.interceptor';
 
 @NgModule({
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UrlLoggerInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: PatchInterceptor,
       multi: true
     },
     {

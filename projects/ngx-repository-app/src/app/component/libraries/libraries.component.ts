@@ -88,4 +88,8 @@ export class LibrariesComponent {
   public updateClient(client: Client): void {
     this.clientService.update(client).subscribe();
   }
+
+  public patchPerson(person: Person): void {
+    this.personService.patch(person).subscribe();
+  }
 }

@@ -23,4 +23,8 @@ export class PersonService {
       lastName: this.chance.last()
     }));
   }
+
+  public patch(person: Person): Observable<void> {
+    return this.personRepository.patch(person);
+  }
 }

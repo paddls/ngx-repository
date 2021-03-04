@@ -2,6 +2,7 @@ import { HttpRepositoryDriver } from '../driver/http-repository.driver';
 import { Observable } from 'rxjs';
 import { first } from 'lodash';
 import {
+  AbstractRepository,
   CreateRepository,
   DeleteRepository,
   FindAllRepository,
@@ -10,7 +11,6 @@ import {
   IdQuery,
   Page,
   Repository,
-  AbstractRepository,
   RequestManager,
   UpdateRepository
 } from '@witty-services/ngx-repository';
@@ -18,12 +18,19 @@ import { HTTP_RESOURCE_METADATA_KEY } from '../decorator/http-resource.decorator
 import { HttpResponseBuilder } from '../response/http-response.builder';
 import { map } from 'rxjs/operators';
 import { HttpRequestBuilder } from '../request/http-request.builder';
+import { PatchRepository } from '../../../../ngx-repository/src/lib/core/repository/patch.repository';
 
 @Repository(null, {
   request: HttpRequestBuilder,
   response: HttpResponseBuilder.withParams()
 })
-export class HttpRepository<T, K> extends AbstractRepository<T> implements FindAllRepository, FindOneRepository, FindByIdRepository, CreateRepository, UpdateRepository, DeleteRepository {
+export class HttpRepository<T, K> extends AbstractRepository<T> implements FindAllRepository,
+  FindOneRepository,
+  FindByIdRepository,
+  CreateRepository,
+  UpdateRepository,
+  DeleteRepository,
+  PatchRepository {
 
   public constructor(requestManager: RequestManager,
                      driver: HttpRepositoryDriver) {
@@ -54,6 +61,10 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
 
   public update<O = T, R = void>(object: O, query?: any): Observable<R> {
     return this.execute(object, query, ['update', 'write']);
+  }
+
+  public patch<O = T, R = void>(object: O, query?: any): Observable<R> {
+    return this.execute(object, query, ['patch', 'write']);
   }
 
   protected getResourceContextKey(): string {

@@ -68,7 +68,7 @@ export class HttpRequestBuilder implements RequestBuilder {
     if (query) {
       const httpHeaders: HttpHeaderContextConfiguration[] = Reflect.getMetadata(HTTP_HEADER_METADATA_KEY, query) || [];
       httpHeaders.forEach((httpHeader: HttpHeaderContextConfiguration) => {
-        if (query[httpHeader.propertyKey] != null) {
+        if (query[httpHeader.propertyKey] == null) {
           return;
         }
 
@@ -91,6 +91,8 @@ export class HttpRequestBuilder implements RequestBuilder {
         return 'POST';
       case 'update':
         return 'PUT';
+      case 'patch':
+        return 'PATCH';
       case 'delete':
         return 'DELETE';
     }

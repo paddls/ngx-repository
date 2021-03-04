@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Page, RequestManagerContext, ResponseProcessor} from '@witty-services/ngx-repository';
+import { Page, RequestManagerContext, ResponseProcessor } from '@witty-services/ngx-repository';
 import { HttpRepositoryResponse } from '@witty-services/ngx-http-repository';
 
 @Injectable()
