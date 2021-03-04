@@ -19,7 +19,6 @@ export class FirebaseRepositoryBuilder extends RepositoryBuilder {
     return repositoryType === FirebaseRepository;
   }
 
-  // TODO @RMA refactor repository builder
   protected getRepositoryInstance<T, K>(resourceType: Type<T>): FirebaseRepository<T, K> {
     const repositoryClass: Type<FirebaseRepository<T, K>> = this.createRepositoryClass(FirebaseRepository, resourceType);
 

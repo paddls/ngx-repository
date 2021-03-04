@@ -44,7 +44,6 @@ export class HttpResponseBuilder extends ResponseBuilder {
     ];
   }
 
-  // TODO @RMA move to ResponseBuilder
   protected getDefaultParams(): any {
     return HttpResponseBuilder.defaultConfiguration;
   }
