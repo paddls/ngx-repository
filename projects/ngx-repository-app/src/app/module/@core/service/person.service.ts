@@ -25,6 +25,9 @@ export class PersonService {
   }
 
   public patch(person: Person): Observable<void> {
-    return this.personRepository.patch(person);
+    return this.personRepository.patch(new Person({
+      id: person.id,
+      firstName: this.chance.first()
+    }));
   }
 }

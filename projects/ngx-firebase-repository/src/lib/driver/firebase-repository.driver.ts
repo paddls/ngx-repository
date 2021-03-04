@@ -42,6 +42,7 @@ export class FirebaseRepositoryDriver implements RepositoryDriver {
       case 'create':
         return this.create(request);
       case 'update':
+      case 'patch':
         return this.update(request);
       case 'delete':
         return this.delete(request);

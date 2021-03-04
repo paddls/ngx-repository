@@ -38,6 +38,7 @@
       {{ client?.fullName }}
       <button (click)="deleteClient(client)">delete</button>
       <button (click)="updateClient(client)">update</button>
+      <button (click)="patchClient(client)">patch</button>
       <button routerLink="/libraries/clients/{{client?.id}}">view</button>
     </li>
     <li><button (click)="createClient()">create</button></li>
