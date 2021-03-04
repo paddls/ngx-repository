@@ -12,12 +12,13 @@ import { HttpRepositoryRequest } from './http-repository.request';
 import { Injectable } from '@angular/core';
 import {
   HTTP_QUERY_PARAM_METADATA_KEY,
-  HttpQueryParamContextConfiguration
 } from '../decorator/http-query-param.decorator';
 import { HttpParams } from '@angular/common/http';
-import { HTTP_HEADER_METADATA_KEY, HttpHeaderContextConfiguration } from '../decorator/http-header.decorator';
+import { HTTP_HEADER_METADATA_KEY } from '../decorator/http-header.decorator';
 import { HttpOperation } from './http.operation';
 import {HttpRepositoryParamConfiguration} from '../configuration/http-repository-param.configuration';
+import {HttpQueryParamContextConfiguration} from '../configuration/context/http-query-param-context.configuration';
+import {HttpHeaderContextConfiguration} from '../configuration/context/http-header-context.configuration';
 
 @Injectable()
 export class HttpRequestBuilder implements RequestBuilder {

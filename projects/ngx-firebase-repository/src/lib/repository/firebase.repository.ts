@@ -1,5 +1,6 @@
-import { FIREBASE_RESOURCE_METADATA_KEY } from '../decorator/firebase-resource.decorator';
+import {FIREBASE_RESOURCE_METADATA_KEY} from '../decorator/firebase-resource.decorator';
 import {
+  AbstractRepository,
   CreateRepository,
   DeleteRepository,
   FindAllRepository,
@@ -8,23 +9,27 @@ import {
   IdQuery,
   Page,
   Repository,
-  AbstractRepository,
   RequestManager,
   UpdateRepository
 } from '@witty-services/ngx-repository';
-import { Observable } from 'rxjs';
-import { FirebaseRequestBuilder } from '../request/firebase-request.builder';
-import { FirebaseResponseBuilder } from '../response/firebase-response.builder';
-import { first } from 'lodash';
-import { map } from 'rxjs/operators';
-import { FirebaseRepositoryDriver } from '../driver/firebase-repository.driver';
+import {Observable} from 'rxjs';
+import {FirebaseRequestBuilder} from '../request/firebase-request.builder';
+import {FirebaseResponseBuilder} from '../response/firebase-response.builder';
+import {first} from 'lodash';
+import {map} from 'rxjs/operators';
+import {FirebaseRepositoryDriver} from '../driver/firebase-repository.driver';
+import {FirebaseResourceConfiguration} from '../configuration/firebase-repository.configuration';
+import {FirebaseCriteriaRequestBuilder} from '../request/firebase-criteria-request.builder';
 
 /**
  * @ignore
  */
-@Repository(null, {
+@Repository<FirebaseResourceConfiguration>(null, {
   request: FirebaseRequestBuilder,
-  response: FirebaseResponseBuilder.withParams()
+  response: FirebaseResponseBuilder.withParams(),
+  findAll: {
+    request: FirebaseCriteriaRequestBuilder
+  }
 })
 export class FirebaseRepository<T, K = string> extends AbstractRepository<T> implements FindAllRepository, FindOneRepository, FindByIdRepository, CreateRepository, UpdateRepository, DeleteRepository {
 

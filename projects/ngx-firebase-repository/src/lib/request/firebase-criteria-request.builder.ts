@@ -1,13 +1,13 @@
-import { Observable, of } from 'rxjs';
-import { Path, RepositoryRequest, RequestManagerContext } from '@witty-services/ngx-repository';
-import { Inject, Injectable } from '@angular/core';
-import { firestore as fs } from 'firebase';
-import { FIRESTORE_APP } from '../ngx-firebase-repository.module.di';
-import { FirebaseCriteria } from './firebase.criteria';
-import { FirebaseOperation } from './firebase.operation';
-import { FirebaseNormalizer } from '../normalizer/firebase.normalizer';
-import { FirebaseCriteriaRepositoryRequest } from './firebase-criteria-repository.request';
-import { FirebaseRequestBuilder } from './firebase-request.builder';
+import {Observable, of} from 'rxjs';
+import {Path, RequestManagerContext} from '@witty-services/ngx-repository';
+import {Inject, Injectable} from '@angular/core';
+import {firestore as fs} from 'firebase';
+import {FIRESTORE_APP} from '../ngx-firebase-repository.module.di';
+import {FirebaseCriteria} from './firebase.criteria';
+import {FirebaseOperation} from './firebase.operation';
+import {FirebaseNormalizer} from '../normalizer/firebase.normalizer';
+import {FirebaseCriteriaRepositoryRequest} from './firebase-criteria-repository.request';
+import {FirebaseRequestBuilder} from './firebase-request.builder';
 import Firestore = fs.Firestore;
 
 // @dynamic
@@ -19,7 +19,7 @@ export class FirebaseCriteriaRequestBuilder extends FirebaseRequestBuilder {
     super(normalizer, firestore);
   }
 
-  public build({ body, query, configuration }: RequestManagerContext): Observable<RepositoryRequest> {
+  public build({ body, query, configuration }: RequestManagerContext): Observable<FirebaseCriteriaRepositoryRequest> {
     const operation: FirebaseOperation = configuration.getOperation() as FirebaseOperation;
     const path: Path = this.getPath(body, query, configuration);
     const normalizedBody: any = this.getBody(body);

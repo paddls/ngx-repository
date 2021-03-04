@@ -1,15 +1,9 @@
-import {PropertyKeyConfiguration} from '@witty-services/ngx-repository';
+import {FirebaseEndAtContextConfiguration} from '../configuration/context/firebase-end-at-context.configuration';
 
 /**
  * @ignore
  */
 export const FIREBASE_END_AT_METADATA_KEY: string = 'firebaseEndAt';
-
-/**
- * @ignore
- */
-export interface FirebaseEndAtContextConfiguration extends PropertyKeyConfiguration {
-}
 
 export function FirebaseEndAt(): any {
   return (target: any, propertyKey: string) => {

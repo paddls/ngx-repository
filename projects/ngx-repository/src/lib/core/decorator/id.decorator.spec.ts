@@ -1,6 +1,8 @@
 import 'reflect-metadata';
-import { Id, ID_METADATA_KEY, IdContext } from './id.decorator';
-import { ColumnContextConfiguration, COLUMNS_METADATA_KEY } from './column.decorator';
+import { Id, ID_METADATA_KEY } from './id.decorator';
+import { COLUMNS_METADATA_KEY } from './column.decorator';
+import {ColumnContextConfiguration} from '../configuration/context/column-context.configuration';
+import {IdContext} from '../configuration/context/id-context.configuration';
 
 describe('IdDecorator', () => {
   let obj: any;

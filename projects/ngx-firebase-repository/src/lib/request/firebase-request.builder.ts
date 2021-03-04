@@ -1,18 +1,12 @@
-import { Observable, of } from 'rxjs';
-import {
-  ConfigurationContextProvider,
-  Path,
-  RepositoryRequest,
-  RequestBuilder,
-  RequestManagerContext
-} from '@witty-services/ngx-repository';
-import { FirebaseRepositoryRequest } from './firebase-repository.request';
-import { Inject, Injectable } from '@angular/core';
-import { firestore as fs } from 'firebase';
-import { FIRESTORE_APP } from '../ngx-firebase-repository.module.di';
-import { FirebaseRepositoryParamConfiguration } from '../configuration/firebase-repository-param.configuration';
-import { FirebaseOperation } from './firebase.operation';
-import { FirebaseNormalizer } from '../normalizer/firebase.normalizer';
+import {Observable, of} from 'rxjs';
+import {ConfigurationContextProvider, Path, RequestBuilder, RequestManagerContext} from '@witty-services/ngx-repository';
+import {FirebaseRepositoryRequest} from './firebase-repository.request';
+import {Inject, Injectable} from '@angular/core';
+import {firestore as fs} from 'firebase';
+import {FIRESTORE_APP} from '../ngx-firebase-repository.module.di';
+import {FirebaseRepositoryParamConfiguration} from '../configuration/firebase-repository-param.configuration';
+import {FirebaseOperation} from './firebase.operation';
+import {FirebaseNormalizer} from '../normalizer/firebase.normalizer';
 import Firestore = fs.Firestore;
 
 // @dynamic
@@ -24,7 +18,7 @@ export class FirebaseRequestBuilder implements RequestBuilder {
     // TODO @TNI response builder or request processor ?
   }
 
-  public build({ body, query, configuration }: RequestManagerContext): Observable<RepositoryRequest> {
+  public build({ body, query, configuration }: RequestManagerContext): Observable<FirebaseRepositoryRequest> {
     const operation: FirebaseOperation = configuration.getOperation() as FirebaseOperation;
     const path: Path = this.getPath(body, query, configuration);
     const normalizedBody: any = this.getBody(body);

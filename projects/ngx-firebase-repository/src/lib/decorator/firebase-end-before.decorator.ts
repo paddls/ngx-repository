@@ -1,15 +1,9 @@
-import {PropertyKeyConfiguration} from '@witty-services/ngx-repository';
+import {FirebaseEndBeforeContextConfiguration} from '../configuration/context/firebase-end-before-context.configuration';
 
 /**
  * @ignore
  */
 export const FIREBASE_END_BEFORE_METADATA_KEY: string = 'firebaseEndBefore';
-
-/**
- * @ignore
- */
-export interface FirebaseEndBeforeContextConfiguration extends PropertyKeyConfiguration {
-}
 
 export function FirebaseEndBefore(): any {
   return (target: any, propertyKey: string) => {

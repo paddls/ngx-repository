@@ -1,20 +1,12 @@
-import { Inject, Injectable } from '@angular/core';
-import { set } from 'lodash';
-import { firestore } from 'firebase';
-import {
-  FIREBASE_CREATED_AT_METADATA_KEY,
-  FirebaseCreatedAtContextConfiguration
-} from '../decorator/firebase-created-at.decorator';
-import {
-  FIREBASE_UPDATED_AT_METADATA_KEY,
-  FirebaseUpdatedAtContextConfiguration
-} from '../decorator/firebase-updated-at.decorator';
-import {
-  NORMALIZER_CONFIGURATION_TOKEN,
-  NormalizerConfiguration,
-  RepositoryNormalizer
-} from '@witty-services/ngx-repository';
+import {Inject, Injectable} from '@angular/core';
+import {set} from 'lodash';
+import {firestore} from 'firebase';
+import {FIREBASE_CREATED_AT_METADATA_KEY} from '../decorator/firebase-created-at.decorator';
+import {FIREBASE_UPDATED_AT_METADATA_KEY} from '../decorator/firebase-updated-at.decorator';
+import {NORMALIZER_CONFIGURATION_TOKEN, NormalizerConfiguration, RepositoryNormalizer} from '@witty-services/ngx-repository';
 import FieldValue = firestore.FieldValue;
+import {FirebaseCreatedAtContextConfiguration} from '../configuration/context/firebase-created-at-context.configuration';
+import {FirebaseUpdatedAtContextConfiguration} from '../configuration/context/firebase-updated-at-context.configuration';
 
 /**
  * @ignore

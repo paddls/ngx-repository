@@ -5,10 +5,11 @@ import { FirebaseRepositoryBuilder } from './repository/firebase-repository.buil
 import { FIRESTORE_APP } from './ngx-firebase-repository.module.di';
 import { CONNECTIONS_TOKEN } from '@witty-services/ngx-repository';
 import { FirebaseNormalizer } from './normalizer/firebase.normalizer';
-import { firestore as fs } from 'firebase';
 import { FirebaseRepositoryDriver } from './driver/firebase-repository.driver';
 import { FirebaseRequestBuilder } from './request/firebase-request.builder';
 import { FirebaseResponseBuilder } from './response/firebase-response.builder';
+import { FirebaseCriteriaRequestBuilder } from './request/firebase-criteria-request.builder';
+import { firestore as fs } from 'firebase';
 import Firestore = fs.Firestore;
 
 const MODULE_PROVIDERS: Provider[] = [
@@ -17,6 +18,7 @@ const MODULE_PROVIDERS: Provider[] = [
   FirebaseRepositoryBuilder,
   FirebaseRepositoryDriver,
   FirebaseRequestBuilder,
+  FirebaseCriteriaRequestBuilder,
   FirebaseResponseBuilder,
   {
     provide: CONNECTIONS_TOKEN,

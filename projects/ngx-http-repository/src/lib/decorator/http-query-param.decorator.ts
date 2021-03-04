@@ -1,20 +1,9 @@
-import {PropertyKeyConfiguration} from '@witty-services/ngx-repository';
+import {HttpQueryParamContext, HttpQueryParamContextConfiguration} from '../configuration/context/http-query-param-context.configuration';
 
 /**
  * @ignore
  */
 export const HTTP_QUERY_PARAM_METADATA_KEY: string = 'httpQueryParams';
-
-export interface HttpQueryParamContext {
-  name?: string;
-  format?: string;
-}
-
-/**
- * @ignore
- */
-export interface HttpQueryParamContextConfiguration extends HttpQueryParamContext, PropertyKeyConfiguration {
-}
 
 export function HttpQueryParam(params?: HttpQueryParamContext|string): any {
   return (target: any, propertyKey: string) => {

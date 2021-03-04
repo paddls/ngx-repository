@@ -1,5 +1,8 @@
-export {HttpHeader, HttpHeaderContext} from './lib/decorator/http-header.decorator';
-export {HttpQueryParam, HttpQueryParamContext} from './lib/decorator/http-query-param.decorator';
+export {HttpHeaderContext} from './lib/configuration/context/http-header-context.configuration';
+export {HttpQueryParamContext} from './lib/configuration/context/http-query-param-context.configuration';
+
+export {HttpHeader} from './lib/decorator/http-header.decorator';
+export {HttpQueryParam} from './lib/decorator/http-query-param.decorator';
 export {HttpResource} from './lib/decorator/http-resource.decorator';
 
 export {HttpRepositoryBuilder} from './lib/repository/http-repository.builder';

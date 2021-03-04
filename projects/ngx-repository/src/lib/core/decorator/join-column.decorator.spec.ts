@@ -1,6 +1,7 @@
 import 'reflect-metadata';
-import { JOIN_COLUMN_METADATA_KEY, JoinColumn, JoinColumnContext } from './join-column.decorator';
+import { JOIN_COLUMN_METADATA_KEY, JoinColumn } from './join-column.decorator';
 import { Mock } from '../../../test/mock.model';
+import {JoinColumnContext} from '../configuration/context/join-column-context.configuration';
 
 describe('JoinColumnDecorator', () => {
 

@@ -1,23 +1,18 @@
-import { PropertyKeyConfiguration } from '@witty-services/ngx-repository';
-import { firestore } from 'firebase';
-import {
-  FIREBASE_CRITERIA_METADATA_KEY,
-  FirebaseCriteriaContextConfiguration
-} from '../decorator/firebase-criteria.decorator';
-import {
-  FIREBASE_ORDER_BY_METADATA_KEY,
-  FirebaseOrderByContext,
-  FirebaseOrderByContextConfiguration
-} from '../decorator/firebase-order-by.decorator';
-import { FIREBASE_START_AT_METADATA_KEY } from '../decorator/firebase-start-at.decorator';
-import { FIREBASE_START_AFTER_METADATA_KEY } from '../decorator/firebase-start-after.decorator';
-import { FIREBASE_END_AT_METADATA_KEY } from '../decorator/firebase-end-at.decorator';
-import { FIREBASE_END_BEFORE_METADATA_KEY } from '../decorator/firebase-end-before.decorator';
-import { FIREBASE_LIMIT_METADATA_KEY } from '../decorator/firebase-limit.decorator';
-import { FIREBASE_LIMIT_TO_LAST_METADATA_KEY } from '../decorator/firebase-limit-to-last.decorator';
+import {PropertyKeyConfiguration} from '@witty-services/ngx-repository';
+import {firestore} from 'firebase';
+import {FIREBASE_CRITERIA_METADATA_KEY} from '../decorator/firebase-criteria.decorator';
+import {FIREBASE_ORDER_BY_METADATA_KEY} from '../decorator/firebase-order-by.decorator';
+import {FIREBASE_START_AT_METADATA_KEY} from '../decorator/firebase-start-at.decorator';
+import {FIREBASE_START_AFTER_METADATA_KEY} from '../decorator/firebase-start-after.decorator';
+import {FIREBASE_END_AT_METADATA_KEY} from '../decorator/firebase-end-at.decorator';
+import {FIREBASE_END_BEFORE_METADATA_KEY} from '../decorator/firebase-end-before.decorator';
+import {FIREBASE_LIMIT_METADATA_KEY} from '../decorator/firebase-limit.decorator';
+import {FIREBASE_LIMIT_TO_LAST_METADATA_KEY} from '../decorator/firebase-limit-to-last.decorator';
 import OrderByDirection = firestore.OrderByDirection;
 import FieldPath = firestore.FieldPath;
 import WhereFilterOp = firestore.WhereFilterOp;
+import {FirebaseCriteriaContextConfiguration} from '../configuration/context/firebase-criteria-context.configuration';
+import {FirebaseOrderByContext, FirebaseOrderByContextConfiguration} from '../configuration/context/firebase-order-by-context.configuration';
 
 
 export interface FirebaseRequestQuery {
@@ -56,15 +51,15 @@ export class FirebaseCriteria {
   public limitToLast: number;
 
   public constructor(private readonly query: any) {
-    if (query) {
-      this.queries = this.getQueries(query);
-      this.orderBys = this.getOrderBy(query);
-      this.startAt = this.getStartAt(query);
-      this.startAfter = this.getStartAfter(query);
-      this.endAt = this.getEndAt(query);
-      this.endBefore = this.getEndBefore(query);
-      this.limit = this.getLimit(query);
-      this.limitToLast = this.getLimitToLast(query);
+    if (this.query) {
+      this.queries = this.getQueries(this.query);
+      this.orderBys = this.getOrderBy(this.query);
+      this.startAt = this.getStartAt(this.query);
+      this.startAfter = this.getStartAfter(this.query);
+      this.endAt = this.getEndAt(this.query);
+      this.endBefore = this.getEndBefore(this.query);
+      this.limit = this.getLimit(this.query);
+      this.limitToLast = this.getLimitToLast(this.query);
     }
   }
 

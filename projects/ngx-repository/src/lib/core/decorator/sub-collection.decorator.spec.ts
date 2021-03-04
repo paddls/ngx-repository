@@ -1,6 +1,7 @@
 import 'reflect-metadata';
-import { SUB_COLLECTION_METADATA_KEY, SubCollection, SubCollectionContext } from './sub-collection.decorator';
+import { SUB_COLLECTION_METADATA_KEY, SubCollection } from './sub-collection.decorator';
 import { Mock } from '../../../test/mock.model';
+import {SubCollectionContext} from '../configuration/context/sub-collection-context.configuration';
 
 describe('SubCollectionDecorator', () => {
 

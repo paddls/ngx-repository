@@ -11,11 +11,11 @@ class MyConnection extends RepositoryBuilder {
     super(resourceContextKey);
   }
 
-  public getRepositoryInstance<T, K, Q>(resourceType: new(...args: any) => T): AbstractRepository {
+  public getRepositoryInstance<T, K, Q>(resourceType: new(...args: any) => T): AbstractRepository<T> {
     return undefined;
   }
 
-  public supports<T, K>(repositoryType: Type<AbstractRepository>): boolean {
+  public supports<T, K>(repositoryType: Type<AbstractRepository<T>>): boolean {
     return false;
   }
 }

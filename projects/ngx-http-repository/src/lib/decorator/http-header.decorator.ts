@@ -1,19 +1,9 @@
-import {PropertyKeyConfiguration} from '@witty-services/ngx-repository';
+import {HttpHeaderContext, HttpHeaderContextConfiguration} from '../configuration/context/http-header-context.configuration';
 
 /**
  * @ignore
  */
 export const HTTP_HEADER_METADATA_KEY: string = 'httpHeaders';
-
-export interface HttpHeaderContext {
-  name: string;
-}
-
-/**
- * @ignore
- */
-export interface HttpHeaderContextConfiguration extends HttpHeaderContext, PropertyKeyConfiguration {
-}
 
 export function HttpHeader(params?: HttpHeaderContext|string): any {
   return (target: any, propertyKey: string) => {

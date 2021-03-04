@@ -1,23 +1,13 @@
-import { Column, ColumnContext, PropertyKeyConfiguration } from '@witty-services/ngx-repository';
-import { FbTimestampConverter } from '../converter/fb-timestamp.converter';
-import { firestore } from 'firebase';
+import {Column, ColumnContext} from '@witty-services/ngx-repository';
+import {FbTimestampConverter} from '../converter/fb-timestamp.converter';
+import {firestore} from 'firebase';
+import {FirebaseUpdatedAtContext, FirebaseUpdatedAtContextConfiguration} from '../configuration/context/firebase-updated-at-context.configuration';
 import Timestamp = firestore.Timestamp;
 
 /**
  * @ignore
  */
 export const FIREBASE_UPDATED_AT_METADATA_KEY: string = 'firebaseUpdatedAts';
-
-export interface FirebaseUpdatedAtContext {
-
-  field: string;
-}
-
-/**
- * @ignore
- */
-export interface FirebaseUpdatedAtContextConfiguration extends FirebaseUpdatedAtContext, PropertyKeyConfiguration {
-}
 
 export function FirebaseUpdatedAt(firebaseUpdatedAtContext?: FirebaseUpdatedAtContext|string): any {
   return (target: any, propertyKey: string): void => {

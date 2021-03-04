@@ -14,7 +14,7 @@ export const REPOSITORY_METADATA_KEY: string = 'repository';
 export const RESOURCE_CONFIGURATION_METADATA_KEY: string = 'resourceConfiguration';
 
 // @dynamic
-export function Repository<T>(resourceType: () => Type<T>, configuration: ResourceConfiguration = null): any {
+export function Repository<RC extends ResourceConfiguration, T = any>(resourceType: () => Type<T>, configuration: RC = null): any {
   return (target: any): void => {
     const defaultRepositoryConfiguration: RepositoryContextConfiguration<T> = Reflect.getMetadata(REPOSITORY_METADATA_KEY, Object.getPrototypeOf(target));
     const defaultConfiguration: ResourceConfiguration = defaultRepositoryConfiguration ? defaultRepositoryConfiguration.defaultConfiguration : null;
