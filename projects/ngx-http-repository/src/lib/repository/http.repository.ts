@@ -11,6 +11,7 @@ import {
   IdQuery,
   Page,
   Repository,
+  PatchRepository,
   RequestManager,
   UpdateRepository
 } from '@witty-services/ngx-repository';
@@ -18,7 +19,6 @@ import { HTTP_RESOURCE_METADATA_KEY } from '../decorator/http-resource.decorator
 import { HttpResponseBuilder } from '../response/http-response.builder';
 import { map } from 'rxjs/operators';
 import { HttpRequestBuilder } from '../request/http-request.builder';
-import { PatchRepository } from '../../../../ngx-repository/src/lib/core/repository/patch.repository';
 
 @Repository(null, {
   request: HttpRequestBuilder,

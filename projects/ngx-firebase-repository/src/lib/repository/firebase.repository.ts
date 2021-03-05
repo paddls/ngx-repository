@@ -7,7 +7,7 @@ import {
   FindByIdRepository,
   FindOneRepository,
   IdQuery,
-  Page,
+  Page, PatchRepository,
   Repository,
   RequestManager,
   UpdateRepository
@@ -20,7 +20,6 @@ import { map } from 'rxjs/operators';
 import { FirebaseRepositoryDriver } from '../driver/firebase-repository.driver';
 import { FirebaseResourceConfiguration } from '../configuration/firebase-repository.configuration';
 import { FirebaseCriteriaRequestBuilder } from '../request/firebase-criteria-request.builder';
-import { PatchRepository } from '../../../../ngx-repository/src/lib/core/repository/patch.repository';
 
 /**
  * @ignore

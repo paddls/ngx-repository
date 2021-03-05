@@ -3,18 +3,19 @@ import { PATH_COLUMN_METADATA_KEY } from '../decorator/path-column.decorator';
 import { ID_METADATA_KEY } from '../decorator/id.decorator';
 import {PathParamContextConfiguration} from '../configuration/context/path-param-context.configuration';
 import {PathColumnContextConfiguration} from '../configuration/context/path-column-context.configuration';
+import { Id } from './id';
 
 export class Path {
 
   public readonly value: string;
   public readonly pathParams: any;
-  public readonly id: any; // TODO @RMA move to another class
+  public readonly id: Id;
 
   public constructor(private readonly body: any,
                      private readonly query: any,
                      private readonly template: string) {
     this.pathParams = this.getPathParams();
-    this.id = this.getId();
+    this.id = new Id(body, query);
     this.value = this.getPath();
   }
 
@@ -52,25 +53,10 @@ export class Path {
 
     Object.keys(pathParams).forEach((key: string) => path = path.replace(key, pathParams[key]));
 
-    if (this.id != null) {
-      path += `/${ this.id }`;
+    if (this.id.value != null) {
+      path += `/${ this.id.value }`;
     }
 
     return path;
-  }
-
-  private getId(): any {
-    return this.getIdFromObject(this.query) || this.getIdFromObject(this.body) || null;
-  }
-
-  private getIdFromObject(object: any): any {
-    if (object != null) {
-      const idKey: string = Reflect.getMetadata(ID_METADATA_KEY, object);
-      const id: string = object[idKey];
-
-      return id || null;
-    }
-
-    return null;
   }
 }

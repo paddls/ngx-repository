@@ -6,5 +6,3 @@ export interface ResponseProcessor {
   transform(response: any, origin: RepositoryResponse, context: RequestManagerContext): any;
 
 }
-
-// TODO @RMA Original Query Decorator Processor

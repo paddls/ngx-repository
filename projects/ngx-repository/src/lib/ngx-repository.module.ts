@@ -6,10 +6,10 @@ import { NgxRepositoryService } from './ngx-repository.service';
 import { DEFAULT_NORMALIZER_CONFIGURATION, NormalizerConfiguration } from '@witty-services/ts-serializer';
 import { RequestManager } from './core/manager/request.manager';
 import { RepositoryNormalizer } from './normalizer/repository-denormalizer';
-import { DenormalizeResponseProcessor } from './core/response/transformer/denormalize-response.processor';
-import { PageResponseProcessor } from './core/response/transformer/page-response.processor';
-import { PathColumnResponseProcessor } from './core/response/transformer/path-column-response.processor';
-import { OriginalQueryResponseProcessor } from './core/response/transformer/original-query-response.processor';
+import { DenormalizeResponseProcessor } from './core/response/processor/denormalize-response.processor';
+import { PageResponseProcessor } from './core/response/processor/page-response.processor';
+import { PathColumnResponseProcessor } from './core/response/processor/path-column-response.processor';
+import { OriginalQueryResponseProcessor } from './core/response/processor/original-query-response.processor';
 
 /**
  * @ignore

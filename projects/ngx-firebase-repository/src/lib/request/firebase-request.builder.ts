@@ -15,7 +15,6 @@ export class FirebaseRequestBuilder implements RequestBuilder {
 
   public constructor(protected readonly normalizer: FirebaseNormalizer,
                      @Inject(FIRESTORE_APP) protected readonly firestore: Firestore) {
-    // TODO @TNI response builder or request processor ?
   }
 
   public build({ body, query, configuration }: RequestManagerContext): Observable<FirebaseRepositoryRequest> {

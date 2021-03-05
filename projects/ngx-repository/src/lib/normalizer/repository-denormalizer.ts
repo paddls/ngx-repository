@@ -9,7 +9,6 @@ import { Denormalizer, Normalizer, NormalizerConfiguration } from '@witty-servic
 @Injectable()
 export class RepositoryNormalizer {
 
-  // TODO move it
   protected readonly normalizer: Normalizer;
   protected readonly denormalizer: Denormalizer;
 

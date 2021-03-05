@@ -5,7 +5,7 @@ import {CacheScope} from '../common/decorator/cache-scope.enum';
 import {RequestCacheRegistry} from '../common/decorator/request-cache.registry';
 import {getHardCacheContextConfiguration, hasHardCache, setHardCache} from './hard-cache.decorator';
 import {FindAllRepository} from '../repository/find-all.repository';
-import {ORIGINAL_QUERY_METADATA_KEY} from '../response/transformer/original-query-response.processor';
+import {ORIGINAL_QUERY_METADATA_KEY} from '../response/processor/original-query-response.processor';
 import {SubCollectionContext, SubCollectionContextConfiguration} from '../configuration/context/sub-collection-context.configuration';
 import {HardCacheContextConfiguration} from '../configuration/context/hard-cache-context.configuration';
 import {SoftCacheContextConfiguration} from '../configuration/context/soft-cache-context.configuration';

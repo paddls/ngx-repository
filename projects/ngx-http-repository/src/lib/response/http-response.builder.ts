@@ -14,7 +14,6 @@ import { Observable, of } from 'rxjs';
 
 export interface HttpResponseBuilderParam {
   denormalizeResponseProcessor?: Type<ResponseProcessor>;
-  pageResponseProcessor?: Type<ResponseProcessor>;
 }
 
 @Injectable()
@@ -22,10 +21,8 @@ export class HttpResponseBuilder extends ResponseBuilder {
 
   protected static readonly defaultConfiguration: HttpResponseBuilderParam = {
     denormalizeResponseProcessor: DenormalizeResponseProcessor,
-    pageResponseProcessor: PageResponseProcessor
   };
 
-  // TODO: @RMA override in global configurations in for root
   public static withParams(params: HttpResponseBuilderParam = {}): BuilderParam<ResponseBuilder> {
     return {
       builder: HttpResponseBuilder,
@@ -39,8 +36,7 @@ export class HttpResponseBuilder extends ResponseBuilder {
 
   public getProcessors(configuration: ConfigurationContextProvider): Type<ResponseProcessor>[] {
     return [
-      this.getParams<HttpResponseBuilderParam>('denormalizeResponseProcessor', configuration),
-      this.getParams<HttpResponseBuilderParam>('pageResponseProcessor', configuration)
+      this.getParams<HttpResponseBuilderParam>('denormalizeResponseProcessor', configuration)
     ];
   }
 

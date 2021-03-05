@@ -2,8 +2,12 @@ import { HttpRepositoryParamConfiguration } from './http-repository-param.config
 
 export interface HttpRepositoryConfiguration extends HttpRepositoryParamConfiguration {
   read?: HttpRepositoryParamConfiguration;
-  create?: HttpRepositoryParamConfiguration;
-  delete?: HttpRepositoryParamConfiguration;
+  write?: HttpRepositoryParamConfiguration;
+  findById?: HttpRepositoryParamConfiguration;
+  findOne?: HttpRepositoryParamConfiguration;
   findAll?: HttpRepositoryParamConfiguration;
-  update?: HttpRepositoryParamConfiguration|string; // TODO @RMA typing create wrapper for @HttpResource
+  create?: HttpRepositoryParamConfiguration;
+  update?: HttpRepositoryParamConfiguration;
+  patch?: HttpRepositoryParamConfiguration;
+  delete?: HttpRepositoryParamConfiguration;
 }

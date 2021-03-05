@@ -6,6 +6,7 @@ import { first, get, isArray } from 'lodash';
 import { Path } from '../../request/path';
 import { ResponseProcessor } from './response.processor';
 import {PathColumnContextConfiguration} from '../../configuration/context/path-column-context.configuration';
+import { PathRequest } from '../../request/path.request';
 
 @Injectable()
 export class PathColumnResponseProcessor implements ResponseProcessor {
@@ -13,7 +14,8 @@ export class PathColumnResponseProcessor implements ResponseProcessor {
   public transform(response: any, origin: RepositoryResponse, { configuration }: RequestManagerContext): any {
     if (response != null) {
       const pathColumns: PathColumnContextConfiguration[] = Reflect.getMetadata(PATH_COLUMN_METADATA_KEY, first(response) || response);
-      const path: Path = get(origin.getRequest(), 'path'); // TODO @RMA find best solution to retrieve path
+      const pathRequest: PathRequest = origin.getRequest() as PathRequest;
+      const path: Path = pathRequest.getPath ? pathRequest.getPath() : null;
 
       if (pathColumns && isArray(response)) {
         response.forEach((item: any) => this.mapPathColumn(pathColumns, item, path));

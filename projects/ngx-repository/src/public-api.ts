@@ -22,7 +22,7 @@ export {InjectRepository} from './lib/core/decorator/inject-repository.decorator
 export {JoinColumn} from './lib/core/decorator/join-column.decorator';
 export {PathColumn} from './lib/core/decorator/path-column.decorator';
 export {PathParam} from './lib/core/decorator/path-param.decorator';
-export {Repository} from './lib/core/decorator/repository.decorator';
+export {Repository, getRepositoryContextConfiguration} from './lib/core/decorator/repository.decorator';
 export {SoftCache} from './lib/core/decorator/soft-cache.decorator';
 export {HardCache} from './lib/core/decorator/hard-cache.decorator';
 export {SubCollection} from './lib/core/decorator/sub-collection.decorator';
@@ -47,8 +47,6 @@ export {
 
 export * from './lib/core/query/id.query';
 
-export * from './lib/core/request/path';
-
 export * from './lib/core/configuration/resource.configuration';
 export * from './lib/core/configuration/resource-param.configuration';
 export * from './lib/core/configuration/configuration.provider';
@@ -68,13 +66,16 @@ export * from './lib/core/repository/find-one.repository';
 export * from './lib/core/repository/repository.builder';
 export * from './lib/core/repository/abstractRepository';
 export * from './lib/core/repository/update.repository';
+export * from './lib/core/repository/patch.repository';
 
 export * from './lib/core/request/repository.request';
+export * from './lib/core/request/path.request';
+export * from './lib/core/request/path';
 export * from './lib/core/request/request.builder';
 
 export * from './lib/core/response/repository.response';
 export * from './lib/core/response/response.builder';
 
-export * from './lib/core/response/transformer/denormalize-response.processor';
-export * from './lib/core/response/transformer/page-response.processor';
-export * from './lib/core/response/transformer/response.processor';
+export * from './lib/core/response/processor/denormalize-response.processor';
+export * from './lib/core/response/processor/page-response.processor';
+export * from './lib/core/response/processor/response.processor';

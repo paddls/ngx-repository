@@ -11,7 +11,7 @@ import { LibrariesComponent } from './component/libraries/libraries.component';
 import { LibraryComponent } from './component/library/library.component';
 import { LibrariesService } from './service/libraries.service';
 import { NgxRepositoryModule } from '@witty-services/ngx-repository';
-import { MyPageResponseProcessor } from './module/@core/page-builder/my-page-response.processor';
+import { MyPageResponseProcessor } from './module/@core/processor/my-page-response.processor';
 import { ClientComponent } from './component/client/client.component';
 import { NgxHttpRepositoryModule } from '@witty-services/ngx-http-repository';
 import { FIRESTORE_APP, NgxFirebaseRepositoryModule } from '@witty-services/ngx-firebase-repository';
@@ -47,7 +47,7 @@ export function createFirestore(): Firestore {
     InMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 100 }),
     NgxRepositoryModule.forRoot(),
     NgxFirebaseRepositoryModule.forRoot(),
-    NgxHttpRepositoryModule,
+    NgxHttpRepositoryModule.forRoot(),
     SystemModule
   ],
   providers: [

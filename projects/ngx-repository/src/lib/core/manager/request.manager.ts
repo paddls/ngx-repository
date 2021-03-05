@@ -10,9 +10,9 @@ import { ResponseBuilder } from '../response/response.builder';
 import { BuilderParam } from '../configuration/resource-param.configuration';
 import { ConfigurationContextProvider } from '../configuration/configuration-context.provider';
 import { RepositoryDriver } from '../driver/repository.driver';
-import { ResponseProcessor } from '../response/transformer/response.processor';
-import { PathColumnResponseProcessor } from '../response/transformer/path-column-response.processor';
-import { OriginalQueryResponseProcessor } from '../response/transformer/original-query-response.processor';
+import { ResponseProcessor } from '../response/processor/response.processor';
+import { PathColumnResponseProcessor } from '../response/processor/path-column-response.processor';
+import { OriginalQueryResponseProcessor } from '../response/processor/original-query-response.processor';
 
 @Injectable()
 export class RequestManager {

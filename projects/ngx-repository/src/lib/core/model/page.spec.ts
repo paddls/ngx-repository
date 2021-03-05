@@ -20,7 +20,6 @@ describe('Page', () => {
   it('should build a page', () => {
     const originalPage: Page<number> = Page.build([1, 2, 3], 1, 2, 3);
 
-    const newPage: Page<number> = originalPage.map((value: number) => value * 2);
     expect(originalPage[0]).toEqual(1);
     expect(originalPage[1]).toEqual(3);
     expect(originalPage[2]).toEqual(3);

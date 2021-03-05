@@ -26,3 +26,7 @@ export function Repository<RC extends ResourceConfiguration, T = any>(resourceTy
     Reflect.defineMetadata(REPOSITORY_METADATA_KEY, params, target);
   };
 }
+
+export function getRepositoryContextConfiguration<T>(target: any): RepositoryContextConfiguration<T> {
+  return Reflect.getMetadata(REPOSITORY_METADATA_KEY, target);
+}

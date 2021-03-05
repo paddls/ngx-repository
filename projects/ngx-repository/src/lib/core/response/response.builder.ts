@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { RequestManagerContext } from '../manager/request-manager.context';
 import { ConfigurationContextProvider } from '../configuration/configuration-context.provider';
 import { Type } from '@angular/core';
-import { ResponseProcessor } from './transformer/response.processor';
+import { ResponseProcessor } from './processor/response.processor';
 import { BuilderParam } from '../configuration/resource-param.configuration';
 import { get, isObject } from 'lodash';
 

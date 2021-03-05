@@ -5,15 +5,13 @@ import { Address } from './address.model';
 import { BookQuery } from '../query/book.query';
 import { Column, DateConverter, Page, SubCollection } from '@witty-services/ngx-repository';
 import { HttpRepository, HttpResource, HttpResponseBuilder } from '@witty-services/ngx-http-repository';
-import { MyPageResponseProcessor } from '../page-builder/my-page-response.processor';
+import { MyPageResponseProcessor } from '../processor/my-page-response.processor';
 
 @HttpResource({
   path: '/libraries',
-  update: '/library', // FIXME @RMA path ignored
+  update: '/library',
   findAll: {
-    response: HttpResponseBuilder.withParams({
-      pageResponseProcessor: MyPageResponseProcessor
-    })
+    pageResponseProcessor: MyPageResponseProcessor
   }
 })
 export class Library extends Identifiable {
