@@ -18,13 +18,13 @@ describe('Page', () => {
   });
 
   it('should build a page', () => {
-    const originalPage: Page<number> = Page.build([1, 2, 3], 1, 2, 3);
+    const page: Page<number> = Page.build([1, 2, 3], 1, 2, 3);
 
-    expect(originalPage[0]).toEqual(1);
-    expect(originalPage[1]).toEqual(3);
-    expect(originalPage[2]).toEqual(3);
-    expect(originalPage.totalItems).toEqual(3);
-    expect(originalPage.itemsPerPage).toEqual(2);
-    expect(originalPage.currentPage).toEqual(1);
+    expect(page[0]).toEqual(1);
+    expect(page[1]).toEqual(2);
+    expect(page[2]).toEqual(3);
+    expect(page.totalItems).toEqual(3);
+    expect(page.itemsPerPage).toEqual(2);
+    expect(page.currentPage).toEqual(1);
   });
 });

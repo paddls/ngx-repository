@@ -1,6 +1,9 @@
 import { Observable } from 'rxjs';
 import objectHash from 'object-hash';
 
+/**
+ * @ignore
+ */
 export class InstanceCacheRegistry {
 
   public static readonly cacheRegistry: Map<any, Map<string, Observable<any>>> = new Map();

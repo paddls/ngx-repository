@@ -21,11 +21,23 @@ class MyConnection extends AbstractRepositoryBuilder {
   }
 }
 
+class MyRepository extends AbstractRepository<MyClass> {
+
+  public constructor() {
+    super(null, null);
+  }
+
+  protected getResourceContextKey(): string {
+    return '';
+  }
+
+}
+
 describe('Connection', () => {
 
   it('should throw an error when no metadata exist', () => {
     const connection: MyConnection = new MyConnection('meta');
-    expect(() => connection.getRepository(MyClass)).toThrow();
+    expect(() => connection.getRepository(MyClass, MyRepository)).toThrow();
   });
 
   it('should return a repository instance', () => {
@@ -36,7 +48,7 @@ describe('Connection', () => {
     Reflect.defineMetadata('meta', meta, MyClass);
     spyOn(connection, 'getRepositoryInstance').and.returnValue(repository);
 
-    const repositoryInstance: any = connection.getRepository(MyClass);
+    const repositoryInstance: any = connection.getRepository(MyClass, MyRepository);
     expect(connection.getRepositoryInstance).toHaveBeenCalledTimes(1);
     expect(connection.getRepositoryInstance).toHaveBeenCalledWith(MyClass);
     expect(repositoryInstance).toBe(repository);

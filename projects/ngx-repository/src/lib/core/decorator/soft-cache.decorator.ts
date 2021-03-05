@@ -1,4 +1,3 @@
-import {CacheScope} from '../common/decorator/cache-scope.enum';
 import {Observable, timer} from 'rxjs';
 import {softCache} from '@witty-services/rxjs-common';
 import {takeUntil} from 'rxjs/operators';
@@ -10,11 +9,10 @@ import {SoftCacheContext, SoftCacheContextConfiguration} from '../configuration/
  */
 export const SOFT_CACHE_METADATA_KEY: string = 'softCache';
 
-export function SoftCache(softCacheContext?: SoftCacheContext|CacheScope): any {
+export function SoftCache(softCacheContext?: SoftCacheContext|number): any {
   return (target: object, propertyKey: string) => {
     let softCacheContextConfiguration: SoftCacheContextConfiguration = {
       propertyKey,
-      scope: CacheScope.FIELD,
       expires: null
     };
 
@@ -25,10 +23,7 @@ export function SoftCache(softCacheContext?: SoftCacheContext|CacheScope): any {
           ...(softCacheContext as SoftCacheContext)
         };
       } else {
-        softCacheContextConfiguration = {
-          ...softCacheContextConfiguration,
-          scope: softCacheContext as CacheScope
-        };
+        softCacheContextConfiguration.expires = softCacheContext;
       }
     }
 
@@ -37,7 +32,7 @@ export function SoftCache(softCacheContext?: SoftCacheContext|CacheScope): any {
 }
 
 export function setSoftCache<T>(obs$: Observable<T>, target: any, propertyKey: string): Observable<T> {
-  if (!Reflect.hasMetadata(SOFT_CACHE_METADATA_KEY, target, propertyKey)) {
+  if (!hasSoftCache(target, propertyKey)) {
     return obs$;
   }
 
@@ -56,8 +51,4 @@ export function setSoftCache<T>(obs$: Observable<T>, target: any, propertyKey: s
 
 export function hasSoftCache(target: any, propertyKey: string): boolean {
   return Reflect.hasMetadata(SOFT_CACHE_METADATA_KEY, target, propertyKey);
-}
-
-export function getSoftCacheContextConfiguration(target: any, propertyKey: string): SoftCacheContextConfiguration {
-  return Reflect.getMetadata(SOFT_CACHE_METADATA_KEY, target, propertyKey);
 }

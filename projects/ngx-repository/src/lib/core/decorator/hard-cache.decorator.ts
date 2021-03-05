@@ -1,4 +1,3 @@
-import {CacheScope} from '../common/decorator/cache-scope.enum';
 import {Observable, timer} from 'rxjs';
 import {hardCache} from '@witty-services/rxjs-common';
 import {takeUntil} from 'rxjs/operators';
@@ -10,11 +9,10 @@ import {HardCacheContext, HardCacheContextConfiguration} from '../configuration/
  */
 export const HARD_CACHE_METADATA_KEY: string = 'hardCache';
 
-export function HardCache(hardCacheContext?: HardCacheContext|CacheScope): any {
+export function HardCache(hardCacheContext?: HardCacheContext|number): any {
   return (target: object, propertyKey: string) => {
     let hardCacheContextConfiguration: HardCacheContextConfiguration = {
       propertyKey,
-      scope: CacheScope.FIELD,
       expires: null
     };
 
@@ -25,10 +23,7 @@ export function HardCache(hardCacheContext?: HardCacheContext|CacheScope): any {
           ...(hardCacheContext as HardCacheContext)
         };
       } else {
-        hardCacheContextConfiguration = {
-          ...hardCacheContextConfiguration,
-          scope: hardCacheContext as CacheScope
-        };
+        hardCacheContextConfiguration.expires = hardCacheContext;
       }
     }
 
@@ -37,7 +32,7 @@ export function HardCache(hardCacheContext?: HardCacheContext|CacheScope): any {
 }
 
 export function setHardCache<T>(obs$: Observable<T>, target: any, propertyKey: string): Observable<T> {
-  if (!Reflect.hasMetadata(HARD_CACHE_METADATA_KEY, target, propertyKey)) {
+  if (!hasHardCache(target, propertyKey)) {
     return obs$;
   }
 
@@ -56,8 +51,4 @@ export function setHardCache<T>(obs$: Observable<T>, target: any, propertyKey: s
 
 export function hasHardCache(target: any, propertyKey: string): boolean {
   return Reflect.hasMetadata(HARD_CACHE_METADATA_KEY, target, propertyKey);
-}
-
-export function getHardCacheContextConfiguration(target: any, propertyKey: string): HardCacheContextConfiguration {
-  return Reflect.getMetadata(HARD_CACHE_METADATA_KEY, target, propertyKey);
 }

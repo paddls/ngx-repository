@@ -1,6 +1,7 @@
 import { get } from 'lodash';
 
 export class ConfigurationProvider {
+
   public constructor(private readonly params: any) {
   }
 
@@ -13,7 +14,7 @@ export class ConfigurationProvider {
 
     console.error(`Unable to found configuration ${ property } (${ JSON.stringify(paths) })`, this.params);
 
-    throw new Error('Unable to found configuration');
+    throw new Error(`Unable to found configuration ${ property } (${ JSON.stringify(paths) })`);
   }
 
   public findConfiguration(property: string, paths: string[]): any {

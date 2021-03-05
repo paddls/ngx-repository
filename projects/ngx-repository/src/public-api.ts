@@ -3,7 +3,6 @@ export {TypeGetter} from './lib/core/common/model/type-getter.type';
 
 export {PathParamConfiguration} from './lib/core/configuration/path-param.configuration';
 
-export {CacheScope} from './lib/core/common/decorator/cache-scope.enum';
 export {PropertyKeyConfiguration} from './lib/core/common/decorator/property-key-configuration';
 
 export {ColumnContext} from './lib/core/configuration/context/column-context.configuration';

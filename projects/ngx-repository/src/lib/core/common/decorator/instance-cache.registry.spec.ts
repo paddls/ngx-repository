@@ -21,7 +21,7 @@ describe('InstanceCacheRegistry', () => {
       expect(InstanceCacheRegistry.cacheRegistry.get(instance).get(objectHash(query))).toBe(obs$);
     });
 
-    it('should add a new obs to the instance cache', () => {
+    it('should add a new obs behind the instance and query into cache', () => {
       const instance: any = {};
       const map: Map<string, Observable<any>> = new Map<string, Observable<any>>();
       InstanceCacheRegistry.cacheRegistry.set(instance, map);
@@ -32,6 +32,26 @@ describe('InstanceCacheRegistry', () => {
       expect(InstanceCacheRegistry.cacheRegistry.has(instance)).toBe(true);
       InstanceCacheRegistry.addCache(instance, query, obs$);
       expect(map.get(objectHash(query))).toBe(obs$);
+    });
+  });
+
+  describe('#findCache', () => {
+
+    it('should return null is instance is not in cache', () => {
+      const instance: any = {};
+      const query: any = {};
+      expect(InstanceCacheRegistry.findCache(instance, query)).toBeNull();
+    });
+
+    it('should return the obs behind instance and query hash in cache', () => {
+      const instance: any = {};
+      const query: any = {};
+      const map: Map<string, Observable<any>> = new Map<string, Observable<any>>();
+      const obs$: Observable<any> = of({});
+
+      InstanceCacheRegistry.cacheRegistry.set(instance, map);
+      map.set(objectHash(query), obs$);
+      expect(InstanceCacheRegistry.findCache(instance, query)).toBe(obs$);
     });
   });
 });
