@@ -31,7 +31,7 @@ export {RepositoryNormalizer} from './lib/normalizer/repository-denormalizer';
 
 export {TokenRegistry} from './lib/core/registry/token.registry';
 
-export {NORMALIZER_CONFIGURATION_TOKEN, CONNECTIONS_TOKEN} from './lib/ngx-repository.module.di';
+export { NORMALIZER_CONFIGURATION_TOKEN, REPOSITORY_BUILDER_TOKEN } from './lib/ngx-repository.module.di';
 
 export {NgxRepositoryModule} from './lib/ngx-repository.module';
 
@@ -67,6 +67,7 @@ export * from './lib/core/repository/repository.builder';
 export * from './lib/core/repository/abstractRepository';
 export * from './lib/core/repository/update.repository';
 export * from './lib/core/repository/patch.repository';
+export * from './lib/core/repository/abstract-repository.builder';
 
 export * from './lib/core/request/repository.request';
 export * from './lib/core/request/path.request';
@@ -79,3 +80,6 @@ export * from './lib/core/response/response.builder';
 export * from './lib/core/response/processor/denormalize-response.processor';
 export * from './lib/core/response/processor/page-response.processor';
 export * from './lib/core/response/processor/response.processor';
+
+export { NgxRepositoryTestingModule } from './testing/ngx-repository-testing.module';
+export { MockRepository } from './testing/mock.repository';

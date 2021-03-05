@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
 import { FirebaseRepositoryBuilder } from './repository/firebase-repository.builder';
 import { FIRESTORE_APP } from './ngx-firebase-repository.module.di';
-import { CONNECTIONS_TOKEN } from '@witty-services/ngx-repository';
+import { REPOSITORY_BUILDER_TOKEN } from '@witty-services/ngx-repository';
 import { FirebaseNormalizer } from './normalizer/firebase.normalizer';
 import { FirebaseRepositoryDriver } from './driver/firebase-repository.driver';
 import { FirebaseRequestBuilder } from './request/firebase-request.builder';
@@ -21,10 +21,10 @@ const MODULE_PROVIDERS: Provider[] = [
   FirebaseCriteriaRequestBuilder,
   FirebaseResponseBuilder,
   {
-    provide: CONNECTIONS_TOKEN,
+    provide: REPOSITORY_BUILDER_TOKEN,
     useExisting: FirebaseRepositoryBuilder,
     multi: true
-  },
+  }
 ];
 
 /**

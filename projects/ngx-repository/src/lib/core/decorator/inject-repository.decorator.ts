@@ -1,6 +1,9 @@
-import {NgxRepositoryModule} from '../../ngx-repository.module';
-import {AbstractRepository} from '../repository/abstractRepository';
-import {InjectRepositoryContext, InjectRepositoryContextConfiguration} from '../configuration/context/inject-repository-context.configuration';
+import { AbstractRepository } from '../repository/abstractRepository';
+import {
+  InjectRepositoryContext,
+  InjectRepositoryContextConfiguration
+} from '../configuration/context/inject-repository-context.configuration';
+import { NgxRepositoryService } from '../../ngx-repository.service';
 
 /**
  * @ignore
@@ -31,7 +34,7 @@ export function InjectRepository<T>(params: InjectRepositoryContext<T>): any {
           return Reflect.getOwnMetadata(`${ INJECT_REPOSITORY_INSTANCE_METADATA_KEY }:${ propertyKey }`, this);
         }
 
-        const repository: AbstractRepository<T> = NgxRepositoryModule.getNgxRepositoryService().getRepository(
+        const repository: AbstractRepository<T> = NgxRepositoryService.getInstance().getRepository(
           injectRepositoryContextConfiguration.resourceType(),
           injectRepositoryContextConfiguration.repository ? injectRepositoryContextConfiguration.repository() : null
         );

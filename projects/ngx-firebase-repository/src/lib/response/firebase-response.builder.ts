@@ -15,8 +15,10 @@ import { merge } from 'lodash';
 
 export interface FirebaseResponseBuilderParam {
   denormalizeResponseProcessor?: Type<ResponseProcessor>;
-  pageResponseProcessor?: Type<ResponseProcessor>;
+  pageResponseProcessor?: Type<ResponseProcessor>; // TODO @RMA create root configuration
 }
+
+// TODO @RMA split into multiple ResponseBuilder
 
 @Injectable()
 export class FirebaseResponseBuilder extends ResponseBuilder {

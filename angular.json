@@ -94,6 +94,14 @@
             }
           }
         },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-repository-app/src/test.ts",
+            "tsConfig": "projects/ngx-repository-app/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-repository-app/karma.conf.js"
+          }
+        },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {

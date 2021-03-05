@@ -1,15 +1,18 @@
-import {NgxRepositoryModule} from '../../ngx-repository.module';
-import {Observable} from 'rxjs';
-import {get} from 'lodash';
-import {getSoftCacheContextConfiguration, hasSoftCache, setSoftCache} from './soft-cache.decorator';
-import {CacheScope} from '../common/decorator/cache-scope.enum';
-import {RequestCacheRegistry} from '../common/decorator/request-cache.registry';
-import {InstanceCacheRegistry} from '../common/decorator/instance-cache.registry';
-import {getHardCacheContextConfiguration, hasHardCache, setHardCache} from './hard-cache.decorator';
-import {FindByIdRepository} from '../repository/find-by-id.repository';
-import {JoinColumnContext, JoinColumnContextConfiguration} from '../configuration/context/join-column-context.configuration';
-import {HardCacheContextConfiguration} from '../configuration/context/hard-cache-context.configuration';
-import {SoftCacheContextConfiguration} from '../configuration/context/soft-cache-context.configuration';
+import { Observable } from 'rxjs';
+import { get } from 'lodash';
+import { getSoftCacheContextConfiguration, hasSoftCache, setSoftCache } from './soft-cache.decorator';
+import { CacheScope } from '../common/decorator/cache-scope.enum';
+import { RequestCacheRegistry } from '../common/decorator/request-cache.registry';
+import { InstanceCacheRegistry } from '../common/decorator/instance-cache.registry';
+import { getHardCacheContextConfiguration, hasHardCache, setHardCache } from './hard-cache.decorator';
+import { FindByIdRepository } from '../repository/find-by-id.repository';
+import {
+  JoinColumnContext,
+  JoinColumnContextConfiguration
+} from '../configuration/context/join-column-context.configuration';
+import { HardCacheContextConfiguration } from '../configuration/context/hard-cache-context.configuration';
+import { SoftCacheContextConfiguration } from '../configuration/context/soft-cache-context.configuration';
+import { NgxRepositoryService } from '../../ngx-repository.service';
 
 /**
  * @ignore
@@ -58,14 +61,14 @@ function makeJoinColumnSoftCached<T>(target: any, propertyKey: string, joinColum
   switch (softCacheContextConfiguration.scope) {
     case CacheScope.REQUEST:
       obs$ = RequestCacheRegistry.findCache<T>(
-        NgxRepositoryModule.getNgxRepositoryService().getRepository(joinColumnContext.resourceType(), joinColumnContext.repository ? joinColumnContext.repository() : null),
+        NgxRepositoryService.getInstance().getRepository(joinColumnContext.resourceType(), joinColumnContext.repository ? joinColumnContext.repository() : null),
         get(target, joinColumnContext.attribute, null)
       );
 
       if (!obs$) {
         obs$ = setSoftCache(makeJoinColumn(target, joinColumnContext), target, propertyKey);
         RequestCacheRegistry.addCache<T>(
-          NgxRepositoryModule.getNgxRepositoryService().getRepository(joinColumnContext.resourceType(), joinColumnContext.repository ? joinColumnContext.repository() : null),
+          NgxRepositoryService.getInstance().getRepository(joinColumnContext.resourceType(), joinColumnContext.repository ? joinColumnContext.repository() : null),
           get(target, joinColumnContext.attribute, null),
           obs$
         );
@@ -110,14 +113,14 @@ function makeJoinColumnHardCached<T>(target: any, propertyKey: string, joinColum
   switch (hardCacheContextConfiguration.scope) {
     case CacheScope.REQUEST:
       obs$ = RequestCacheRegistry.findCache<T>(
-        NgxRepositoryModule.getNgxRepositoryService().getRepository(joinColumnContext.resourceType(), joinColumnContext.repository ? joinColumnContext.repository() : null),
+        NgxRepositoryService.getInstance().getRepository(joinColumnContext.resourceType(), joinColumnContext.repository ? joinColumnContext.repository() : null),
         get(target, joinColumnContext.attribute, null)
       );
 
       if (!obs$) {
         obs$ = setHardCache(makeJoinColumn(target, joinColumnContext), target, propertyKey);
         RequestCacheRegistry.addCache<T>(
-          NgxRepositoryModule.getNgxRepositoryService().getRepository(joinColumnContext.resourceType(), joinColumnContext.repository ? joinColumnContext.repository() : null),
+          NgxRepositoryService.getInstance().getRepository(joinColumnContext.resourceType(), joinColumnContext.repository ? joinColumnContext.repository() : null),
           get(target, joinColumnContext.attribute, null),
           obs$
         );
@@ -152,7 +155,7 @@ function makeJoinColumnHardCached<T>(target: any, propertyKey: string, joinColum
 }
 
 function makeJoinColumn<T>(target: any, joinColumnContext: JoinColumnContext<T>): Observable<any> {
-  const repository: FindByIdRepository = NgxRepositoryModule.getNgxRepositoryService()
+  const repository: FindByIdRepository = NgxRepositoryService.getInstance()
     .getRepository(joinColumnContext.resourceType(), joinColumnContext.repository ? joinColumnContext.repository() : null) as any;
 
   return repository.findById(get(target, joinColumnContext.attribute, null));

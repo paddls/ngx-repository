@@ -1,12 +1,12 @@
-import {ResourceConfiguration} from '../resource.configuration';
-import {Type} from '@angular/core';
+import { ResourceConfiguration } from '../resource.configuration';
+import { Type } from '@angular/core';
 
 /**
  * @ignore
  */
 export interface RepositoryContextConfiguration<T> {
 
-  resourceType: () => Type<any>;
+  resourceType: () => Type<T>;
 
   defaultConfiguration?: ResourceConfiguration;
 }

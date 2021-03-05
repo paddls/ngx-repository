@@ -3,7 +3,11 @@ import 'reflect-metadata';
 import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
 import { HttpRepositoryBuilder } from './repository/http-repository.builder';
 import { HttpClientModule } from '@angular/common/http';
-import { CONNECTIONS_TOKEN, getRepositoryContextConfiguration, Repository } from '@witty-services/ngx-repository';
+import {
+  getRepositoryContextConfiguration,
+  Repository,
+  REPOSITORY_BUILDER_TOKEN
+} from '@witty-services/ngx-repository';
 import { HttpRepositoryDriver } from './driver/http-repository.driver';
 import { HttpResponseBuilder } from './response/http-response.builder';
 import { HttpRequestBuilder } from './request/http-request.builder';
@@ -23,7 +27,7 @@ const PROVIDERS: Provider[] = [
   HttpResponseBuilder,
   HttpFindAllResponseBuilder,
   {
-    provide: CONNECTIONS_TOKEN,
+    provide: REPOSITORY_BUILDER_TOKEN,
     useExisting: HttpRepositoryBuilder,
     multi: true
   }

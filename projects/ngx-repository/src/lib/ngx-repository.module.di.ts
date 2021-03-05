@@ -10,4 +10,4 @@ export const NORMALIZER_CONFIGURATION_TOKEN: InjectionToken<NormalizerConfigurat
 /**
  * @ignore
  */
-export const CONNECTIONS_TOKEN: InjectionToken<RepositoryBuilder> = new InjectionToken<RepositoryBuilder>('CONNECTIONS');
+export const REPOSITORY_BUILDER_TOKEN: InjectionToken<RepositoryBuilder> = new InjectionToken<RepositoryBuilder>('REPOSITORY_BUILDER');

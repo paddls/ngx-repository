@@ -1,26 +1,39 @@
 import { Inject, Injectable, InjectionToken, Injector, Type } from '@angular/core';
 import { RepositoryBuilder } from './core/repository/repository.builder';
-import { CONNECTIONS_TOKEN } from './ngx-repository.module.di';
+import { REPOSITORY_BUILDER_TOKEN } from './ngx-repository.module.di';
 import { TokenRegistry } from './core/registry/token.registry';
 import { AbstractRepository } from './core/repository/abstractRepository';
+
+export interface RepositoryService {
+  getRepository<T>(resourceType: Type<T>, repositoryType: Type<AbstractRepository<T>>): AbstractRepository<T>;
+}
 
 /**
  * @ignore
  */
 @Injectable()
-export class NgxRepositoryService {
+export class NgxRepositoryService implements RepositoryService {
 
+  private static instance: RepositoryService;
   protected injector: Injector;
 
   public constructor(protected parentInjector: Injector,
-                     @Inject(CONNECTIONS_TOKEN) private readonly repositoryBuilders: RepositoryBuilder[]) {
+                     @Inject(REPOSITORY_BUILDER_TOKEN) private readonly repositoryBuilders: RepositoryBuilder[]) {
     this.injector = Injector.create({
       providers: [],
       parent: this.parentInjector
     });
   }
 
-  public getRepository<T>(resourceType: Type<T>, repositoryType?: Type<AbstractRepository<T>>): AbstractRepository<T> {
+  public static getInstance(): RepositoryService {
+    return NgxRepositoryService.instance;
+  }
+
+  public static setInstance(instance: RepositoryService): void {
+    this.instance = instance;
+  }
+
+  public getRepository<T>(resourceType: Type<T>, repositoryType: Type<AbstractRepository<T>>): AbstractRepository<T> {
     let finalRepository: AbstractRepository<T> = this.searchForExistingService(repositoryType);
     if (finalRepository) {
       return finalRepository;
@@ -71,19 +84,19 @@ export class NgxRepositoryService {
 
     let repository: AbstractRepository<T>;
     if (this.repositoryBuilders.length === 1) {
-      repository = this.repositoryBuilders[0].getRepository(resourceType);
+      repository = this.repositoryBuilders[0].getRepository(resourceType, repositoryType);
     } else if (this.repositoryBuilders.length > 1) {
       if (!repositoryType) {
         throw new Error(
           `With multiple connection types, you must have to provide the repository argument in JoinColumn, SubCollection and InjectRepository decorator of your ${ resourceType.name } resource.`
         );
       }
-      const connection: RepositoryBuilder = this.repositoryBuilders.find((c: RepositoryBuilder) => c.supports(repositoryType));
+      const connection: RepositoryBuilder = this.repositoryBuilders.find((c: RepositoryBuilder) => c.supports(resourceType, repositoryType));
       if (!connection) {
         throw new Error(`There is no connection to support the repository type ${ repositoryType.name }`);
       }
 
-      repository = connection.getRepository(resourceType);
+      repository = connection.getRepository(resourceType, repositoryType);
     }
 
     const token: InjectionToken<AbstractRepository<T>> = TokenRegistry.addTokenToRegistry(resourceType, repositoryType);

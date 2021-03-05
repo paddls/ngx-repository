@@ -1,14 +1,17 @@
-import {Observable} from 'rxjs';
-import {NgxRepositoryModule} from '../../ngx-repository.module';
-import {getSoftCacheContextConfiguration, hasSoftCache, setSoftCache} from './soft-cache.decorator';
-import {CacheScope} from '../common/decorator/cache-scope.enum';
-import {RequestCacheRegistry} from '../common/decorator/request-cache.registry';
-import {getHardCacheContextConfiguration, hasHardCache, setHardCache} from './hard-cache.decorator';
-import {FindAllRepository} from '../repository/find-all.repository';
-import {ORIGINAL_QUERY_METADATA_KEY} from '../response/processor/original-query-response.processor';
-import {SubCollectionContext, SubCollectionContextConfiguration} from '../configuration/context/sub-collection-context.configuration';
-import {HardCacheContextConfiguration} from '../configuration/context/hard-cache-context.configuration';
-import {SoftCacheContextConfiguration} from '../configuration/context/soft-cache-context.configuration';
+import { Observable } from 'rxjs';
+import { getSoftCacheContextConfiguration, hasSoftCache, setSoftCache } from './soft-cache.decorator';
+import { CacheScope } from '../common/decorator/cache-scope.enum';
+import { RequestCacheRegistry } from '../common/decorator/request-cache.registry';
+import { getHardCacheContextConfiguration, hasHardCache, setHardCache } from './hard-cache.decorator';
+import { FindAllRepository } from '../repository/find-all.repository';
+import { ORIGINAL_QUERY_METADATA_KEY } from '../response/processor/original-query-response.processor';
+import {
+  SubCollectionContext,
+  SubCollectionContextConfiguration
+} from '../configuration/context/sub-collection-context.configuration';
+import { HardCacheContextConfiguration } from '../configuration/context/hard-cache-context.configuration';
+import { SoftCacheContextConfiguration } from '../configuration/context/soft-cache-context.configuration';
+import { NgxRepositoryService } from '../../ngx-repository.service';
 
 /**
  * @ignore
@@ -57,14 +60,14 @@ function makeSubCollectionSoftCached<T>(target: any, propertyKey: string, subCol
   switch (softCacheContextConfiguration.scope) {
     case CacheScope.REQUEST:
       obs$ = RequestCacheRegistry.findCache<T>(
-        NgxRepositoryModule.getNgxRepositoryService().getRepository(subCollectionContext.resourceType(), subCollectionContext.repository ? subCollectionContext.repository() : null),
+        NgxRepositoryService.getInstance().getRepository(subCollectionContext.resourceType(), subCollectionContext.repository ? subCollectionContext.repository() : null),
         subCollectionContext.params ? subCollectionContext.params(target, Reflect.getOwnMetadata(ORIGINAL_QUERY_METADATA_KEY, target)) : null
       );
 
       if (!obs$) {
         obs$ = setSoftCache(makeSubCollection(target, subCollectionContext), target, propertyKey);
         RequestCacheRegistry.addCache<T>(
-          NgxRepositoryModule.getNgxRepositoryService().getRepository(subCollectionContext.resourceType(), subCollectionContext.repository ? subCollectionContext.repository() : null),
+          NgxRepositoryService.getInstance().getRepository(subCollectionContext.resourceType(), subCollectionContext.repository ? subCollectionContext.repository() : null),
           subCollectionContext.params ? subCollectionContext.params(target, Reflect.getOwnMetadata(ORIGINAL_QUERY_METADATA_KEY, target)) : null,
           obs$
         );
@@ -94,14 +97,14 @@ function makeSubCollectionHardCached<T>(target: any, propertyKey: string, subCol
   switch (hardCacheContextConfiguration.scope) {
     case CacheScope.REQUEST:
       obs$ = RequestCacheRegistry.findCache<T>(
-        NgxRepositoryModule.getNgxRepositoryService().getRepository(subCollectionContext.resourceType(), subCollectionContext.repository ? subCollectionContext.repository() : null),
+        NgxRepositoryService.getInstance().getRepository(subCollectionContext.resourceType(), subCollectionContext.repository ? subCollectionContext.repository() : null),
         subCollectionContext.params ? subCollectionContext.params(target, Reflect.getOwnMetadata(ORIGINAL_QUERY_METADATA_KEY, target)) : null
       );
 
       if (!obs$) {
         obs$ = setHardCache(makeSubCollection(target, subCollectionContext), target, propertyKey);
         RequestCacheRegistry.addCache<T>(
-          NgxRepositoryModule.getNgxRepositoryService().getRepository(subCollectionContext.resourceType(), subCollectionContext.repository ? subCollectionContext.repository() : null),
+          NgxRepositoryService.getInstance().getRepository(subCollectionContext.resourceType(), subCollectionContext.repository ? subCollectionContext.repository() : null),
           subCollectionContext.params ? subCollectionContext.params(target, Reflect.getOwnMetadata(ORIGINAL_QUERY_METADATA_KEY, target)) : null,
           obs$
         );
@@ -121,7 +124,7 @@ function makeSubCollectionHardCached<T>(target: any, propertyKey: string, subCol
 }
 
 function makeSubCollection<T>(target: any, subCollectionContext: SubCollectionContext<T>): Observable<any> {
-  const repository: FindAllRepository = NgxRepositoryModule.getNgxRepositoryService()
+  const repository: FindAllRepository = NgxRepositoryService.getInstance()
     .getRepository(subCollectionContext.resourceType(), subCollectionContext.repository ? subCollectionContext.repository() : null) as any;
 
   return repository.findAll(subCollectionContext.params ? subCollectionContext.params(target, Reflect.getOwnMetadata(ORIGINAL_QUERY_METADATA_KEY, target)) : null);
