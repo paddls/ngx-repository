@@ -10,8 +10,8 @@ import {
   FindOneRepository,
   IdQuery,
   Page,
-  Repository,
   PatchRepository,
+  Repository,
   RequestManager,
   UpdateRepository
 } from '@witty-services/ngx-repository';
@@ -47,8 +47,8 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
     );
   }
 
-  public findById<R = T, ID = K>(id: ID): Observable<R> {
-    return this.execute(null, new IdQuery(id), ['findById', 'read']);
+  public findById<R = T, ID = K>(id: ID, query?: any): Observable<R> {
+    return this.execute(null, new IdQuery(id, query), ['findById', 'read']);
   }
 
   public create<O = T, R = K>(object: O, query?: any): Observable<R> {

@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import { ModuleWithProviders, NgModule, Provider, Type } from '@angular/core';
 import { NgxRepositoryService } from '../lib/ngx-repository.service';
 import { TestRepositoryBuilder } from './test-repository.builder';
-import { AbstractRepository } from '../lib/core/repository/abstractRepository';
+import { AbstractRepository } from '../lib/core/repository/abstract-repository';
 import { MockRepository } from './mock.repository';
 import { NgxRepositoryTestingService } from './ngx-repository-testing.service';
 

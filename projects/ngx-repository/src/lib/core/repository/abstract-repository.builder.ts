@@ -4,7 +4,7 @@ import {
   RESOURCE_CONFIGURATION_METADATA_KEY
 } from '../decorator/repository.decorator';
 import { Type } from '@angular/core';
-import { AbstractRepository } from './abstractRepository';
+import { AbstractRepository } from './abstract-repository';
 import { ConfigurationProvider } from '../configuration/configuration.provider';
 import { ResourceConfiguration } from '../configuration/resource.configuration';
 import { RepositoryContextConfiguration } from '../configuration/context/repository-context.configuration';

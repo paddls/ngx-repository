@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import objectHash from 'object-hash';
-import { AbstractRepository } from '../../repository/abstractRepository';
+import { AbstractRepository } from '../../repository/abstract-repository';
 
 export class RequestCacheRegistry {
 

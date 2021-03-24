@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import { AbstractRepository } from './abstractRepository';
+import { AbstractRepository } from './abstract-repository';
 
 /**
  * @ignore

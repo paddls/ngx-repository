@@ -24,7 +24,10 @@ export {PathParam} from './lib/core/decorator/path-param.decorator';
 export {Repository, getRepositoryContextConfiguration} from './lib/core/decorator/repository.decorator';
 export {SoftCache} from './lib/core/decorator/soft-cache.decorator';
 export {HardCache} from './lib/core/decorator/hard-cache.decorator';
-export {SubCollection} from './lib/core/decorator/sub-collection.decorator';
+export { SubCollection } from './lib/core/decorator/sub-collection.decorator';
+export {
+  SubQuery, getDeepQueryMetadataValue, getDeepQueryMetadataValues
+} from './lib/core/decorator/sub-query.decorator';
 
 export {RepositoryNormalizer} from './lib/normalizer/repository-denormalizer';
 
@@ -63,7 +66,7 @@ export * from './lib/core/repository/find-all.repository';
 export * from './lib/core/repository/find-by-id.repository';
 export * from './lib/core/repository/find-one.repository';
 export * from './lib/core/repository/repository.builder';
-export * from './lib/core/repository/abstractRepository';
+export * from './lib/core/repository/abstract-repository';
 export * from './lib/core/repository/update.repository';
 export * from './lib/core/repository/patch.repository';
 export * from './lib/core/repository/abstract-repository.builder';

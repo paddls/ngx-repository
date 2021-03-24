@@ -6,7 +6,7 @@ import { RequestManager } from '../manager/request.manager';
 import { REPOSITORY_METADATA_KEY } from '../decorator/repository.decorator';
 import { ResourceConfiguration } from '../configuration/resource.configuration';
 import { ConfigurationContextProvider } from '../configuration/configuration-context.provider';
-import {RepositoryContextConfiguration} from '../configuration/context/repository-context.configuration';
+import { RepositoryContextConfiguration } from '../configuration/context/repository-context.configuration';
 
 export abstract class AbstractRepository<T> {
 

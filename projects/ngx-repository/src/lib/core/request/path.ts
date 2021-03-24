@@ -1,9 +1,9 @@
 import { PATH_PARAM_METADATA_KEY } from '../decorator/path-param.decorator';
 import { PATH_COLUMN_METADATA_KEY } from '../decorator/path-column.decorator';
-import { ID_METADATA_KEY } from '../decorator/id.decorator';
-import {PathParamContextConfiguration} from '../configuration/context/path-param-context.configuration';
-import {PathColumnContextConfiguration} from '../configuration/context/path-column-context.configuration';
+import { PathParamContextConfiguration } from '../configuration/context/path-param-context.configuration';
+import { PathColumnContextConfiguration } from '../configuration/context/path-column-context.configuration';
 import { Id } from './id';
+import { getDeepQueryMetadataValues } from '../decorator/sub-query.decorator';
 
 export class Path {
 
@@ -23,7 +23,7 @@ export class Path {
     const params: any = {};
 
     if (this.query != null) {
-      const queryPathParams: PathParamContextConfiguration[] = Reflect.getMetadata(PATH_PARAM_METADATA_KEY, this.query) || [];
+      const queryPathParams: PathParamContextConfiguration[] = getDeepQueryMetadataValues(PATH_PARAM_METADATA_KEY, this.query);
       queryPathParams.forEach((pathParam: PathParamContextConfiguration) => {
         if (this.query[pathParam.propertyKey] == null) {
           return;

@@ -10,15 +10,14 @@ import {
 } from '@witty-services/ngx-repository';
 import { HttpRepositoryRequest } from './http-repository.request';
 import { Injectable } from '@angular/core';
-import {
-  HTTP_QUERY_PARAM_METADATA_KEY,
-} from '../decorator/http-query-param.decorator';
+import { HTTP_QUERY_PARAM_METADATA_KEY } from '../decorator/http-query-param.decorator';
 import { HttpParams } from '@angular/common/http';
 import { HTTP_HEADER_METADATA_KEY } from '../decorator/http-header.decorator';
 import { HttpOperation } from './http.operation';
-import {HttpRepositoryParamConfiguration} from '../configuration/http-repository-param.configuration';
-import {HttpQueryParamContextConfiguration} from '../configuration/context/http-query-param-context.configuration';
-import {HttpHeaderContextConfiguration} from '../configuration/context/http-header-context.configuration';
+import { HttpRepositoryParamConfiguration } from '../configuration/http-repository-param.configuration';
+import { HttpQueryParamContextConfiguration } from '../configuration/context/http-query-param-context.configuration';
+import { HttpHeaderContextConfiguration } from '../configuration/context/http-header-context.configuration';
+import { getDeepQueryMetadataValues } from '../../../../ngx-repository/src/lib/core/decorator/sub-query.decorator';
 
 @Injectable()
 export class HttpRequestBuilder implements RequestBuilder {
@@ -49,7 +48,7 @@ export class HttpRequestBuilder implements RequestBuilder {
   protected getQueryParams(query: any): HttpParams {
     let params: HttpParams = new HttpParams();
     if (query) {
-      const httpQueryParams: HttpQueryParamContextConfiguration[] = Reflect.getMetadata(HTTP_QUERY_PARAM_METADATA_KEY, query) || [];
+      const httpQueryParams: HttpQueryParamContextConfiguration[] = getDeepQueryMetadataValues(HTTP_QUERY_PARAM_METADATA_KEY, query);
       httpQueryParams.forEach((httpQueryParam: HttpQueryParamContextConfiguration) => {
         if (query[httpQueryParam.propertyKey] == null) {
           return;
@@ -66,7 +65,7 @@ export class HttpRequestBuilder implements RequestBuilder {
   protected getHeaders<K>(query: any): any {
     const headers: any = {};
     if (query) {
-      const httpHeaders: HttpHeaderContextConfiguration[] = Reflect.getMetadata(HTTP_HEADER_METADATA_KEY, query) || [];
+      const httpHeaders: HttpHeaderContextConfiguration[] = getDeepQueryMetadataValues(HTTP_HEADER_METADATA_KEY, query);
       httpHeaders.forEach((httpHeader: HttpHeaderContextConfiguration) => {
         if (query[httpHeader.propertyKey] == null) {
           return;

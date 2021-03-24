@@ -7,7 +7,8 @@ import {
   FindByIdRepository,
   FindOneRepository,
   IdQuery,
-  Page, PatchRepository,
+  Page,
+  PatchRepository,
   Repository,
   RequestManager,
   UpdateRepository
@@ -54,8 +55,8 @@ export class FirebaseRepository<T, K = string> extends AbstractRepository<T> imp
     );
   }
 
-  public findById<R = T, ID = K>(id: ID): Observable<R> {
-    return this.execute(null, new IdQuery(id), ['findById', 'read']);
+  public findById<R = T, ID = K>(id: ID, query?: any): Observable<R> {
+    return this.execute(null, new IdQuery(id, query), ['findById', 'read']);
   }
 
   public create<O = T, R = K>(object: O, query?: any): Observable<R> {

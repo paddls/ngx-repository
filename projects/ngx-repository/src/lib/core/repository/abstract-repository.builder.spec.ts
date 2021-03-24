@@ -1,6 +1,6 @@
 import { REPOSITORY_METADATA_KEY, RESOURCE_CONFIGURATION_METADATA_KEY } from '../decorator/repository.decorator';
 import { Type } from '@angular/core';
-import { AbstractRepository } from './abstractRepository';
+import { AbstractRepository } from './abstract-repository';
 import { AbstractRepositoryBuilder } from './abstract-repository.builder';
 
 class MyClass {

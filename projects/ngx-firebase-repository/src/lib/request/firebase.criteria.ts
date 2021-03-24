@@ -1,4 +1,8 @@
-import { PropertyKeyConfiguration } from '@witty-services/ngx-repository';
+import {
+  getDeepQueryMetadataValue,
+  getDeepQueryMetadataValues,
+  PropertyKeyConfiguration
+} from '@witty-services/ngx-repository';
 import firebase from 'firebase';
 import { FIREBASE_CRITERIA_METADATA_KEY } from '../decorator/firebase-criteria.decorator';
 import { FIREBASE_ORDER_BY_METADATA_KEY } from '../decorator/firebase-order-by.decorator';
@@ -69,7 +73,7 @@ export class FirebaseCriteria {
 
   protected getQueries<K>(query: any): FirebaseRequestQuery[] {
     const queries: FirebaseRequestQuery[] = [];
-    const firebaseCriterias: FirebaseCriteriaContextConfiguration[] = Reflect.getMetadata(FIREBASE_CRITERIA_METADATA_KEY, query) || [];
+    const firebaseCriterias: FirebaseCriteriaContextConfiguration[] = getDeepQueryMetadataValues(FIREBASE_CRITERIA_METADATA_KEY, query);
     firebaseCriterias.forEach((firebaseCriteria: FirebaseCriteriaContextConfiguration) => {
       if (query[firebaseCriteria.propertyKey] == null) {
         return;
@@ -87,7 +91,7 @@ export class FirebaseCriteria {
 
   protected getOrderBy<K>(query: any): FirebaseRequestOrderBy[] {
     const orderBys: FirebaseRequestOrderBy[] = [];
-    const firebaseOrderBy: FirebaseOrderByContextConfiguration = Reflect.getMetadata(FIREBASE_ORDER_BY_METADATA_KEY, query);
+    const firebaseOrderBy: FirebaseOrderByContextConfiguration = getDeepQueryMetadataValue(FIREBASE_ORDER_BY_METADATA_KEY, query);
     if (!firebaseOrderBy || query[firebaseOrderBy.propertyKey] == null) {
       return orderBys;
     }
@@ -156,7 +160,7 @@ export class FirebaseCriteria {
   }
 
   protected getArrayValuesFromPropertyKey<K>(query: any, metadataKey: string): any[] {
-    const propertyKeyConfiguration: PropertyKeyConfiguration = Reflect.getMetadata(metadataKey, query);
+    const propertyKeyConfiguration: PropertyKeyConfiguration = getDeepQueryMetadataValue(metadataKey, query);
     if (!propertyKeyConfiguration || query[propertyKeyConfiguration.propertyKey] == null) {
       return null;
     }
@@ -169,7 +173,7 @@ export class FirebaseCriteria {
   }
 
   protected getValueFromPropertyKey<K>(query: any, metadataKey: string): any {
-    const propertyKeyConfiguration: PropertyKeyConfiguration = Reflect.getMetadata(metadataKey, query);
+    const propertyKeyConfiguration: PropertyKeyConfiguration = getDeepQueryMetadataValue(metadataKey, query);
     if (!propertyKeyConfiguration || query[propertyKeyConfiguration.propertyKey] == null) {
       return null;
     }

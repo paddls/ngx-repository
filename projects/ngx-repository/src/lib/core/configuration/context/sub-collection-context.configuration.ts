@@ -1,6 +1,6 @@
-import {Type} from '@angular/core';
-import {AbstractRepository} from '../../repository/abstractRepository';
-import {PropertyKeyConfiguration} from '../../common/decorator/property-key-configuration';
+import { Type } from '@angular/core';
+import { AbstractRepository } from '../../repository/abstract-repository';
+import { PropertyKeyConfiguration } from '../../common/decorator/property-key-configuration';
 
 export interface SubCollectionContext<T> {
 

@@ -1,9 +1,6 @@
-import {TokenRegistry} from './token.registry';
-import {Observable, of} from 'rxjs';
-import objectHash from 'object-hash';
-import {query} from '@angular/animations';
-import {InjectionToken, Type} from '@angular/core';
-import {AbstractRepository} from '../repository/abstractRepository';
+import { TokenRegistry } from './token.registry';
+import { InjectionToken, Type } from '@angular/core';
+import { AbstractRepository } from '../repository/abstract-repository';
 
 class MyClass {
 

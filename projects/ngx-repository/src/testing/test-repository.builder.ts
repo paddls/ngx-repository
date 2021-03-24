@@ -1,6 +1,6 @@
 import { Injectable, Type } from '@angular/core';
 import { RepositoryBuilder } from '../lib/core/repository/repository.builder';
-import { AbstractRepository } from '../lib/core/repository/abstractRepository';
+import { AbstractRepository } from '../lib/core/repository/abstract-repository';
 import { MockRepository } from './mock.repository';
 
 @Injectable()

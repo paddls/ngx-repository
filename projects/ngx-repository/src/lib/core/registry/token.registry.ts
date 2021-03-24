@@ -1,5 +1,5 @@
 import { InjectionToken, Type } from '@angular/core';
-import { AbstractRepository } from '../repository/abstractRepository';
+import { AbstractRepository } from '../repository/abstract-repository';
 
 /**
  * @ignore

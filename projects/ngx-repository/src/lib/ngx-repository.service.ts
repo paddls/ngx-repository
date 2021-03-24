@@ -2,7 +2,7 @@ import { Inject, Injectable, InjectionToken, Injector, Type } from '@angular/cor
 import { RepositoryBuilder } from './core/repository/repository.builder';
 import { REPOSITORY_BUILDER_TOKEN } from './ngx-repository.module.di';
 import { TokenRegistry } from './core/registry/token.registry';
-import { AbstractRepository } from './core/repository/abstractRepository';
+import { AbstractRepository } from './core/repository/abstract-repository';
 
 export interface RepositoryService {
   getRepository<T>(resourceType: Type<T>, repositoryType: Type<AbstractRepository<T>>): AbstractRepository<T>;

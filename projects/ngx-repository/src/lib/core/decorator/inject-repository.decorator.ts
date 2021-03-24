@@ -1,4 +1,4 @@
-import { AbstractRepository } from '../repository/abstractRepository';
+import { AbstractRepository } from '../repository/abstract-repository';
 import {
   InjectRepositoryContext,
   InjectRepositoryContextConfiguration

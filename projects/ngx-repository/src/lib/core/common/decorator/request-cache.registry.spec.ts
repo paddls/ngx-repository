@@ -1,7 +1,7 @@
-import {RequestCacheRegistry} from './request-cache.registry';
-import {Observable, of} from 'rxjs';
+import { RequestCacheRegistry } from './request-cache.registry';
+import { Observable, of } from 'rxjs';
 import objectHash from 'object-hash';
-import {AbstractRepository} from '../../repository/abstractRepository';
+import { AbstractRepository } from '../../repository/abstract-repository';
 
 describe('RequestCacheRegistry', () => {
 

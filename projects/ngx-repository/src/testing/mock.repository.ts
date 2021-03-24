@@ -7,7 +7,7 @@ import { PatchRepository } from '../lib/core/repository/patch.repository';
 import { DeleteRepository } from '../lib/core/repository/delete.repository';
 import { Observable, throwError } from 'rxjs';
 import { Injectable, Predicate, Type } from '@angular/core';
-import { AbstractRepository } from '../lib/core/repository/abstractRepository';
+import { AbstractRepository } from '../lib/core/repository/abstract-repository';
 
 // @dynamic
 @Injectable()
@@ -40,7 +40,7 @@ export class MockRepository implements FindByIdRepository,
     return throwError(MockRepository.ERROR_MESSAGE);
   }
 
-  public findById<R, K>(id: K): Observable<R> {
+  public findById<R, K>(id: K, query?: any): Observable<R> {
     return throwError(MockRepository.ERROR_MESSAGE);
   }
 
