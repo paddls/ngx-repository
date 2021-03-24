@@ -1,10 +1,10 @@
 import { Path } from '@witty-services/ngx-repository';
-import { firestore as fs } from 'firebase';
+import firebase from 'firebase';
 import { FirebaseCriteria, FirebaseRequestOrderBy, FirebaseRequestQuery } from './firebase.criteria';
 import { FirebaseOperation } from './firebase.operation';
 import { FirebaseRepositoryRequest } from './firebase-repository.request';
-import Query = fs.Query;
-import Firestore = fs.Firestore;
+import Query = firebase.firestore.Query;
+import Firestore = firebase.firestore.Firestore;
 
 export class FirebaseCriteriaRepositoryRequest extends FirebaseRepositoryRequest {
 

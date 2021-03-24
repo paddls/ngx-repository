@@ -13,14 +13,14 @@ import { FirebaseDocumentReferenceRepositoryResponse } from '../response/firebas
 import { NgxFirebaseRepositoryUpdateRequestError } from '../error/ngx-firebase-repository-update-request.error';
 import { NgxFirebaseRepositoryDeleteRequestError } from '../error/ngx-firebase-repository-delete-request.error';
 import { FirebaseEmptyRepositoryResponse } from '../response/firebase-empty-repository.response';
-import { firestore as fs } from 'firebase';
-import Firestore = fs.Firestore;
-import QuerySnapshot = fs.QuerySnapshot;
-import DocumentData = fs.DocumentData;
-import Query = fs.Query;
-import DocumentSnapshot = fs.DocumentSnapshot;
-import DocumentReference = fs.DocumentReference;
-import {FirebaseCriteriaRepositoryRequest} from '../request/firebase-criteria-repository.request';
+import firebase from 'firebase';
+import { FirebaseCriteriaRepositoryRequest } from '../request/firebase-criteria-repository.request';
+import Firestore = firebase.firestore.Firestore;
+import QuerySnapshot = firebase.firestore.QuerySnapshot;
+import DocumentData = firebase.firestore.DocumentData;
+import Query = firebase.firestore.Query;
+import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
+import DocumentReference = firebase.firestore.DocumentReference;
 
 // @dynamic
 @Injectable()
@@ -65,7 +65,7 @@ export class FirebaseRepositoryDriver implements RepositoryDriver {
   }
 
   public create(request: FirebaseRepositoryRequest): Observable<RepositoryResponse> {
-    if (request.path.id != null) {
+    if (request.path.id != null && request.path.id.value != null) { // TODO @RMA upgrade to typescript 4
       const documentRef: DocumentReference = this.firestore.doc(request.path.value);
 
       return from(documentRef.set(request.body)).pipe(

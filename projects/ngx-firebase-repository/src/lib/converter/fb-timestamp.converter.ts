@@ -1,6 +1,6 @@
-import { firestore } from 'firebase';
+import firebase from 'firebase';
 import { Converter } from '@witty-services/ngx-repository';
-import Timestamp = firestore.Timestamp;
+import Timestamp = firebase.firestore.Timestamp;
 
 /**
  * @ignore

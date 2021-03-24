@@ -1,13 +1,18 @@
-import {Observable, of} from 'rxjs';
-import {ConfigurationContextProvider, Path, RequestBuilder, RequestManagerContext} from '@witty-services/ngx-repository';
-import {FirebaseRepositoryRequest} from './firebase-repository.request';
-import {Inject, Injectable} from '@angular/core';
-import {firestore as fs} from 'firebase';
-import {FIRESTORE_APP} from '../ngx-firebase-repository.module.di';
-import {FirebaseRepositoryParamConfiguration} from '../configuration/firebase-repository-param.configuration';
-import {FirebaseOperation} from './firebase.operation';
-import {FirebaseNormalizer} from '../normalizer/firebase.normalizer';
-import Firestore = fs.Firestore;
+import { Observable, of } from 'rxjs';
+import {
+  ConfigurationContextProvider,
+  Path,
+  RequestBuilder,
+  RequestManagerContext
+} from '@witty-services/ngx-repository';
+import { FirebaseRepositoryRequest } from './firebase-repository.request';
+import { Inject, Injectable } from '@angular/core';
+import firebase from 'firebase';
+import { FIRESTORE_APP } from '../ngx-firebase-repository.module.di';
+import { FirebaseRepositoryParamConfiguration } from '../configuration/firebase-repository-param.configuration';
+import { FirebaseOperation } from './firebase.operation';
+import { FirebaseNormalizer } from '../normalizer/firebase.normalizer';
+import Firestore = firebase.firestore.Firestore;
 
 // @dynamic
 @Injectable()

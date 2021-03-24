@@ -15,9 +15,10 @@ import { MyPageResponseProcessor } from './module/@core/processor/my-page-respon
 import { ClientComponent } from './component/client/client.component';
 import { NgxHttpRepositoryModule } from '@witty-services/ngx-http-repository';
 import { FIRESTORE_APP, NgxFirebaseRepositoryModule } from '@witty-services/ngx-firebase-repository';
-import { firestore, initializeApp } from 'firebase';
+import firebase from 'firebase';
 import { BookService } from './module/@core/service/book.service';
-import Firestore = firestore.Firestore;
+import Firestore = firebase.firestore.Firestore;
+import initializeApp = firebase.initializeApp;
 
 export function createFirestore(): Firestore {
   return initializeApp({

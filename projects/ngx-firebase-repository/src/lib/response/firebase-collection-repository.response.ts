@@ -1,8 +1,8 @@
-import { firestore } from 'firebase';
+import firebase from 'firebase';
 import { FirebaseRepositoryResponse } from './firebase-repository.response';
 import { RepositoryRequest } from '@witty-services/ngx-repository';
-import QuerySnapshot = firestore.QuerySnapshot;
-import DocumentSnapshot = firestore.DocumentSnapshot;
+import QuerySnapshot = firebase.firestore.QuerySnapshot;
+import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
 
 export class FirebaseCollectionRepositoryResponse implements FirebaseRepositoryResponse {
 

@@ -1,6 +1,7 @@
-import { FirebaseError } from 'firebase';
+import firebase from 'firebase';
 import { omitBy } from 'lodash';
 import { FirebaseRepositoryRequest } from '../request/firebase-repository.request';
+import FirebaseError = firebase.FirebaseError;
 
 const IGNORED_KEYS: string[] = ['paths', 'readPath', 'createPath', 'updatePath', 'deletePath', 'pathParams', 'replaceParams'];
 

@@ -1,18 +1,21 @@
-import {PropertyKeyConfiguration} from '@witty-services/ngx-repository';
-import {firestore} from 'firebase';
-import {FIREBASE_CRITERIA_METADATA_KEY} from '../decorator/firebase-criteria.decorator';
-import {FIREBASE_ORDER_BY_METADATA_KEY} from '../decorator/firebase-order-by.decorator';
-import {FIREBASE_START_AT_METADATA_KEY} from '../decorator/firebase-start-at.decorator';
-import {FIREBASE_START_AFTER_METADATA_KEY} from '../decorator/firebase-start-after.decorator';
-import {FIREBASE_END_AT_METADATA_KEY} from '../decorator/firebase-end-at.decorator';
-import {FIREBASE_END_BEFORE_METADATA_KEY} from '../decorator/firebase-end-before.decorator';
-import {FIREBASE_LIMIT_METADATA_KEY} from '../decorator/firebase-limit.decorator';
-import {FIREBASE_LIMIT_TO_LAST_METADATA_KEY} from '../decorator/firebase-limit-to-last.decorator';
-import OrderByDirection = firestore.OrderByDirection;
-import FieldPath = firestore.FieldPath;
-import WhereFilterOp = firestore.WhereFilterOp;
-import {FirebaseCriteriaContextConfiguration} from '../configuration/context/firebase-criteria-context.configuration';
-import {FirebaseOrderByContext, FirebaseOrderByContextConfiguration} from '../configuration/context/firebase-order-by-context.configuration';
+import { PropertyKeyConfiguration } from '@witty-services/ngx-repository';
+import firebase from 'firebase';
+import { FIREBASE_CRITERIA_METADATA_KEY } from '../decorator/firebase-criteria.decorator';
+import { FIREBASE_ORDER_BY_METADATA_KEY } from '../decorator/firebase-order-by.decorator';
+import { FIREBASE_START_AT_METADATA_KEY } from '../decorator/firebase-start-at.decorator';
+import { FIREBASE_START_AFTER_METADATA_KEY } from '../decorator/firebase-start-after.decorator';
+import { FIREBASE_END_AT_METADATA_KEY } from '../decorator/firebase-end-at.decorator';
+import { FIREBASE_END_BEFORE_METADATA_KEY } from '../decorator/firebase-end-before.decorator';
+import { FIREBASE_LIMIT_METADATA_KEY } from '../decorator/firebase-limit.decorator';
+import { FIREBASE_LIMIT_TO_LAST_METADATA_KEY } from '../decorator/firebase-limit-to-last.decorator';
+import { FirebaseCriteriaContextConfiguration } from '../configuration/context/firebase-criteria-context.configuration';
+import {
+  FirebaseOrderByContext,
+  FirebaseOrderByContextConfiguration
+} from '../configuration/context/firebase-order-by-context.configuration';
+import OrderByDirection = firebase.firestore.OrderByDirection;
+import FieldPath = firebase.firestore.FieldPath;
+import WhereFilterOp = firebase.firestore.WhereFilterOp;
 
 
 export interface FirebaseRequestQuery {

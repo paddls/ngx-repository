@@ -1,6 +1,6 @@
-import { firestore } from 'firebase';
-import {PropertyKeyConfiguration} from '@witty-services/ngx-repository';
-import WhereFilterOp = firestore.WhereFilterOp;
+import firebase from 'firebase';
+import { PropertyKeyConfiguration } from '@witty-services/ngx-repository';
+import WhereFilterOp = firebase.firestore.WhereFilterOp;
 
 export interface FirebaseCriteriaContext {
   field: string;
