@@ -15,7 +15,8 @@ export interface RepositoryService {
 @Injectable()
 export class NgxRepositoryService implements RepositoryService {
 
-  private static instance: RepositoryService;
+  public static getInstance: () => RepositoryService;
+
   protected injector: Injector;
 
   public constructor(protected parentInjector: Injector,
@@ -24,14 +25,6 @@ export class NgxRepositoryService implements RepositoryService {
       providers: [],
       parent: this.parentInjector
     });
-  }
-
-  public static getInstance(): RepositoryService {
-    return NgxRepositoryService.instance;
-  }
-
-  public static setInstance(instance: RepositoryService): void {
-    this.instance = instance;
   }
 
   public getRepository<T>(resourceType: Type<T>, repositoryType: Type<AbstractRepository<T>>): AbstractRepository<T> {
