@@ -6,9 +6,11 @@ import { UpdateRepository } from '../lib/core/repository/update.repository';
 import { PatchRepository } from '../lib/core/repository/patch.repository';
 import { DeleteRepository } from '../lib/core/repository/delete.repository';
 import { Observable, throwError } from 'rxjs';
-import { Predicate, Type } from '@angular/core';
+import { Injectable, Predicate, Type } from '@angular/core';
 import { AbstractRepository } from '../lib/core/repository/abstractRepository';
 
+// @dynamic
+@Injectable()
 export class MockRepository implements FindByIdRepository,
   FindAllRepository,
   FindOneRepository,

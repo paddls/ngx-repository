@@ -11,6 +11,7 @@ export interface RepositoryService {
 /**
  * @ignore
  */
+// @dynamic
 @Injectable()
 export class NgxRepositoryService implements RepositoryService {
 

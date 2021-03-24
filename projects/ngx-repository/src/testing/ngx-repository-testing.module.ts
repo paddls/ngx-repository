@@ -15,6 +15,7 @@ const MODULE_PROVIDERS: Provider[] = [];
 /**
  * @ignore
  */
+// @dynamic
 @NgModule({
   providers: MODULE_PROVIDERS
 })
