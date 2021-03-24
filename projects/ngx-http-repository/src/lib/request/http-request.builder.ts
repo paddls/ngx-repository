@@ -2,6 +2,7 @@ import { Observable, of } from 'rxjs';
 import { cloneDeep } from 'lodash';
 import {
   ConfigurationContextProvider,
+  getDeepQueryMetadataValues,
   Path,
   RepositoryNormalizer,
   RepositoryRequest,
@@ -17,7 +18,6 @@ import { HttpOperation } from './http.operation';
 import { HttpRepositoryParamConfiguration } from '../configuration/http-repository-param.configuration';
 import { HttpQueryParamContextConfiguration } from '../configuration/context/http-query-param-context.configuration';
 import { HttpHeaderContextConfiguration } from '../configuration/context/http-header-context.configuration';
-import { getDeepQueryMetadataValues } from '../../../../ngx-repository/src/lib/core/decorator/sub-query.decorator';
 
 @Injectable()
 export class HttpRequestBuilder implements RequestBuilder {
