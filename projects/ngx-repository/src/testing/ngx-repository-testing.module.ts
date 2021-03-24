@@ -23,7 +23,7 @@ export class NgxRepositoryTestingModule {
 
   private static testRepositoryBuilder: TestRepositoryBuilder;
 
-  public static forTest(): ModuleWithProviders {
+  public static forTest(): ModuleWithProviders<NgxRepositoryTestingModule> {
     this.testRepositoryBuilder = new TestRepositoryBuilder();
     const repositoryService: NgxRepositoryService = new NgxRepositoryTestingService(this.testRepositoryBuilder) as any;
     NgxRepositoryService.setInstance(repositoryService);

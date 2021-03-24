@@ -45,7 +45,7 @@ const PROVIDERS: Provider[] = [
   ]
 })
 export class NgxHttpRepositoryModule {
-  public static forRoot(configuration?: HttpRepositoryContextConfiguration): ModuleWithProviders {
+  public static forRoot(configuration?: HttpRepositoryContextConfiguration): ModuleWithProviders<NgxHttpRepositoryModule> {
     if (configuration) {
       const defaultConfiguration: HttpRepositoryConfiguration = getRepositoryContextConfiguration(HttpRepository).defaultConfiguration;
 
