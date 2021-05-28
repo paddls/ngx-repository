@@ -1,4 +1,4 @@
-import { Mock } from '../../../test/mock.model';
+import { Mock } from '../../../testing/mock.model';
 import { Repository, REPOSITORY_METADATA_KEY } from './repository.decorator';
 
 describe('RepositoryDecorator', () => {

@@ -30,6 +30,7 @@ export abstract class AbstractRepositoryBuilder implements RepositoryBuilder {
     const resourceContextConfiguration: ConfigurationProvider = Reflect.getMetadata(this.resourceContextKey, resourceType);
     Reflect.defineMetadata(RESOURCE_CONFIGURATION_METADATA_KEY, resourceContextConfiguration, repository);
 
+    // TODO @TNI/@RMA : Do we need defaultConfiguration with responseType like in createRepositoryClass
     const resourceTypeContextConfiguration: RepositoryContextConfiguration<T> = {
       resourceType: () => resourceType
     };

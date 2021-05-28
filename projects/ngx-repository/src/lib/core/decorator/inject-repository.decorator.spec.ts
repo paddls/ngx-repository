@@ -1,6 +1,6 @@
 import { NgxRepositoryModule } from '../../ngx-repository.module';
 import { INJECT_REPOSITORY_METADATA_KEY, InjectRepository } from './inject-repository.decorator';
-import { Mock } from '../../../test/mock.model';
+import { Mock } from '../../../testing/mock.model';
 import {NgxRepositoryService} from '../../ngx-repository.service';
 
 const ngxRepositoryService: any = {
