@@ -1,12 +1,12 @@
 {
   "name": "@witty-services/ngx-repository",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "peerDependencies": {
     "@angular/common": ">=8.0.3-rc.0 || >=8.0.3",
     "@angular/core": ">=8.0.3-rc.0 || >=8.0.3"
   },
   "dependencies": {
-    "@witty-services/ts-serializer": "^1.0.2",
+    "@witty-services/ts-serializer": "1.0.4",
     "@witty-services/rxjs-common": "^1.0.6",
     "object-hash": "^2.0.3"
   },
