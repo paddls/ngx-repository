@@ -19,7 +19,12 @@ export function getDeepQueryMetadataValues(metadataKey: string, query: any): any
       subQueries = [subQueries];
     }
 
-    const childMetadata: any[] = subQueries.map((subQuery: string) => getDeepQueryMetadataValues(metadataKey, query[subQuery]));
+    const childMetadata: any[] = subQueries.map((subQuery: string) =>
+      getDeepQueryMetadataValues(metadataKey, query[subQuery]).map((subQueryMetadataValue: any) => ({
+        ...subQueryMetadataValue,
+        propertyKey: `${ subQuery }.${ subQueryMetadataValue.propertyKey }`
+      }))
+    );
     const metadata: any[] = Reflect.getMetadata(metadataKey, query) || [];
 
     return flattenDeep([...childMetadata, metadata]);

@@ -1,5 +1,5 @@
 import { Observable, of } from 'rxjs';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, get } from 'lodash';
 import {
   ConfigurationContextProvider,
   getDeepQueryMetadataValues,
@@ -50,11 +50,11 @@ export class HttpRequestBuilder implements RequestBuilder {
     if (query) {
       const httpQueryParams: HttpQueryParamContextConfiguration[] = getDeepQueryMetadataValues(HTTP_QUERY_PARAM_METADATA_KEY, query);
       httpQueryParams.forEach((httpQueryParam: HttpQueryParamContextConfiguration) => {
-        if (query[httpQueryParam.propertyKey] == null) {
+        if (get(query, httpQueryParam.propertyKey) == null) {
           return;
         }
 
-        params = params.append(httpQueryParam.name, cloneDeep(httpQueryParam.format).replace(/:value/gi, query[httpQueryParam.propertyKey]));
+        params = params.append(httpQueryParam.name, cloneDeep(httpQueryParam.format).replace(/:value/gi, get(query, httpQueryParam.propertyKey)));
       });
     }
 
@@ -67,11 +67,11 @@ export class HttpRequestBuilder implements RequestBuilder {
     if (query) {
       const httpHeaders: HttpHeaderContextConfiguration[] = getDeepQueryMetadataValues(HTTP_HEADER_METADATA_KEY, query);
       httpHeaders.forEach((httpHeader: HttpHeaderContextConfiguration) => {
-        if (query[httpHeader.propertyKey] == null) {
+        if (get(query, httpHeader.propertyKey) == null) {
           return;
         }
 
-        headers[httpHeader.name] = `${ query[httpHeader.propertyKey] }`;
+        headers[httpHeader.name] = `${ get(query, httpHeader.propertyKey) }`;
       });
     }
 

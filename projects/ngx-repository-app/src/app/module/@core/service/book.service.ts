@@ -4,6 +4,7 @@ import { Book } from '../model/book.model';
 import { InjectRepository } from '@witty-services/ngx-repository';
 import { Observable } from 'rxjs';
 import { Chance } from 'chance';
+import { BookQuery } from '../query/book.query';
 
 @Injectable()
 export class BookService {
@@ -17,5 +18,9 @@ export class BookService {
     book.title = this.chance.name();
 
     return this.bookRepository.update(book);
+  }
+
+  public findById(id: string, query: BookQuery): Observable<Book> {
+    return this.bookRepository.findById(id, query);
   }
 }

@@ -4,6 +4,7 @@ import { PathParamContextConfiguration } from '../configuration/context/path-par
 import { PathColumnContextConfiguration } from '../configuration/context/path-column-context.configuration';
 import { Id } from './id';
 import { getDeepQueryMetadataValues } from '../decorator/sub-query.decorator';
+import { get } from 'lodash';
 
 export class Path {
 
@@ -25,11 +26,11 @@ export class Path {
     if (this.query != null) {
       const queryPathParams: PathParamContextConfiguration[] = getDeepQueryMetadataValues(PATH_PARAM_METADATA_KEY, this.query);
       queryPathParams.forEach((pathParam: PathParamContextConfiguration) => {
-        if (this.query[pathParam.propertyKey] == null) {
+        if (get(this.query, pathParam.propertyKey) == null) {
           return;
         }
 
-        params[`:${ pathParam.name }`] = this.query[pathParam.propertyKey];
+        params[`:${ pathParam.name }`] = get(this.query, pathParam.propertyKey);
       });
     }
 
