@@ -1,5 +1,3 @@
-import {NgxFirebaseRepositoryModuleConfiguration} from './lib/ngx-firebase-repository.module';
-
 export { FirebaseCreatedAtContext } from './lib/configuration/context/firebase-created-at-context.configuration';
 export { FirebaseCriteriaContext } from './lib/configuration/context/firebase-criteria-context.configuration';
 export { FirebaseOrderByContext } from './lib/configuration/context/firebase-order-by-context.configuration';

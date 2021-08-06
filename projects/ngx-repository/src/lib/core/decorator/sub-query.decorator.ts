@@ -1,4 +1,5 @@
 import { first, flattenDeep, isString } from 'lodash';
+import { PropertyKeyConfiguration } from '../common/decorator/property-key-configuration';
 
 /**
  * @ignore
@@ -11,7 +12,7 @@ export function SubQuery(): any {
   };
 }
 
-export function getDeepQueryMetadataValues(metadataKey: string, query: any): any[] {
+export function getDeepQueryMetadataValues<T extends PropertyKeyConfiguration>(metadataKey: string, query: any, parent: string = ''): T[] {
   if (query) {
     let subQueries: any = Reflect.getMetadata(SUB_QUERY_METADATA_KEY, query) || [];
 
@@ -19,15 +20,16 @@ export function getDeepQueryMetadataValues(metadataKey: string, query: any): any
       subQueries = [subQueries];
     }
 
-    const childMetadata: any[] = subQueries.map((subQuery: string) =>
-      getDeepQueryMetadataValues(metadataKey, query[subQuery]).map((subQueryMetadataValue: any) => ({
-        ...subQueryMetadataValue,
-        propertyKey: `${ subQuery }.${ subQueryMetadataValue.propertyKey }`
-      }))
-    );
-    const metadata: any[] = Reflect.getMetadata(metadataKey, query) || [];
+    const childMetadata: T[] = subQueries.map((subQuery: string) => getDeepQueryMetadataValues<T>(metadataKey, query[subQuery], parent ? `${ parent }.${ subQuery }` : subQuery));
+    const metadata: T[] = Reflect.getMetadata(metadataKey, query) || [];
 
-    return flattenDeep([...childMetadata, metadata]);
+    const modifiedMetadata: T[] = metadata
+      .map((property: PropertyKeyConfiguration) => ({
+        ...property,
+        propertyKey: parent ? `${ parent }.${ property.propertyKey }` : property.propertyKey
+      })) as T[];
+
+    return flattenDeep([childMetadata, modifiedMetadata]);
   }
 
   return [];

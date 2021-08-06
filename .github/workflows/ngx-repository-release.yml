@@ -1,0 +1,85 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [ 10.16.0 ]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get the tag name
+        run: echo "TAG=${GITHUB_REF/refs\/tags\//}" | sed 's/v//' >> $GITHUB_ENV
+      - run: echo ${{ env.TAG }}
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Installation
+        run: npm ci
+
+      - name: Build NgxRepository
+        run: npm run build:ngx-repository
+        env:
+          CI: true
+
+      - name: Build NgxHttpRepository
+        run: npm run build:ngx-http-repository
+        env:
+          CI: true
+
+      - name: Build NgxFirebaseRepository
+        run: npm run build:ngx-firebase-repository
+        env:
+          CI: true
+
+      - name: Linter
+        run: npm run lint
+
+      - name: Test
+        run: npm run test:ci
+
+      - name: Send coverage to Coverall
+        uses: coverallsapp/github-action@v1.0.1
+        if: ${{ github.ref == 'master' }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./coverage/merged/lcov.info
+
+      - name: Set NgxRepository version
+        run: cd dist/ngx-repository && npm version ${{ env.TAG }}
+
+      - name: Set NgxHttpRepository version
+        run: cd dist/ngx-http-repository && npm version ${{ env.TAG }}
+
+      - name: Set NgxFirebaseRepository version
+        run: cd dist/ngx-firebase-repository && npm version ${{ env.TAG }}
+
+      - uses: JS-DevTools/npm-publish@v1
+        name: Publish ngx-repository
+        with:
+          package: ./dist/ngx-repository/package.json
+          token: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - uses: JS-DevTools/npm-publish@v1
+        name: Publish ngx-http-repository
+        with:
+          package: ./dist/ngx-http-repository/package.json
+          token: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - uses: JS-DevTools/npm-publish@v1
+        name: Publish ngx-firebase-repository
+        with:
+          package: ./dist/ngx-firebase-repository/package.json
+          token: ${{ secrets.NPM_AUTH_TOKEN }}

@@ -1,15 +1,16 @@
-import {Injectable, Injector, Predicate, Type} from '@angular/core';
-import {Listener} from './listener';
-import {some, chain} from 'lodash';
-import {Subject, Observable} from 'rxjs';
+import { Injectable, Injector, Predicate, Type } from '@angular/core';
+import { Listener } from './listener';
+import { chain, some } from 'lodash';
+import { Observable, Subject } from 'rxjs';
 
 interface RegistryItem {
 
-  predicate: Predicate<any>|Predicate<any>[];
+  predicate: Predicate<any> | Predicate<any>[];
 
   listener: Type<Listener<any>>;
 }
 
+// @dynamic
 @Injectable()
 export class PublisherService {
 

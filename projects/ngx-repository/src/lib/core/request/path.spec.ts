@@ -1,8 +1,8 @@
-import {Path} from './path';
-import {Id} from './id';
-import {PATH_PARAM_METADATA_KEY} from '../decorator/path-param.decorator';
-import {PATH_COLUMN_METADATA_KEY} from '../decorator/path-column.decorator';
-import {ID_METADATA_KEY} from '../decorator/id.decorator';
+import { Path } from './path';
+import { Id } from './id';
+import { PATH_PARAM_METADATA_KEY } from '../decorator/path-param.decorator';
+import { PATH_COLUMN_METADATA_KEY } from '../decorator/path-column.decorator';
+import { ID_METADATA_KEY } from '../decorator/id.decorator';
 
 describe('Path', () => {
   let path: Path = null;
@@ -14,12 +14,12 @@ describe('Path', () => {
   describe('#pathParams', () => {
 
     it('should set empty object in pathParams if query and body are null', () => {
-      path = new Path(null, null, '');
+      path = new Path(null, null, '', null);
       expect(path.pathParams).toEqual({});
     });
 
     it('should set empty object in pathParams if query and body have no path param metadata', () => {
-      path = new Path({}, {}, '');
+      path = new Path({}, {}, '', null);
       expect(path.pathParams).toEqual({});
     });
 
@@ -56,7 +56,7 @@ describe('Path', () => {
         body
       );
 
-      path = new Path(body, query, '');
+      path = new Path(body, query, '', null);
       expect(path.pathParams).toEqual({
         ':firstQueryPathParam': 'toto',
         ':secondQueryPathParam': 'tata',
@@ -73,7 +73,7 @@ describe('Path', () => {
       const query: any = {};
       const body: any = {};
 
-      path = new Path(body, query, '');
+      path = new Path(body, query, '', null);
 
       expect(path.id).toEqual(new Id(query, body));
     });
@@ -83,7 +83,7 @@ describe('Path', () => {
     const template: string = '/path/:myFirstArg/to/:mySecondArg/and/:myThirdArg';
 
     it('should no found value and set the template variable', () => {
-      path = new Path(null, null, template);
+      path = new Path(null, null, template, null);
       expect(path.value).toEqual(template);
     });
 
@@ -107,11 +107,11 @@ describe('Path', () => {
       Reflect.defineMetadata(
         PATH_COLUMN_METADATA_KEY,
         [
-          {propertyKey: 'myFirstBodyPathParam', name: 'mySecondArg'},
+          { propertyKey: 'myFirstBodyPathParam', name: 'mySecondArg' }
         ],
         body
       );
-      path = new Path(body, query, template);
+      path = new Path(body, query, template, null);
       expect(path.value).toEqual('/path/toto/to/titi/and/:myThirdArg');
     });
 
@@ -137,11 +137,11 @@ describe('Path', () => {
       Reflect.defineMetadata(
         PATH_COLUMN_METADATA_KEY,
         [
-          {propertyKey: 'myFirstBodyPathParam', name: 'mySecondArg'},
+          { propertyKey: 'myFirstBodyPathParam', name: 'mySecondArg' }
         ],
         body
       );
-      path = new Path(body, query, template);
+      path = new Path(body, query, template, null);
       expect(path.value).toEqual('/path/toto/to/titi/and/:myThirdArg/myIdFromQuery');
     });
   });

@@ -1,5 +1,5 @@
-import {Type} from '@angular/core';
-import {getIdFromObject, InternalEvent} from '@witty-services/ngx-repository';
+import { Type } from '@angular/core';
+import { InternalEvent } from '@witty-services/ngx-repository';
 
 export class AfterHttpUpdateEvent<T, K> implements InternalEvent {
 

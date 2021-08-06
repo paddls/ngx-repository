@@ -1,7 +1,7 @@
-import {PropertyKeyConfiguration} from '../../common/decorator/property-key-configuration';
+import { PropertyKeyConfiguration } from '../../common/decorator/property-key-configuration';
+import { PathParamContext } from './path-param-context.configuration';
 
-export interface PathColumnContext {
-  name: string;
+export interface PathColumnContext extends PathParamContext {
 }
 
 /**

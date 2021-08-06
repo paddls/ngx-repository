@@ -1,7 +1,6 @@
-import { NgxRepositoryModule } from '../../ngx-repository.module';
 import { INJECT_REPOSITORY_METADATA_KEY, InjectRepository } from './inject-repository.decorator';
 import { Mock } from '../../../testing/mock.model';
-import {NgxRepositoryService} from '../../ngx-repository.service';
+import { NgxRepositoryService } from '../../ngx-repository.service';
 
 const ngxRepositoryService: any = {
   getRepository: () => void 0
@@ -19,6 +18,8 @@ describe('InjectRepositoryDecorator', () => {
 
   it('should place all context in good place and define a new property with the good value without repository type', () => {
     const repository: any = {};
+
+    NgxRepositoryService.getInstance = () => void 0;
 
     spyOn(NgxRepositoryService, 'getInstance').and.returnValue(ngxRepositoryService);
     spyOn(ngxRepositoryService, 'getRepository').and.returnValue(repository);

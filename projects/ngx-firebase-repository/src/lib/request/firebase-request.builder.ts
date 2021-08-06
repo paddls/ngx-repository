@@ -3,7 +3,8 @@ import {
   AfterNormalizeEvent,
   BeforeNormalizeEvent,
   ConfigurationContextProvider,
-  Path, PublisherService,
+  Path,
+  PublisherService,
   RequestBuilder,
   RequestManagerContext
 } from '@witty-services/ngx-repository';
@@ -14,8 +15,8 @@ import { FIRESTORE_APP } from '../ngx-firebase-repository.module.di';
 import { FirebaseRepositoryParamConfiguration } from '../configuration/firebase-repository-param.configuration';
 import { FirebaseOperation } from './firebase.operation';
 import { FirebaseNormalizer } from '../normalizer/firebase.normalizer';
+import { cloneDeep } from 'lodash';
 import Firestore = firebase.firestore.Firestore;
-import {cloneDeep} from 'lodash';
 
 // @dynamic
 @Injectable()
@@ -36,7 +37,7 @@ export class FirebaseRequestBuilder implements RequestBuilder {
   protected getPath(body: any, query: any, configuration: ConfigurationContextProvider): Path {
     const path: string = configuration.getConfiguration<FirebaseRepositoryParamConfiguration>('path');
 
-    return new Path(body, query, path);
+    return new Path(body, query, path, this.normalizer.getNormalizer());
   }
 
   protected getBody(body: any): any {

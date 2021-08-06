@@ -1,11 +1,12 @@
-import {EventListener, Listener} from '@witty-services/ngx-repository';
-import {Injectable} from '@angular/core';
-import {BeforeExecuteFirebaseRequestEvent} from '../event/before-execute-firebase-request.event';
-import {AfterExecuteFirebaseRequestEvent} from '../event/after-execute-firebase-request.event';
-import {FirebaseRepositoryRequest} from '../../request/firebase-repository.request';
+import { EventListener, Listener } from '@witty-services/ngx-repository';
+import { Injectable } from '@angular/core';
+import { BeforeExecuteFirebaseRequestEvent } from '../event/before-execute-firebase-request.event';
+import { AfterExecuteFirebaseRequestEvent } from '../event/after-execute-firebase-request.event';
+import { FirebaseRepositoryRequest } from '../../request/firebase-repository.request';
 
-type ExecuteFirebaseRequestEvent = BeforeExecuteFirebaseRequestEvent|AfterExecuteFirebaseRequestEvent;
+type ExecuteFirebaseRequestEvent = BeforeExecuteFirebaseRequestEvent | AfterExecuteFirebaseRequestEvent;
 
+// @dynamic
 @Injectable()
 @EventListener([(e: ExecuteFirebaseRequestEvent) => e instanceof BeforeExecuteFirebaseRequestEvent, (e: ExecuteFirebaseRequestEvent) => e instanceof AfterExecuteFirebaseRequestEvent])
 export class LogExecuteFirebaseRequestEventListener implements Listener<ExecuteFirebaseRequestEvent> {

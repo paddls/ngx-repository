@@ -26,4 +26,8 @@ export class TokenRegistry {
 
     return TokenRegistry.tokenRegistry.get(repository).get(resourceType);
   }
+
+  public static clear(): void {
+    TokenRegistry.tokenRegistry.clear();
+  }
 }

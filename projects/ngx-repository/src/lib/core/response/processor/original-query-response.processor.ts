@@ -16,7 +16,7 @@ export class OriginalQueryResponseProcessor implements ResponseProcessor {
     if (query) {
       if (isArray(response)) {
         response.forEach((item: any) => Reflect.defineMetadata(ORIGINAL_QUERY_METADATA_KEY, query, item));
-      } else {
+      } else if (response != null) {
         Reflect.defineMetadata(ORIGINAL_QUERY_METADATA_KEY, query, response);
       }
     }

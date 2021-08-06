@@ -1,13 +1,28 @@
-import {REPOSITORY_METADATA_KEY, RESOURCE_CONFIGURATION_METADATA_KEY} from '../decorator/repository.decorator';
-import {Type} from '@angular/core';
-import {AbstractRepository} from './abstract-repository';
-import {AbstractRepositoryBuilder} from './abstract-repository.builder';
-import {Observable} from 'rxjs';
-import {RequestManager} from '../manager/request.manager';
-import {RepositoryDriver} from '../driver/repository.driver';
-import {PublisherService} from '../event-stream/publisher.service';
+import { REPOSITORY_METADATA_KEY, RESOURCE_CONFIGURATION_METADATA_KEY } from '../decorator/repository.decorator';
+import { Type } from '@angular/core';
+import { AbstractRepository } from './abstract-repository';
+import { AbstractRepositoryBuilder } from './abstract-repository.builder';
+import { Observable } from 'rxjs';
+import { RequestManager } from '../manager/request.manager';
+import { RepositoryDriver } from '../driver/repository.driver';
 
 class MyClass {
+}
+
+class MyRepository<T> extends AbstractRepository<T> {
+
+  public constructor(requestManager: RequestManager = null, driver: RepositoryDriver = null) {
+    super(requestManager, driver);
+  }
+
+  protected getResourceContextKey(): string {
+    return '';
+  }
+
+  public execute(body: any, query: any, configurationPaths: string[]): Observable<any> {
+    return super.execute(body, query, configurationPaths);
+  }
+
 }
 
 class RepositoryBuilder extends AbstractRepositoryBuilder {
@@ -27,26 +42,11 @@ class RepositoryBuilder extends AbstractRepositoryBuilder {
   }
 }
 
-class MyRepository<T> extends AbstractRepository<T> {
-
-  public constructor(requestManager: RequestManager = null, driver: RepositoryDriver = null, publisherService: PublisherService = null) {
-    super(requestManager, driver, publisherService);
-  }
-
-  protected getResourceContextKey(): string {
-    return '';
-  }
-
-  public execute(body: any, query: any, configurationPaths: string[]): Observable<any> {
-    return super.execute(body, query, configurationPaths);
-  }
-
-}
-
 describe('AbstractRepositoryBuilder', () => {
 
   it('should throw an error when no metadata exist on resource class', () => {
-    class MyClassWithoutMetadata {}
+    class MyClassWithoutMetadata {
+    }
 
     const repositoryBuilder: RepositoryBuilder = new RepositoryBuilder('meta');
     expect(() => repositoryBuilder.getRepository(MyClassWithoutMetadata)).toThrowError('MyClassWithoutMetadata is not a valid resource.');

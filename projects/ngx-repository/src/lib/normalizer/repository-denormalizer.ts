@@ -1,7 +1,7 @@
 import { Inject, Injectable, Type } from '@angular/core';
 import { isArray } from 'lodash';
 import { Denormalizer, Normalizer, NormalizerConfiguration } from '@witty-services/ts-serializer';
-import {NORMALIZER_CONFIGURATION_TOKEN} from '@witty-services/ngx-serializer';
+import { NORMALIZER_CONFIGURATION_TOKEN } from '@witty-services/ngx-serializer';
 
 @Injectable()
 export class RepositoryNormalizer {
@@ -28,5 +28,9 @@ export class RepositoryNormalizer {
     const normalizer: Normalizer = configuration ? new Normalizer(configuration) : this.normalizer;
 
     return normalizer.serialize(body);
+  }
+
+  public getNormalizer(): Normalizer {
+    return this.normalizer;
   }
 }

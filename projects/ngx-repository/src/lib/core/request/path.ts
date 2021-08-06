@@ -1,10 +1,10 @@
 import { PATH_PARAM_METADATA_KEY } from '../decorator/path-param.decorator';
 import { PATH_COLUMN_METADATA_KEY } from '../decorator/path-column.decorator';
 import { PathParamContextConfiguration } from '../configuration/context/path-param-context.configuration';
-import { PathColumnContextConfiguration } from '../configuration/context/path-column-context.configuration';
 import { Id } from './id';
 import { getDeepQueryMetadataValues } from '../decorator/sub-query.decorator';
 import { get } from 'lodash';
+import { ISerializer } from '@witty-services/ts-serializer';
 
 export class Path {
 
@@ -14,7 +14,8 @@ export class Path {
 
   public constructor(private readonly body: any,
                      private readonly query: any,
-                     private readonly template: string) {
+                     private readonly template: string,
+                     private readonly serializer: ISerializer) {
     this.pathParams = this.getPathParams();
     this.id = new Id(body, query);
     this.value = this.getPath();
@@ -23,27 +24,37 @@ export class Path {
   private getPathParams(): any {
     const params: any = {};
 
+    if (this.body) {
+      const bodyPathParams: PathParamContextConfiguration[] = Reflect.getMetadata(PATH_COLUMN_METADATA_KEY, this.body) || [];
+
+      Object.assign(params, this.getParams(this.body, bodyPathParams));
+    }
+
     if (this.query != null) {
       const queryPathParams: PathParamContextConfiguration[] = getDeepQueryMetadataValues(PATH_PARAM_METADATA_KEY, this.query);
-      queryPathParams.forEach((pathParam: PathParamContextConfiguration) => {
-        if (get(this.query, pathParam.propertyKey) == null) {
-          return;
-        }
 
-        params[`:${ pathParam.name }`] = get(this.query, pathParam.propertyKey);
-      });
+      Object.assign(params, this.getParams(this.query, queryPathParams));
     }
 
-    if (this.body) {
-      const bodyPathParams: PathColumnContextConfiguration[] = Reflect.getMetadata(PATH_COLUMN_METADATA_KEY, this.body) || [];
-      bodyPathParams.forEach((pc: PathParamContextConfiguration) => {
-        if (this.body[pc.propertyKey] == null) {
-          return;
-        }
+    return params;
+  }
 
-        params[`:${ pc.name }`] = this.body[pc.propertyKey];
-      });
-    }
+  private getParams(data: any, pathParams: PathParamContextConfiguration[]): any {
+    const params: any = {};
+
+    pathParams.forEach((pathParam: PathParamContextConfiguration) => {
+      const property: any = get(data, pathParam.propertyKey);
+
+      if (property == null) {
+        return;
+      }
+
+      if (pathParam.customConverter) {
+        params[`:${ pathParam.name }`] = new (pathParam.customConverter())().toJson(property, this.serializer);
+      } else {
+        params[`:${ pathParam.name }`] = property;
+      }
+    });
 
     return params;
   }

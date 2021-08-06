@@ -2,7 +2,6 @@ import {
   BuilderParam,
   ConfigurationContextProvider,
   DenormalizeResponseProcessor,
-  PageResponseProcessor,
   RequestManagerContext,
   ResponseBuilder,
   ResponseProcessor
@@ -20,7 +19,7 @@ export interface HttpResponseBuilderParam {
 export class HttpResponseBuilder extends ResponseBuilder {
 
   protected static readonly defaultConfiguration: HttpResponseBuilderParam = {
-    denormalizeResponseProcessor: DenormalizeResponseProcessor,
+    denormalizeResponseProcessor: DenormalizeResponseProcessor
   };
 
   public static withParams(params: HttpResponseBuilderParam = {}): BuilderParam<ResponseBuilder> {

@@ -1,11 +1,12 @@
-import {EventListener, Listener} from '@witty-services/ngx-repository';
-import {BeforeExecuteHttpRequestEvent} from '../event/before-execute-http-request.event';
-import {AfterExecuteHttpRequestEvent} from '../event/after-execute-http-request.event';
-import {Injectable} from '@angular/core';
-import {HttpRepositoryRequest} from '../../request/http-repository.request';
+import { EventListener, Listener } from '@witty-services/ngx-repository';
+import { BeforeExecuteHttpRequestEvent } from '../event/before-execute-http-request.event';
+import { AfterExecuteHttpRequestEvent } from '../event/after-execute-http-request.event';
+import { Injectable } from '@angular/core';
+import { HttpRepositoryRequest } from '../../request/http-repository.request';
 
-type ExecuteHttpRequestEvent = BeforeExecuteHttpRequestEvent|AfterExecuteHttpRequestEvent;
+type ExecuteHttpRequestEvent = BeforeExecuteHttpRequestEvent | AfterExecuteHttpRequestEvent;
 
+// @dynamic
 @Injectable()
 @EventListener([
   (e: ExecuteHttpRequestEvent) => e instanceof BeforeExecuteHttpRequestEvent,

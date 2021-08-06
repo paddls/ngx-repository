@@ -1,10 +1,10 @@
-import { HTTP_RESOURCE_METADATA_KEY, HttpResource, HttpResourceContext } from './http-resource.decorator';
+import { HTTP_RESOURCE_METADATA_KEY, HttpResource } from './http-resource.decorator';
 
 describe('HttpResourceDecorator', () => {
 
   it('should place http context in metadata', () => {
     const obj: any = {};
-    const context: HttpResourceContext = {
+    const context: any = {
       path: 'toto'
     };
 

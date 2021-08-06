@@ -4,7 +4,7 @@ import { Book } from './book.model';
 import { Address } from './address.model';
 import { BookQuery } from '../query/book.query';
 import { Column, DateConverter, Page, SubCollection } from '@witty-services/ngx-repository';
-import {HttpLiveResource, HttpRepository, HttpResource, HttpResponseBuilder} from '@witty-services/ngx-http-repository';
+import { HttpLiveResource, HttpRepository, HttpResource } from '@witty-services/ngx-http-repository';
 import { MyPageResponseProcessor } from '../processor/my-page-response.processor';
 
 @HttpLiveResource()

@@ -6,6 +6,7 @@
   },
   "whitelistedNonPeerDependencies": [
     "@witty-services/ts-serializer",
+    "@witty-services/ngx-serializer",
     "@witty-services/rxjs-common",
     "object-hash"
   ]

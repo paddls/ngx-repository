@@ -9,8 +9,9 @@ import { DenormalizeResponseProcessor } from './core/response/processor/denormal
 import { PageResponseProcessor } from './core/response/processor/page-response.processor';
 import { PathColumnResponseProcessor } from './core/response/processor/path-column-response.processor';
 import { OriginalQueryResponseProcessor } from './core/response/processor/original-query-response.processor';
-import {PublisherService} from './core/event-stream/publisher.service';
-import {NgxSerializerModule, NORMALIZER_CONFIGURATION_TOKEN} from '@witty-services/ngx-serializer';
+import { TokenRegistry } from '../public-api';
+import { PublisherService } from './core/event-stream/publisher.service';
+import { NgxSerializerModule, NORMALIZER_CONFIGURATION_TOKEN } from '@witty-services/ngx-serializer';
 
 /**
  * @ignore
@@ -45,6 +46,7 @@ const MODULE_PROVIDERS: Provider[] = [
 export class NgxRepositoryModule {
 
   public constructor(injector: Injector) {
+    TokenRegistry.clear();
     NgxRepositoryService.getInstance = () => injector.get(NgxRepositoryService);
     PublisherService.getInstance = () => injector.get(PublisherService);
   }

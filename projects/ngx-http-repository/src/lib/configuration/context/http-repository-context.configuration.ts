@@ -1,5 +1,5 @@
 import { HttpRepositoryParamContextConfiguration } from './http-repository-param-context.configuration';
-import {HttpOperation, isHttpOperation} from '../../request/http.operation';
+import { isHttpOperation } from '../../request/http.operation';
 import { HttpRepositoryParamConfiguration } from '../http-repository-param.configuration';
 import { isString, isUndefined } from 'lodash';
 import { HttpRepositoryConfiguration } from '../http-repository.configuration';

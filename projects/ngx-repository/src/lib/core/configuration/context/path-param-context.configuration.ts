@@ -1,7 +1,10 @@
-import {PropertyKeyConfiguration} from '../../common/decorator/property-key-configuration';
+import { PropertyKeyConfiguration } from '../../common/decorator/property-key-configuration';
+import { Type } from '@angular/core';
+import { Converter } from '@witty-services/ts-serializer';
 
 export interface PathParamContext {
-  name: string;
+  name?: string;
+  customConverter?: () => Type<Converter<any, string>>;
 }
 
 /**

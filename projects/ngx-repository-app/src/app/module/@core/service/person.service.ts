@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { Person } from '../model/person.model';
 import { PersonRepository } from '../repository/person.repository';
 import { Chance } from 'chance';
-import {Client} from '../model/client.model';
 
 @Injectable()
 export class PersonService {
@@ -19,7 +18,7 @@ export class PersonService {
 
   public create(): Observable<string> {
     return this.personRepository.create(new Person({
-      id: `${Date.now()}`,
+      id: `${ Date.now() }`,
       firstName: this.chance.first(),
       lastName: this.chance.last()
     }));
