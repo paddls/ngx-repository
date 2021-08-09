@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpRepository } from '@witty-services/ngx-http-repository';
 import { Book } from '../model/book.model';
-import { InjectRepository } from '@witty-services/ngx-repository';
+import {InjectRepository, Page} from '@witty-services/ngx-repository';
 import { Observable } from 'rxjs';
 import { Chance } from 'chance';
 import { BookQuery } from '../query/book.query';
@@ -13,6 +13,12 @@ export class BookService {
   private bookRepository: HttpRepository<Book, string>;
 
   private chance: Chance.Chance = new Chance.Chance();
+
+  public books$: Observable<Page<Book>>;
+
+  public constructor() {
+    this.books$ = this.bookRepository.findAll();
+  }
 
   public update(book: Book): Observable<void> {
     book.title = this.chance.name();

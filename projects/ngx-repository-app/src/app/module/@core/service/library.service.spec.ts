@@ -25,6 +25,7 @@ describe('LibraryService', () => {
     libraryService = TestBed.get(LibraryService);
   });
 
+  // TODO @RMA move unit test inside ngx-repository project
   describe('#findAll', () => {
     it('should call findAll from read repository', (done: DoneFn) => {
       spyOn(libraryRepository, 'findAll').and.returnValue(of(Page.build([])));

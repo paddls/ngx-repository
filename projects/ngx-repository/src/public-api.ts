@@ -85,3 +85,4 @@ export * from './lib/core/response/processor/response.processor';
 
 export { NgxRepositoryTestingModule } from './testing/ngx-repository-testing.module';
 export { MockRepository } from './testing/mock.repository';
+export { NgxRepositoryService } from './lib/ngx-repository.service';
