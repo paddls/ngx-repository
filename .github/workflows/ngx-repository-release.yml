@@ -18,8 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set version v${{ github.event.inputs.name }}
-        run: npm run version --package_version=${{ github.event.inputs.name }}
+      - name: Set version v${{ github.event.inputs.version }}
+        run: npm run version --package_version=${{ github.event.inputs.version }}
 
       - name: Commit & Push
         uses: stefanzweifel/git-auto-commit-action@v4
@@ -27,5 +27,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           commit_user_email: romain.martineau@witty-services.fr
           commit_user_name: Romain MARTINEAU
-          commit_message: 'release: v${{ github.event.inputs.name }}'
+          commit_message: 'release: v${{ github.event.inputs.version }}'
 

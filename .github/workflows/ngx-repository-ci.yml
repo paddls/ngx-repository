@@ -52,7 +52,7 @@ jobs:
           path-to-lcov: ./coverage/merged/lcov.info
 
       - name: Publish NgxRepository
-        uses: pascalgn/npm-publish-action@1.3.7
+        uses: pascalgn/npm-publish-action@1.3.8
         with:
           create_tag: "false"
           workspace: "./dist/ngx-repository"
