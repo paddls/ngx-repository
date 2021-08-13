@@ -1,15 +1,9 @@
-import {PropertyKeyConfiguration} from '@witty-services/ngx-repository';
+import {FirebaseLimitContextConfiguration} from '../configuration/context/firebase-limit-context.configuration';
 
 /**
  * @ignore
  */
 export const FIREBASE_LIMIT_METADATA_KEY: string = 'firebaseLimit';
-
-/**
- * @ignore
- */
-export interface FirebaseLimitContextConfiguration extends PropertyKeyConfiguration {
-}
 
 export function FirebaseLimit(): any {
   return (target: any, propertyKey: string) => {

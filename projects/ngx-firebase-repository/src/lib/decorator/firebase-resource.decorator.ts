@@ -1,18 +1,11 @@
-import {PathContext} from '@witty-services/ngx-repository';
+import { FirebaseResourceConfiguration } from '../configuration/firebase-repository.configuration';
 
 /**
  * @ignore
  */
 export const FIREBASE_RESOURCE_METADATA_KEY: string = 'firebaseResource';
 
-/**
- * @ignore
- */
-export interface FirebaseResourceContext  extends PathContext {
-  firebaseConfiguration?: string; // TODO @RMA multiple firebase project configuration
-}
-
-export function FirebaseResource(params: FirebaseResourceContext): any {
+export function FirebaseResource(params: FirebaseResourceConfiguration): any {
   return (target: any): void => {
     Reflect.defineMetadata(FIREBASE_RESOURCE_METADATA_KEY, params, target);
   };

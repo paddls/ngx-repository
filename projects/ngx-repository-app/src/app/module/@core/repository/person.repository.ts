@@ -1,13 +1,18 @@
-import {Person} from '../model/person.model';
-import {Observable} from 'rxjs';
-import {PersonQuery} from '../query/person.query';
-import {Injectable} from '@angular/core';
-import {Repository} from '@witty-services/ngx-repository';
-import {HttpRepository} from '@witty-services/ngx-http-repository';
+import { Person } from '../model/person.model';
+import { Observable } from 'rxjs';
+import { PersonQuery } from '../query/person.query';
+import { Injectable } from '@angular/core';
+import { Repository, RequestManager } from '@witty-services/ngx-repository';
+import { HttpRepository, HttpRepositoryDriver } from '@witty-services/ngx-http-repository';
 
 @Injectable()
 @Repository(() => Person)
 export class PersonRepository extends HttpRepository<Person, string> {
+
+  public constructor(requestManager: RequestManager,
+                     driver: HttpRepositoryDriver) {
+    super(requestManager, driver);
+  }
 
   public searchByFirstName(searchedFirstName: string): Observable<Person[]> {
     return this.findAll(new PersonQuery({

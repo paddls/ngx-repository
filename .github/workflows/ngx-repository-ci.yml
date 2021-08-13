@@ -1,49 +1,85 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
 name: build
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
+    branches:
+      - '**'
 jobs:
-  build_and_test:
-
+  ci:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [10.16.0]
+        node-version: [ 10.16.0 ]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Installation
-      run: npm ci
-    - name: Build NgxRepository
-      run: npm run build:ngx-repository
-      env:
-        CI: true
-    - name: Build NgxHttpRepository
-      run: npm run build:ngx-http-repository
-      env:
-        CI: true
-    - name: Build NgxFirebaseRepository
-      run: npm run build:ngx-firebase-repository
-      env:
-        CI: true
-    - name: Linter
-      run: npm run lint
-    - name: Test
-      run: npm run test:ci
-    - name: Send coverage to Coverall
-      uses: coverallsapp/github-action@v1.0.1
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./coverage/merged/lcov.info
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Installation
+        run: npm ci
+
+      - name: Build NgxRepository
+        run: npm run build:ngx-repository
+        env:
+          CI: true
+
+      - name: Build NgxHttpRepository
+        run: npm run build:ngx-http-repository
+        env:
+          CI: true
+
+      - name: Build NgxFirebaseRepository
+        run: npm run build:ngx-firebase-repository
+        env:
+          CI: true
+
+      - name: Linter
+        run: npm run lint
+
+      - name: Test
+        run: npm run test:ci
+
+      - name: Send coverage to Coverall
+        uses: coverallsapp/github-action@v1.0.1
+        if: ${{ github.ref == 'master' }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./coverage/merged/lcov.info
+
+      - name: Publish NgxRepository
+        uses: pascalgn/npm-publish-action@1.3.8
+        with:
+          create_tag: "false"
+          workspace: "./dist/ngx-repository"
+          tag_name: "v%s"
+          tag_message: "v%s"
+          commit_pattern: "^release: v(\\S+)"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Publish NgxFirebaseRepository
+        uses: pascalgn/npm-publish-action@1.3.8
+        with:
+          create_tag: "false"
+          commit_pattern: "^release: v(\\S+)"
+          workspace: "./dist/ngx-firebase-repository"
+          publish_args: "--non-interactive"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Publish NgxHttpRepository
+        uses: pascalgn/npm-publish-action@1.3.8
+        with:
+          commit_pattern: "^release: v(\\S+)"
+          workspace: "./dist/ngx-http-repository"
+          publish_args: "--non-interactive"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

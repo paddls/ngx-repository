@@ -1,44 +1,37 @@
-export {CacheScope} from './lib/common/decorator/cache-scope.enum';
+export {Page} from './lib/core/model/page';
+export {TypeGetter} from './lib/core/common/model/type-getter.type';
 
-export {PropertyKeyConfiguration} from './lib/common/decorator/property-key-configuration';
+export {PathParamConfiguration} from './lib/core/configuration/path-param.configuration';
 
-export {PathContext} from './lib/common/path/path-context';
-export {PathContextUtil} from './lib/common/path/path-context-util';
+export {PropertyKeyConfiguration} from './lib/core/common/decorator/property-key-configuration';
 
-export {Connection} from './lib/connection/connection';
+export {ColumnContext} from './lib/core/configuration/context/column-context.configuration';
+export {IdContext} from './lib/core/configuration/context/id-context.configuration';
+export {InjectRepositoryContext} from './lib/core/configuration/context/inject-repository-context.configuration';
+export {JoinColumnContext} from './lib/core/configuration/context/join-column-context.configuration';
+export {PathColumnContext} from './lib/core/configuration/context/path-column-context.configuration';
+export {PathParamContext} from './lib/core/configuration/context/path-param-context.configuration';
+export {SoftCacheContext} from './lib/core/configuration/context/soft-cache-context.configuration';
+export {HardCacheContext} from './lib/core/configuration/context/hard-cache-context.configuration';
+export {SubCollectionContext} from './lib/core/configuration/context/sub-collection-context.configuration';
 
-export {Column, ColumnContext, ColumnContextConfiguration, COLUMNS_METADATA_KEY} from './lib/decorator/column.decorator';
-export {Id, IdContext} from './lib/decorator/id.decorator';
-export {InjectRepository, InjectRepositoryContext} from './lib/decorator/inject-repository.decorator';
-export {JoinColumn, JoinColumnContext} from './lib/decorator/join-column.decorator';
-export {PathColumn, PathColumnContext} from './lib/decorator/path-column.decorator';
-export {PathParam, PathParamContext} from './lib/decorator/path-param.decorator';
-export {Repository, RepositoryContextConfiguration} from './lib/decorator/repository.decorator';
-export {SoftCache, SoftCacheContext} from './lib/decorator/soft-cache.decorator';
-export {HardCache, HardCacheContext} from './lib/decorator/hard-cache.decorator';
-export {SubCollection, SubCollectionContext} from './lib/decorator/sub-collection.decorator';
+export {Column, COLUMNS_METADATA_KEY} from './lib/core/decorator/column.decorator';
+export {Id} from './lib/core/decorator/id.decorator';
+export {InjectRepository} from './lib/core/decorator/inject-repository.decorator';
+export {JoinColumn} from './lib/core/decorator/join-column.decorator';
+export {PathColumn} from './lib/core/decorator/path-column.decorator';
+export {PathParam} from './lib/core/decorator/path-param.decorator';
+export {Repository, getRepositoryContextConfiguration} from './lib/core/decorator/repository.decorator';
+export {SoftCache} from './lib/core/decorator/soft-cache.decorator';
+export {HardCache} from './lib/core/decorator/hard-cache.decorator';
+export { SubCollection } from './lib/core/decorator/sub-collection.decorator';
+export {
+  SubQuery, getDeepQueryMetadataValue, getDeepQueryMetadataValues
+} from './lib/core/decorator/sub-query.decorator';
 
-export {Driver} from './lib/driver/driver';
+export {TokenRegistry} from './lib/core/registry/token.registry';
 
-export {ResponseBuilder} from './lib/item-builder/response-builder';
-
-export {PathDenormalizer} from './lib/normalizer/path.denormalizer';
-
-export {Page} from './lib/page-builder/page';
-export {PageBuilder} from './lib/page-builder/page-builder';
-
-export {Query} from './lib/query-builder/query';
-export {QueryBuilder} from './lib/query-builder/query-builder';
-export {QuerySettings} from './lib/query-builder/query-settings';
-export {PathQueryBuilder} from './lib/query-builder/path.query-builder';
-export {PathQuerySettings} from './lib/query-builder/path.query-settings';
-export {PathRequest} from './lib/query-builder/path.request';
-
-export {TokenRegistry} from './lib/registry/token.registry';
-
-export {AbstractRepository} from './lib/repository/abstract.repository';
-
-export {NORMALIZER_CONFIGURATION_TOKEN, CONNECTIONS_TOKEN} from './lib/ngx-repository.module.di';
+export { REPOSITORY_BUILDER_TOKEN } from './lib/ngx-repository.module.di';
 
 export {NgxRepositoryModule} from './lib/ngx-repository.module';
 
@@ -51,3 +44,57 @@ export {
   DateConverter,
   Converter
 } from '@witty-services/ts-serializer';
+
+export * from './lib/core/query/id.query';
+
+export * from './lib/core/configuration/resource.configuration';
+export * from './lib/core/configuration/resource-param.configuration';
+export * from './lib/core/configuration/configuration.provider';
+export * from './lib/core/configuration/configuration-context.provider';
+
+export * from './lib/core/driver/repository.driver';
+
+export * from './lib/core/manager/request.manager';
+export * from './lib/core/manager/request-manager.context';
+
+export * from './lib/core/event-stream/decorator/event-listener.decorator';
+export * from './lib/core/event-stream/internal-event';
+export * from './lib/core/event-stream/listener';
+export * from './lib/core/event-stream/publisher.service';
+
+export * from './lib/core/repository/create.repository';
+export * from './lib/core/repository/delete.repository';
+export * from './lib/core/repository/find-all.repository';
+export * from './lib/core/repository/find-by-id.repository';
+export * from './lib/core/repository/find-one.repository';
+export * from './lib/core/repository/repository.builder';
+export * from './lib/core/repository/abstract-repository';
+export * from './lib/core/repository/update.repository';
+export * from './lib/core/repository/patch.repository';
+export * from './lib/core/repository/abstract-repository.builder';
+
+export * from './lib/core/request/repository.request';
+export * from './lib/core/request/path.request';
+export * from './lib/core/request/path';
+export * from './lib/core/request/request.builder';
+
+export * from './lib/core/response/repository.response';
+export * from './lib/core/response/response.builder';
+
+export * from './lib/core/response/processor/denormalize-response.processor';
+export * from './lib/core/response/processor/page-response.processor';
+export * from './lib/core/response/processor/response.processor';
+
+export * from './lib/core/util';
+
+export {AfterDenormalizeEvent} from './lib/normalizer/event/after-denormalize.event';
+export {BeforeDenormalizeEvent} from './lib/normalizer/event/before-denormalize.event';
+export {AfterNormalizeEvent} from './lib/normalizer/event/after-normalize.event';
+export {BeforeNormalizeEvent} from './lib/normalizer/event/before-normalize.event';
+export {RepositoryNormalizer} from './lib/normalizer/repository-denormalizer';
+
+export {NgxRepositoryTestingModule} from './testing/ngx-repository-testing.module';
+export {MockRepository} from './testing/mock.repository';
+export { NgxRepositoryService } from './lib/ngx-repository.service';
+
+export {NgxSerializerService} from '@witty-services/ngx-serializer';

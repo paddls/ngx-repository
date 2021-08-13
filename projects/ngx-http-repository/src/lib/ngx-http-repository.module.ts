@@ -1,38 +1,38 @@
 import 'reflect-metadata';
 
-import {NgModule, Provider} from '@angular/core';
-import {HttpDriver} from './http.driver';
-import {HttpConnection} from './http.connection';
-import {HttpQueryBuilder} from './http.query-builder';
-import {HTTP_CREATE_RESPONSE_BUILDER, HTTP_FIND_ONE_RESPONSE_BUILDER, HTTP_PAGE_BUILDER_TOKEN} from './ngx-http-repository.module.di';
-import {HttpNoPageBuilder} from './http-no.page-builder';
+import {ModuleWithProviders, NgModule, Provider} from '@angular/core';
+import {HttpRepositoryBuilder} from './repository/http-repository.builder';
 import {HttpClientModule} from '@angular/common/http';
-import {HttpBodyResponseBuilder} from './http-body.response-builder';
-import {CONNECTIONS_TOKEN} from '@witty-services/ngx-repository';
-import {BodyIdResponseBuilder} from './body-id.response-builder';
+import {getRepositoryContextConfiguration, Repository, REPOSITORY_BUILDER_TOKEN} from '@witty-services/ngx-repository';
+import {HttpRepositoryDriver} from './driver/http-repository.driver';
+import {HttpResponseBuilder} from './response/http-response.builder';
+import {HttpRequestBuilder} from './request/http-request.builder';
+import {HttpRepositoryConfiguration} from './configuration/http-repository.configuration';
+import {HttpRepository} from './repository/http.repository';
+import {merge} from 'lodash';
+import {createHttpRepositoryConfiguration, HttpRepositoryContextConfiguration} from './configuration/context/http-repository-context.configuration';
+import {HttpFindAllResponseBuilder} from './response/http-find-all-response.builder';
+import {LogExecuteHttpRequestEventListener} from './driver/listener/log-execute-http-request-event.listener';
 
-const MODULE_PROVIDERS: Provider[] = [
-  HttpConnection,
-  HttpDriver,
-  HttpQueryBuilder,
+const PROVIDERS: Provider[] = [
+  HttpRepositoryBuilder,
+  HttpRepositoryDriver,
+  HttpRequestBuilder,
+  HttpResponseBuilder,
+  HttpFindAllResponseBuilder,
   {
-    provide: CONNECTIONS_TOKEN,
-    useExisting: HttpConnection,
+    provide: REPOSITORY_BUILDER_TOKEN,
+    useExisting: HttpRepositoryBuilder,
     multi: true
-  },
-  {
-    provide: HTTP_PAGE_BUILDER_TOKEN,
-    useClass: HttpNoPageBuilder
-  },
-  {
-    provide: HTTP_CREATE_RESPONSE_BUILDER,
-    useClass: BodyIdResponseBuilder
-  },
-  {
-    provide: HTTP_FIND_ONE_RESPONSE_BUILDER,
-    useClass: HttpBodyResponseBuilder
   }
 ];
+
+export interface NgxHttpRepositoryModuleConfiguration {
+
+  configuration?: HttpRepositoryContextConfiguration;
+
+  debug: boolean;
+}
 
 /**
  * @ignore
@@ -42,8 +42,26 @@ const MODULE_PROVIDERS: Provider[] = [
     HttpClientModule
   ],
   providers: [
-    ...MODULE_PROVIDERS
+    ...PROVIDERS
   ]
 })
 export class NgxHttpRepositoryModule {
+
+  public static forRoot(config: NgxHttpRepositoryModuleConfiguration = {debug: false}): ModuleWithProviders<NgxHttpRepositoryModule> {
+    if (config.configuration) {
+      const defaultConfiguration: HttpRepositoryConfiguration = getRepositoryContextConfiguration(HttpRepository).defaultConfiguration;
+
+      Repository(null, merge({}, defaultConfiguration, createHttpRepositoryConfiguration(config.configuration)))(HttpRepository);
+    }
+
+    const providers: Provider[] = [];
+    if (config.debug) {
+      providers.push(LogExecuteHttpRequestEventListener);
+    }
+
+    return {
+      ngModule: NgxHttpRepositoryModule,
+      providers
+    };
+  }
 }

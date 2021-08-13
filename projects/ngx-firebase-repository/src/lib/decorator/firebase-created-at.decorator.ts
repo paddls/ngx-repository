@@ -1,6 +1,10 @@
-import {Column, ColumnContext, PropertyKeyConfiguration} from '@witty-services/ngx-repository';
-import {FbTimestampConverter} from '../converter/fb-timestamp.converter';
-import * as firebase from 'firebase';
+import { Column, ColumnContext } from '@witty-services/ngx-repository';
+import { FbTimestampConverter } from '../converter/fb-timestamp.converter';
+import firebase from 'firebase';
+import {
+  FirebaseCreatedAtContext,
+  FirebaseCreatedAtContextConfiguration
+} from '../configuration/context/firebase-created-at-context.configuration';
 import Timestamp = firebase.firestore.Timestamp;
 
 /**
@@ -8,18 +12,7 @@ import Timestamp = firebase.firestore.Timestamp;
  */
 export const FIREBASE_CREATED_AT_METADATA_KEY: string = 'firebaseCreatedAts';
 
-export interface FirebaseCreatedAtContext {
-
-  field: string;
-}
-
-/**
- * @ignore
- */
-export interface FirebaseCreatedAtContextConfiguration extends FirebaseCreatedAtContext, PropertyKeyConfiguration {
-}
-
-export function FirebaseCreatedAt(firebaseCreatedAtContext?: FirebaseCreatedAtContext|string): any {
+export function FirebaseCreatedAt(firebaseCreatedAtContext?: FirebaseCreatedAtContext | string): any {
   return (target: any, propertyKey: string): void => {
     let columnMetadata: ColumnContext<Date, Timestamp> = {
       field: propertyKey

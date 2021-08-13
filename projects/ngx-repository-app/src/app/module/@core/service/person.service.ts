@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {Person} from '../model/person.model';
-import {PersonRepository} from '../repository/person.repository';
-import {Chance} from 'chance';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Person } from '../model/person.model';
+import { PersonRepository } from '../repository/person.repository';
+import { Chance } from 'chance';
 
 @Injectable()
 export class PersonService {
@@ -18,9 +18,24 @@ export class PersonService {
 
   public create(): Observable<string> {
     return this.personRepository.create(new Person({
-      id: `${Date.now()}`,
+      id: `${ Date.now() }`,
       firstName: this.chance.first(),
       lastName: this.chance.last()
+    }));
+  }
+
+  public update(person: Person): Observable<void> {
+    const personToUpdate: Person = new Person(person);
+
+    personToUpdate.firstName = this.chance.last();
+
+    return this.personRepository.update(personToUpdate);
+  }
+
+  public patch(person: Person): Observable<void> {
+    return this.personRepository.patch(new Person({
+      id: person.id,
+      firstName: this.chance.first()
     }));
   }
 }

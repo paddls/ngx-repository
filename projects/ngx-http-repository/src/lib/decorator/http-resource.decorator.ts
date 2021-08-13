@@ -1,15 +1,15 @@
-import {PathContext} from '@witty-services/ngx-repository';
+import {
+  createHttpRepositoryConfiguration,
+  HttpRepositoryContextConfiguration
+} from '../configuration/context/http-repository-context.configuration';
 
 /**
  * @ignore
  */
 export const HTTP_RESOURCE_METADATA_KEY: string = 'httpResource';
 
-export interface HttpResourceContext extends PathContext {
-}
-
-export function HttpResource(params: HttpResourceContext): any {
+export function HttpResource(params: HttpRepositoryContextConfiguration): any {
   return (target: any): void => {
-    Reflect.defineMetadata(HTTP_RESOURCE_METADATA_KEY, params, target);
+    Reflect.defineMetadata(HTTP_RESOURCE_METADATA_KEY, createHttpRepositoryConfiguration(params), target);
   };
 }

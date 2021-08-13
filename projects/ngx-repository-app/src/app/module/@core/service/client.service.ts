@@ -1,20 +1,20 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {InjectRepository, Page} from '@witty-services/ngx-repository';
-import {Client} from '../model/client.model';
-import {Chance} from 'chance';
-import {Purchase} from '../model/purchase.model';
-import {PurchaseQuery} from '../query/purchase.query';
-import {ClientQuery} from '../query/client.query';
-import {FirebaseRepository} from '@witty-services/ngx-firebase-repository';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { InjectRepository, Page } from '@witty-services/ngx-repository';
+import { Client } from '../model/client.model';
+import { Chance } from 'chance';
+import { Purchase } from '../model/purchase.model';
+import { ClientQuery } from '../query/client.query';
+import { FirebaseRepository } from '@witty-services/ngx-firebase-repository';
+import { PurchaseQuery } from '../query/purchase.query';
 
 @Injectable()
 export class ClientService {
 
-  @InjectRepository({resourceType: () => Client, repository: () => FirebaseRepository})
+  @InjectRepository({ resourceType: () => Client, repository: () => FirebaseRepository })
   private repository: FirebaseRepository<Client, string>;
 
-  @InjectRepository({resourceType: () => Purchase, repository: () => FirebaseRepository})
+  @InjectRepository({ resourceType: () => Purchase, repository: () => FirebaseRepository })
   private purchaseRepository: FirebaseRepository<Purchase, string>;
 
   private chance: Chance.Chance = new Chance.Chance();
@@ -36,13 +36,13 @@ export class ClientService {
   public addPurchase(client: Client): Observable<string> {
     return this.purchaseRepository.create(
       new Purchase({
-        bookId: `${this.chance.integer({
+        bookId: `${ this.chance.integer({
           min: 1,
           max: 3
-        })}`,
+        }) }`
       }),
       new PurchaseQuery({
-      clientId: client.id
+        clientId: client.id
       })
     );
   }
@@ -61,5 +61,12 @@ export class ClientService {
     clientToUpdate.firstName = this.chance.last();
 
     return this.repository.update(clientToUpdate);
+  }
+
+  public patchClient(client: Client): Observable<void> {
+    return this.repository.patch(new Client({
+      id: client.id,
+      firstName: this.chance.first()
+    }));
   }
 }

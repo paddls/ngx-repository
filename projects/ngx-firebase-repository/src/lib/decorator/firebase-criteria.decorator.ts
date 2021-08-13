@@ -1,21 +1,9 @@
-import WhereFilterOp = firebase.firestore.WhereFilterOp;
-import {PropertyKeyConfiguration} from '@witty-services/ngx-repository';
+import {FirebaseCriteriaContext, FirebaseCriteriaContextConfiguration} from '../configuration/context/firebase-criteria-context.configuration';
 
 /**
  * @ignore
  */
 export const FIREBASE_CRITERIA_METADATA_KEY: string = 'firebaseCriterias';
-
-export interface FirebaseCriteriaContext {
-  field: string;
-  operator: WhereFilterOp;
-}
-
-/**
- * @ignore
- */
-export interface FirebaseCriteriaContextConfiguration extends FirebaseCriteriaContext, PropertyKeyConfiguration {
-}
 
 export function FirebaseCriteria(params: FirebaseCriteriaContext): any {
   return (target: any, propertyKey: string) => {
