@@ -715,3 +715,12 @@ npm run lint
 # Run the example app
 npm run start
 ````
+
+## Release
+
+````shell script
+# Set package.json versions
+npm run version --package_version=x.x.x
+````
+
+Then commit using with message : `release: vx.x.x`

@@ -22,10 +22,7 @@
     "test:e2e": "npm run test:ci:ngx-repository && npm run test:ci:ngx-http-repository && npm run test:ci:ngx-firebase-repository",
     "posttest:ci": "istanbul-combine -d coverage/merged -p summary -r lcov -r html coverage/ngx-repository/coverage-final.json coverage/ngx-http-repository/coverage-final.json coverage/ngx-firebase-repository/coverage-final.json",
     "lint": "ng lint",
-    "publish:all": "npm run publish:ngx-repository && npm run publish:ngx-http-repository && npm run publish:ngx-firebase-repository",
-    "publish:ngx-repository": "npm run build:ngx-repository && cd dist/ngx-repository && npm publish --access=public",
-    "publish:ngx-http-repository": "npm run build:ngx-http-repository && cd dist/ngx-http-repository && npm publish --access=public",
-    "publish:ngx-firebase-repository": "npm run build:ngx-firebase-repository && cd dist/ngx-firebase-repository && npm publish --access=public"
+    "version": "cd projects/ngx-repository && npm version ${npm_config_package_version} && cd ../ngx-http-repository && npm version ${npm_config_package_version} && cd ../ngx-firebase-repository && npm version ${npm_config_package_version}"
   },
   "private": true,
   "dependencies": {
