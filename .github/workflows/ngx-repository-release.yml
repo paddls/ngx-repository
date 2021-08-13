@@ -27,5 +27,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           commit_user_email: romain.martineau@witty-services.fr
           commit_user_name: Romain MARTINEAU
+          commit_author: Romain MARTINEAU <romain.martineau@witty-services.fr>
           commit_message: 'release: v${{ github.event.inputs.version }}'
-

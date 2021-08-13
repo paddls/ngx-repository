@@ -1,9 +1,12 @@
 name: build
 
 on:
+  workflow_run:
+    workflows: [ "release" ]
+    types: [ completed ]
   push:
     branches:
-      - '**'
+      - 'master'
 jobs:
   ci:
     runs-on: ubuntu-latest
