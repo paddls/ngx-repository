@@ -18,7 +18,7 @@
     "test:ci:ngx-repository": "npm run test:ngx-repository -- --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "test:ci:ngx-http-repository": "npm run test:ngx-http-repository -- --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "test:ci:ngx-firebase-repository": "npm run test:ngx-firebase-repository -- --no-watch --no-progress --browsers=ChromeHeadlessCI",
-    "test:ci": "npm run test:ci:ngx-repository && npm run test:ci:ngx-http-repository && npm run test:ci:ngx-firebase-repository",
+    "test:ci": "rm -rf ./coverage && npm run test:ci:ngx-repository && npm run test:ci:ngx-http-repository && npm run test:ci:ngx-firebase-repository",
     "test:e2e": "npm run test:ci:ngx-repository && npm run test:ci:ngx-http-repository && npm run test:ci:ngx-firebase-repository",
     "posttest:ci": "istanbul-combine -d coverage/merged -p summary -r lcov -r html coverage/ngx-repository/coverage-final.json coverage/ngx-http-repository/coverage-final.json coverage/ngx-firebase-repository/coverage-final.json",
     "lint": "ng lint",
