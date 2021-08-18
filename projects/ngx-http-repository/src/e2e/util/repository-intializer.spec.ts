@@ -10,7 +10,7 @@ export interface RepositoryContext<T> {
   httpClient: HttpClient;
 }
 
-export function initializeRepository<T>(bookImpl: Type<T>): RepositoryContext<T> {
+export function initializeRepository<T>(bookImpl: Type<T>, providers: any[] = []): RepositoryContext<T> {
   @Injectable()
   class BookServiceImpl {
 
@@ -25,7 +25,8 @@ export function initializeRepository<T>(bookImpl: Type<T>): RepositoryContext<T>
       NgxHttpRepositoryModule.forRoot()
     ],
     providers: [
-      BookServiceImpl
+      BookServiceImpl,
+      ...providers
     ]
   });
 

@@ -5,6 +5,7 @@ import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { HttpRepository } from '../../lib/repository/http.repository';
 import { NgxHttpRepositoryModule } from '../../public-api';
+import { forOwn } from 'lodash';
 
 export interface HttpRequestContext {
   repository: HttpRepository<any, any>;
@@ -24,7 +25,13 @@ export interface HttpTestContext {
   expectedRequestHeaders?: any;
   expectedRequestBody?: any;
   mockedResponseBody?: any;
-  expectedResponse?: any;
+  expectedResponse: any;
+}
+
+export function testHttpRepository(tests: { [key: string]: HttpTestContext }): void {
+  forOwn(tests, (context: HttpTestContext, name: string) => {
+    itShouldTestHttpRepository(name, context);
+  });
 }
 
 export function itShouldTestHttpRepository(name: string, context: HttpTestContext): void {
@@ -45,7 +52,7 @@ export async function httpTest(httpTestContext: HttpTestContext): Promise<void> 
     expectedRequestHeaders: httpTestContext.expectedRequestHeaders || {},
     expectedRequestBody: httpTestContext.expectedRequestBody || null,
     mockedResponseBody: httpTestContext.mockedResponseBody || null,
-    expectedResponse: httpTestContext.expectedResponse || null
+    expectedResponse: httpTestContext.expectedResponse
   };
 
   @Injectable()
@@ -82,7 +89,7 @@ export async function httpTest(httpTestContext: HttpTestContext): Promise<void> 
 
   const expectedResponse: any = context.expectedResponse;
 
-  expect(response).toEqual(expectedResponse);
+  expect(response).withContext('response not match').toEqual(expectedResponse);
 
   const expectedMethod: any = context.expectedMethod;
   const expectedPath: any = context.expectedPath;

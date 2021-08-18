@@ -1,4 +1,4 @@
-import {HTTP_HEADER_METADATA_KEY, HttpHeader} from './http-header.decorator';
+import { HTTP_HEADER_METADATA_KEY, HttpHeader } from './http-header.decorator';
 
 describe('HttpHeaderDecorator', () => {
 
@@ -11,7 +11,8 @@ describe('HttpHeaderDecorator', () => {
     expect(Reflect.getMetadata(HTTP_HEADER_METADATA_KEY, obj)).toEqual([
       {
         propertyKey: 'test',
-        name: 'test'
+        name: 'test',
+        format: ':value'
       }
     ]);
   });
@@ -25,7 +26,8 @@ describe('HttpHeaderDecorator', () => {
     expect(Reflect.getMetadata(HTTP_HEADER_METADATA_KEY, obj)).toEqual([
       {
         propertyKey: 'test',
-        name: 'hello'
+        name: 'hello',
+        format: ':value'
       }
     ]);
   });
@@ -39,7 +41,8 @@ describe('HttpHeaderDecorator', () => {
     expect(Reflect.getMetadata(HTTP_HEADER_METADATA_KEY, obj)).toEqual([
       {
         propertyKey: 'test',
-        name: 'hello'
+        name: 'hello',
+        format: ':value'
       }
     ]);
   });
@@ -55,11 +58,13 @@ describe('HttpHeaderDecorator', () => {
     expect(Reflect.getMetadata(HTTP_HEADER_METADATA_KEY, obj)).toEqual([
       {
         propertyKey: 'test',
-        name: 'test'
+        name: 'test',
+        format: ':value'
       },
       {
         propertyKey: 'test2',
-        name: 'test2'
+        name: 'test2',
+        format: ':value'
       }
     ]);
   });

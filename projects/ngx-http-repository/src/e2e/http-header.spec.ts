@@ -1,242 +1,643 @@
-import { HttpHeader, HttpRepository, HttpResource } from '../public-api';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Type } from '@angular/core';
-import { Column, Id, SubQuery } from '@witty-services/ngx-repository';
-import { mockResponse } from './util/mock.response.spec';
-import { DateConverter } from '@witty-services/ts-serializer';
-import { initializeRepository, RepositoryContext } from './util/repository-intializer.spec';
+import { HttpHeader, HttpResource } from '../public-api';
+import { Column, Id, Page, SubQuery } from '@witty-services/ngx-repository';
+import { Converter } from '@witty-services/ts-serializer';
+import { HttpRequestContext, testHttpRepository } from './util/test-http-repository.spec';
 
 describe('HttpHeader', () => {
 
-  // TODO @RMA patchAll, deleteAll
-  // TODO @RMA customRepository
-  // TODO @RMA customHttpClient
-  let bookType: Type<any>;
-  let repository: HttpRepository<any, any>;
-  let httpClient: HttpClient;
+  @HttpResource({
+    path: '/books'
+  })
+  class Book {
 
-  beforeEach(() => {
-    @HttpResource({
-      path: '/books'
-    })
-    class Book {
+    @Id()
+    public id: number;
 
-      @Id()
-      public id: number;
+    @Column()
+    public name: string;
 
-      @Column()
-      public name: string;
+    public constructor(data: Partial<Book> = {}) {
+      Object.assign(this, data);
+    }
+  }
 
-      public constructor(data: Partial<Book> = {}) {
+  describe('should add simple http header', () => {
+    const name: string = 'Naruto';
+    const category: string = 'shonen';
+
+    class BookQuery {
+
+      @HttpHeader()
+      public category: string;
+
+      public constructor(data: Partial<BookQuery> = {}) {
         Object.assign(this, data);
       }
     }
 
-    const context: RepositoryContext<Book> = initializeRepository(Book);
-    repository = context.repository;
-    httpClient = context.httpClient;
-    bookType = Book;
+    testHttpRepository({
+      findOne: {
+        entity: Book,
+        request: ({ repository, query }: HttpRequestContext) => repository.findOne(query).toPromise(),
+        query: new BookQuery({ category }),
+        expectedMethod: 'GET',
+        expectedPath: '/books',
+        expectedRequestBody: null,
+        expectedRequestHeaders: {
+          category
+        },
+        mockedResponseBody: [{ id: 1, name }],
+        expectedResponse: new Book({ id: 1, name })
+      },
+      findAll: {
+        entity: Book,
+        request: ({ repository, query }: HttpRequestContext) => repository.findAll(query).toPromise(),
+        query: new BookQuery({ category }),
+        expectedMethod: 'GET',
+        expectedPath: '/books',
+        expectedRequestBody: null,
+        expectedRequestHeaders: {
+          category
+        },
+        mockedResponseBody: [{ id: 1, name }, { id: 2, name }],
+        expectedResponse: Page.build([
+          new Book({ id: 1, name }),
+          new Book({ id: 2, name })
+        ])
+      },
+      findById: {
+        entity: Book,
+        request: ({ repository, query }: HttpRequestContext) => repository.findById(1, query).toPromise(),
+        query: new BookQuery({ category }),
+        expectedMethod: 'GET',
+        expectedPath: '/books/1',
+        expectedRequestBody: null,
+        expectedRequestHeaders: {
+          category
+        },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: new Book({ id: 1, name })
+      },
+      create: {
+        entity: Book,
+        request: ({ repository, body, query }: HttpRequestContext) => repository.create(body, query).toPromise(),
+        query: new BookQuery({ category }),
+        body: new Book({ name }),
+        expectedMethod: 'POST',
+        expectedPath: '/books',
+        expectedRequestHeaders: {
+          category
+        },
+        expectedRequestBody: { name },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: 1
+      },
+      update: {
+        entity: Book,
+        request: ({ repository, body, query }: HttpRequestContext) => repository.update(body, query).toPromise(),
+        query: new BookQuery({ category }),
+        body: new Book({ id: 1, name }),
+        expectedMethod: 'PUT',
+        expectedPath: '/books/1',
+        expectedRequestHeaders: {
+          category
+        },
+        expectedRequestBody: { id: 1, name },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: void 0
+      },
+      patch: {
+        entity: Book,
+        request: ({ repository, body, query }: HttpRequestContext) => repository.patch(body, query).toPromise(),
+        body: new Book({ id: 1, name }),
+        query: new BookQuery({ category }),
+        expectedMethod: 'PATCH',
+        expectedPath: '/books/1',
+        expectedRequestHeaders: {
+          category
+        },
+        expectedRequestBody: { id: 1, name },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: void 0
+      },
+      delete: {
+        entity: Book,
+        request: ({ repository, body, query }: HttpRequestContext) => repository.delete(body, query).toPromise(),
+        body: new Book({ id: 1, name }),
+        query: new BookQuery({ category }),
+        expectedMethod: 'DELETE',
+        expectedPath: '/books/1',
+        expectedRequestHeaders: {
+          category
+        },
+        expectedRequestBody: { id: 1, name },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: void 0
+      }
+    });
   });
 
-  [
-    ['findOne', (query: any) => repository.findOne(query).toPromise(), {
-      method: 'GET',
-      path: '/books',
-      body: null
-    }],
-    ['findAll', (query: any) => repository.findAll(query).toPromise(), {
-      method: 'GET',
-      path: '/books',
-      body: null
-    }],
-    ['findById', (query: any) => repository.findById(1, query).toPromise(), {
-      method: 'GET',
-      path: '/books/1',
-      body: null
-    }],
-    ['create', (query: any) => repository.create(new bookType(), query).toPromise(), {
-      method: 'POST',
-      path: '/books',
-      body: {}
-    }],
-    ['update', (query: any) => repository.update(new bookType({ id: 1 }), query).toPromise(), {
-      method: 'PUT',
-      path: '/books/1',
-      body: { id: 1 }
-    }],
-    ['patch', (query: any) => repository.patch(new bookType({ id: 1 }), query).toPromise(), {
-      method: 'PATCH',
-      path: '/books/1',
-      body: { id: 1 }
-    }],
-    ['delete', (query: any) => repository.delete(new bookType({ id: 1 }), query).toPromise(), {
-      method: 'DELETE',
-      path: '/books/1',
-      body: { id: 1 }
-    }]
-  ].forEach(([requestName, invokeRequest, { method, path, body }]: [string, (query: any) => Promise<any>, any]) => {
-    describe(requestName, () => {
-      it(`should add simple http header`, async () => {
-        class BookQuery {
+  describe('should add formatted http header', () => {
+    const name: string = 'Naruto';
+    const category: string = 'shonen';
 
-          @HttpHeader()
-          public name: string;
+    class BookQuery {
 
-          public constructor(data: Partial<BookQuery> = {}) {
-            Object.assign(this, data);
-          }
-        }
+      @HttpHeader({ format: '[:value]' })
+      public category: string;
 
-        const name: string = 'Lord of the Ring 3';
-        mockResponse(httpClient);
+      public constructor(data: Partial<BookQuery> = {}) {
+        Object.assign(this, data);
+      }
+    }
 
-        const response: any = await invokeRequest(new BookQuery({
-          name
-        }));
+    testHttpRepository({
+      findOne: {
+        entity: Book,
+        request: ({ repository, query }: HttpRequestContext) => repository.findOne(query).toPromise(),
+        query: new BookQuery({ category }),
+        expectedMethod: 'GET',
+        expectedPath: '/books',
+        expectedRequestBody: null,
+        expectedRequestHeaders: {
+          category: `[${ category }]`
+        },
+        mockedResponseBody: [{ id: 1, name }],
+        expectedResponse: new Book({ id: 1, name })
+      },
+      findAll: {
+        entity: Book,
+        request: ({ repository, query }: HttpRequestContext) => repository.findAll(query).toPromise(),
+        query: new BookQuery({ category }),
+        expectedMethod: 'GET',
+        expectedPath: '/books',
+        expectedRequestBody: null,
+        expectedRequestHeaders: {
+          category: `[${ category }]`
+        },
+        mockedResponseBody: [{ id: 1, name }, { id: 2, name }],
+        expectedResponse: Page.build([
+          new Book({ id: 1, name }),
+          new Book({ id: 2, name })
+        ])
+      },
+      findById: {
+        entity: Book,
+        request: ({ repository, query }: HttpRequestContext) => repository.findById(1, query).toPromise(),
+        query: new BookQuery({ category }),
+        expectedMethod: 'GET',
+        expectedPath: '/books/1',
+        expectedRequestBody: null,
+        expectedRequestHeaders: {
+          category: `[${ category }]`
+        },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: new Book({ id: 1, name })
+      },
+      create: {
+        entity: Book,
+        request: ({ repository, body, query }: HttpRequestContext) => repository.create(body, query).toPromise(),
+        query: new BookQuery({ category }),
+        body: new Book({ name }),
+        expectedMethod: 'POST',
+        expectedPath: '/books',
+        expectedRequestHeaders: {
+          category: `[${ category }]`
+        },
+        expectedRequestBody: { name },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: 1
+      },
+      update: {
+        entity: Book,
+        request: ({ repository, body, query }: HttpRequestContext) => repository.update(body, query).toPromise(),
+        query: new BookQuery({ category }),
+        body: new Book({ id: 1, name }),
+        expectedMethod: 'PUT',
+        expectedPath: '/books/1',
+        expectedRequestHeaders: {
+          category: `[${ category }]`
+        },
+        expectedRequestBody: { id: 1, name },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: void 0
+      },
+      patch: {
+        entity: Book,
+        request: ({ repository, body, query }: HttpRequestContext) => repository.patch(body, query).toPromise(),
+        body: new Book({ id: 1, name }),
+        query: new BookQuery({ category }),
+        expectedMethod: 'PATCH',
+        expectedPath: '/books/1',
+        expectedRequestHeaders: {
+          category: `[${ category }]`
+        },
+        expectedRequestBody: { id: 1, name },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: void 0
+      },
+      delete: {
+        entity: Book,
+        request: ({ repository, body, query }: HttpRequestContext) => repository.delete(body, query).toPromise(),
+        body: new Book({ id: 1, name }),
+        query: new BookQuery({ category }),
+        expectedMethod: 'DELETE',
+        expectedPath: '/books/1',
+        expectedRequestHeaders: {
+          category: `[${ category }]`
+        },
+        expectedRequestBody: { id: 1, name },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: void 0
+      }
+    });
+  });
 
-        expect(response).toBeNull();
-        expect(httpClient.request).toHaveBeenCalledWith(method, path, {
-          params: new HttpParams(),
-          headers: {
-            name
-          },
-          observe: 'response',
-          body,
-          responseType: 'json'
-        });
-      });
+  describe('should add custom converted http header', () => {
+    const name: string = 'Naruto';
+    const category: string = 'shonen';
 
-      it(`should add formatted http header`, async () => {
-        class BookQuery {
+    class UppercaseConverter implements Converter<string, string> {
+      public fromJson(value: string): string {
+        return value ? value.toLowerCase() : value;
+      }
 
-          @HttpHeader({ format: '[:value]' })
-          public name: string;
+      public toJson(value: string): string {
+        return value ? value.toUpperCase() : value;
+      }
+    }
 
-          public constructor(data: Partial<BookQuery> = {}) {
-            Object.assign(this, data);
-          }
-        }
+    class BookQuery {
 
-        const name: string = 'Lord of the Ring 3';
-        mockResponse(httpClient);
+      @HttpHeader({ customConverter: () => UppercaseConverter })
+      public category: string;
 
-        const response: any = await invokeRequest(new BookQuery({
-          name
-        }));
+      public constructor(data: Partial<BookQuery> = {}) {
+        Object.assign(this, data);
+      }
+    }
 
-        expect(response).toBeNull();
-        expect(httpClient.request).toHaveBeenCalledWith(method, path, {
-          params: new HttpParams(),
-          headers: {
-            name: `[${ name }]`
-          },
-          observe: 'response',
-          body,
-          responseType: 'json'
-        });
-      });
+    testHttpRepository({
+      findOne: {
+        entity: Book,
+        request: ({ repository, query }: HttpRequestContext) => repository.findOne(query).toPromise(),
+        query: new BookQuery({ category }),
+        expectedMethod: 'GET',
+        expectedPath: '/books',
+        expectedRequestBody: null,
+        expectedRequestHeaders: {
+          category: 'SHONEN'
+        },
+        mockedResponseBody: [{ id: 1, name }],
+        expectedResponse: new Book({ id: 1, name })
+      },
+      findAll: {
+        entity: Book,
+        request: ({ repository, query }: HttpRequestContext) => repository.findAll(query).toPromise(),
+        query: new BookQuery({ category }),
+        expectedMethod: 'GET',
+        expectedPath: '/books',
+        expectedRequestBody: null,
+        expectedRequestHeaders: {
+          category: 'SHONEN'
+        },
+        mockedResponseBody: [{ id: 1, name }, { id: 2, name }],
+        expectedResponse: Page.build([
+          new Book({ id: 1, name }),
+          new Book({ id: 2, name })
+        ])
+      },
+      findById: {
+        entity: Book,
+        request: ({ repository, query }: HttpRequestContext) => repository.findById(1, query).toPromise(),
+        query: new BookQuery({ category }),
+        expectedMethod: 'GET',
+        expectedPath: '/books/1',
+        expectedRequestBody: null,
+        expectedRequestHeaders: {
+          category: 'SHONEN'
+        },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: new Book({ id: 1, name })
+      },
+      create: {
+        entity: Book,
+        request: ({ repository, body, query }: HttpRequestContext) => repository.create(body, query).toPromise(),
+        query: new BookQuery({ category }),
+        body: new Book({ name }),
+        expectedMethod: 'POST',
+        expectedPath: '/books',
+        expectedRequestHeaders: {
+          category: 'SHONEN'
+        },
+        expectedRequestBody: { name },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: 1
+      },
+      update: {
+        entity: Book,
+        request: ({ repository, body, query }: HttpRequestContext) => repository.update(body, query).toPromise(),
+        query: new BookQuery({ category }),
+        body: new Book({ id: 1, name }),
+        expectedMethod: 'PUT',
+        expectedPath: '/books/1',
+        expectedRequestHeaders: {
+          category: 'SHONEN'
+        },
+        expectedRequestBody: { id: 1, name },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: void 0
+      },
+      patch: {
+        entity: Book,
+        request: ({ repository, body, query }: HttpRequestContext) => repository.patch(body, query).toPromise(),
+        body: new Book({ id: 1, name }),
+        query: new BookQuery({ category }),
+        expectedMethod: 'PATCH',
+        expectedPath: '/books/1',
+        expectedRequestHeaders: {
+          category: 'SHONEN'
+        },
+        expectedRequestBody: { id: 1, name },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: void 0
+      },
+      delete: {
+        entity: Book,
+        request: ({ repository, body, query }: HttpRequestContext) => repository.delete(body, query).toPromise(),
+        body: new Book({ id: 1, name }),
+        query: new BookQuery({ category }),
+        expectedMethod: 'DELETE',
+        expectedPath: '/books/1',
+        expectedRequestHeaders: {
+          category: 'SHONEN'
+        },
+        expectedRequestBody: { id: 1, name },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: void 0
+      }
+    });
+  });
 
-      it(`should add custom converted http header`, async () => {
-        class BookQuery {
+  describe('should add custom converted http header with name', () => {
+    const name: string = 'Naruto';
+    const category: string = 'shonen';
 
-          @HttpHeader({ customConverter: () => DateConverter })
-          public since: Date;
+    class UppercaseConverter implements Converter<string, string> {
+      public fromJson(value: string): string {
+        return value ? value.toLowerCase() : value;
+      }
 
-          public constructor(data: Partial<BookQuery> = {}) {
-            Object.assign(this, data);
-          }
-        }
+      public toJson(value: string): string {
+        return value ? value.toUpperCase() : value;
+      }
+    }
 
-        const since: Date = new Date('2021-01-01T05:51:00.000+0200');
-        mockResponse(httpClient);
+    class BookQuery {
 
-        const response: any = await invokeRequest(new BookQuery({
-          since
-        }));
+      @HttpHeader({ customConverter: () => UppercaseConverter, name: 'category' })
+      public categoryName: string;
 
-        expect(response).toBeNull();
-        expect(httpClient.request).toHaveBeenCalledWith(method, path, {
-          params: new HttpParams(),
-          headers: {
-            since: `2021-01-01T03:51:00.000Z`
-          },
-          observe: 'response',
-          body,
-          responseType: 'json'
-        });
-      });
+      public constructor(data: Partial<BookQuery> = {}) {
+        Object.assign(this, data);
+      }
+    }
 
-      it(`should add custom converted http header with name`, async () => {
-        class BookQuery {
+    testHttpRepository({
+      findOne: {
+        entity: Book,
+        request: ({ repository, query }: HttpRequestContext) => repository.findOne(query).toPromise(),
+        query: new BookQuery({ categoryName: category }),
+        expectedMethod: 'GET',
+        expectedPath: '/books',
+        expectedRequestBody: null,
+        expectedRequestHeaders: {
+          category: 'SHONEN'
+        },
+        mockedResponseBody: [{ id: 1, name }],
+        expectedResponse: new Book({ id: 1, name })
+      },
+      findAll: {
+        entity: Book,
+        request: ({ repository, query }: HttpRequestContext) => repository.findAll(query).toPromise(),
+        query: new BookQuery({ categoryName: category }),
+        expectedMethod: 'GET',
+        expectedPath: '/books',
+        expectedRequestBody: null,
+        expectedRequestHeaders: {
+          category: 'SHONEN'
+        },
+        mockedResponseBody: [{ id: 1, name }, { id: 2, name }],
+        expectedResponse: Page.build([
+          new Book({ id: 1, name }),
+          new Book({ id: 2, name })
+        ])
+      },
+      findById: {
+        entity: Book,
+        request: ({ repository, query }: HttpRequestContext) => repository.findById(1, query).toPromise(),
+        query: new BookQuery({ categoryName: category }),
+        expectedMethod: 'GET',
+        expectedPath: '/books/1',
+        expectedRequestBody: null,
+        expectedRequestHeaders: {
+          category: 'SHONEN'
+        },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: new Book({ id: 1, name })
+      },
+      create: {
+        entity: Book,
+        request: ({ repository, body, query }: HttpRequestContext) => repository.create(body, query).toPromise(),
+        query: new BookQuery({ categoryName: category }),
+        body: new Book({ name }),
+        expectedMethod: 'POST',
+        expectedPath: '/books',
+        expectedRequestHeaders: {
+          category: 'SHONEN'
+        },
+        expectedRequestBody: { name },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: 1
+      },
+      update: {
+        entity: Book,
+        request: ({ repository, body, query }: HttpRequestContext) => repository.update(body, query).toPromise(),
+        query: new BookQuery({ categoryName: category }),
+        body: new Book({ id: 1, name }),
+        expectedMethod: 'PUT',
+        expectedPath: '/books/1',
+        expectedRequestHeaders: {
+          category: 'SHONEN'
+        },
+        expectedRequestBody: { id: 1, name },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: void 0
+      },
+      patch: {
+        entity: Book,
+        request: ({ repository, body, query }: HttpRequestContext) => repository.patch(body, query).toPromise(),
+        body: new Book({ id: 1, name }),
+        query: new BookQuery({ categoryName: category }),
+        expectedMethod: 'PATCH',
+        expectedPath: '/books/1',
+        expectedRequestHeaders: {
+          category: 'SHONEN'
+        },
+        expectedRequestBody: { id: 1, name },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: void 0
+      },
+      delete: {
+        entity: Book,
+        request: ({ repository, body, query }: HttpRequestContext) => repository.delete(body, query).toPromise(),
+        body: new Book({ id: 1, name }),
+        query: new BookQuery({ categoryName: category }),
+        expectedMethod: 'DELETE',
+        expectedPath: '/books/1',
+        expectedRequestHeaders: {
+          category: 'SHONEN'
+        },
+        expectedRequestBody: { id: 1, name },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: void 0
+      }
+    });
+  });
 
-          @HttpHeader({ customConverter: () => DateConverter, name: 'SINCE' })
-          public since: Date;
+  describe('should add deep http header', () => {
+    const name: string = 'Naruto';
+    const category: string = 'shonen';
 
-          public constructor(data: Partial<BookQuery> = {}) {
-            Object.assign(this, data);
-          }
-        }
+    class UppercaseConverter implements Converter<string, string> {
+      public fromJson(value: string): string {
+        return value ? value.toLowerCase() : value;
+      }
 
-        const since: Date = new Date('2021-01-01T05:51:00.000+0200');
-        mockResponse(httpClient);
+      public toJson(value: string): string {
+        return value ? value.toUpperCase() : value;
+      }
+    }
 
-        const response: any = await invokeRequest(new BookQuery({
-          since
-        }));
+    class SubBookQuery {
 
-        expect(response).toBeNull();
-        expect(httpClient.request).toHaveBeenCalledWith(method, path, {
-          params: new HttpParams(),
-          headers: {
-            SINCE: `2021-01-01T03:51:00.000Z`
-          },
-          observe: 'response',
-          body,
-          responseType: 'json'
-        });
-      });
+      @HttpHeader({ customConverter: () => UppercaseConverter, name: 'category' })
+      public categoryName: string;
 
-      it(`should add deep http header`, async () => {
-        class SubBookQuery {
+      public constructor(data: Partial<SubBookQuery> = {}) {
+        Object.assign(this, data);
+      }
+    }
 
-          @HttpHeader()
-          public name: string;
+    class BookQuery {
 
-          public constructor(data: Partial<SubBookQuery> = {}) {
-            Object.assign(this, data);
-          }
-        }
+      @SubQuery()
+      public child: SubBookQuery;
 
-        class BookQuery {
+      public constructor(data: Partial<BookQuery> = {}) {
+        Object.assign(this, data);
+      }
+    }
 
-          @SubQuery()
-          public child: SubBookQuery;
-
-          public constructor(data: Partial<BookQuery> = {}) {
-            Object.assign(this, data);
-          }
-        }
-
-        const name: string = 'Gladiator';
-        mockResponse(httpClient);
-
-        const response: any = await invokeRequest(new BookQuery({
-          child: new SubBookQuery({
-            name
-          })
-        }));
-
-        expect(response).toBeNull();
-        expect(httpClient.request).toHaveBeenCalledWith(method, path, {
-          params: new HttpParams(),
-          headers: {
-            name
-          },
-          observe: 'response',
-          body,
-          responseType: 'json'
-        });
-      });
+    testHttpRepository({
+      findOne: {
+        entity: Book,
+        request: ({ repository, query }: HttpRequestContext) => repository.findOne(query).toPromise(),
+        query: new BookQuery({ child: new SubBookQuery({ categoryName: category }) }),
+        expectedMethod: 'GET',
+        expectedPath: '/books',
+        expectedRequestBody: null,
+        expectedRequestHeaders: {
+          category: 'SHONEN'
+        },
+        mockedResponseBody: [{ id: 1, name }],
+        expectedResponse: new Book({ id: 1, name })
+      },
+      findAll: {
+        entity: Book,
+        request: ({ repository, query }: HttpRequestContext) => repository.findAll(query).toPromise(),
+        query: new BookQuery({ child: new SubBookQuery({ categoryName: category }) }),
+        expectedMethod: 'GET',
+        expectedPath: '/books',
+        expectedRequestBody: null,
+        expectedRequestHeaders: {
+          category: 'SHONEN'
+        },
+        mockedResponseBody: [{ id: 1, name }, { id: 2, name }],
+        expectedResponse: Page.build([
+          new Book({ id: 1, name }),
+          new Book({ id: 2, name })
+        ])
+      },
+      findById: {
+        entity: Book,
+        request: ({ repository, query }: HttpRequestContext) => repository.findById(1, query).toPromise(),
+        query: new BookQuery({ child: new SubBookQuery({ categoryName: category }) }),
+        expectedMethod: 'GET',
+        expectedPath: '/books/1',
+        expectedRequestBody: null,
+        expectedRequestHeaders: {
+          category: 'SHONEN'
+        },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: new Book({ id: 1, name })
+      },
+      create: {
+        entity: Book,
+        request: ({ repository, body, query }: HttpRequestContext) => repository.create(body, query).toPromise(),
+        query: new BookQuery({ child: new SubBookQuery({ categoryName: category }) }),
+        body: new Book({ name }),
+        expectedMethod: 'POST',
+        expectedPath: '/books',
+        expectedRequestHeaders: {
+          category: 'SHONEN'
+        },
+        expectedRequestBody: { name },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: 1
+      },
+      update: {
+        entity: Book,
+        request: ({ repository, body, query }: HttpRequestContext) => repository.update(body, query).toPromise(),
+        query: new BookQuery({ child: new SubBookQuery({ categoryName: category }) }),
+        body: new Book({ id: 1, name }),
+        expectedMethod: 'PUT',
+        expectedPath: '/books/1',
+        expectedRequestHeaders: {
+          category: 'SHONEN'
+        },
+        expectedRequestBody: { id: 1, name },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: void 0
+      },
+      patch: {
+        entity: Book,
+        request: ({ repository, body, query }: HttpRequestContext) => repository.patch(body, query).toPromise(),
+        body: new Book({ id: 1, name }),
+        query: new BookQuery({ child: new SubBookQuery({ categoryName: category }) }),
+        expectedMethod: 'PATCH',
+        expectedPath: '/books/1',
+        expectedRequestHeaders: {
+          category: 'SHONEN'
+        },
+        expectedRequestBody: { id: 1, name },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: void 0
+      },
+      delete: {
+        entity: Book,
+        request: ({ repository, body, query }: HttpRequestContext) => repository.delete(body, query).toPromise(),
+        body: new Book({ id: 1, name }),
+        query: new BookQuery({ child: new SubBookQuery({ categoryName: category }) }),
+        expectedMethod: 'DELETE',
+        expectedPath: '/books/1',
+        expectedRequestHeaders: {
+          category: 'SHONEN'
+        },
+        expectedRequestBody: { id: 1, name },
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: void 0
+      }
     });
   });
 });

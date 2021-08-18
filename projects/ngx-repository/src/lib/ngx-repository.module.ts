@@ -7,11 +7,13 @@ import { RequestManager } from './core/manager/request.manager';
 import { RepositoryNormalizer } from './normalizer/repository-denormalizer';
 import { DenormalizeResponseProcessor } from './core/response/processor/denormalize-response.processor';
 import { PageResponseProcessor } from './core/response/processor/page-response.processor';
+import { IdResponseProcessor } from './core/response/processor/id-response.processor';
 import { PathColumnResponseProcessor } from './core/response/processor/path-column-response.processor';
 import { OriginalQueryResponseProcessor } from './core/response/processor/original-query-response.processor';
 import { TokenRegistry } from '../public-api';
 import { PublisherService } from './core/event-stream/publisher.service';
 import { NgxSerializerModule, NORMALIZER_CONFIGURATION_TOKEN } from '@witty-services/ngx-serializer';
+import { VoidResponseProcessor } from './core/response/processor/void-response.processor';
 
 /**
  * @ignore
@@ -29,6 +31,8 @@ const MODULE_PROVIDERS: Provider[] = [
   RequestManager,
   DenormalizeResponseProcessor,
   PageResponseProcessor,
+  IdResponseProcessor,
+  VoidResponseProcessor,
   OriginalQueryResponseProcessor,
   PathColumnResponseProcessor,
   PublisherService

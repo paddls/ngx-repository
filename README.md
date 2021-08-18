@@ -718,9 +718,11 @@ npm run start
 
 ## Release
 
+You should release from the master branch
+
 ````shell script
-# Set package.json versions
-npm run version --package_version=x.x.x
+# create the release
+npm run release --release=x.x.x
 ````
 
-Then commit using with message : `release: vx.x.x`
+Then push

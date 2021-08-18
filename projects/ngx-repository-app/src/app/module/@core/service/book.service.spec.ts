@@ -1,57 +1,61 @@
-import {TestBed} from '@angular/core/testing';
-import {NgxRepositoryModule, NgxRepositoryService, Page} from '@witty-services/ngx-repository';
-import {HttpRepository, NgxHttpRepositoryModule} from '@witty-services/ngx-http-repository';
-import {of, Subject} from 'rxjs';
-import {BookService} from './book.service';
-import {Book} from '../model/book.model';
-import {BookQuery} from '../query/book.query';
+import { TestBed } from '@angular/core/testing';
+import { MockRepository, NgxRepositoryTestingModule } from '@witty-services/ngx-repository';
+import { HttpRepository } from '@witty-services/ngx-http-repository';
+import { Observable } from 'rxjs';
+import { BookService } from './book.service';
+import { Book } from '../model/book.model';
+import { BookQuery } from '../query/book.query';
+import { TestScheduler } from 'rxjs/testing';
+import { RunHelpers } from 'rxjs/internal/testing/TestScheduler';
 
 describe('BookService', () => {
   let bookService: BookService;
-  let books$: Subject<Page<Book>>;
-  let bookRepository: HttpRepository<string, Book>;
+  let bookRepository: MockRepository;
+  let testScheduler: TestScheduler;
 
   beforeEach(() => {
-    books$ = new Subject<Page<Book>>();
-    bookRepository = {
-      findById: () => void 0,
-      findAll: () => books$
-    } as any;
-
     TestBed.configureTestingModule({
       imports: [
-        NgxRepositoryModule.forRoot(),
-        NgxHttpRepositoryModule.forRoot()
+        NgxRepositoryTestingModule.forTest()
       ],
       providers: [
-        BookService,
-        {
-          provide: NgxRepositoryService,
-          useValue: {
-            getRepository: () => bookRepository
-          }
-        }
+        BookService
       ]
     });
 
+    testScheduler = new TestScheduler(((actual: any, expected: any) => {
+      expect(actual).toEqual(expected);
+    }));
+    bookRepository = NgxRepositoryTestingModule.getRepository(Book, HttpRepository);
     bookService = TestBed.get(BookService);
   });
 
-  // TODO @RMA move unit test inside ngx-repository project
   describe('#findAll', () => {
-    it('should call findAll from read repository', (done: DoneFn) => {
-      spyOn(bookRepository, 'findById').and.returnValue(of(new Book({
-        id: '1'
-      })));
-
+    it('should call findById from repository', (done: DoneFn) => {
       const query: BookQuery = new BookQuery();
 
       bookService.findById('1', query).subscribe((book: Book) => {
         expect(bookRepository.findById).toHaveBeenCalledWith('1', query);
 
-        expect(book).toEqual(new Book({id: '1'}));
+        expect(book).toEqual(new Book({ id: '1' }));
 
         done();
+      });
+
+      bookRepository.emit('findById', new Book({
+        id: '1'
+      }));
+    });
+
+    it('should call findById from repository using marble', () => {
+      testScheduler.run(({ expectObservable, cold }: RunHelpers) => {
+        const query: BookQuery = new BookQuery();
+
+        spyOn(bookRepository, 'findById').and.returnValue(cold('a', { a: new Book({ id: '1' }) }));
+
+        const source$: Observable<Book> = bookService.findById('1', query);
+
+        expectObservable(source$).toBe('a', { a: new Book({ id: '1' }) });
       });
     });
   });
