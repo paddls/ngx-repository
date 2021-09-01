@@ -5,7 +5,7 @@ import { ResourceConfiguration } from './resource.configuration';
 export class ConfigurationContextProvider {
 
   public constructor(private readonly configurationProvider: ConfigurationProvider,
-                     private readonly paths: string[]) {
+                     private readonly paths: string[] = []) {
   }
 
   public getOperation(): string {

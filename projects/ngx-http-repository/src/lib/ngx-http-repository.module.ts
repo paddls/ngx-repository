@@ -9,7 +9,6 @@ import {
   REPOSITORY_BUILDER_TOKEN
 } from '@witty-services/ngx-repository';
 import { HttpRepositoryDriver } from './driver/http-repository.driver';
-import { HttpResponseBuilder } from './response/http-response.builder';
 import { HttpRequestBuilder } from './request/http-request.builder';
 import { HttpRepositoryConfiguration } from './configuration/http-repository.configuration';
 import { HttpRepository } from './repository/http.repository';
@@ -18,19 +17,12 @@ import {
   createHttpRepositoryConfiguration,
   HttpRepositoryContextConfiguration
 } from './configuration/context/http-repository-context.configuration';
-import { HttpFindAllResponseBuilder } from './response/http-find-all-response.builder';
 import { LogExecuteHttpRequestEventListener } from './driver/listener/log-execute-http-request-event.listener';
-import { HttpCreateResponseBuilder } from './response/http-create-response.builder';
-import { HttpWriteResponseBuilder } from './response/http-write-response.builder';
 
 const PROVIDERS: Provider[] = [
   HttpRepositoryBuilder,
   HttpRepositoryDriver,
   HttpRequestBuilder,
-  HttpResponseBuilder,
-  HttpFindAllResponseBuilder,
-  HttpWriteResponseBuilder,
-  HttpCreateResponseBuilder,
   {
     provide: REPOSITORY_BUILDER_TOKEN,
     useExisting: HttpRepositoryBuilder,
@@ -58,7 +50,7 @@ export interface NgxHttpRepositoryModuleConfiguration {
 })
 export class NgxHttpRepositoryModule {
 
-  public static forRoot(config: NgxHttpRepositoryModuleConfiguration = {debug: false}): ModuleWithProviders<NgxHttpRepositoryModule> {
+  public static forRoot(config: NgxHttpRepositoryModuleConfiguration = { debug: false }): ModuleWithProviders<NgxHttpRepositoryModule> {
     if (config.configuration) {
       const defaultConfiguration: HttpRepositoryConfiguration = getRepositoryContextConfiguration(HttpRepository).defaultConfiguration;
 

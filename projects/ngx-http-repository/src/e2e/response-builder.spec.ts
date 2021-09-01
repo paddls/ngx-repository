@@ -1,4 +1,4 @@
-describe('Response', () => {
+describe('ResponseBuilder', () => {
 
   [
     'create',

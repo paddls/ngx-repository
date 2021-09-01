@@ -16,10 +16,10 @@ import {
   PublisherService,
   Repository,
   RequestManager,
+  ResponseBuilder,
   UpdateRepository
 } from '@witty-services/ngx-repository';
 import { HTTP_RESOURCE_METADATA_KEY } from '../decorator/http-resource.decorator';
-import { HttpResponseBuilder } from '../response/http-response.builder';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { HttpRequestBuilder } from '../request/http-request.builder';
 import { BeforeHttpFindAllEvent } from './event/before-http-find-all.event';
@@ -42,7 +42,7 @@ import { OnHttpResourceChange } from '../decorator/on-http-resource-change.decor
 
 @Repository(null, {
   request: HttpRequestBuilder,
-  response: HttpResponseBuilder.withParams()
+  responseBuilder: ResponseBuilder.withParams()
 })
 export class HttpRepository<T, K> extends AbstractRepository<T> implements FindAllRepository,
   FindOneRepository,

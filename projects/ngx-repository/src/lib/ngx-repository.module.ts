@@ -10,10 +10,12 @@ import { PageResponseProcessor } from './core/response/processor/page-response.p
 import { IdResponseProcessor } from './core/response/processor/id-response.processor';
 import { PathColumnResponseProcessor } from './core/response/processor/path-column-response.processor';
 import { OriginalQueryResponseProcessor } from './core/response/processor/original-query-response.processor';
-import { TokenRegistry } from '../public-api';
 import { PublisherService } from './core/event-stream/publisher.service';
 import { NgxSerializerModule, NORMALIZER_CONFIGURATION_TOKEN } from '@witty-services/ngx-serializer';
 import { VoidResponseProcessor } from './core/response/processor/void-response.processor';
+import { ResponseBuilder } from './core/response/response.builder';
+import { TokenRegistry } from './core/registry/token.registry';
+import { BodyResponseProcessor } from './core/response/processor/body.response-processor';
 
 /**
  * @ignore
@@ -25,13 +27,20 @@ export interface Config {
 /**
  * @ignore
  */
+export const NGX_REPOSITORY_INJECTOR_INSTANCE: string = 'NGX_REPOSITORY_INJECTOR_INSTANCE';
+
+/**
+ * @ignore
+ */
 const MODULE_PROVIDERS: Provider[] = [
   RepositoryNormalizer,
   NgxRepositoryService,
   RequestManager,
+  ResponseBuilder,
   DenormalizeResponseProcessor,
   PageResponseProcessor,
   IdResponseProcessor,
+  BodyResponseProcessor,
   VoidResponseProcessor,
   OriginalQueryResponseProcessor,
   PathColumnResponseProcessor,
@@ -50,8 +59,9 @@ const MODULE_PROVIDERS: Provider[] = [
 export class NgxRepositoryModule {
 
   public constructor(injector: Injector) {
+    Reflect.defineMetadata(NGX_REPOSITORY_INJECTOR_INSTANCE, injector, NgxRepositoryModule);
     TokenRegistry.clear();
-    NgxRepositoryService.getInstance = () => injector.get(NgxRepositoryService);
+    NgxRepositoryService.getInstance = () => injector.get(NgxRepositoryService); // TODO @RMA review this
     PublisherService.getInstance = () => injector.get(PublisherService);
   }
 

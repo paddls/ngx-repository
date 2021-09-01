@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { RepositoryResponse } from '../repository.response';
 import { RequestManagerContext } from '../../manager/request-manager.context';
 import { PATH_COLUMN_METADATA_KEY } from '../../decorator/path-column.decorator';
-import { first, isArray, isObject } from 'lodash';
+import { first, isArray, isObject, isUndefined } from 'lodash';
 import { Path } from '../../request/path';
 import { ResponseProcessor } from './response.processor';
 import { PathColumnContextConfiguration } from '../../configuration/context/path-column-context.configuration';
@@ -30,8 +30,10 @@ export class PathColumnResponseProcessor implements ResponseProcessor {
   }
 
   protected mapPathColumn(pathColumns: PathColumnContextConfiguration[], item: any, path: Path): void {
-    pathColumns.forEach((pc: PathColumnContextConfiguration) => {
-      item[pc.propertyKey] = path.pathParams[`:${ pc.name }`];
-    });
+    pathColumns
+      .filter((pc: PathColumnContextConfiguration) => !isUndefined(path.pathParams[`:${ pc.name }`]))
+      .forEach((pc: PathColumnContextConfiguration) => {
+        item[pc.propertyKey] = path.pathParams[`:${ pc.name }`];
+      });
   }
 }

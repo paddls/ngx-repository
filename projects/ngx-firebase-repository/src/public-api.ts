@@ -59,7 +59,6 @@ export { FirebaseDocumentReferenceRepositoryResponse } from './lib/response/fire
 export { FirebaseDocumentRepositoryResponse } from './lib/response/firebase-document-repository.response';
 export { FirebaseEmptyRepositoryResponse } from './lib/response/firebase-empty-repository.response';
 export { FirebaseRepositoryResponse } from './lib/response/firebase-repository.response';
-export { FirebaseResponseBuilder, FirebaseResponseBuilderParam } from './lib/response/firebase-response.builder';
 
 export { FIRESTORE_APP } from './lib/ngx-firebase-repository.module.di';
 export { NgxFirebaseRepositoryModule, NgxFirebaseRepositoryModuleConfiguration } from './lib/ngx-firebase-repository.module';

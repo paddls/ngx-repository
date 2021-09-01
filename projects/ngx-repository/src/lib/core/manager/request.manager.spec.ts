@@ -1,7 +1,5 @@
 import { RequestManager } from './request.manager';
 import { Injector } from '@angular/core';
-import { PathColumnResponseProcessor } from '../response/processor/path-column-response.processor';
-import { OriginalQueryResponseProcessor } from '../response/processor/original-query-response.processor';
 import { RequestManagerContext } from './request-manager.context';
 import { RepositoryDriver } from '../driver/repository.driver';
 import { ConfigurationContextProvider } from '../configuration/configuration-context.provider';
@@ -14,20 +12,14 @@ class MyRequest {
 xdescribe('RequestManager', () => {
   let manager: RequestManager;
   let injector: Injector;
-  let pathColumnResponseProcessor: PathColumnResponseProcessor;
-  let originalQueryResponseProcessor: OriginalQueryResponseProcessor;
 
   beforeEach(() => {
     injector = {
       get: () => void 0
     };
-    pathColumnResponseProcessor = new PathColumnResponseProcessor();
-    originalQueryResponseProcessor = new OriginalQueryResponseProcessor();
 
     manager = new RequestManager(
-      injector,
-      pathColumnResponseProcessor,
-      originalQueryResponseProcessor
+      injector
     );
   });
 

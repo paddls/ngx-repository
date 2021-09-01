@@ -2,4 +2,5 @@ import { PathParamConfiguration, ResourceParamConfiguration } from '@witty-servi
 
 export interface HttpRepositoryParamConfiguration extends ResourceParamConfiguration, PathParamConfiguration {
   path?: string;
+  method?: string;
 }

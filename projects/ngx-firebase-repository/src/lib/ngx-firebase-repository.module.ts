@@ -2,16 +2,15 @@ import 'reflect-metadata';
 
 import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
 import { FirebaseRepositoryBuilder } from './repository/firebase-repository.builder';
-import {FIRESTORE_APP} from './ngx-firebase-repository.module.di';
+import { FIRESTORE_APP } from './ngx-firebase-repository.module.di';
 import { REPOSITORY_BUILDER_TOKEN } from '@witty-services/ngx-repository';
 import { FirebaseNormalizer } from './normalizer/firebase.normalizer';
 import { FirebaseRepositoryDriver } from './driver/firebase-repository.driver';
 import { FirebaseRequestBuilder } from './request/firebase-request.builder';
-import { FirebaseResponseBuilder } from './response/firebase-response.builder';
 import { FirebaseCriteriaRequestBuilder } from './request/firebase-criteria-request.builder';
 import firebase from 'firebase';
+import { LogExecuteFirebaseRequestEventListener } from './driver/listener/log-execute-firebase-request-event.listener';
 import Firestore = firebase.firestore.Firestore;
-import {LogExecuteFirebaseRequestEventListener} from './driver/listener/log-execute-firebase-request-event.listener';
 
 const MODULE_PROVIDERS: Provider[] = [
   FirebaseRepositoryBuilder,
@@ -20,7 +19,6 @@ const MODULE_PROVIDERS: Provider[] = [
   FirebaseRepositoryDriver,
   FirebaseRequestBuilder,
   FirebaseCriteriaRequestBuilder,
-  FirebaseResponseBuilder,
   {
     provide: REPOSITORY_BUILDER_TOKEN,
     useExisting: FirebaseRepositoryBuilder,

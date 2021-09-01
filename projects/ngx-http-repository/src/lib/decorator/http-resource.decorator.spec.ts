@@ -1,7 +1,10 @@
 import { HTTP_RESOURCE_METADATA_KEY, HttpResource } from './http-resource.decorator';
-import { HttpFindAllResponseBuilder } from '../response/http-find-all-response.builder';
-import { HttpCreateResponseBuilder } from '../response/http-create-response.builder';
-import { HttpWriteResponseBuilder } from '../response/http-write-response.builder';
+import {
+  IdResponseProcessor,
+  PageResponseProcessor,
+  ResponseBuilder,
+  VoidResponseProcessor
+} from '@witty-services/ngx-repository';
 
 describe('HttpResourceDecorator', () => {
 
@@ -13,16 +16,42 @@ describe('HttpResourceDecorator', () => {
 
     HttpResource(context)(obj);
     expect(Reflect.getMetadata(HTTP_RESOURCE_METADATA_KEY, obj)).toEqual({
+      findOne: {
+        path: 'toto'
+      },
+      findById: {
+        path: 'toto'
+      },
       findAll: {
-        response: HttpFindAllResponseBuilder.withParams()
+        path: 'toto',
+        responseBuilder: ResponseBuilder.withParams({
+          postResponseProcessors: [PageResponseProcessor]
+        })
       },
       create: {
-        response: HttpCreateResponseBuilder.withParams()
+        path: 'toto',
+        responseBuilder: ResponseBuilder.withParams({
+          postResponseProcessors: [IdResponseProcessor]
+        })
       },
-      write: {
-        response: HttpWriteResponseBuilder.withParams()
+      update: {
+        path: 'toto',
+        responseBuilder: ResponseBuilder.withParams({
+          postResponseProcessors: [VoidResponseProcessor]
+        })
       },
-      path: 'toto'
+      patch: {
+        path: 'toto',
+        responseBuilder: ResponseBuilder.withParams({
+          postResponseProcessors: [VoidResponseProcessor]
+        })
+      },
+      delete: {
+        path: 'toto',
+        responseBuilder: ResponseBuilder.withParams({
+          postResponseProcessors: [VoidResponseProcessor]
+        })
+      }
     });
   });
 });

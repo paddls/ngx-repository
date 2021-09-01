@@ -1,18 +1,18 @@
-import { HttpRepository, HttpResource } from '../public-api';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable, Type } from '@angular/core';
-import { Id, Page, RepositoryResponse, RequestManagerContext, ResponseProcessor } from '@witty-services/ngx-repository';
-import { mockResponse } from './util/mock.response.spec';
-import { initializeRepository, RepositoryContext } from './util/repository-intializer.spec';
+import { HttpResource } from '../public-api';
+import { Injectable } from '@angular/core';
+import {
+  Column,
+  Id,
+  Page,
+  RepositoryResponse,
+  RequestManagerContext,
+  ResponseProcessor
+} from '@witty-services/ngx-repository';
+import { HttpRequestContext, testHttpRepository } from './util/test-http-repository.spec';
 
 describe('Page', () => {
 
-  let bookType: Type<any>;
-  let repository: HttpRepository<any, any>;
-  let httpClient: HttpClient;
-
-  it(`should return page containing all elements`, async () => {
-    // TODO @RMA use utils
+  describe('should return page containing all elements', () => {
     @HttpResource({
       path: '/books'
     })
@@ -21,37 +21,27 @@ describe('Page', () => {
       @Id()
       public id: number;
 
+      @Column()
+      public name: string;
+
       public constructor(data: Partial<Book> = {}) {
         Object.assign(this, data);
       }
     }
 
-    const context: RepositoryContext<Book> = initializeRepository(Book);
-    repository = context.repository;
-    httpClient = context.httpClient;
-    bookType = Book;
-
-    mockResponse(httpClient, [
-      { id: 1 },
-      { id: 2 }
-    ]);
-
-    const response: Page = await repository.findAll().toPromise();
-
-    expect(response.currentPage).toBe(0);
-    expect(response.itemsPerPage).toBe(2);
-    expect(response.totalItems).toBe(2);
-    expect(response).toEqual(Page.build([new bookType({ id: 1 }), new bookType({ id: 2 })]));
-    expect(httpClient.request).toHaveBeenCalledWith('GET', '/books', {
-      params: new HttpParams(),
-      headers: {},
-      observe: 'response',
-      body: null,
-      responseType: 'json'
+    testHttpRepository({
+      findAll: {
+        entity: Book,
+        request: ({ repository }: HttpRequestContext) => repository.findAll().toPromise(),
+        expectedMethod: 'GET',
+        expectedPath: '/books',
+        expectedResponse: Page.build([new Book({ id: 1, name: 'Book 1' }), new Book({ id: 2, name: 'Book 2' })]),
+        mockedResponseBody: [{ id: 1, name: 'Book 1' }, { id: 2, name: 'Book 2' }]
+      }
     });
   });
 
-  it(`should override default page response processor`, async () => {
+  describe('should override default page response processor', () => {
     class MyPage {
       public constructor(public readonly values: any[]) {
       }
@@ -75,33 +65,30 @@ describe('Page', () => {
       @Id()
       public id: number;
 
+      @Column()
+      public name: string;
+
       public constructor(data: Partial<Book> = {}) {
         Object.assign(this, data);
       }
     }
 
-    const context: RepositoryContext<Book> = initializeRepository(Book, [MyPageResponseProcessor]);
-    repository = context.repository;
-    httpClient = context.httpClient;
-    bookType = Book;
-
-    mockResponse(httpClient, [
-      { id: 1 },
-      { id: 2 }
-    ]);
-
-    const response: MyPage = await repository.findAll<MyPage>().toPromise();
-
-    expect(response).toEqual(new MyPage([
-      new bookType({ id: 1 }),
-      new bookType({ id: 2 })
-    ]));
-    expect(httpClient.request).toHaveBeenCalledWith('GET', '/books', {
-      params: new HttpParams(),
-      headers: {},
-      observe: 'response',
-      body: null,
-      responseType: 'json'
+    testHttpRepository({
+      findAll: {
+        entity: Book,
+        request: ({ repository }: HttpRequestContext) => repository.findAll().toPromise(),
+        expectedMethod: 'GET',
+        expectedPath: '/books',
+        expectedResponse: new MyPage([
+          new Book({ id: 1, name: 'Book 1' }),
+          new Book({ id: 2, name: 'Book 2' })
+        ]),
+        mockedResponseBody: [{ id: 1, name: 'Book 1' }, { id: 2, name: 'Book 2' }]
+      }
+    }, {
+      providers: [MyPageResponseProcessor]
     });
   });
+
+  it('should override root module response processor');
 });

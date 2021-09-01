@@ -12,9 +12,9 @@ export class ConfigurationProvider {
       return configuration;
     }
 
-    console.error(`Unable to found configuration ${ property } (${ JSON.stringify(paths) })`, this.params);
+    console.error(`Unable to found configuration '${ property }' (${ JSON.stringify(paths) })`, this.params);
 
-    throw new Error(`Unable to found configuration ${ property } (${ JSON.stringify(paths) })`);
+    throw new Error(`Unable to found configuration '${ property }' (${ JSON.stringify(paths) })`);
   }
 
   public findConfiguration(property: string, paths: string[]): any {

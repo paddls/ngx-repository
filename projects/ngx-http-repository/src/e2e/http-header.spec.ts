@@ -640,4 +640,6 @@ describe('HttpHeader', () => {
       }
     });
   });
+
+  it('should fetch header from response');
 });

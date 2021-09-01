@@ -16,6 +16,7 @@ export interface HttpRequestContext {
 
 export interface HttpTestContext {
   entity: Type<any>;
+  providers?: any[];
   request: (context: HttpRequestContext) => Promise<any>;
   body?: any;
   query?: any;
@@ -28,9 +29,9 @@ export interface HttpTestContext {
   expectedResponse: any;
 }
 
-export function testHttpRepository(tests: { [key: string]: HttpTestContext }): void {
+export function testHttpRepository(tests: { [key: string]: HttpTestContext }, rootContext: Partial<HttpTestContext> = {}): void {
   forOwn(tests, (context: HttpTestContext, name: string) => {
-    itShouldTestHttpRepository(name, context);
+    itShouldTestHttpRepository(name, Object.assign({}, rootContext, context));
   });
 }
 
@@ -45,6 +46,7 @@ export async function httpTest(httpTestContext: HttpTestContext): Promise<void> 
     entity: httpTestContext.entity,
     request: httpTestContext.request,
     body: httpTestContext.body || null,
+    providers: httpTestContext.providers || [],
     query: httpTestContext.query || null,
     expectedMethod: httpTestContext.expectedMethod,
     expectedPath: httpTestContext.expectedPath,
@@ -69,7 +71,8 @@ export async function httpTest(httpTestContext: HttpTestContext): Promise<void> 
       NgxHttpRepositoryModule.forRoot()
     ],
     providers: [
-      BookService
+      BookService,
+      ...context.providers
     ]
   });
 

@@ -1,4 +1,4 @@
-import {ConfigurationProvider} from './configuration.provider';
+import { ConfigurationProvider } from './configuration.provider';
 
 describe('ConfigurationProvider', () => {
   let params: any;
@@ -15,7 +15,7 @@ describe('ConfigurationProvider', () => {
       spyOn(provider, 'findConfiguration').and.returnValue(null);
 
       const paths: string[] = ['foo', 'bar'];
-      expect(() => provider.getConfiguration('myProperty', ['foo', 'bar'])).toThrowError(`Unable to found configuration myProperty (${ JSON.stringify(paths) })`);
+      expect(() => provider.getConfiguration('myProperty', ['foo', 'bar'])).toThrowError(`Unable to found configuration 'myProperty' (${ JSON.stringify(paths) })`);
     });
 
     it('should return the configuration', () => {

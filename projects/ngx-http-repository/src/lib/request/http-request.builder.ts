@@ -50,9 +50,9 @@ export class HttpRequestBuilder implements RequestBuilder {
       return null;
     }
 
-    PublisherService.getInstance().publish(new BeforeNormalizeEvent(cloneDeep({body})));
+    PublisherService.getInstance().publish(new BeforeNormalizeEvent(cloneDeep({ body })));
     const data: any = this.normalizer.normalize(body);
-    PublisherService.getInstance().publish(new AfterNormalizeEvent(cloneDeep({body, data})));
+    PublisherService.getInstance().publish(new AfterNormalizeEvent(cloneDeep({ body, data })));
 
     return data;
   }
@@ -104,6 +104,7 @@ export class HttpRequestBuilder implements RequestBuilder {
     setter(value);
   }
 
+  // TODO @RMA move to Repository side - use method configuration instead
   protected getMethod(configuration: ConfigurationContextProvider): string {
     const operation: HttpOperation = configuration.getOperation() as HttpOperation;
 
@@ -122,6 +123,6 @@ export class HttpRequestBuilder implements RequestBuilder {
         return 'DELETE';
     }
 
-    throw new Error(`Operation not supported (${ operation })`);
+    return configuration.getConfiguration<HttpRepositoryParamConfiguration>('method');
   }
 }

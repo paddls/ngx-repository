@@ -4,23 +4,23 @@ import { HttpRequestContext, testHttpRepository } from './util/test-http-reposit
 
 describe('IdResponseProcessor', () => {
 
-  @HttpResource({
-    path: '/books'
-  })
-  class Book {
-
-    @Id()
-    public id: number;
-
-    @Column()
-    public name: string;
-
-    public constructor(data: Partial<Book> = {}) {
-      Object.assign(this, data);
-    }
-  }
-
   describe('should return id of created resource', () => {
+    @HttpResource({
+      path: '/books'
+    })
+    class Book {
+
+      @Id()
+      public id: number;
+
+      @Column()
+      public name: string;
+
+      public constructor(data: Partial<Book> = {}) {
+        Object.assign(this, data);
+      }
+    }
+
     testHttpRepository({
       create: {
         entity: Book,
@@ -35,5 +35,166 @@ describe('IdResponseProcessor', () => {
     });
   });
 
-  it(`should override default id response processor to return complete object`);
+  describe('should override default id response processor to return complete object', () => {
+    @HttpResource({
+      path: '/books',
+      create: {
+        fullResponse: true
+      }
+    })
+    class Book {
+
+      @Id()
+      public id: number;
+
+      @Column()
+      public name: string;
+
+      public constructor(data: Partial<Book> = {}) {
+        Object.assign(this, data);
+      }
+    }
+
+    testHttpRepository({
+      create: {
+        entity: Book,
+        request: ({ repository, body }: HttpRequestContext) => repository.create(body).toPromise(),
+        expectedMethod: 'POST',
+        body: new Book({ name: 'Star Wars' }),
+        expectedPath: '/books',
+        expectedRequestBody: { name: 'Star Wars' },
+        expectedResponse: new Book({ id: 1, name: 'Star Wars 1' }),
+        mockedResponseBody: { id: 1, name: 'Star Wars 1' }
+      }
+    });
+  });
+
+  describe('should override default id response processor to return complete object with write config', () => {
+    @HttpResource({
+      path: '/books',
+      write: {
+        fullResponse: true
+      }
+    })
+    class Book {
+
+      @Id()
+      public id: number;
+
+      @Column()
+      public name: string;
+
+      public constructor(data: Partial<Book> = {}) {
+        Object.assign(this, data);
+      }
+    }
+
+    testHttpRepository({
+      create: {
+        entity: Book,
+        request: ({ repository, body }: HttpRequestContext) => repository.create(body).toPromise(),
+        expectedMethod: 'POST',
+        body: new Book({ name: 'Star Wars' }),
+        expectedPath: '/books',
+        expectedRequestBody: { name: 'Star Wars' },
+        expectedResponse: new Book({ id: 1, name: 'Star Wars 1' }),
+        mockedResponseBody: { id: 1, name: 'Star Wars 1' }
+      }
+    });
+  });
+
+  describe('should override default id response processor and resource type to return complete object', () => {
+    class Manga {
+
+      @Id()
+      public identifier: string;
+
+      @Column()
+      public author: string;
+
+      public constructor(data: Partial<Manga> = {}) {
+        Object.assign(this, data);
+      }
+    }
+
+    @HttpResource({
+      path: '/books',
+      create: {
+        fullResponse: true,
+        responseType: () => Manga
+      }
+    })
+    class Book {
+
+      @Id()
+      public id: number;
+
+      @Column()
+      public name: string;
+
+      public constructor(data: Partial<Book> = {}) {
+        Object.assign(this, data);
+      }
+    }
+
+    testHttpRepository({
+      create: {
+        entity: Book,
+        request: ({ repository, body }: HttpRequestContext) => repository.create(body).toPromise(),
+        expectedMethod: 'POST',
+        body: new Book({ name: 'Star Wars' }),
+        expectedPath: '/books',
+        expectedRequestBody: { name: 'Star Wars' },
+        expectedResponse: new Manga({ identifier: 'abc', author: 'Romain' }),
+        mockedResponseBody: { identifier: 'abc', author: 'Romain' }
+      }
+    });
+  });
+
+  describe('should override resource type to return another id', () => {
+    class Manga {
+
+      @Id()
+      public identifier: string;
+
+      @Column()
+      public author: string;
+
+      public constructor(data: Partial<Manga> = {}) {
+        Object.assign(this, data);
+      }
+    }
+
+    @HttpResource({
+      path: '/books',
+      create: {
+        responseType: () => Manga
+      }
+    })
+    class Book {
+
+      @Id()
+      public id: number;
+
+      @Column()
+      public name: string;
+
+      public constructor(data: Partial<Book> = {}) {
+        Object.assign(this, data);
+      }
+    }
+
+    testHttpRepository({
+      create: {
+        entity: Book,
+        request: ({ repository, body }: HttpRequestContext) => repository.create(body).toPromise(),
+        expectedMethod: 'POST',
+        body: new Book({ name: 'Star Wars' }),
+        expectedPath: '/books',
+        expectedRequestBody: { name: 'Star Wars' },
+        expectedResponse: 'abc',
+        mockedResponseBody: { identifier: 'abc', author: 'Romain' }
+      }
+    });
+  });
 });
