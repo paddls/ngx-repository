@@ -1,6 +1,6 @@
-import { HttpResource } from '../public-api';
+import { HttpRepository, HttpResource } from '../public-api';
 import { Column, Id } from '@witty-services/ngx-repository';
-import { HttpRequestContext, testHttpRepository } from './util/test-http-repository.spec';
+import { testHttpRepository } from './util/test-http-repository.spec';
 
 describe('VoidResponseProcessor', () => {
 
@@ -21,7 +21,7 @@ describe('VoidResponseProcessor', () => {
     testHttpRepository({
       update: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.update(new Book({ id: 1 })).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({ id: 1 })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1 },
@@ -30,7 +30,7 @@ describe('VoidResponseProcessor', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.patch(new Book({ id: 1 })).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({ id: 1 })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1 },
@@ -39,7 +39,7 @@ describe('VoidResponseProcessor', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.delete(new Book({ id: 1 })).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({ id: 1 })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1 },
@@ -72,7 +72,7 @@ describe('VoidResponseProcessor', () => {
     testHttpRepository({
       update: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.update(new Book({ id: 1 })).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({ id: 1 })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1 },
@@ -81,7 +81,7 @@ describe('VoidResponseProcessor', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.patch(new Book({ id: 1 })).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({ id: 1 })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1 },
@@ -90,7 +90,7 @@ describe('VoidResponseProcessor', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.delete(new Book({ id: 1 })).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({ id: 1 })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1 },
@@ -137,7 +137,7 @@ describe('VoidResponseProcessor', () => {
     testHttpRepository({
       update: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.update(new Book({ id: 1 })).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({ id: 1 })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1 },
@@ -146,7 +146,7 @@ describe('VoidResponseProcessor', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.patch(new Book({ id: 1 })).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({ id: 1 })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1 },
@@ -155,7 +155,7 @@ describe('VoidResponseProcessor', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.delete(new Book({ id: 1 })).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({ id: 1 })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1 },

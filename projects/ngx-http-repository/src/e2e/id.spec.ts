@@ -1,6 +1,6 @@
-import { HttpResource } from '../public-api';
+import { HttpRepository, HttpResource } from '../public-api';
 import { Column, Id, Page } from '@witty-services/ngx-repository';
-import { HttpRequestContext, testHttpRepository } from './util/test-http-repository.spec';
+import { testHttpRepository } from './util/test-http-repository.spec';
 
 xdescribe('Id', () => {
 
@@ -27,7 +27,7 @@ xdescribe('Id', () => {
     testHttpRepository({
       findAll: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.findAll().toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.findAll().toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedResponse: Page.build([new Book({ id: 1, name: 'Book 1' }), new Book({ id: 2, name: 'Book 2' })]),
@@ -35,7 +35,7 @@ xdescribe('Id', () => {
       },
       findOne: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.findOne().toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.findOne().toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedResponse: new Book({ id: 1, name: 'Book 1' }),
@@ -43,7 +43,7 @@ xdescribe('Id', () => {
       },
       findById: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.findById(1).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.findById(1).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/1',
         expectedResponse: new Book({ id: 1, name: 'Book 1' }),
@@ -51,7 +51,7 @@ xdescribe('Id', () => {
       },
       create: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.create(new Book({ name: 'Book 1' })).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name: 'Book 1' })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
         expectedRequestBody: { name: 'Book 1' },
@@ -60,7 +60,7 @@ xdescribe('Id', () => {
       },
       update: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.update(new Book({
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({
           id: 1,
           name: 'Book 1'
         })).toPromise(),
@@ -72,7 +72,7 @@ xdescribe('Id', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.patch(new Book({
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
           id: 1,
           name: 'Book 1'
         })).toPromise(),
@@ -84,7 +84,7 @@ xdescribe('Id', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.delete(new Book({
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
           id: 1,
           name: 'Book 1'
         })).toPromise(),

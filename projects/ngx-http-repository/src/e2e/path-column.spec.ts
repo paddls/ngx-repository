@@ -1,7 +1,7 @@
-import { HttpResource } from '../public-api';
+import { HttpRepository, HttpResource } from '../public-api';
 import { Id, Page, PathColumn, PathParam } from '@witty-services/ngx-repository';
 import { DateConverter } from '@witty-services/ts-serializer';
-import { HttpRequestContext, testHttpRepository } from './util/test-http-repository.spec';
+import { testHttpRepository } from './util/test-http-repository.spec';
 
 describe('PathColumn', () => {
 
@@ -25,8 +25,7 @@ describe('PathColumn', () => {
     testHttpRepository({
       create: {
         entity: Book,
-        request: ({ repository, body }: HttpRequestContext) => repository.create(body).toPromise(),
-        body: new Book({ libraryId: 3 }),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ libraryId: 3 })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/libraries/3/books',
         expectedRequestBody: {},
@@ -35,8 +34,10 @@ describe('PathColumn', () => {
       },
       update: {
         entity: Book,
-        request: ({ repository, body }: HttpRequestContext) => repository.update(body).toPromise(),
-        body: new Book({ id: 1, libraryId: 3 }),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({
+          id: 1,
+          libraryId: 3
+        })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/libraries/3/books/1',
         expectedRequestBody: { id: 1 },
@@ -44,8 +45,10 @@ describe('PathColumn', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository, body }: HttpRequestContext) => repository.patch(body).toPromise(),
-        body: new Book({ id: 1, libraryId: 3 }),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
+          id: 1,
+          libraryId: 3
+        })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/libraries/3/books/1',
         expectedRequestBody: { id: 1 },
@@ -53,8 +56,10 @@ describe('PathColumn', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository, body }: HttpRequestContext) => repository.delete(body).toPromise(),
-        body: new Book({ id: 1, libraryId: 3 }),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
+          id: 1,
+          libraryId: 3
+        })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/libraries/3/books/1',
         expectedRequestBody: { id: 1 },
@@ -83,8 +88,7 @@ describe('PathColumn', () => {
     testHttpRepository({
       create: {
         entity: Book,
-        request: ({ repository, body }: HttpRequestContext) => repository.create(body).toPromise(),
-        body: new Book({ LIBRARY_ID: 3 }),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ LIBRARY_ID: 3 })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/libraries/3/books',
         expectedRequestBody: {},
@@ -93,8 +97,10 @@ describe('PathColumn', () => {
       },
       update: {
         entity: Book,
-        request: ({ repository, body }: HttpRequestContext) => repository.update(body).toPromise(),
-        body: new Book({ id: 1, LIBRARY_ID: 3 }),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({
+          id: 1,
+          LIBRARY_ID: 3
+        })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/libraries/3/books/1',
         expectedRequestBody: { id: 1 },
@@ -102,8 +108,10 @@ describe('PathColumn', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository, body }: HttpRequestContext) => repository.patch(body).toPromise(),
-        body: new Book({ id: 1, LIBRARY_ID: 3 }),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
+          id: 1,
+          LIBRARY_ID: 3
+        })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/libraries/3/books/1',
         expectedRequestBody: { id: 1 },
@@ -111,8 +119,10 @@ describe('PathColumn', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository, body }: HttpRequestContext) => repository.delete(body).toPromise(),
-        body: new Book({ id: 1, LIBRARY_ID: 3 }),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
+          id: 1,
+          LIBRARY_ID: 3
+        })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/libraries/3/books/1',
         expectedRequestBody: { id: 1 },
@@ -143,8 +153,7 @@ describe('PathColumn', () => {
     testHttpRepository({
       create: {
         entity: Book,
-        request: ({ repository, body }: HttpRequestContext) => repository.create(body).toPromise(),
-        body: new Book({ libraryId: date }),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ libraryId: date })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/libraries/2021-01-01T03:51:00.000Z/books',
         expectedRequestBody: {},
@@ -153,8 +162,10 @@ describe('PathColumn', () => {
       },
       update: {
         entity: Book,
-        request: ({ repository, body }: HttpRequestContext) => repository.update(body).toPromise(),
-        body: new Book({ id: 1, libraryId: date }),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({
+          id: 1,
+          libraryId: date
+        })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/libraries/2021-01-01T03:51:00.000Z/books/1',
         expectedRequestBody: { id: 1 },
@@ -162,8 +173,10 @@ describe('PathColumn', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository, body }: HttpRequestContext) => repository.patch(body).toPromise(),
-        body: new Book({ id: 1, libraryId: date }),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
+          id: 1,
+          libraryId: date
+        })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/libraries/2021-01-01T03:51:00.000Z/books/1',
         expectedRequestBody: { id: 1 },
@@ -171,8 +184,10 @@ describe('PathColumn', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository, body }: HttpRequestContext) => repository.delete(body).toPromise(),
-        body: new Book({ id: 1, libraryId: date }),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
+          id: 1,
+          libraryId: date
+        })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/libraries/2021-01-01T03:51:00.000Z/books/1',
         expectedRequestBody: { id: 1 },
@@ -203,8 +218,7 @@ describe('PathColumn', () => {
     testHttpRepository({
       create: {
         entity: Book,
-        request: ({ repository, body }: HttpRequestContext) => repository.create(body).toPromise(),
-        body: new Book({ LIBRARY_ID: date }),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ LIBRARY_ID: date })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/libraries/2021-01-01T03:51:00.000Z/books',
         expectedRequestBody: {},
@@ -213,8 +227,10 @@ describe('PathColumn', () => {
       },
       update: {
         entity: Book,
-        request: ({ repository, body }: HttpRequestContext) => repository.update(body).toPromise(),
-        body: new Book({ id: 1, LIBRARY_ID: date }),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({
+          id: 1,
+          LIBRARY_ID: date
+        })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/libraries/2021-01-01T03:51:00.000Z/books/1',
         expectedRequestBody: { id: 1 },
@@ -222,8 +238,10 @@ describe('PathColumn', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository, body }: HttpRequestContext) => repository.patch(body).toPromise(),
-        body: new Book({ id: 1, LIBRARY_ID: date }),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
+          id: 1,
+          LIBRARY_ID: date
+        })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/libraries/2021-01-01T03:51:00.000Z/books/1',
         expectedRequestBody: { id: 1 },
@@ -231,8 +249,10 @@ describe('PathColumn', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository, body }: HttpRequestContext) => repository.delete(body).toPromise(),
-        body: new Book({ id: 1, LIBRARY_ID: date }),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
+          id: 1,
+          LIBRARY_ID: date
+        })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/libraries/2021-01-01T03:51:00.000Z/books/1',
         expectedRequestBody: { id: 1 },
@@ -271,8 +291,7 @@ describe('PathColumn', () => {
     testHttpRepository({
       findOne: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findOne(query).toPromise(),
-        query: new BookQuery({ libraryId: 3 }),
+        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({ libraryId: 3 })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/libraries/3/books',
         expectedResponse: new Book({
@@ -283,8 +302,7 @@ describe('PathColumn', () => {
       },
       findAll: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findAll(query).toPromise(),
-        query: new BookQuery({ libraryId: 3 }),
+        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({ libraryId: 3 })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/libraries/3/books',
         expectedResponse: Page.build([
@@ -300,8 +318,7 @@ describe('PathColumn', () => {
       },
       findById: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findById(1, query).toPromise(),
-        query: new BookQuery({ libraryId: 3 }),
+        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({ libraryId: 3 })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/libraries/3/books/1',
         expectedResponse: new Book({

@@ -1,5 +1,5 @@
-import { HttpQueryParam, HttpResource } from '../public-api';
-import { HttpRequestContext, testHttpRepository } from './util/test-http-repository.spec';
+import { HttpQueryParam, HttpRepository, HttpResource } from '../public-api';
+import { testHttpRepository } from './util/test-http-repository.spec';
 import { Column, DateConverter, Id, Page, SubQuery } from '@witty-services/ngx-repository';
 import { buildHttpParams } from './util/build-http.params.spec';
 
@@ -36,8 +36,7 @@ describe('HttpQueryParam', () => {
     testHttpRepository({
       findOne: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findOne(query).toPromise(),
-        query: new BookQuery({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({ name })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
@@ -47,8 +46,7 @@ describe('HttpQueryParam', () => {
       },
       findAll: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findAll(query).toPromise(),
-        query: new BookQuery({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({ name })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
@@ -61,8 +59,7 @@ describe('HttpQueryParam', () => {
       },
       findById: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findById(1, query).toPromise(),
-        query: new BookQuery({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({ name })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/1',
         expectedRequestBody: null,
@@ -72,9 +69,9 @@ describe('HttpQueryParam', () => {
       },
       create: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.create(body, query).toPromise(),
-        query: new BookQuery({ name }),
-        body: new Book({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({
+          name
+        }), new BookQuery({ name })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
         expectedRequestBody: { name },
@@ -84,9 +81,10 @@ describe('HttpQueryParam', () => {
       },
       update: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.update(body, query).toPromise(),
-        query: new BookQuery({ name }),
-        body: new Book({ id: 1, name }),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ name })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1, name },
@@ -96,9 +94,10 @@ describe('HttpQueryParam', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.patch(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ name })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1, name },
@@ -108,9 +107,10 @@ describe('HttpQueryParam', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.delete(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ name })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1, name },
@@ -137,8 +137,7 @@ describe('HttpQueryParam', () => {
     testHttpRepository({
       findOne: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findOne(query).toPromise(),
-        query: new BookQuery({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({ name })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
@@ -148,8 +147,7 @@ describe('HttpQueryParam', () => {
       },
       findAll: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findAll(query).toPromise(),
-        query: new BookQuery({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({ name })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
@@ -162,8 +160,7 @@ describe('HttpQueryParam', () => {
       },
       findById: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findById(1, query).toPromise(),
-        query: new BookQuery({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({ name })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/1',
         expectedRequestBody: null,
@@ -173,9 +170,9 @@ describe('HttpQueryParam', () => {
       },
       create: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.create(body, query).toPromise(),
-        query: new BookQuery({ name }),
-        body: new Book({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({
+          name
+        }), new BookQuery({ name })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
         expectedRequestBody: { name },
@@ -185,9 +182,10 @@ describe('HttpQueryParam', () => {
       },
       update: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.update(body, query).toPromise(),
-        query: new BookQuery({ name }),
-        body: new Book({ id: 1, name }),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ name })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1, name },
@@ -197,9 +195,10 @@ describe('HttpQueryParam', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.patch(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ name })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1, name },
@@ -209,9 +208,10 @@ describe('HttpQueryParam', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.delete(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ name })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1, name },
@@ -240,8 +240,7 @@ describe('HttpQueryParam', () => {
     testHttpRepository({
       findOne: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findOne(query).toPromise(),
-        query: new BookQuery({ since }),
+        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({ since })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
@@ -251,8 +250,7 @@ describe('HttpQueryParam', () => {
       },
       findAll: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findAll(query).toPromise(),
-        query: new BookQuery({ since }),
+        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({ since })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
@@ -265,8 +263,7 @@ describe('HttpQueryParam', () => {
       },
       findById: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findById(1, query).toPromise(),
-        query: new BookQuery({ since }),
+        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({ since })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/1',
         expectedRequestBody: null,
@@ -276,9 +273,7 @@ describe('HttpQueryParam', () => {
       },
       create: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.create(body, query).toPromise(),
-        query: new BookQuery({ since }),
-        body: new Book({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name }), new BookQuery({ since })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
         expectedRequestBody: { name },
@@ -288,9 +283,10 @@ describe('HttpQueryParam', () => {
       },
       update: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.update(body, query).toPromise(),
-        query: new BookQuery({ since }),
-        body: new Book({ id: 1, name }),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ since })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1, name },
@@ -300,9 +296,10 @@ describe('HttpQueryParam', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.patch(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ since }),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ since })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1, name },
@@ -312,9 +309,10 @@ describe('HttpQueryParam', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.delete(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ since }),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ since })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1, name },
@@ -343,8 +341,7 @@ describe('HttpQueryParam', () => {
     testHttpRepository({
       findOne: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findOne(query).toPromise(),
-        query: new BookQuery({ since }),
+        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({ since })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
@@ -354,8 +351,7 @@ describe('HttpQueryParam', () => {
       },
       findAll: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findAll(query).toPromise(),
-        query: new BookQuery({ since }),
+        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({ since })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
@@ -368,8 +364,7 @@ describe('HttpQueryParam', () => {
       },
       findById: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findById(1, query).toPromise(),
-        query: new BookQuery({ since }),
+        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({ since })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/1',
         expectedRequestBody: null,
@@ -379,9 +374,9 @@ describe('HttpQueryParam', () => {
       },
       create: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.create(body, query).toPromise(),
-        query: new BookQuery({ since }),
-        body: new Book({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({
+          name
+        }), new BookQuery({ since })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
         expectedRequestBody: { name },
@@ -391,9 +386,10 @@ describe('HttpQueryParam', () => {
       },
       update: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.update(body, query).toPromise(),
-        query: new BookQuery({ since }),
-        body: new Book({ id: 1, name }),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ since })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1, name },
@@ -403,9 +399,10 @@ describe('HttpQueryParam', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.patch(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ since }),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ since })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1, name },
@@ -415,9 +412,10 @@ describe('HttpQueryParam', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.delete(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ since }),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ since })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1, name },
@@ -454,12 +452,11 @@ describe('HttpQueryParam', () => {
     testHttpRepository({
       findOne: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findOne(query).toPromise(),
-        query: new BookQuery({
+        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({
           child: new SubBookQuery({
             name
           })
-        }),
+        })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
@@ -469,12 +466,11 @@ describe('HttpQueryParam', () => {
       },
       findAll: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findAll(query).toPromise(),
-        query: new BookQuery({
+        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({
           child: new SubBookQuery({
             name
           })
-        }),
+        })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
@@ -487,12 +483,11 @@ describe('HttpQueryParam', () => {
       },
       findById: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findById(1, query).toPromise(),
-        query: new BookQuery({
+        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({
           child: new SubBookQuery({
             name
           })
-        }),
+        })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/1',
         expectedRequestBody: null,
@@ -502,13 +497,13 @@ describe('HttpQueryParam', () => {
       },
       create: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.create(body, query).toPromise(),
-        query: new BookQuery({
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({
+          name
+        }), new BookQuery({
           child: new SubBookQuery({
             name
           })
-        }),
-        body: new Book({ name }),
+        })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
         expectedRequestBody: { name },
@@ -518,13 +513,14 @@ describe('HttpQueryParam', () => {
       },
       update: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.update(body, query).toPromise(),
-        query: new BookQuery({
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({
+          id: 1,
+          name
+        }), new BookQuery({
           child: new SubBookQuery({
             name
           })
-        }),
-        body: new Book({ id: 1, name }),
+        })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1, name },
@@ -534,13 +530,14 @@ describe('HttpQueryParam', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.patch(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
+          id: 1,
+          name
+        }), new BookQuery({
           child: new SubBookQuery({
             name
           })
-        }),
+        })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1, name },
@@ -550,13 +547,14 @@ describe('HttpQueryParam', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.delete(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
+          id: 1,
+          name
+        }), new BookQuery({
           child: new SubBookQuery({
             name
           })
-        }),
+        })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1, name },

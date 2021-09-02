@@ -1,6 +1,6 @@
-import { HttpResource } from '../public-api';
+import { HttpRepository, HttpResource } from '../public-api';
 import { Column, Id } from '@witty-services/ngx-repository';
-import { HttpRequestContext, testHttpRepository } from './util/test-http-repository.spec';
+import { testHttpRepository } from './util/test-http-repository.spec';
 
 describe('IdResponseProcessor', () => {
 
@@ -24,9 +24,8 @@ describe('IdResponseProcessor', () => {
     testHttpRepository({
       create: {
         entity: Book,
-        request: ({ repository, body }: HttpRequestContext) => repository.create(body).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name: 'Star Wars' })).toPromise(),
         expectedMethod: 'POST',
-        body: new Book({ name: 'Star Wars' }),
         expectedPath: '/books',
         expectedRequestBody: { name: 'Star Wars' },
         expectedResponse: 1,
@@ -58,9 +57,8 @@ describe('IdResponseProcessor', () => {
     testHttpRepository({
       create: {
         entity: Book,
-        request: ({ repository, body }: HttpRequestContext) => repository.create(body).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name: 'Star Wars' })).toPromise(),
         expectedMethod: 'POST',
-        body: new Book({ name: 'Star Wars' }),
         expectedPath: '/books',
         expectedRequestBody: { name: 'Star Wars' },
         expectedResponse: new Book({ id: 1, name: 'Star Wars 1' }),
@@ -92,9 +90,8 @@ describe('IdResponseProcessor', () => {
     testHttpRepository({
       create: {
         entity: Book,
-        request: ({ repository, body }: HttpRequestContext) => repository.create(body).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name: 'Star Wars' })).toPromise(),
         expectedMethod: 'POST',
-        body: new Book({ name: 'Star Wars' }),
         expectedPath: '/books',
         expectedRequestBody: { name: 'Star Wars' },
         expectedResponse: new Book({ id: 1, name: 'Star Wars 1' }),
@@ -140,9 +137,8 @@ describe('IdResponseProcessor', () => {
     testHttpRepository({
       create: {
         entity: Book,
-        request: ({ repository, body }: HttpRequestContext) => repository.create(body).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name: 'Star Wars' })).toPromise(),
         expectedMethod: 'POST',
-        body: new Book({ name: 'Star Wars' }),
         expectedPath: '/books',
         expectedRequestBody: { name: 'Star Wars' },
         expectedResponse: new Manga({ identifier: 'abc', author: 'Romain' }),
@@ -187,9 +183,8 @@ describe('IdResponseProcessor', () => {
     testHttpRepository({
       create: {
         entity: Book,
-        request: ({ repository, body }: HttpRequestContext) => repository.create(body).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name: 'Star Wars' })).toPromise(),
         expectedMethod: 'POST',
-        body: new Book({ name: 'Star Wars' }),
         expectedPath: '/books',
         expectedRequestBody: { name: 'Star Wars' },
         expectedResponse: 'abc',

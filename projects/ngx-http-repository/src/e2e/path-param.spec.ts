@@ -1,6 +1,6 @@
-import { HttpResource } from '../public-api';
+import { HttpRepository, HttpResource } from '../public-api';
 import { Column, Id, Page, PathParam, SubQuery } from '@witty-services/ngx-repository';
-import { HttpRequestContext, testHttpRepository } from './util/test-http-repository.spec';
+import { testHttpRepository } from './util/test-http-repository.spec';
 import { Converter } from '@witty-services/ts-serializer';
 
 describe('PathParam', () => {
@@ -38,8 +38,7 @@ describe('PathParam', () => {
     testHttpRepository({
       findOne: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findOne(query).toPromise(),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({ category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/shonen',
         expectedRequestBody: null,
@@ -48,8 +47,7 @@ describe('PathParam', () => {
       },
       findAll: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findAll(query).toPromise(),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({ category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/shonen',
         expectedRequestBody: null,
@@ -61,8 +59,7 @@ describe('PathParam', () => {
       },
       findById: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findById(1, query).toPromise(),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({ category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/shonen/1',
         expectedRequestBody: null,
@@ -71,9 +68,7 @@ describe('PathParam', () => {
       },
       create: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.create(body, query).toPromise(),
-        query: new BookQuery({ category }),
-        body: new Book({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name }), new BookQuery({ category })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books/shonen',
         expectedRequestBody: { name },
@@ -82,9 +77,10 @@ describe('PathParam', () => {
       },
       update: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.update(body, query).toPromise(),
-        query: new BookQuery({ category }),
-        body: new Book({ id: 1, name }),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ category })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/shonen/1',
         expectedRequestBody: { id: 1, name },
@@ -93,9 +89,10 @@ describe('PathParam', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.patch(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ category })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/shonen/1',
         expectedRequestBody: { id: 1, name },
@@ -104,9 +101,10 @@ describe('PathParam', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.delete(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ category })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/shonen/1',
         expectedRequestBody: { id: 1, name },
@@ -133,8 +131,7 @@ describe('PathParam', () => {
     testHttpRepository({
       findOne: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findOne(query).toPromise(),
-        query: new BookQuery({ categoryName: category }),
+        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({ categoryName: category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/shonen',
         expectedRequestBody: null,
@@ -143,8 +140,7 @@ describe('PathParam', () => {
       },
       findAll: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findAll(query).toPromise(),
-        query: new BookQuery({ categoryName: category }),
+        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({ categoryName: category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/shonen',
         expectedRequestBody: null,
@@ -156,8 +152,7 @@ describe('PathParam', () => {
       },
       findById: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findById(1, query).toPromise(),
-        query: new BookQuery({ categoryName: category }),
+        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({ categoryName: category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/shonen/1',
         expectedRequestBody: null,
@@ -166,9 +161,7 @@ describe('PathParam', () => {
       },
       create: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.create(body, query).toPromise(),
-        query: new BookQuery({ categoryName: category }),
-        body: new Book({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name }), new BookQuery({ categoryName: category })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books/shonen',
         expectedRequestBody: { name },
@@ -177,9 +170,10 @@ describe('PathParam', () => {
       },
       update: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.update(body, query).toPromise(),
-        query: new BookQuery({ categoryName: category }),
-        body: new Book({ id: 1, name }),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ categoryName: category })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/shonen/1',
         expectedRequestBody: { id: 1, name },
@@ -188,9 +182,10 @@ describe('PathParam', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.patch(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ categoryName: category }),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ categoryName: category })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/shonen/1',
         expectedRequestBody: { id: 1, name },
@@ -199,9 +194,10 @@ describe('PathParam', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.delete(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ categoryName: category }),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ categoryName: category })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/shonen/1',
         expectedRequestBody: { id: 1, name },
@@ -238,8 +234,7 @@ describe('PathParam', () => {
     testHttpRepository({
       findOne: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findOne(query).toPromise(),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({ category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/SHONEN',
         expectedRequestBody: null,
@@ -248,8 +243,7 @@ describe('PathParam', () => {
       },
       findAll: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findAll(query).toPromise(),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({ category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/SHONEN',
         expectedRequestBody: null,
@@ -261,8 +255,7 @@ describe('PathParam', () => {
       },
       findById: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findById(1, query).toPromise(),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({ category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/SHONEN/1',
         expectedRequestBody: null,
@@ -271,9 +264,7 @@ describe('PathParam', () => {
       },
       create: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.create(body, query).toPromise(),
-        query: new BookQuery({ category }),
-        body: new Book({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name }), new BookQuery({ category })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books/SHONEN',
         expectedRequestBody: { name },
@@ -282,9 +273,10 @@ describe('PathParam', () => {
       },
       update: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.update(body, query).toPromise(),
-        query: new BookQuery({ category }),
-        body: new Book({ id: 1, name }),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ category })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/SHONEN/1',
         expectedRequestBody: { id: 1, name },
@@ -293,9 +285,10 @@ describe('PathParam', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.patch(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ category })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/SHONEN/1',
         expectedRequestBody: { id: 1, name },
@@ -304,9 +297,10 @@ describe('PathParam', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.delete(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ category })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/SHONEN/1',
         expectedRequestBody: { id: 1, name },
@@ -343,8 +337,7 @@ describe('PathParam', () => {
     testHttpRepository({
       findOne: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findOne(query).toPromise(),
-        query: new BookQuery({ categoryName: category }),
+        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({ categoryName: category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/SHONEN',
         expectedRequestBody: null,
@@ -353,8 +346,7 @@ describe('PathParam', () => {
       },
       findAll: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findAll(query).toPromise(),
-        query: new BookQuery({ categoryName: category }),
+        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({ categoryName: category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/SHONEN',
         expectedRequestBody: null,
@@ -366,8 +358,7 @@ describe('PathParam', () => {
       },
       findById: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findById(1, query).toPromise(),
-        query: new BookQuery({ categoryName: category }),
+        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({ categoryName: category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/SHONEN/1',
         expectedRequestBody: null,
@@ -376,9 +367,7 @@ describe('PathParam', () => {
       },
       create: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.create(body, query).toPromise(),
-        query: new BookQuery({ categoryName: category }),
-        body: new Book({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name }), new BookQuery({ categoryName: category })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books/SHONEN',
         expectedRequestBody: { name },
@@ -387,9 +376,10 @@ describe('PathParam', () => {
       },
       update: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.update(body, query).toPromise(),
-        query: new BookQuery({ categoryName: category }),
-        body: new Book({ id: 1, name }),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ categoryName: category })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/SHONEN/1',
         expectedRequestBody: { id: 1, name },
@@ -398,9 +388,10 @@ describe('PathParam', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.patch(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ categoryName: category }),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ categoryName: category })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/SHONEN/1',
         expectedRequestBody: { id: 1, name },
@@ -409,9 +400,10 @@ describe('PathParam', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.delete(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ categoryName: category }),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ categoryName: category })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/SHONEN/1',
         expectedRequestBody: { id: 1, name },
@@ -448,12 +440,11 @@ describe('PathParam', () => {
     testHttpRepository({
       findOne: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findOne(query).toPromise(),
-        query: new BookQuery({
+        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({
           child: new SubBookQuery({
             category
           })
-        }),
+        })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/shonen',
         expectedRequestBody: null,
@@ -462,12 +453,11 @@ describe('PathParam', () => {
       },
       findAll: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findAll(query).toPromise(),
-        query: new BookQuery({
+        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({
           child: new SubBookQuery({
             category
           })
-        }),
+        })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/shonen',
         expectedRequestBody: null,
@@ -479,12 +469,11 @@ describe('PathParam', () => {
       },
       findById: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findById(1, query).toPromise(),
-        query: new BookQuery({
+        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({
           child: new SubBookQuery({
             category
           })
-        }),
+        })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/shonen/1',
         expectedRequestBody: null,
@@ -493,13 +482,13 @@ describe('PathParam', () => {
       },
       create: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.create(body, query).toPromise(),
-        query: new BookQuery({
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({
+          name
+        }), new BookQuery({
           child: new SubBookQuery({
             category
           })
-        }),
-        body: new Book({ name }),
+        })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books/shonen',
         expectedRequestBody: { name },
@@ -508,13 +497,14 @@ describe('PathParam', () => {
       },
       update: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.update(body, query).toPromise(),
-        query: new BookQuery({
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({
+          id: 1,
+          name
+        }), new BookQuery({
           child: new SubBookQuery({
             category
           })
-        }),
-        body: new Book({ id: 1, name }),
+        })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/shonen/1',
         expectedRequestBody: { id: 1, name },
@@ -523,13 +513,14 @@ describe('PathParam', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.patch(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
+          id: 1,
+          name
+        }), new BookQuery({
           child: new SubBookQuery({
             category
           })
-        }),
+        })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/shonen/1',
         expectedRequestBody: { id: 1, name },
@@ -538,13 +529,14 @@ describe('PathParam', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.delete(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
+          id: 1,
+          name
+        }), new BookQuery({
           child: new SubBookQuery({
             category
           })
-        }),
+        })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/shonen/1',
         expectedRequestBody: { id: 1, name },

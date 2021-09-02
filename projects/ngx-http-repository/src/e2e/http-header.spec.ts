@@ -1,7 +1,7 @@
-import { HttpHeader, HttpResource } from '../public-api';
+import { HttpHeader, HttpRepository, HttpResource } from '../public-api';
 import { Column, Id, Page, SubQuery } from '@witty-services/ngx-repository';
 import { Converter } from '@witty-services/ts-serializer';
-import { HttpRequestContext, testHttpRepository } from './util/test-http-repository.spec';
+import { testHttpRepository } from './util/test-http-repository.spec';
 
 describe('HttpHeader', () => {
 
@@ -38,8 +38,7 @@ describe('HttpHeader', () => {
     testHttpRepository({
       findOne: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findOne(query).toPromise(),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({ category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
@@ -51,8 +50,7 @@ describe('HttpHeader', () => {
       },
       findAll: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findAll(query).toPromise(),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({ category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
@@ -67,8 +65,7 @@ describe('HttpHeader', () => {
       },
       findById: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findById(1, query).toPromise(),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({ category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/1',
         expectedRequestBody: null,
@@ -80,9 +77,7 @@ describe('HttpHeader', () => {
       },
       create: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.create(body, query).toPromise(),
-        query: new BookQuery({ category }),
-        body: new Book({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name }), new BookQuery({ category })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
         expectedRequestHeaders: {
@@ -94,9 +89,10 @@ describe('HttpHeader', () => {
       },
       update: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.update(body, query).toPromise(),
-        query: new BookQuery({ category }),
-        body: new Book({ id: 1, name }),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ category })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
         expectedRequestHeaders: {
@@ -108,9 +104,10 @@ describe('HttpHeader', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.patch(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ category })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
         expectedRequestHeaders: {
@@ -122,9 +119,10 @@ describe('HttpHeader', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.delete(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ category })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
         expectedRequestHeaders: {
@@ -154,8 +152,7 @@ describe('HttpHeader', () => {
     testHttpRepository({
       findOne: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findOne(query).toPromise(),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({ category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
@@ -167,8 +164,7 @@ describe('HttpHeader', () => {
       },
       findAll: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findAll(query).toPromise(),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({ category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
@@ -183,8 +179,7 @@ describe('HttpHeader', () => {
       },
       findById: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findById(1, query).toPromise(),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({ category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/1',
         expectedRequestBody: null,
@@ -196,9 +191,7 @@ describe('HttpHeader', () => {
       },
       create: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.create(body, query).toPromise(),
-        query: new BookQuery({ category }),
-        body: new Book({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name }), new BookQuery({ category })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
         expectedRequestHeaders: {
@@ -210,9 +203,10 @@ describe('HttpHeader', () => {
       },
       update: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.update(body, query).toPromise(),
-        query: new BookQuery({ category }),
-        body: new Book({ id: 1, name }),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ category })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
         expectedRequestHeaders: {
@@ -224,9 +218,10 @@ describe('HttpHeader', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.patch(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ category })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
         expectedRequestHeaders: {
@@ -238,9 +233,10 @@ describe('HttpHeader', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.delete(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ category })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
         expectedRequestHeaders: {
@@ -280,8 +276,7 @@ describe('HttpHeader', () => {
     testHttpRepository({
       findOne: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findOne(query).toPromise(),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({ category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
@@ -293,8 +288,7 @@ describe('HttpHeader', () => {
       },
       findAll: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findAll(query).toPromise(),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({ category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
@@ -309,8 +303,7 @@ describe('HttpHeader', () => {
       },
       findById: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findById(1, query).toPromise(),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({ category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/1',
         expectedRequestBody: null,
@@ -322,9 +315,7 @@ describe('HttpHeader', () => {
       },
       create: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.create(body, query).toPromise(),
-        query: new BookQuery({ category }),
-        body: new Book({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name }), new BookQuery({ category })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
         expectedRequestHeaders: {
@@ -336,9 +327,10 @@ describe('HttpHeader', () => {
       },
       update: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.update(body, query).toPromise(),
-        query: new BookQuery({ category }),
-        body: new Book({ id: 1, name }),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ category })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
         expectedRequestHeaders: {
@@ -350,9 +342,10 @@ describe('HttpHeader', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.patch(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ category })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
         expectedRequestHeaders: {
@@ -364,9 +357,10 @@ describe('HttpHeader', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.delete(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ category }),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ category })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
         expectedRequestHeaders: {
@@ -406,8 +400,7 @@ describe('HttpHeader', () => {
     testHttpRepository({
       findOne: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findOne(query).toPromise(),
-        query: new BookQuery({ categoryName: category }),
+        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({ categoryName: category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
@@ -419,8 +412,7 @@ describe('HttpHeader', () => {
       },
       findAll: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findAll(query).toPromise(),
-        query: new BookQuery({ categoryName: category }),
+        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({ categoryName: category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
@@ -435,8 +427,7 @@ describe('HttpHeader', () => {
       },
       findById: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findById(1, query).toPromise(),
-        query: new BookQuery({ categoryName: category }),
+        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({ categoryName: category })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/1',
         expectedRequestBody: null,
@@ -448,9 +439,7 @@ describe('HttpHeader', () => {
       },
       create: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.create(body, query).toPromise(),
-        query: new BookQuery({ categoryName: category }),
-        body: new Book({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name }), new BookQuery({ categoryName: category })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
         expectedRequestHeaders: {
@@ -462,9 +451,10 @@ describe('HttpHeader', () => {
       },
       update: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.update(body, query).toPromise(),
-        query: new BookQuery({ categoryName: category }),
-        body: new Book({ id: 1, name }),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ categoryName: category })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
         expectedRequestHeaders: {
@@ -476,9 +466,10 @@ describe('HttpHeader', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.patch(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ categoryName: category }),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ categoryName: category })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
         expectedRequestHeaders: {
@@ -490,9 +481,10 @@ describe('HttpHeader', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.delete(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ categoryName: category }),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ categoryName: category })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
         expectedRequestHeaders: {
@@ -542,8 +534,7 @@ describe('HttpHeader', () => {
     testHttpRepository({
       findOne: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findOne(query).toPromise(),
-        query: new BookQuery({ child: new SubBookQuery({ categoryName: category }) }),
+        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({ child: new SubBookQuery({ categoryName: category }) })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
@@ -555,8 +546,7 @@ describe('HttpHeader', () => {
       },
       findAll: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findAll(query).toPromise(),
-        query: new BookQuery({ child: new SubBookQuery({ categoryName: category }) }),
+        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({ child: new SubBookQuery({ categoryName: category }) })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
@@ -571,8 +561,7 @@ describe('HttpHeader', () => {
       },
       findById: {
         entity: Book,
-        request: ({ repository, query }: HttpRequestContext) => repository.findById(1, query).toPromise(),
-        query: new BookQuery({ child: new SubBookQuery({ categoryName: category }) }),
+        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({ child: new SubBookQuery({ categoryName: category }) })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/1',
         expectedRequestBody: null,
@@ -584,9 +573,9 @@ describe('HttpHeader', () => {
       },
       create: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.create(body, query).toPromise(),
-        query: new BookQuery({ child: new SubBookQuery({ categoryName: category }) }),
-        body: new Book({ name }),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({
+          name
+        }), new BookQuery({ child: new SubBookQuery({ categoryName: category }) })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
         expectedRequestHeaders: {
@@ -598,9 +587,10 @@ describe('HttpHeader', () => {
       },
       update: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.update(body, query).toPromise(),
-        query: new BookQuery({ child: new SubBookQuery({ categoryName: category }) }),
-        body: new Book({ id: 1, name }),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ child: new SubBookQuery({ categoryName: category }) })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
         expectedRequestHeaders: {
@@ -612,9 +602,10 @@ describe('HttpHeader', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.patch(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ child: new SubBookQuery({ categoryName: category }) }),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ child: new SubBookQuery({ categoryName: category }) })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
         expectedRequestHeaders: {
@@ -626,9 +617,10 @@ describe('HttpHeader', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository, body, query }: HttpRequestContext) => repository.delete(body, query).toPromise(),
-        body: new Book({ id: 1, name }),
-        query: new BookQuery({ child: new SubBookQuery({ categoryName: category }) }),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
+          id: 1,
+          name
+        }), new BookQuery({ child: new SubBookQuery({ categoryName: category }) })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
         expectedRequestHeaders: {

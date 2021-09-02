@@ -2,7 +2,7 @@ import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 
 export interface HttpRequestTestContext {
-  request: () => Promise<any>;
+  request: (context?: any) => Promise<any>;
   httpClient: HttpClient;
   expectedMethod: any;
   expectedPath: any;

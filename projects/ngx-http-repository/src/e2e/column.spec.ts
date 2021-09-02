@@ -1,6 +1,6 @@
-import { HttpResource } from '../public-api';
+import { HttpRepository, HttpResource } from '../public-api';
 import { Column, Id, Page } from '@witty-services/ngx-repository';
-import { HttpRequestContext, testHttpRepository } from './util/test-http-repository.spec';
+import { testHttpRepository } from './util/test-http-repository.spec';
 
 describe('Column', () => {
 
@@ -27,7 +27,7 @@ describe('Column', () => {
     testHttpRepository({
       findAll: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.findAll().toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.findAll().toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedResponse: Page.build([new Book({ id: 1, name: 'Book 1' }), new Book({ id: 2, name: 'Book 2' })]),
@@ -35,7 +35,7 @@ describe('Column', () => {
       },
       findOne: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.findOne().toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.findOne().toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedResponse: new Book({ id: 1, name: 'Book 1' }),
@@ -43,7 +43,7 @@ describe('Column', () => {
       },
       findById: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.findById(1).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.findById(1).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/1',
         expectedResponse: new Book({ id: 1, name: 'Book 1' }),
@@ -51,7 +51,7 @@ describe('Column', () => {
       },
       create: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.create(new Book({ name: 'Book 1' })).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name: 'Book 1' })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
         expectedRequestBody: { name: 'Book 1' },
@@ -60,7 +60,7 @@ describe('Column', () => {
       },
       update: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.update(new Book({
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({
           id: 1,
           name: 'Book 1'
         })).toPromise(),
@@ -72,7 +72,7 @@ describe('Column', () => {
       },
       patch: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.patch(new Book({
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
           id: 1,
           name: 'Book 1'
         })).toPromise(),
@@ -84,7 +84,7 @@ describe('Column', () => {
       },
       delete: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.delete(new Book({
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
           id: 1,
           name: 'Book 1'
         })).toPromise(),
@@ -92,6 +92,102 @@ describe('Column', () => {
         expectedPath: '/books/1',
         expectedRequestBody: { id: 1, name: 'Book 1' },
         expectedResponse: new Book({ id: 1, name: 'Book response' }),
+        mockedResponseBody: { id: 1, name: 'Book response' }
+      }
+    });
+  });
+
+  describe('should change name of serialized column', () => {
+    @HttpResource({
+      path: '/books',
+      write: {
+        fullResponse: true
+      }
+    })
+    class Book {
+
+      @Id()
+      public id: number;
+
+      @Column('name')
+      public nameValue: string;
+
+      public constructor(data: Partial<Book> = {}) {
+        Object.assign(this, data);
+      }
+    }
+
+    testHttpRepository({
+      findAll: {
+        entity: Book,
+        request: (repository: HttpRepository<any, any>) => repository.findAll().toPromise(),
+        expectedMethod: 'GET',
+        expectedPath: '/books',
+        expectedResponse: Page.build([new Book({ id: 1, nameValue: 'Book 1' }), new Book({
+          id: 2,
+          nameValue: 'Book 2'
+        })]),
+        mockedResponseBody: [{ id: 1, name: 'Book 1' }, { id: 2, name: 'Book 2' }]
+      },
+      findOne: {
+        entity: Book,
+        request: (repository: HttpRepository<any, any>) => repository.findOne().toPromise(),
+        expectedMethod: 'GET',
+        expectedPath: '/books',
+        expectedResponse: new Book({ id: 1, nameValue: 'Book 1' }),
+        mockedResponseBody: [{ id: 1, name: 'Book 1' }, { id: 2, name: 'Book 2' }]
+      },
+      findById: {
+        entity: Book,
+        request: (repository: HttpRepository<any, any>) => repository.findById(1).toPromise(),
+        expectedMethod: 'GET',
+        expectedPath: '/books/1',
+        expectedResponse: new Book({ id: 1, nameValue: 'Book 1' }),
+        mockedResponseBody: { id: 1, name: 'Book 1' }
+      },
+      create: {
+        entity: Book,
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ nameValue: 'Book 1' })).toPromise(),
+        expectedMethod: 'POST',
+        expectedPath: '/books',
+        expectedRequestBody: { name: 'Book 1' },
+        expectedResponse: new Book({ id: 1, nameValue: 'Book response' }),
+        mockedResponseBody: { id: 1, name: 'Book response' }
+      },
+      update: {
+        entity: Book,
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({
+          id: 1,
+          nameValue: 'Book 1'
+        })).toPromise(),
+        expectedMethod: 'PUT',
+        expectedPath: '/books/1',
+        expectedRequestBody: { id: 1, name: 'Book 1' },
+        expectedResponse: new Book({ id: 1, nameValue: 'Book response' }),
+        mockedResponseBody: { id: 1, name: 'Book response' }
+      },
+      patch: {
+        entity: Book,
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
+          id: 1,
+          nameValue: 'Book 1'
+        })).toPromise(),
+        expectedMethod: 'PATCH',
+        expectedPath: '/books/1',
+        expectedRequestBody: { id: 1, name: 'Book 1' },
+        expectedResponse: new Book({ id: 1, nameValue: 'Book response' }),
+        mockedResponseBody: { id: 1, name: 'Book response' }
+      },
+      delete: {
+        entity: Book,
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
+          id: 1,
+          nameValue: 'Book 1'
+        })).toPromise(),
+        expectedMethod: 'DELETE',
+        expectedPath: '/books/1',
+        expectedRequestBody: { id: 1, name: 'Book 1' },
+        expectedResponse: new Book({ id: 1, nameValue: 'Book response' }),
         mockedResponseBody: { id: 1, name: 'Book response' }
       }
     });
@@ -107,20 +203,7 @@ describe('Column', () => {
     'findById'
   ].forEach((operation: string) => {
     describe(operation, () => {
-      it(`should change name of serialized column`);
-    });
-  });
-
-  [
-    'create',
-    'update',
-    'patch',
-    'delete',
-    'findAll',
-    'findOne',
-    'findById'
-  ].forEach((operation: string) => {
-    describe(operation, () => {
+      // TODO feature need to be developed
       it(`should override serialize null`);
       it(`should override serialize undefined`);
       it(`should override deserialize null`);

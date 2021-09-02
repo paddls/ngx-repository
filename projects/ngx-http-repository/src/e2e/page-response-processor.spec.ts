@@ -1,4 +1,4 @@
-import { HttpResource } from '../public-api';
+import { HttpRepository, HttpResource } from '../public-api';
 import { Injectable } from '@angular/core';
 import {
   Column,
@@ -8,7 +8,7 @@ import {
   RequestManagerContext,
   ResponseProcessor
 } from '@witty-services/ngx-repository';
-import { HttpRequestContext, testHttpRepository } from './util/test-http-repository.spec';
+import { testHttpRepository } from './util/test-http-repository.spec';
 
 describe('Page', () => {
 
@@ -32,7 +32,7 @@ describe('Page', () => {
     testHttpRepository({
       findAll: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.findAll().toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.findAll().toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedResponse: Page.build([new Book({ id: 1, name: 'Book 1' }), new Book({ id: 2, name: 'Book 2' })]),
@@ -76,7 +76,7 @@ describe('Page', () => {
     testHttpRepository({
       findAll: {
         entity: Book,
-        request: ({ repository }: HttpRequestContext) => repository.findAll().toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.findAll().toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedResponse: new MyPage([
