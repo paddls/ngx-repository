@@ -633,5 +633,7 @@ describe('HttpHeader', () => {
     });
   });
 
-  it('should fetch header from response');
+  // TODO to be implemented @TNI ?
+  it('should submit request header from resource');
+  it('should mapped resource with response header');
 });

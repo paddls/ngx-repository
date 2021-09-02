@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 
 export interface HttpRequestTestContext {
@@ -10,6 +10,7 @@ export interface HttpRequestTestContext {
   expectedRequestHeaders?: any;
   expectedRequestBody?: any;
   mockedResponseBody?: any;
+  mockedResponseHeader?: { [name: string]: string };
   expectedResponse: any;
 }
 
@@ -24,7 +25,8 @@ export async function expectHttpRequest(httpTestContext: HttpRequestTestContext)
     expectedQueryParams: httpTestContext.expectedQueryParams || new HttpParams(),
     expectedRequestHeaders: httpTestContext.expectedRequestHeaders || {},
     expectedRequestBody: httpTestContext.expectedRequestBody || null,
-    mockedResponseBody: httpTestContext.mockedResponseBody || null
+    mockedResponseBody: httpTestContext.mockedResponseBody || null,
+    mockedResponseHeader: httpTestContext.mockedResponseHeader || null
   };
 
   const httpClient: HttpClient = context.httpClient;
@@ -32,7 +34,8 @@ export async function expectHttpRequest(httpTestContext: HttpRequestTestContext)
   const mockedResponseBody: any = context.mockedResponseBody;
 
   spyOn(httpClient, 'request').and.returnValue(of(new HttpResponse({
-    body: mockedResponseBody
+    body: mockedResponseBody,
+    headers: new HttpHeaders(context.mockedResponseHeader)
   })));
 
   const response: any = await context.request();
