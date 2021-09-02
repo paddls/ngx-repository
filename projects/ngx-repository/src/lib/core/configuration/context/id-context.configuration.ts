@@ -1,3 +1,5 @@
+import { Converter } from '@witty-services/ts-serializer';
+
 export interface IdContext {
 
   /**
@@ -34,4 +36,9 @@ export interface IdContext {
    * Boolean to override global configuration to normalize the column when is set to undefined value
    */
   normalizeUndefined?: boolean;
+
+  /**
+   * A converter to make a custom serialization/deserialization
+   */
+  customConverter?: () => new(...args: any[]) => Converter<any, any>;
 }

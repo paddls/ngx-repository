@@ -1,4 +1,4 @@
-import {getIdFromObject} from '../util';
+import { getIdFromObject } from '../util';
 
 export class Id {
 
