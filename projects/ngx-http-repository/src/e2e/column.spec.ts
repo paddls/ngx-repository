@@ -1094,16 +1094,6 @@ describe('Column', () => {
   });
 
   describe('should serialize field path', () => {
-    class Author {
-
-      @Column()
-      public name: string;
-
-      public constructor(data: Partial<Author> = {}) {
-        Object.assign(this, data);
-      }
-    }
-
     @HttpResource({
       path: '/books',
       write: {
