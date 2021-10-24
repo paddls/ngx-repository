@@ -25,7 +25,7 @@ NgxRepository allows you to easily create a strongly typed data access layer in 
   * [Repository](#repository)
 * [Id and Column configuration](#id-and-column-configuration)
 * [Path parameters and PathColumn](#path-parameters-and-pathcolumn)
-* [Fetch associated resource](#fetch-associated-resources)  
+* [Fetch associated resource](#fetch-associated-resources)
   * [JoinColumn](#joincolumn)
   * [SubCollection](#subcollection)
 * [Query](#query)
@@ -36,6 +36,7 @@ NgxRepository allows you to easily create a strongly typed data access layer in 
 * [HttpLiveResource](#httpliveresource)
 * [Advanced usage](#advanced-usage)
   * [Custom repository](#custom-repository)
+  * [Custom HTTP API](#custom-http-api)
   * [Event system](#event-system)
 * [Test and debug](#test-and-debug)
   * [NgxRepositoryTestingModule](#ngxrepositorytestingmodule)
@@ -132,8 +133,8 @@ export class User {
 
 #### Id and Column
 
-Then, add an `@Id()` decorator on the resource id and `@Column()` decorators on each resource field you want
-mapped with NgxRepository.
+Then, add an `@Id()` decorator on the resource id and `@Column()` decorators on each resource field you want mapped with
+NgxRepository.
 
 ```typescript
 import { FirebaseResource } from '@witty-services/ngx-firebase-repository';
@@ -165,8 +166,8 @@ export class User {
 
 Right, now you have your resources. NgxRepository will generate all repositories on demand. You just have to inject it
 in your services using the
-`@InjectRepository()` decorator. You need to specify in the decorator context the type of your resource and the type
-of your repository(`HttpRepository`, `FirebaseRepository`...).
+`@InjectRepository()` decorator. You need to specify in the decorator context the type of your resource and the type of
+your repository(`HttpRepository`, `FirebaseRepository`...).
 
 The generic types of the generated repository type are the type of the resource and the type of the resource id.
 
@@ -197,11 +198,11 @@ export class BookService {
 }
 ```
 
-Each repository of a resource made from `FirebaseDriver` or `HttpDriver` are singleton services stored in
-Angular Injector, so don't worry about injecting them on several services.
+Each repository of a resource made from `FirebaseDriver` or `HttpDriver` are singleton services stored in Angular
+Injector, so don't worry about injecting them on several services.
 
-Last but not least : NgxRepository automatically serializes and deserializes your resources
-between JSON and strongly typed TypeScript classes. Note that only fields with
+Last but not least : NgxRepository automatically serializes and deserializes your resources between JSON and strongly
+typed TypeScript classes. Note that only fields with
 `@Id()` or `@Column()` decorators are marked for serialization.
 
 ## Id and Column configuration
@@ -237,33 +238,34 @@ export class User {
 }
 ```
 
-As shown in the example above, each configuration field is optional : you can define 
-any field you want or not to have any configuration at all.
+As shown in the example above, each configuration field is optional : you can define any field you want or not to have
+any configuration at all.
 
-| Field                  | Description                                                                                                     | Available on `@Id()`   |
-|------------------------|-----------------------------------------------------------------------------------------------------------------|------------------------|
-| `field`                | Field name in JSON                                                                                              | Yes                    |
-| `type`                 | Field type after deserialization : only fields with `@Id()` or `@Column()` decorator in type will be serialized | No                     |
-| `readOnly`             | Boolean to indicate to not send the value in json to the server                                                 | Yes                    |
-| `writeOnly`            | Boolean to indicate to ignore the field in json                                                                 | Yes                    |
-| `customConverter`      | A converter to make a custom serialization/deserialization                                                      | No                     |
-| `denormalizeNull`      | Boolean to override global configuration to denormalize the column when is set to null value                    | Yes                    |
-| `denormalizeUndefined` | Boolean to override global configuration to denormalize the column when is set to undefined value               | Yes                    |
-| `normalizeNull`        | Boolean to override global configuration to normalize the column when is set to null value                      | Yes                    |
-| `normalizeUndefined`   | Boolean to override global configuration to normalize the column when is set to undefined value                 | Yes                    |
+| Field | Description | Available on `@Id()` | -- ---------------------- |
+----------------------------------------------------------------------------------------------------------------- | |--
+---------------------- | | `field` | Field name in JSON | Yes | `type` | Field | | type after deserialization : only
+fields with `@Id()` or `@Column()` decorator in type will be serialized | No | | | | | | | `readOnly`
+| Boolean to indicate to not send the value in json to the server | Yes | | `writeOnly`
+| | | | Boolean to indicate to ignore the field in json | Yes | | `customConverter`      | A converter to make a custom
+| | | | serialization/deserialization | No | | `denormalizeNull`      | Boolean to override global configuration to | |
+| | denormalize the column when is set to null value | Yes | | `denormalizeUndefined` | Boolean to override global | | |
+| configuration to denormalize the column when is set to undefined value | Yes | | `normalizeNull`        | Boolean to |
+| | | override global configuration to normalize the column when is set to null value | Yes | | `normalizeUndefined`   |
+| | | | Boolean to override global configuration to normalize the column when is set to undefined value | Yes | | | | |
+|
 
-The `field` and `type` fields can be defined using a shorthand. For `field`,
-just specify a string directly in the context, it will be interpreted as such. Same thing
-for `type` : specify directly an anonymous function returning the type in the context
+The `field` and `type` fields can be defined using a shorthand. For `field`, just specify a string directly in the
+context, it will be interpreted as such. Same thing for `type` : specify directly an anonymous function returning the
+type in the context
 (as shown in the example).
 
 ## Path parameters and PathColumn
 
-You can add parameters on a resource path using `:` character. You can map those parameters
-with values using the [query system](#query).
+You can add parameters on a resource path using `:` character. You can map those parameters with values using
+the [query system](#query).
 
-`@PathColumn()` decorator allows you to retrieve the path parameter value of a 
-resource and map it to the decorated field.
+`@PathColumn()` decorator allows you to retrieve the path parameter value of a resource and map it to the decorated
+field.
 
 ```typescript
 import { HttpResource } from '@witty-services/ngx-http-repository';
@@ -354,9 +356,9 @@ export class Book {
 
 ## Query
 
-With NgxRepository, a Query is an object holding some informations associated with the
-querying of one or several resources. You can then provide an instance of this Query as a
-parameter of any method available on `HttpRepository` or `FirebaseRepository`.
+With NgxRepository, a Query is an object holding some informations associated with the querying of one or several
+resources. You can then provide an instance of this Query as a parameter of any method available on `HttpRepository`
+or `FirebaseRepository`.
 
 Here is an example of a query for a `@HttpResource()` :
 
@@ -423,7 +425,7 @@ export class ClientQuery {
   public lastNameEqual?: string;
 
   @FirebaseOrderBy()
-  public orderBy?: string|FirebaseOrderByContext|(FirebaseOrderByContext|string)[];
+  public orderBy?: string | FirebaseOrderByContext | (FirebaseOrderByContext | string)[];
 
   @FirebaseStartAt()
   public startAt?: any;
@@ -449,25 +451,27 @@ export class ClientQuery {
 }
 ```
 
-The following table lists all the type of fields you can add to a query object and with
-which repository they are available.
+The following table lists all the type of fields you can add to a query object and with which repository they are
+available.
 
-| Decorator                | Description                                                       | Repository type                        |
-|--------------------------|-------------------------------------------------------------------|----------------------------------------|
-| `@PathParam()`           | Replaces path parameter with field value                          | `HttpRepository`, `FirebaseRepository` |
-| `@HttpQueryParam()`      | Adds a query param to the HTTP request (eg. `/users/?name=Oscar`) | `HttpRepository`                       |
-| `@HttpHeader()`          | Adds a HTTP header to the request with field value                | `HttpRepository`                       |
-| `@FirebaseCriteria()`    | Adds a Firestore query criteria                                   | `FirebaseRepository`                   |
-| `@FirebaseOrderBy()`     | Adds a `.orderBy()` clause to Firestore request                   | `FirebaseRepository`                   |
-| `@FirebaseLimit()`       | Adds a `.limit()` clause to Firestore request                     | `FirebaseRepository`                   |
-| `@FirebaseLimitToLast()` | Adds a `.limitToLast()` clause to Firestore request               | `FirebaseRepository`                   |
-| `@FirebaseStartAt()`     | Adds a `.startAt()` query cursor to Firestore request             | `FirebaseRepository`                   |
-| `@FirebaseStartAfter()`  | Adds a `.startAfter()` query cursor to Firestore request          | `FirebaseRepository`                   |
-| `@FirebaseEndAt()`       | Adds a `.endAt()` query cursor to Firestore request               | `FirebaseRepository`                   |
-| `@FirebaseEndBefore()`   | Adds a `.endBefore()` query cursor to Firestore request           | `FirebaseRepository`                   |
+| Decorator | Description | Repository type | | -- ------------------------ | |--
+----------------------------------------------------------------- | ---------------------------------------- | | | |
+| `@PathParam()`                                                      | Replaces path parameter with field value
+| `HttpRepository`, `FirebaseRepository`                   | | | | `@HttpQueryParam()`
+| Adds a query param to the HTTP request (eg. `/users/?name=Oscar`) | `HttpRepository`
+| | | | | `@HttpHeader()`                                                   | Adds a HTTP header to the request with
+field value | `HttpRepository`     | | | | `@FirebaseCriteria()`                                             | Adds a
+Firestore query criteria | `FirebaseRepository` | | | `@FirebaseOrderBy()`
+| Adds a `.orderBy()` clause to Firestore request | `FirebaseRepository`                                     | | | |
+| `@FirebaseLimit()`                                                | Adds a `.limit()` clause to Firestore request
+| `FirebaseRepository` | | | | `@FirebaseLimitToLast()`                                          | Adds
+a `.limitToLast()` clause to Firestore request | `FirebaseRepository` | | | | `@FirebaseStartAt()`
+| Adds a `.startAt()` query cursor to Firestore request | `FirebaseRepository` | | | | `@FirebaseStartAfter()`
+| Adds a `.startAfter()` query cursor to Firestore request | `FirebaseRepository` | | | | `@FirebaseEndAt()`
+| Adds a `.endAt()` query cursor to Firestore request | `FirebaseRepository` | | | | `@FirebaseEndBefore()`
+| Adds a `.endBefore()` query cursor to Firestore request | `FirebaseRepository` | | |
 
-The following example shows a query used in a `findAll()` operation on a Firebase
-resource.
+The following example shows a query used in a `findAll()` operation on a Firebase resource.
 
 ```typescript
 @Injectable()
@@ -487,7 +491,7 @@ export class ClientService {
 
 ## Resource configuration
 
-You can configure your resource to your needs by adding context to `@HttpResource()` 
+You can configure your resource to your needs by adding context to `@HttpResource()`
 and `@FirebaseResource()` resource decorators.
 
 > For example, you may need to specify a different path to your resource depending on
@@ -499,16 +503,15 @@ and `@FirebaseResource()` resource decorators.
   update: '/library',
 })
 export class Library {
-  
+
 }
 ```
 
-For each operation execution, NgxRepository will look for a specific context attached to
-the operation for the resource. If no specific context is found, the default context 
+For each operation execution, NgxRepository will look for a specific context attached to the operation for the resource.
+If no specific context is found, the default context
 (here the `path`) will be used.
 
-The available configuration is different depending on the type of resource and the 
-targeted operation.
+The available configuration is different depending on the type of resource and the targeted operation.
 
 The targetable operations are the following :
 
@@ -541,9 +544,8 @@ export class Library {
 
 **Path**
 
-Define a specific path for an operation using `path` context parameter. Passing a
-string directly as an operation context is also possible to define the `path` context
-parameter.
+Define a specific path for an operation using `path` context parameter. Passing a string directly as an operation
+context is also possible to define the `path` context parameter.
 
 > ⚠️ This context parameter is only available for `@HttpResource()`
 
@@ -591,13 +593,11 @@ It is also possible to add some global configuration by adding it directly in th
 
 ### Page type
 
-NgxRepository comes with a prebuilt HTTP pagination system. If a `@HttpResource()` is
-paginated server-side, the server usually sends in the HTTP response some context about the
-data being sent (page number, total number of elements and page size). NgxRepository holds
-these infos in a `Page` object.
+NgxRepository comes with a prebuilt HTTP pagination system. If a `@HttpResource()` is paginated server-side, the server
+usually sends in the HTTP response some context about the data being sent (page number, total number of elements and
+page size). NgxRepository holds these infos in a `Page` object.
 
-The `Page` class extends the `Array` type and exposes additional infos about
-eventual server-side pagination.
+The `Page` class extends the `Array` type and exposes additional infos about eventual server-side pagination.
 
 This is the implementation of the `Page` type :
 
@@ -612,7 +612,7 @@ export class Page<T = any> extends Array<T> {
 }
 ```
 
-The `findAll` method of `HttpRepository` returns a `Observable<Page<T>>` 
+The `findAll` method of `HttpRepository` returns a `Observable<Page<T>>`
 where `T` is your resource. You can use it as an `Array` or as a `Page`
 if you want to access the pagination infos.
 
@@ -624,9 +624,8 @@ By default, the fields of the `Page` object returned by the
 * `0` for the `currentPage` field
 * `items.length` for the `itemsPerPage` and `totalItems` fields
 
-This is because the pagination infos can be returned in different ways (sometimes in
-the response headers, sometimes in the body... ). To indicate how the server returns
-these elements, you have to create a `PageResponseProcessor`.
+This is because the pagination infos can be returned in different ways (sometimes in the response headers, sometimes in
+the body... ). To indicate how the server returns these elements, you have to create a `PageResponseProcessor`.
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -646,18 +645,32 @@ export class MyPageResponseProcessor implements ResponseProcessor {
 }
 ```
 
-A `PageResponseProcessor` implements the `ResponseProcessor` interface. This
-interface exposes a `transform()` method which transforms the HTTP response.
-In this method, you can build a `Page` object using the infos about the HTTP
+A `PageResponseProcessor` implements the `ResponseProcessor` interface. This interface exposes a `transform()` method
+which transforms the HTTP response. In this method, you can build a `Page` object using the infos about the HTTP
 response provided in the `transform()` method parameters.
 
-Then, provide this processor in your `AppModule` and add it to
-any `findAll` configuration you need. It can be on a 
+Then, provide this processor in your `AppModule` and add it to any `findAll` configuration you need. It can be on a
 [specific `HttpResource()` or globally](#resource-configuration).
 
 ## HttpLiveResource
 
 > ⚠️ This feature is only available for `@HttpResource()`
+
+If you want to build a truly reactive app, you may need the data displayed in your app to always be in sync with
+server's data. This can be achieved by sending a new GET request each time a POST, PUT, PATCH or DELETE request is made.
+
+By annotating your model with ``@HttpLiveResource()`` decorator, each observable returned by ``findAll()``
+, ``findOne()`` or ``findById()`` method will be transformed into a hot observable that will emit a new value each time
+a writing method is called on the repository.
+
+```typescript
+import { HttpLiveResource, HttpResource } from '@witty-services/ngx-http-repository';
+
+@HttpLiveResource()
+@HttpResource('/libraries')
+export class Library {
+}
+```
 
 ## Advanced usage
 
@@ -687,13 +700,305 @@ export class PersonService {
 }
 ```
 
+### Custom HTTP API
+
+Sometimes, you may use an HTTP API that does not fit REST standards. For example, you may want to send GET requests with
+bodies or requests with a response type different from body type.
+
+To do that, simply create an ``@Injectable()`` class and define your API methods inside like in the following example :
+
+```typescript
+@Injectable()
+class Api {
+
+  @HttpGet('/api', () => ApiResponse)
+  public get: HttpQueryFn<ApiResponse>;
+
+  @HttpGet({
+    path: '/api',
+    withBody: true
+  }, () => ApiResponse)
+  public getWithBody: HttpBodyFn<ApiResponse>;
+
+  @HttpGet({
+    path: '/api',
+    postResponseProcessors: PageResponseProcessor
+  }, () => ApiResponse)
+  public getWithResponseProcessor: HttpQueryFn<Page<ApiResponse>>;
+
+  @HttpGet('/api/:version', () => ApiResponse)
+  public getWithPathParam: HttpQueryFn<ApiResponse>;
+
+  @HttpPost('/api', () => ApiResponse)
+  public post: HttpBodyFn<ApiResponse, ApiRequest>;
+
+  @HttpPost({
+    path: '/api',
+    postResponseProcessors: [PageResponseProcessor]
+  }, () => ApiResponse)
+  public postWithResponseProcessor: HttpBodyFn<Page<ApiResponse>>;
+
+  @HttpPost({
+    path: '/api',
+    withBody: false
+  }, () => ApiResponse)
+  public postWithoutBody: HttpQueryFn<Page<ApiResponse>>;
+
+  @HttpPost('/api/:version', () => ApiResponse)
+  public postWithPathParam: HttpBodyFn<ApiResponse>;
+
+  @HttpPut('/api', () => ApiResponse)
+  public put: HttpBodyFn<ApiResponse, ApiRequest>;
+
+  @HttpPut('/api/:version', () => ApiResponse)
+  public putWithPathParam: HttpBodyFn<ApiResponse, ApiRequest>;
+
+  @HttpPut({
+    path: '/api',
+    withBody: false
+  }, () => ApiResponse)
+  public putWithoutBody: HttpQueryFn<ApiResponse, ApiRequest>;
+
+  @HttpPut({
+    path: '/api',
+    postResponseProcessors: [PageResponseProcessor]
+  }, () => ApiResponse)
+  public putWithResponseProcessor: HttpBodyFn<ApiResponse, ApiRequest>;
+
+  @HttpPatch('/api', () => ApiResponse)
+  public patch: HttpBodyFn<ApiResponse, ApiRequest>;
+
+  @HttpPatch('/api/:version', () => ApiResponse)
+  public patchWithPathParam: HttpBodyFn<ApiResponse, ApiRequest>;
+
+  @HttpPatch({
+    path: '/api',
+    withBody: false
+  }, () => ApiResponse)
+  public patchWithoutBody: HttpQueryFn<ApiResponse, ApiRequest>;
+
+  @HttpPatch({
+    path: '/api',
+    postResponseProcessors: [PageResponseProcessor]
+  }, () => ApiResponse)
+  public patchWithResponseProcessor: HttpBodyFn<ApiResponse, ApiRequest>;
+
+  @HttpDelete('/api', () => ApiResponse)
+  public delete: HttpBodyFn<ApiResponse, ApiRequest>;
+
+  @HttpDelete('/api/:version', () => ApiResponse)
+  public deleteWithPathParam: HttpBodyFn<ApiResponse, ApiRequest>;
+
+  @HttpDelete({
+    path: '/api',
+    withBody: false
+  }, () => ApiResponse)
+  public deleteWithoutBody: HttpQueryFn<ApiResponse, ApiRequest>;
+
+  @HttpDelete({
+    path: '/api',
+    postResponseProcessors: [PageResponseProcessor]
+  }, () => ApiResponse)
+  public deleteWithResponseProcessor: HttpBodyFn<ApiResponse, ApiRequest>;
+
+  @HttpOption('/api', () => ApiResponse)
+  public option: HttpQueryFn<ApiResponse>;
+
+  @HttpOption('/api/:version', () => ApiResponse)
+  public optionWithPathParam: HttpQueryFn<ApiResponse>;
+
+  @HttpOption({
+    path: '/api',
+    withBody: true
+  }, () => ApiResponse)
+  public optionWithBody: HttpBodyFn<ApiResponse>;
+
+  @HttpOption({
+    path: '/api',
+    postResponseProcessors: [PageResponseProcessor]
+  }, () => ApiResponse)
+  public optionWithResponseProcessor: HttpQueryFn<ApiResponse>;
+
+}
+```
+
+In this example, ``ApiRequest`` and ``ApiResponse`` are typescript classes with an ``@Id()`` field and ``Column()``
+fields :
+
+```typescript
+  class ApiResponse {
+
+  @Id()
+  public id: number;
+
+  @Column()
+  public column: string;
+
+  @PathColumn()
+  public version: string;
+
+  public constructor(data: Partial<ApiResponse> = {}) {
+    Object.assign(this, data);
+  }
+}
+
+class ApiRequest {
+
+  @Id()
+  public identifier: number;
+
+  @Column()
+  public name: string;
+
+  public constructor(data: Partial<ApiRequest> = {}) {
+    Object.assign(this, data);
+  }
+}
+```
+
+Then, inject your ``Api`` like any other service and make requests by calling the previously defined methods.
+
 ### Event system
+
+``NgxRepository`` comes with a custom event system. Events are published during a request lifecycle, and you can use
+event listeners to add custom logic when these events are published.
+
+```typescript
+@Injectable()
+@EventListener()
+export class LogEventListener implements Listener<any> {
+
+  public on(event: any): void {
+    console.log(event);
+  }
+}
+```
+
+An event listener is a class decorated with ``@EventListener``. You can pass a predicate or an array of predicates to
+the decorator to filter the events you want to listen to.
+
+Here is the list of all events produced in ``NgxRepository`` :
+
+| Event                               | Repository type                          |
+| -------------------------------     | ---------------------------------------- |
+| `BeforeExecuteHttpRequestEvent`     | `HttpRepository`                         |
+| `BeforeHttpCreateEvent`             | `HttpRepository`                         |
+| `BeforeHttpDeleteEvent`             | `HttpRepository`                         |
+| `BeforeHttpFindAllEvent`            | `HttpRepository`                         |
+| `BeforeHttpFindByIdEvent`           | `HttpRepository`                         |
+| `BeforeHttpFindOneEvent`            | `HttpRepository`                         |
+| `BeforeHttpPatchEvent`              | `HttpRepository`                         |
+| `BeforeHttpUpdateEvent`             | `HttpRepository`                         |
+| `AfterHttpCreateEvent`              | `HttpRepository`                         |
+| `AfterHttpDeleteEvent`              | `HttpRepository`                         |
+| `AfterHttpFindAllEvent`             | `HttpRepository`                         |
+| `AfterHttpFindByIdEvent`            | `HttpRepository`                         |
+| `AfterHttpFindOneEvent`             | `HttpRepository`                         |
+| `AfterHttpPatchEvent`               | `HttpRepository`                         |
+| `AfterHttpUpdateEvent`              | `HttpRepository`                         |
+| `AfterExecuteHttpRequestEvent`      | `HttpRepository`                         |
+| `BeforeExecuteFirebaseRequestEvent` | `FirebaseRepository`                     |
+| `BeforeFirebaseCreateEvent`         | `FirebaseRepository`                     |
+| `BeforeFirebaseDeleteEvent`         | `FirebaseRepository`                     |
+| `BeforeFirebaseFindAllEvent`        | `FirebaseRepository`                     |
+| `BeforeFirebaseFindByIdEvent`       | `FirebaseRepository`                     |
+| `BeforeFirebaseFindOneEvent`        | `FirebaseRepository`                     |
+| `BeforeFirebasePatchEvent`          | `FirebaseRepository`                     |
+| `BeforeFirebaseUpdateEvent`         | `FirebaseRepository`                     |
+| `AfterFirebaseCreateEvent`          | `FirebaseRepository`                     |
+| `AfterFirebaseDeleteEvent`          | `FirebaseRepository`                     |
+| `AfterFirebaseFindAllEvent`         | `FirebaseRepository`                     |
+| `AfterFirebaseFindByIdEvent`        | `FirebaseRepository`                     |
+| `AfterFirebaseFindOneEvent`         | `FirebaseRepository`                     |
+| `AfterFirebasePatchEvent`           | `FirebaseRepository`                     |
+| `AfterFirebaseUpdateEvent`          | `FirebaseRepository`                     |
+| `AfterExecuteFirebaseRequestEvent`  | `FirebaseRepository`                     |
 
 ## Test and debug
 
 ### NgxRepositoryTestingModule
 
+You can easily test any service using ``NgxRepository`` using ``NgxRepositoryTestingModule`` like in the following
+example :
+
+```typescript
+import { TestBed } from '@angular/core/testing';
+import { MockRepository, NgxRepositoryTestingModule, Page } from '@witty-services/ngx-repository';
+import { LibraryService } from './library.service';
+import { Library } from '../model/library.model';
+import { HttpRepository } from '@witty-services/ngx-http-repository';
+import { LibraryQuery } from '../query/library.query';
+
+describe('LibraryService', () => {
+  let libraryService: LibraryService;
+  let libraryRepository: MockRepository;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        NgxRepositoryTestingModule.forTest()
+      ],
+      providers: [
+        LibraryService
+      ]
+    });
+
+    libraryRepository = NgxRepositoryTestingModule.getRepository(Library, HttpRepository);
+    libraryService = TestBed.get(LibraryService);
+  });
+
+  describe('#findAll', () => {
+    it('should call findAll from read repository', (done: DoneFn) => {
+      spyOn(libraryRepository, 'findAll').and.callThrough();
+
+      libraryService.findAll(1, 5).subscribe((page: Page) => {
+        expect(libraryRepository.findAll).toHaveBeenCalledWith(new LibraryQuery({
+          opened: true,
+          page: 1,
+          itemPerPage: 5
+        }));
+
+        expect(page.length).toBe(0);
+
+        done();
+      });
+
+      libraryRepository.emit('findAll', Page.build([]));
+      expect(libraryRepository.findAll).toHaveBeenCalledWith(new LibraryQuery({
+        opened: true,
+        page: 1,
+        itemPerPage: 5
+      }));
+    });
+  });
+});
+
+```
+
 ### Enable debug mode
+
+You can enable debug mode by setting ``debug`` flag to ``true`` in your repository module import config.
+
+```typescript
+@NgModule({
+  imports: [
+    BrowserModule,
+    CoreModule,
+    NgxRepositoryModule.forRoot(),
+    NgxFirebaseRepositoryModule.forRoot({
+      debug: true
+    }),
+    NgxHttpRepositoryModule.forRoot({
+      debug: true
+    }),
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule {
+}
+```
+
+Then, open your console to see debug messages for each request made.
 
 ## Install and build project
 
