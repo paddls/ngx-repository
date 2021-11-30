@@ -34,7 +34,7 @@ export interface NgxHttpRepositoryModuleConfiguration {
 
   configuration?: HttpRepositoryContextConfiguration;
 
-  debug: boolean;
+  debug?: boolean;
 }
 
 /**
