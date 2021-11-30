@@ -46,6 +46,9 @@ export abstract class AbstractRepositoryBuilder implements RepositoryBuilder {
       responseType: () => resourceType
     };
 
+    // FIXME @RMA add configuration for firebase
+    // FIXME @RMA test live resource
+
     @Repository(() => resourceType, defaultConfiguration)
     class RepositoryImpl extends repositoryType {
 

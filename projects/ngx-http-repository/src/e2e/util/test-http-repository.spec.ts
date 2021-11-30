@@ -3,13 +3,15 @@ import { InjectRepository, NgxRepositoryModule } from '@witty-services/ngx-repos
 import { TestBed } from '@angular/core/testing';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpRepository } from '../../lib/repository/http.repository';
-import { NgxHttpRepositoryModule } from '../../public-api';
+import { NgxHttpRepositoryModule, NgxHttpRepositoryModuleConfiguration } from '../../public-api';
 import { forOwn } from 'lodash';
 import { expectHttpRequest, HttpRequestTestContext } from './expect-http-request.spec';
 
 export interface HttpTestContext extends HttpRequestTestContext {
   entity: Type<any>;
+  repository?: Type<any>;
   providers?: any[];
+  httpConfiguration?: NgxHttpRepositoryModuleConfiguration;
   request: (repository: HttpRepository<any, any>) => Promise<any>;
   expectedMethod: any;
   expectedPath: any;
@@ -33,26 +35,36 @@ export function itShouldTestHttpRepository(name: string, context: HttpTestContex
 }
 
 export async function httpTest(httpTestContext: HttpTestContext): Promise<void> {
-  @Injectable()
-  class BookService {
+  const providers: any[] = [];
+  let service: Type<any>;
 
-    @InjectRepository({ resourceType: () => httpTestContext.entity, repository: () => HttpRepository })
-    public repository: HttpRepository<any, number>;
+  if (!httpTestContext.repository) {
+    @Injectable()
+    class BookService {
 
+      @InjectRepository({ resourceType: () => httpTestContext.entity, repository: () => HttpRepository })
+      public repository: HttpRepository<any, number>;
+
+    }
+
+    service = BookService;
+    providers.push(BookService);
+  } else {
+    providers.push(httpTestContext.repository);
   }
 
   TestBed.configureTestingModule({
     imports: [
       NgxRepositoryModule.forRoot(),
-      NgxHttpRepositoryModule.forRoot()
+      NgxHttpRepositoryModule.forRoot(httpTestContext.httpConfiguration || { debug: false })
     ],
     providers: [
-      BookService,
-      ...(httpTestContext.providers || [])
+      ...(httpTestContext.providers || []),
+      ...providers
     ]
   });
 
-  const repository: HttpRepository<any, any> = TestBed.get(BookService).repository;
+  const repository: HttpRepository<any, any> = httpTestContext.repository ? TestBed.get(httpTestContext.repository) : TestBed.get(service).repository;
   const httpClient: HttpClient = TestBed.get(HttpClient);
 
   const context: HttpTestContext = {

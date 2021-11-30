@@ -1,50 +1,44 @@
 import { Observable } from 'rxjs';
-import { merge } from 'lodash';
 import { RepositoryDriver } from '../driver/repository.driver';
 import { ConfigurationProvider } from '../configuration/configuration.provider';
 import { RequestManager } from '../manager/request.manager';
-import { REPOSITORY_METADATA_KEY } from '../decorator/repository.decorator';
 import { ResourceConfiguration } from '../configuration/resource.configuration';
 import { ConfigurationContextProvider } from '../configuration/configuration-context.provider';
+import { Type } from '@angular/core';
+import { REPOSITORY_METADATA_KEY } from '../decorator/repository.decorator';
 import { RepositoryContextConfiguration } from '../configuration/context/repository-context.configuration';
+import { merge } from 'lodash';
 
 export abstract class AbstractRepository<T> {
 
-  protected readonly repositoryConfiguration: RepositoryContextConfiguration<T>;
+  public readonly configurationProvider: ConfigurationProvider;
 
-  protected readonly resourceConfigurationProvider: ConfigurationProvider;
+  public readonly resourceType: Type<any>;
 
   protected constructor(protected readonly requestManager: RequestManager,
-                        protected readonly driver: RepositoryDriver) {
-    this.repositoryConfiguration = this.getRepositoryContextConfiguration();
-    this.resourceConfigurationProvider = new ConfigurationProvider(this.getResourceContextConfiguration());
-  }
-
-  protected abstract getResourceContextKey(): string;
-
-  protected getRepositoryContextConfiguration(): RepositoryContextConfiguration<T> {
-    return Reflect.getMetadata(REPOSITORY_METADATA_KEY, this.constructor);
-  }
-
-  protected getResourceContextConfiguration(): ResourceConfiguration {
-    if (!this.repositoryConfiguration) {
+                        protected readonly driver: RepositoryDriver,
+                        moduleConfiguration: ResourceConfiguration) {
+    const repositoryConfiguration: RepositoryContextConfiguration<any> = Reflect.getMetadata(REPOSITORY_METADATA_KEY, Object.getPrototypeOf(this).constructor);
+    if (!repositoryConfiguration) {
       throw new Error('There is no Resource type configuration for this repository.');
     }
+    console.log(repositoryConfiguration);
 
-    const defaultConfiguration: ResourceConfiguration = this.repositoryConfiguration.defaultConfiguration;
-    const resourceContextConfiguration: ResourceConfiguration = Reflect.getMetadata(this.getResourceContextKey(), this.repositoryConfiguration.resourceType());
-    const fallbackConfiguration: ResourceConfiguration = {
-      responseType: this.repositoryConfiguration.resourceType
-    };
+    const configuration: ResourceConfiguration = merge({
+      responseType: repositoryConfiguration.resourceType
+    }, repositoryConfiguration.defaultConfiguration, moduleConfiguration);
 
-    return merge(fallbackConfiguration, defaultConfiguration, resourceContextConfiguration);
+    this.resourceType = repositoryConfiguration.resourceType();
+    this.configurationProvider = new ConfigurationProvider(this.getResourceConfiguration(this.resourceType, configuration));
   }
+
+  protected abstract getResourceConfiguration(resourceType: Type<any>, configuration: ResourceConfiguration): ResourceConfiguration;
 
   protected execute(body: any, query: any, configurationPaths: string[]): Observable<any> {
     return this.requestManager.execute({
       body,
       query,
-      configuration: new ConfigurationContextProvider(this.resourceConfigurationProvider, configurationPaths),
+      configuration: new ConfigurationContextProvider(this.configurationProvider, configurationPaths),
       driver: this.driver
     });
   }

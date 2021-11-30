@@ -1,4 +1,3 @@
-import { FIREBASE_RESOURCE_METADATA_KEY } from '../decorator/firebase-resource.decorator';
 import {
   AbstractRepository,
   CreateRepository,
@@ -12,6 +11,7 @@ import {
   PublisherService,
   Repository,
   RequestManager,
+  ResourceConfiguration,
   ResponseBuilder,
   UpdateRepository
 } from '@witty-services/ngx-repository';
@@ -20,7 +20,10 @@ import { FirebaseRequestBuilder } from '../request/firebase-request.builder';
 import { cloneDeep, first } from 'lodash';
 import { map, tap } from 'rxjs/operators';
 import { FirebaseRepositoryDriver } from '../driver/firebase-repository.driver';
-import { FirebaseResourceConfiguration } from '../configuration/firebase-repository.configuration';
+import {
+  FIREBASE_REPOSITORY_CONFIGURATION,
+  FirebaseResourceConfiguration
+} from '../configuration/firebase-repository.configuration';
 import { FirebaseCriteriaRequestBuilder } from '../request/firebase-criteria-request.builder';
 import { BeforeFirebaseFindAllEvent } from './event/before-firebase-find-all.event';
 import { AfterFirebaseFindAllEvent } from './event/after-firebase-find-all.event';
@@ -36,6 +39,7 @@ import { BeforeFirebaseUpdateEvent } from './event/before-firebase-update.event'
 import { AfterFirebaseUpdateEvent } from './event/after-firebase-update.event';
 import { BeforeFirebasePatchEvent } from './event/before-firebase-patch.event';
 import { AfterFirebasePatchEvent } from './event/after-firebase-patch.event';
+import { Inject, Type } from '@angular/core';
 
 /**
  * @ignore
@@ -56,8 +60,14 @@ export class FirebaseRepository<T, K = string> extends AbstractRepository<T> imp
   PatchRepository {
 
   public constructor(requestManager: RequestManager,
-                     driver: FirebaseRepositoryDriver) {
-    super(requestManager, driver);
+                     driver: FirebaseRepositoryDriver,
+                     @Inject(FIREBASE_REPOSITORY_CONFIGURATION)
+                       configuration: ResourceConfiguration) {
+    super(requestManager, driver, configuration);
+  }
+
+  protected getResourceConfiguration(resourceType: Type<any>, configuration: ResourceConfiguration): ResourceConfiguration {
+    return null; // FIXME @RMA
   }
 
   public findAll<R = Page<T>>(query?: any): Observable<R> {
@@ -141,9 +151,5 @@ export class FirebaseRepository<T, K = string> extends AbstractRepository<T> imp
         data
       }))))
     );
-  }
-
-  protected getResourceContextKey(): string {
-    return FIREBASE_RESOURCE_METADATA_KEY;
   }
 }

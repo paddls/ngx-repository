@@ -1,6 +1,6 @@
 import { HttpRepositoryDriver } from '../driver/http-repository.driver';
 import { Observable, of } from 'rxjs';
-import { cloneDeep, first } from 'lodash';
+import { cloneDeep, first, merge } from 'lodash';
 import {
   AbstractRepository,
   CreateRepository,
@@ -10,14 +10,18 @@ import {
   FindOneRepository,
   getIdFromObject,
   IdQuery,
+  IdResponseProcessor,
   InternalEvent,
   Page,
+  PageResponseProcessor,
   PatchRepository,
   PublisherService,
   Repository,
   RequestManager,
+  ResourceConfiguration,
   ResponseBuilder,
-  UpdateRepository
+  UpdateRepository,
+  VoidResponseProcessor
 } from '@witty-services/ngx-repository';
 import { HTTP_RESOURCE_METADATA_KEY } from '../decorator/http-resource.decorator';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
@@ -39,10 +43,34 @@ import { AfterHttpPatchEvent } from './event/after-http-patch.event';
 import { HTTP_LIVE_RESOURCE_METADATA_KEY } from '../decorator/http-live-resource.decorator';
 import { refreshOn } from '@witty-services/rxjs-common';
 import { OnHttpResourceChange } from '../decorator/on-http-resource-change.decorator';
+import { Inject, Type } from '@angular/core';
+import { createHttpRepositoryConfiguration } from '../configuration/context/http-repository-context.configuration';
+import { HTTP_REPOSITORY_CONFIGURATION } from '../configuration/http-repository.configuration';
 
 @Repository(null, {
   request: HttpRequestBuilder,
-  responseBuilder: ResponseBuilder.withParams()
+  responseBuilder: ResponseBuilder.withParams(),
+  findAll: {
+    responseBuilder: ResponseBuilder.withParams({
+      postResponseProcessors: [
+        PageResponseProcessor
+      ]
+    })
+  },
+  create: {
+    responseBuilder: ResponseBuilder.withParams({
+      postResponseProcessors: [
+        IdResponseProcessor
+      ]
+    })
+  },
+  write: {
+    responseBuilder: ResponseBuilder.withParams({
+      postResponseProcessors: [
+        VoidResponseProcessor
+      ]
+    })
+  }
 })
 export class HttpRepository<T, K> extends AbstractRepository<T> implements FindAllRepository,
   FindOneRepository,
@@ -55,30 +83,28 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
   private onWrite$: Observable<InternalEvent>;
 
   public constructor(requestManager: RequestManager,
-                     driver: HttpRepositoryDriver) {
-    super(requestManager, driver);
+                     driver: HttpRepositoryDriver,
+                     @Inject(HTTP_REPOSITORY_CONFIGURATION)
+                       configuration: ResourceConfiguration) {
+    super(requestManager, driver, configuration);
 
     if (this.isLiveResource()) {
       OnHttpResourceChange({
-        type: () => this.repositoryConfiguration.resourceType(),
+        type: () => this.resourceType,
         actions: ['write']
       })(this, 'onWrite$');
     }
   }
 
-  private isLiveResource(): boolean {
-    return Reflect.getMetadata(HTTP_LIVE_RESOURCE_METADATA_KEY, this.repositoryConfiguration.resourceType()) === true;
-  }
-
   public findAll<R = Page<T>>(query?: any): Observable<R> {
     PublisherService.getInstance().publish(new BeforeHttpFindAllEvent(cloneDeep({
-      type: this.repositoryConfiguration.resourceType(),
+      type: this.resourceType,
       query
     })));
 
     let findAll$: Observable<R> = this.execute(null, query, ['findAll', 'read']).pipe(
       tap((data: R) => PublisherService.getInstance().publish(new AfterHttpFindAllEvent(cloneDeep({
-        type: this.repositoryConfiguration.resourceType(),
+        type: this.resourceType,
         query,
         data
       }))))
@@ -93,14 +119,14 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
 
   public findOne<R = T>(query?: any): Observable<R> {
     PublisherService.getInstance().publish(new BeforeHttpFindOneEvent(cloneDeep({
-      type: this.repositoryConfiguration.resourceType(),
+      type: this.resourceType,
       query
     })));
 
     let findOne$: Observable<R> = this.execute(null, query, ['findOne', 'read']).pipe(
       map((result: any) => first(result) || null),
       tap((data: R) => PublisherService.getInstance().publish(new AfterHttpFindOneEvent(cloneDeep({
-        type: this.repositoryConfiguration.resourceType(),
+        type: this.resourceType,
         query,
         data
       }))))
@@ -132,14 +158,14 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
 
   public findById<R = T, ID = K>(id: ID, query?: any): Observable<R> {
     PublisherService.getInstance().publish(new BeforeHttpFindByIdEvent(cloneDeep({
-      type: this.repositoryConfiguration.resourceType(),
+      type: this.resourceType,
       id,
       query
     })));
 
     let findById$: Observable<R> = this.execute(null, new IdQuery(id, query), ['findById', 'read']).pipe(
       tap((data: R) => PublisherService.getInstance().publish(new AfterHttpFindByIdEvent(cloneDeep({
-        type: this.repositoryConfiguration.resourceType(),
+        type: this.resourceType,
         id,
         query,
         data
@@ -170,14 +196,14 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
 
   public create<O = T, R = K>(object: O, query?: any): Observable<R> {
     PublisherService.getInstance().publish(new BeforeHttpCreateEvent(cloneDeep({
-      type: this.repositoryConfiguration.resourceType(),
+      type: this.resourceType,
       object,
       query
     })));
 
     return this.execute(object, query, ['create', 'write']).pipe(
       tap((data: R) => PublisherService.getInstance().publish(new AfterHttpCreateEvent(cloneDeep({
-        type: this.repositoryConfiguration.resourceType(),
+        type: this.resourceType,
         object,
         query,
         data
@@ -187,14 +213,14 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
 
   public delete<O = T, R = void>(object: O, query?: any): Observable<R> {
     PublisherService.getInstance().publish(new BeforeHttpDeleteEvent(cloneDeep({
-      type: this.repositoryConfiguration.resourceType(),
+      type: this.resourceType,
       object,
       query
     })));
 
     return this.execute(object, query, ['delete', 'write']).pipe(
       tap((data: R) => PublisherService.getInstance().publish(new AfterHttpDeleteEvent(cloneDeep({
-        type: this.repositoryConfiguration.resourceType(),
+        type: this.resourceType,
         object,
         query,
         data
@@ -204,14 +230,14 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
 
   public update<O = T, R = void>(object: O, query?: any): Observable<R> {
     PublisherService.getInstance().publish(new BeforeHttpUpdateEvent(cloneDeep({
-      type: this.repositoryConfiguration.resourceType(),
+      type: this.resourceType,
       object,
       query
     })));
 
     return this.execute(object, query, ['update', 'write']).pipe(
       tap((data: R) => PublisherService.getInstance().publish(new AfterHttpUpdateEvent(cloneDeep({
-        type: this.repositoryConfiguration.resourceType(),
+        type: this.resourceType,
         object,
         query,
         data
@@ -221,14 +247,14 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
 
   public patch<O = T, R = void>(object: O, query?: any): Observable<R> {
     PublisherService.getInstance().publish(new BeforeHttpPatchEvent(cloneDeep({
-      type: this.repositoryConfiguration.resourceType(),
+      type: this.resourceType,
       object,
       query
     })));
 
     return this.execute(object, query, ['patch', 'write']).pipe(
       tap((data: R) => PublisherService.getInstance().publish(new AfterHttpPatchEvent(cloneDeep({
-        type: this.repositoryConfiguration.resourceType(),
+        type: this.resourceType,
         object,
         query,
         data
@@ -236,8 +262,13 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
     );
   }
 
-  protected getResourceContextKey(): string {
-    return HTTP_RESOURCE_METADATA_KEY;
+  protected getResourceConfiguration(resourceType: Type<any>, configuration: ResourceConfiguration): ResourceConfiguration {
+    const config: ResourceConfiguration = merge({}, configuration, Reflect.getMetadata(HTTP_RESOURCE_METADATA_KEY, resourceType));
+
+    return createHttpRepositoryConfiguration(config);
   }
 
+  private isLiveResource(): boolean {
+    return Reflect.getMetadata(HTTP_LIVE_RESOURCE_METADATA_KEY, this.resourceType) === true;
+  }
 }

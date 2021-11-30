@@ -1,23 +1,14 @@
 import 'reflect-metadata';
 
 import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
-import { HttpRepositoryBuilder } from './repository/http-repository.builder';
 import { HttpClientModule } from '@angular/common/http';
-import {
-  getRepositoryContextConfiguration,
-  Repository,
-  REPOSITORY_BUILDER_TOKEN
-} from '@witty-services/ngx-repository';
+import { REPOSITORY_BUILDER_TOKEN } from '@witty-services/ngx-repository';
 import { HttpRepositoryDriver } from './driver/http-repository.driver';
 import { HttpRequestBuilder } from './request/http-request.builder';
-import { HttpRepositoryConfiguration } from './configuration/http-repository.configuration';
-import { HttpRepository } from './repository/http.repository';
-import { merge } from 'lodash';
-import {
-  createHttpRepositoryConfiguration,
-  HttpRepositoryContextConfiguration
-} from './configuration/context/http-repository-context.configuration';
+import { HttpRepositoryContextConfiguration } from './configuration/context/http-repository-context.configuration';
 import { LogExecuteHttpRequestEventListener } from './driver/listener/log-execute-http-request-event.listener';
+import { HttpRepositoryBuilder } from './repository/http-repository.builder';
+import { HTTP_REPOSITORY_CONFIGURATION } from './configuration/http-repository.configuration';
 
 const PROVIDERS: Provider[] = [
   HttpRepositoryBuilder,
@@ -51,13 +42,13 @@ export interface NgxHttpRepositoryModuleConfiguration {
 export class NgxHttpRepositoryModule {
 
   public static forRoot(config: NgxHttpRepositoryModuleConfiguration = { debug: false }): ModuleWithProviders<NgxHttpRepositoryModule> {
-    if (config.configuration) {
-      const defaultConfiguration: HttpRepositoryConfiguration = getRepositoryContextConfiguration(HttpRepository).defaultConfiguration;
+    const providers: Provider[] = [
+      {
+        provide: HTTP_REPOSITORY_CONFIGURATION,
+        useValue: config ? config.configuration || {} : {} // TODO @RMA simplify when typescript 4
+      }
+    ];
 
-      Repository(null, merge({}, defaultConfiguration, createHttpRepositoryConfiguration(config.configuration)))(HttpRepository);
-    }
-
-    const providers: Provider[] = [];
     if (config.debug) {
       providers.push(LogExecuteHttpRequestEventListener);
     }

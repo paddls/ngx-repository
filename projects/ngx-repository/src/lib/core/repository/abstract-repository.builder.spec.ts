@@ -5,22 +5,23 @@ import { AbstractRepositoryBuilder } from './abstract-repository.builder';
 import { Observable } from 'rxjs';
 import { RequestManager } from '../manager/request.manager';
 import { RepositoryDriver } from '../driver/repository.driver';
+import { ResourceConfiguration } from '../configuration/resource.configuration';
 
 class MyClass {
 }
 
 class MyRepository<T> extends AbstractRepository<T> {
 
-  public constructor(requestManager: RequestManager = null, driver: RepositoryDriver = null) {
-    super(requestManager, driver);
-  }
-
-  protected getResourceContextKey(): string {
-    return '';
+  public constructor(requestManager: RequestManager = null, driver: RepositoryDriver = null, configuration: ResourceConfiguration = {}) {
+    super(requestManager, driver, configuration);
   }
 
   public execute(body: any, query: any, configurationPaths: string[]): Observable<any> {
     return super.execute(body, query, configurationPaths);
+  }
+
+  protected getResourceConfiguration(resourceType: Type<any>, configuration: ResourceConfiguration): ResourceConfiguration {
+    return null;
   }
 
 }

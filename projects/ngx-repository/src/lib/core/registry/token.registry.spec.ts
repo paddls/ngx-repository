@@ -1,6 +1,7 @@
 import { TokenRegistry } from './token.registry';
 import { InjectionToken, Type } from '@angular/core';
 import { AbstractRepository } from '../repository/abstract-repository';
+import { ResourceConfiguration } from '../configuration/resource.configuration';
 
 class MyClass {
 
@@ -9,12 +10,11 @@ class MyClass {
 class MyRepository extends AbstractRepository<MyClass> {
 
   public constructor() {
-    super(null, null);
+    super(null, null, null);
   }
 
-
-  protected getResourceContextKey(): string {
-    return '';
+  protected getResourceConfiguration(resourceType: Type<any>, configuration: ResourceConfiguration): ResourceConfiguration {
+    return null;
   }
 }
 

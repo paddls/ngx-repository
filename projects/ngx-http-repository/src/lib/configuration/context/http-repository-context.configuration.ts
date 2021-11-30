@@ -4,12 +4,7 @@ import { HttpRepositoryParamConfiguration } from '../http-repository-param.confi
 import { get, isString, isUndefined, merge, omit } from 'lodash';
 import { HttpRepositoryFindAllParamContextConfiguration } from './http-repository-find-all-param-context.configuration';
 import { HttpRepositoryWriteParamContextConfiguration } from './http-repository-write-param-context.configuration';
-import {
-  IdResponseProcessor,
-  PageResponseProcessor,
-  ResponseBuilder,
-  VoidResponseProcessor
-} from '@witty-services/ngx-repository';
+import { IdResponseProcessor, ResponseBuilder, VoidResponseProcessor } from '@witty-services/ngx-repository';
 
 export interface HttpRepositoryContextConfiguration extends HttpRepositoryParamContextConfiguration {
   read?: HttpRepositoryParamContextConfiguration | string;
@@ -55,12 +50,6 @@ function buildFindAllParams(params: HttpRepositoryContextConfiguration, path: st
         param.pageResponseProcessor
       ]
     });
-  } else if (param.responseBuilder == null) {
-    param.responseBuilder = ResponseBuilder.withParams({
-      postResponseProcessors: [
-        PageResponseProcessor
-      ]
-    });
   }
 
   return param;
@@ -75,12 +64,6 @@ function buildCreateParams(params: HttpRepositoryContextConfiguration, path: str
         IdResponseProcessor
       ]
     });
-  } else if (param.responseBuilder == null) {
-    param.responseBuilder = ResponseBuilder.withParams({
-      postResponseProcessors: [
-        IdResponseProcessor
-      ]
-    });
   }
 
   return param;
@@ -92,12 +75,6 @@ function buildWriteParams(params: HttpRepositoryContextConfiguration, path: stri
   if (param.fullResponse != null) {
     param.responseBuilder = ResponseBuilder.withParams({
       postResponseProcessors: param.fullResponse ? [] : [
-        VoidResponseProcessor
-      ]
-    });
-  } else if (param.responseBuilder == null) {
-    param.responseBuilder = ResponseBuilder.withParams({
-      postResponseProcessors: [
         VoidResponseProcessor
       ]
     });
