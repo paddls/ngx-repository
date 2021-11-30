@@ -241,17 +241,17 @@ export class User {
 As shown in the example above, each configuration field is optional : you can define any field you want or not to have
 any configuration at all.
 
-| Field | Description | Available on `@Id()` | -- ---------------------- |
------------------------------------------------------------------------------------------------------------------ | |--
----------------------- | | `field` | Field name in JSON | Yes | `type` | Field | | type after deserialization : only
-fields with `@Id()` or `@Column()` decorator in type will be serialized | No | | | | | | | `readOnly`
-| Boolean to indicate to not send the value in json to the server | Yes | | `writeOnly`
-| | | | Boolean to indicate to ignore the field in json | Yes | | `customConverter`      | A converter to make a custom
-| | | | serialization/deserialization | No | | `denormalizeNull`      | Boolean to override global configuration to | |
-| | denormalize the column when is set to null value | Yes | | `denormalizeUndefined` | Boolean to override global | | |
-| configuration to denormalize the column when is set to undefined value | Yes | | `normalizeNull`        | Boolean to |
-| | | override global configuration to normalize the column when is set to null value | Yes | | `normalizeUndefined`   |
-| | | | Boolean to override global configuration to normalize the column when is set to undefined value | Yes | | | | |
+| Field                  | Description                                                                                                     | Available on `@Id()`   |
+|------------------------|-----------------------------------------------------------------------------------------------------------------|------------------------|
+| `field`                | Field name in JSON                                                                                              | Yes                    |
+| `type`                 | Field type after deserialization : only fields with `@Id()` or `@Column()` decorator in type will be serialized | No                     |
+| `readOnly`             | Boolean to indicate to not send the value in json to the server                                                 | Yes                    |
+| `writeOnly`            | Boolean to indicate to ignore the field in json                                                                 | Yes                    |
+| `customConverter`      | A converter to make a custom serialization/deserialization                                                      | No                     |
+| `denormalizeNull`      | Boolean to override global configuration to denormalize the column when is set to null value                    | Yes                    |
+| `denormalizeUndefined` | Boolean to override global configuration to denormalize the column when is set to undefined value               | Yes                    |
+| `normalizeNull`        | Boolean to override global configuration to normalize the column when is set to null value                      | Yes                    |
+| `normalizeUndefined`   | Boolean to override global configuration to normalize the column when is set to undefined value                 | Yes                    |
 |
 
 The `field` and `type` fields can be defined using a shorthand. For `field`, just specify a string directly in the
@@ -454,22 +454,19 @@ export class ClientQuery {
 The following table lists all the type of fields you can add to a query object and with which repository they are
 available.
 
-| Decorator | Description | Repository type | | -- ------------------------ | |--
------------------------------------------------------------------ | ---------------------------------------- | | | |
-| `@PathParam()`                                                      | Replaces path parameter with field value
-| `HttpRepository`, `FirebaseRepository`                   | | | | `@HttpQueryParam()`
-| Adds a query param to the HTTP request (eg. `/users/?name=Oscar`) | `HttpRepository`
-| | | | | `@HttpHeader()`                                                   | Adds a HTTP header to the request with
-field value | `HttpRepository`     | | | | `@FirebaseCriteria()`                                             | Adds a
-Firestore query criteria | `FirebaseRepository` | | | `@FirebaseOrderBy()`
-| Adds a `.orderBy()` clause to Firestore request | `FirebaseRepository`                                     | | | |
-| `@FirebaseLimit()`                                                | Adds a `.limit()` clause to Firestore request
-| `FirebaseRepository` | | | | `@FirebaseLimitToLast()`                                          | Adds
-a `.limitToLast()` clause to Firestore request | `FirebaseRepository` | | | | `@FirebaseStartAt()`
-| Adds a `.startAt()` query cursor to Firestore request | `FirebaseRepository` | | | | `@FirebaseStartAfter()`
-| Adds a `.startAfter()` query cursor to Firestore request | `FirebaseRepository` | | | | `@FirebaseEndAt()`
-| Adds a `.endAt()` query cursor to Firestore request | `FirebaseRepository` | | | | `@FirebaseEndBefore()`
-| Adds a `.endBefore()` query cursor to Firestore request | `FirebaseRepository` | | |
+| Decorator                | Description                                                       | Repository type                        |
+|--------------------------|-------------------------------------------------------------------|----------------------------------------|
+| `@PathParam()`           | Replaces path parameter with field value                          | `HttpRepository`, `FirebaseRepository` |
+| `@HttpQueryParam()`      | Adds a query param to the HTTP request (eg. `/users/?name=Oscar`) | `HttpRepository`                       |
+| `@HttpHeader()`          | Adds a HTTP header to the request with field value                | `HttpRepository`                       |
+| `@FirebaseCriteria()`    | Adds a Firestore query criteria                                   | `FirebaseRepository`                   |
+| `@FirebaseOrderBy()`     | Adds a `.orderBy()` clause to Firestore request                   | `FirebaseRepository`                   |
+| `@FirebaseLimit()`       | Adds a `.limit()` clause to Firestore request                     | `FirebaseRepository`                   |
+| `@FirebaseLimitToLast()` | Adds a `.limitToLast()` clause to Firestore request               | `FirebaseRepository`                   |
+| `@FirebaseStartAt()`     | Adds a `.startAt()` query cursor to Firestore request             | `FirebaseRepository`                   |
+| `@FirebaseStartAfter()`  | Adds a `.startAfter()` query cursor to Firestore request          | `FirebaseRepository`                   |
+| `@FirebaseEndAt()`       | Adds a `.endAt()` query cursor to Firestore request               | `FirebaseRepository`                   |
+| `@FirebaseEndBefore()`   | Adds a `.endBefore()` query cursor to Firestore request           | `FirebaseRepository`                   |
 
 The following example shows a query used in a `findAll()` operation on a Firebase resource.
 
@@ -690,7 +687,7 @@ export class PersonRepository extends HttpRepository<Person, string> {
   public constructor(requestManager: RequestManager,
                      driver: HttpRepositoryDriver,
                      @Inject(HTTP_REPOSITORY_CONFIGURATION)
-                             configuration: ResourceConfiguration) {
+                       configuration: ResourceConfiguration) {
     super(requestManager, driver, configuration);
   }
 
