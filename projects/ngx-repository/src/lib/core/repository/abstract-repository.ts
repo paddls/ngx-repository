@@ -22,7 +22,6 @@ export abstract class AbstractRepository<T> {
     if (!repositoryConfiguration) {
       throw new Error('There is no Resource type configuration for this repository.');
     }
-    console.log(repositoryConfiguration);
 
     const configuration: ResourceConfiguration = merge({
       responseType: repositoryConfiguration.resourceType
