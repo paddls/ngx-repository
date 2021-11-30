@@ -680,11 +680,27 @@ In specific case, you can define a custom repository like that :
 
 ```typescript
 import { Repository } from '@witty-services/ng-repository';
-import { HttpRepository } from '@witty-services/ng-http-repository';
+import { HttpRepository, HTTP_REPOSITORY_CONFIGURATION } from '@witty-services/ng-http-repository';
 
 @Injectable()
 @Repository(() => Person)
 export class PersonRepository extends HttpRepository<Person, string> {
+
+  // use global configuration
+  public constructor(requestManager: RequestManager,
+                     driver: HttpRepositoryDriver,
+                     @Inject(HTTP_REPOSITORY_CONFIGURATION)
+                             configuration: ResourceConfiguration) {
+    super(requestManager, driver, configuration);
+  }
+
+  // overide global configuration
+  public constructor(requestManager: RequestManager,
+                     driver: HttpRepositoryDriver) {
+    super(requestManager, driver, {
+      // ... my configuration here
+    });
+  }
 
   public searchByFirstName(searchedFirstName: string): Observable<Person[]> {
     // write your custom logic here
