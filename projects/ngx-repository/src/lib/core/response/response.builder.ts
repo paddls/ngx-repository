@@ -5,24 +5,14 @@ import { ConfigurationContextProvider } from '../configuration/configuration-con
 import { Injectable, Injector, Type } from '@angular/core';
 import { ResponseProcessor } from './processor/response.processor';
 import { BuilderParam } from '../configuration/resource-param.configuration';
-import { get, isFunction, isObject, merge } from 'lodash';
+import { get, isFunction, isObject } from 'lodash';
 import { BodyResponseProcessor } from './processor/body.response-processor';
 import { DenormalizeResponseProcessor } from './processor/denormalize-response.processor';
 import { PathColumnResponseProcessor } from './processor/path-column-response.processor';
 import { OriginalQueryResponseProcessor } from './processor/original-query-response.processor';
-
-export type ResponseProcessorToken = Type<ResponseProcessor> | ResponseProcessorWithParams;
-
-export interface ResponseProcessorWithParams {
-  type: Type<ResponseProcessor>;
-  params: any;
-}
-
-export interface ResponseBuilderParam {
-  preResponseProcessors?: ResponseProcessorToken[];
-  coreResponseProcessors?: ResponseProcessorToken[];
-  postResponseProcessors?: ResponseProcessorToken[];
-}
+import { ResponseBuilderParam } from './response-builder.param';
+import { ResponseProcessorWithParams } from './response-processor-with.params';
+import { ResponseProcessorToken } from './response-processor.token';
 
 @Injectable()
 export class ResponseBuilder {
@@ -31,19 +21,20 @@ export class ResponseBuilder {
   }
 
   public static withParams(params: ResponseBuilderParam = {}): BuilderParam<ResponseBuilder> {
+    const responseProcessors: ResponseProcessorToken[] = [
+      ...(params.preResponseProcessors || []),
+      ...(params.bodyResponseProcessors || [BodyResponseProcessor]),
+      DenormalizeResponseProcessor,
+      PathColumnResponseProcessor,
+      OriginalQueryResponseProcessor,
+      ...(params.postResponseProcessors || [])
+    ];
+
     return {
       builder: ResponseBuilder,
-      params: merge({}, {
-        preResponseProcessors: [
-          BodyResponseProcessor
-        ],
-        coreResponseProcessors: [
-          DenormalizeResponseProcessor,
-          PathColumnResponseProcessor,
-          OriginalQueryResponseProcessor
-        ],
-        postResponseProcessors: []
-      }, params)
+      params: {
+        responseProcessors
+      }
     };
   }
 
@@ -61,9 +52,7 @@ export class ResponseBuilder {
 
   protected getProcessors(configuration: ConfigurationContextProvider): ResponseProcessor[] {
     const responseProcessorTokens: ResponseProcessorToken[] = [
-      ...this.getParams('preResponseProcessors', configuration),
-      ...this.getParams('coreResponseProcessors', configuration),
-      ...this.getParams('postResponseProcessors', configuration)
+      ...this.getParams(configuration)
     ];
 
     return responseProcessorTokens.map((token: ResponseProcessorToken) => this.getProcessor(token));
@@ -77,11 +66,11 @@ export class ResponseBuilder {
     }
   }
 
-  protected getParams(key: keyof ResponseBuilderParam, configuration: ConfigurationContextProvider): any {
+  protected getParams(configuration: ConfigurationContextProvider): any {
     const builderParam: BuilderParam<ResponseBuilder> = configuration.findConfiguration('responseBuilder');
 
     if (isObject(builderParam)) {
-      return get(builderParam, `params.${ key }`, null);
+      return get(builderParam, `params.responseProcessors`, null);
     } else {
       return null;
     }

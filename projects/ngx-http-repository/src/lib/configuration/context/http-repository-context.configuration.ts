@@ -4,7 +4,12 @@ import { HttpRepositoryParamConfiguration } from '../http-repository-param.confi
 import { get, isString, isUndefined, merge, omit } from 'lodash';
 import { HttpRepositoryFindAllParamContextConfiguration } from './http-repository-find-all-param-context.configuration';
 import { HttpRepositoryWriteParamContextConfiguration } from './http-repository-write-param-context.configuration';
-import { IdResponseProcessor, ResponseBuilder, VoidResponseProcessor } from '@witty-services/ngx-repository';
+import {
+  IdResponseProcessor,
+  PageResponseProcessor,
+  ResponseBuilder,
+  VoidResponseProcessor
+} from '@witty-services/ngx-repository';
 
 export interface HttpRepositoryContextConfiguration extends HttpRepositoryParamContextConfiguration {
   read?: HttpRepositoryParamContextConfiguration | string;
@@ -45,11 +50,7 @@ function buildFindAllParams(params: HttpRepositoryContextConfiguration, path: st
   const param: HttpRepositoryFindAllParamContextConfiguration = buildOperationParams(params, path);
 
   if (param.pageResponseProcessor) {
-    param.responseBuilder = ResponseBuilder.withParams({
-      postResponseProcessors: [
-        param.pageResponseProcessor
-      ]
-    });
+    param.responseBuilder = PageResponseProcessor.withParams(param.pageResponseProcessor);
   }
 
   return param;

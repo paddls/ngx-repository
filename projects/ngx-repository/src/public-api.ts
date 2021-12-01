@@ -95,8 +95,11 @@ export { AfterNormalizeEvent } from './lib/normalizer/event/after-normalize.even
 export { BeforeNormalizeEvent } from './lib/normalizer/event/before-normalize.event';
 export { RepositoryNormalizer } from './lib/normalizer/repository-denormalizer';
 
-export {NgxRepositoryTestingModule} from './testing/ngx-repository-testing.module';
-export {MockRepository} from './testing/mock.repository';
+export { NgxRepositoryTestingModule } from './testing/ngx-repository-testing.module';
+export { MockRepository } from './testing/mock.repository';
 export { NgxRepositoryService } from './lib/ngx-repository.service';
 
-export {NgxSerializerService} from '@witty-services/ngx-serializer';
+export { NgxSerializerService } from '@witty-services/ngx-serializer';
+export { ResponseBuilderParam } from './lib/core/response/response-builder.param';
+export { ResponseProcessorWithParams } from './lib/core/response/response-processor-with.params';
+export { ResponseProcessorToken } from './lib/core/response/response-processor.token';

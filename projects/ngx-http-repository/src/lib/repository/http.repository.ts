@@ -1,5 +1,5 @@
 import { HttpRepositoryDriver } from '../driver/http-repository.driver';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { cloneDeep, first, merge } from 'lodash';
 import {
   AbstractRepository,
@@ -24,7 +24,7 @@ import {
   VoidResponseProcessor
 } from '@witty-services/ngx-repository';
 import { HTTP_RESOURCE_METADATA_KEY } from '../decorator/http-resource.decorator';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 import { HttpRequestBuilder } from '../request/http-request.builder';
 import { BeforeHttpFindAllEvent } from './event/before-http-find-all.event';
 import { AfterHttpFindAllEvent } from './event/after-http-find-all.event';
@@ -133,23 +133,23 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
     );
 
     if (this.isLiveResource()) {
+      let id: any = null;
       findOne$ = findOne$.pipe(
-        switchMap((data: R) => of(data).pipe(
-          refreshOn(
-            this.onWrite$.pipe(
-              filter(AfterHttpUpdateEvent.isInstanceOf),
-              filter((event: AfterHttpUpdateEvent<any, any>) => getIdFromObject(event.object) === getIdFromObject(data))
-            ),
-            this.onWrite$.pipe(
-              filter(AfterHttpPatchEvent.isInstanceOf),
-              filter((event: AfterHttpPatchEvent<any, any>) => getIdFromObject(event.object) === getIdFromObject(data))
-            ),
-            this.onWrite$.pipe(
-              filter(AfterHttpDeleteEvent.isInstanceOf),
-              filter((event: AfterHttpDeleteEvent<any, any>) => getIdFromObject(event.object) === getIdFromObject(data))
-            )
+        tap((data: R) => id = getIdFromObject(data)),
+        refreshOn(
+          this.onWrite$.pipe(
+            filter(AfterHttpUpdateEvent.isInstanceOf),
+            filter((event: AfterHttpUpdateEvent<any, any>) => getIdFromObject(event.object) === id)
+          ),
+          this.onWrite$.pipe(
+            filter(AfterHttpPatchEvent.isInstanceOf),
+            filter((event: AfterHttpPatchEvent<any, any>) => getIdFromObject(event.object) === id)
+          ),
+          this.onWrite$.pipe(
+            filter(AfterHttpDeleteEvent.isInstanceOf),
+            filter((event: AfterHttpDeleteEvent<any, any>) => getIdFromObject(event.object) === id)
           )
-        ))
+        )
       );
     }
 
