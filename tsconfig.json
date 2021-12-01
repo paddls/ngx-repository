@@ -38,5 +38,8 @@
         "dist/ngx-firebase-repository/*"
       ]
     }
+  },
+  "angularCompilerOptions": {
+    "enableIvy": false
   }
 }
