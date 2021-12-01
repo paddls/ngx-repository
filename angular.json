@@ -14,6 +14,11 @@
           "options": {
             "tsConfig": "projects/ngx-repository/tsconfig.lib.json",
             "project": "projects/ngx-repository/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-repository/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -60,7 +65,7 @@
             "main": "projects/ngx-repository-app/src/main.ts",
             "polyfills": "projects/ngx-repository-app/src/polyfills.ts",
             "tsConfig": "projects/ngx-repository-app/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "projects/ngx-repository-app/src/favicon.ico",
               "projects/ngx-repository-app/src/assets"
@@ -83,7 +88,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -92,6 +96,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -158,6 +166,11 @@
           "options": {
             "tsConfig": "projects/ngx-http-repository/tsconfig.build.json",
             "project": "projects/ngx-http-repository/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-http-repository/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -193,6 +206,11 @@
           "options": {
             "tsConfig": "projects/ngx-firebase-repository/tsconfig.build.json",
             "project": "projects/ngx-firebase-repository/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-firebase-repository/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
