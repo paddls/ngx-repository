@@ -6,24 +6,24 @@ import {
   FindByIdRepository,
   FindOneRepository,
   IdQuery,
+  IdResponseProcessor,
   Page,
+  PageResponseProcessor,
   PatchRepository,
   PublisherService,
   Repository,
   RequestManager,
   ResourceConfiguration,
   ResponseBuilder,
-  UpdateRepository
+  UpdateRepository,
+  VoidResponseProcessor
 } from '@witty-services/ngx-repository';
 import { Observable } from 'rxjs';
 import { FirebaseRequestBuilder } from '../request/firebase-request.builder';
-import { cloneDeep, first } from 'lodash';
+import { cloneDeep, first, merge } from 'lodash';
 import { map, tap } from 'rxjs/operators';
 import { FirebaseRepositoryDriver } from '../driver/firebase-repository.driver';
-import {
-  FIREBASE_REPOSITORY_CONFIGURATION,
-  FirebaseResourceConfiguration
-} from '../configuration/firebase-repository.configuration';
+import { createFirebaseRepositoryConfiguration, FIREBASE_REPOSITORY_CONFIGURATION, FirebaseResourceConfiguration } from '../configuration/firebase-repository.configuration';
 import { FirebaseCriteriaRequestBuilder } from '../request/firebase-criteria-request.builder';
 import { BeforeFirebaseFindAllEvent } from './event/before-firebase-find-all.event';
 import { AfterFirebaseFindAllEvent } from './event/after-firebase-find-all.event';
@@ -40,6 +40,7 @@ import { AfterFirebaseUpdateEvent } from './event/after-firebase-update.event';
 import { BeforeFirebasePatchEvent } from './event/before-firebase-patch.event';
 import { AfterFirebasePatchEvent } from './event/after-firebase-patch.event';
 import { Inject, Type } from '@angular/core';
+import { FIREBASE_RESOURCE_METADATA_KEY } from '../decorator/firebase-resource.decorator';
 
 /**
  * @ignore
@@ -47,7 +48,23 @@ import { Inject, Type } from '@angular/core';
 @Repository<FirebaseResourceConfiguration>(null, {
   request: FirebaseRequestBuilder,
   responseBuilder: ResponseBuilder.withParams(),
+  create: {
+    responseBuilder: ResponseBuilder.withParams({
+      postResponseProcessors: [IdResponseProcessor]
+    })
+  },
+  write: {
+    responseBuilder: ResponseBuilder.withParams({
+      postResponseProcessors: [VoidResponseProcessor]
+    })
+  },
   findAll: {
+    request: FirebaseCriteriaRequestBuilder,
+    responseBuilder: ResponseBuilder.withParams({
+      postResponseProcessors: [PageResponseProcessor]
+    })
+  },
+  findOne: {
     request: FirebaseCriteriaRequestBuilder
   }
 })
@@ -61,17 +78,12 @@ export class FirebaseRepository<T, K = string> extends AbstractRepository<T> imp
 
   public constructor(requestManager: RequestManager,
                      driver: FirebaseRepositoryDriver,
-                     @Inject(FIREBASE_REPOSITORY_CONFIGURATION)
-                       configuration: ResourceConfiguration) {
+                     @Inject(FIREBASE_REPOSITORY_CONFIGURATION) configuration: ResourceConfiguration) {
     super(requestManager, driver, configuration);
   }
 
-  protected getResourceConfiguration(resourceType: Type<any>, configuration: ResourceConfiguration): ResourceConfiguration {
-    return null; // FIXME @RMA
-  }
-
   public findAll<R = Page<T>>(query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeFirebaseFindAllEvent(cloneDeep({ query })));
+    PublisherService.getInstance().publish(new BeforeFirebaseFindAllEvent(cloneDeep({query})));
 
     return this.execute(null, query, ['findAll', 'read']).pipe(
       tap((data: R) => PublisherService.getInstance().publish(new AfterFirebaseFindAllEvent(cloneDeep({
@@ -82,7 +94,7 @@ export class FirebaseRepository<T, K = string> extends AbstractRepository<T> imp
   }
 
   public findOne<R = T>(query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeFirebaseFindOneEvent(cloneDeep({ query })));
+    PublisherService.getInstance().publish(new BeforeFirebaseFindOneEvent(cloneDeep({query})));
 
     return this.execute(null, query, ['findOne', 'read']).pipe(
       map((result: any) => first(result) || null),
@@ -94,7 +106,7 @@ export class FirebaseRepository<T, K = string> extends AbstractRepository<T> imp
   }
 
   public findById<R = T, ID = K>(id: ID, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeFirebaseFindByIdEvent(cloneDeep({ id, query })));
+    PublisherService.getInstance().publish(new BeforeFirebaseFindByIdEvent(cloneDeep({id, query})));
 
     return this.execute(null, new IdQuery(id, query), ['findById', 'read']).pipe(
       tap((data: R) => PublisherService.getInstance().publish(new AfterFirebaseFindByIdEvent(cloneDeep({
@@ -106,7 +118,7 @@ export class FirebaseRepository<T, K = string> extends AbstractRepository<T> imp
   }
 
   public create<O = T, R = K>(object: O, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeFirebaseCreateEvent(cloneDeep({ object, query })));
+    PublisherService.getInstance().publish(new BeforeFirebaseCreateEvent(cloneDeep({object, query})));
 
     return this.execute(object, query, ['create', 'write']).pipe(
       tap((data: R) => PublisherService.getInstance().publish(new AfterFirebaseCreateEvent(cloneDeep({
@@ -118,7 +130,7 @@ export class FirebaseRepository<T, K = string> extends AbstractRepository<T> imp
   }
 
   public delete<O = T, R = void>(object: O, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeFirebaseDeleteEvent(cloneDeep({ object, query })));
+    PublisherService.getInstance().publish(new BeforeFirebaseDeleteEvent(cloneDeep({object, query})));
 
     return this.execute(object, query, ['delete', 'write']).pipe(
       tap((data: R) => PublisherService.getInstance().publish(new AfterFirebaseDeleteEvent(cloneDeep({
@@ -130,7 +142,7 @@ export class FirebaseRepository<T, K = string> extends AbstractRepository<T> imp
   }
 
   public update<O = T, R = void>(object: O, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeFirebaseUpdateEvent(cloneDeep({ object, query })));
+    PublisherService.getInstance().publish(new BeforeFirebaseUpdateEvent(cloneDeep({object, query})));
 
     return this.execute(object, query, ['update', 'write']).pipe(
       tap((data: R) => PublisherService.getInstance().publish(new AfterFirebaseUpdateEvent(cloneDeep({
@@ -142,7 +154,7 @@ export class FirebaseRepository<T, K = string> extends AbstractRepository<T> imp
   }
 
   public patch<O = T, R = void>(object: O, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeFirebasePatchEvent(cloneDeep({ object, query })));
+    PublisherService.getInstance().publish(new BeforeFirebasePatchEvent(cloneDeep({object, query})));
 
     return this.execute(object, query, ['patch', 'write']).pipe(
       tap((data: R) => PublisherService.getInstance().publish(new AfterFirebasePatchEvent(cloneDeep({
@@ -151,5 +163,11 @@ export class FirebaseRepository<T, K = string> extends AbstractRepository<T> imp
         data
       }))))
     );
+  }
+
+  protected getResourceConfiguration(resourceType: Type<any>, configuration: ResourceConfiguration): ResourceConfiguration {
+    const config: ResourceConfiguration = merge({}, configuration, Reflect.getMetadata(FIREBASE_RESOURCE_METADATA_KEY, resourceType));
+
+    return createFirebaseRepositoryConfiguration(config);
   }
 }

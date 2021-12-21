@@ -10,7 +10,9 @@ export class FirebaseDocumentReferenceRepositoryResponse implements FirebaseRepo
   }
 
   public getBody(): any {
-    return this.response.id;
+    return {
+      id: this.response.id
+    };
   }
 
   public getRequest(): RepositoryRequest {

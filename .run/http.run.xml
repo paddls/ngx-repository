@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="http" type="JavaScriptTestRunnerKarma">
+    <config-file value="$PROJECT_DIR$/projects/ngx-http-repository/karma.conf.js"/>
+    <karma-options value="--browsers=ChromeHeadless"/>
+    <karma-package-dir value="$PROJECT_DIR$/node_modules/@angular/cli"/>
+    <working-directory value="$PROJECT_DIR$"/>
+    <node-interpreter value="project"/>
+    <envs/>
+    <method v="2"/>
+  </configuration>
+</component>

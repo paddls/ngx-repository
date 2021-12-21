@@ -63,3 +63,4 @@ export { FirebaseRepositoryResponse } from './lib/response/firebase-repository.r
 export { FIRESTORE_APP } from './lib/ngx-firebase-repository.module.di';
 export { NgxFirebaseRepositoryModule, NgxFirebaseRepositoryModuleConfiguration } from './lib/ngx-firebase-repository.module';
 
+// TODO @RMA rename firebase to firestore

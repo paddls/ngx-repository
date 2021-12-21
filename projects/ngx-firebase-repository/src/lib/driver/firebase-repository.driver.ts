@@ -1,39 +1,36 @@
-import {Inject, Injectable} from '@angular/core';
-import {FirebaseRepositoryRequest} from '../request/firebase-repository.request';
-import {from, Observable, throwError} from 'rxjs';
-import {PublisherService, RepositoryDriver, RepositoryResponse} from '@witty-services/ngx-repository';
-import {FIRESTORE_APP} from '../ngx-firebase-repository.module.di';
-import {catchError, map, mapTo, tap} from 'rxjs/operators';
-import {NgxFirebaseRepositoryReadRequestError} from '../error/ngx-firebase-repository-read-request.error';
-import {FirebaseCollectionRepositoryResponse} from '../response/firebase-collection-repository.response';
-import {fromRef} from './from-ref.function';
-import {FirebaseDocumentRepositoryResponse} from '../response/firebase-document-repository.response';
-import {NgxFirebaseRepositoryCreateRequestError} from '../error/ngx-firebase-repository-create-request.error';
-import {FirebaseDocumentReferenceRepositoryResponse} from '../response/firebase-document-reference-repository.response';
-import {NgxFirebaseRepositoryUpdateRequestError} from '../error/ngx-firebase-repository-update-request.error';
-import {NgxFirebaseRepositoryDeleteRequestError} from '../error/ngx-firebase-repository-delete-request.error';
-import {FirebaseEmptyRepositoryResponse} from '../response/firebase-empty-repository.response';
+import { Inject, Injectable } from '@angular/core';
+import { FirebaseRepositoryRequest } from '../request/firebase-repository.request';
+import { from, Observable, throwError } from 'rxjs';
+import { PublisherService, RepositoryDriver, RepositoryResponse } from '@witty-services/ngx-repository';
+import { FIRESTORE_APP } from '../ngx-firebase-repository.module.di';
+import { catchError, map, mapTo, tap } from 'rxjs/operators';
+import { NgxFirebaseRepositoryReadRequestError } from '../error/ngx-firebase-repository-read-request.error';
+import { FirebaseCollectionRepositoryResponse } from '../response/firebase-collection-repository.response';
+import { fromRef } from './from-ref.function';
+import { FirebaseDocumentRepositoryResponse } from '../response/firebase-document-repository.response';
+import { NgxFirebaseRepositoryCreateRequestError } from '../error/ngx-firebase-repository-create-request.error';
+import { FirebaseDocumentReferenceRepositoryResponse } from '../response/firebase-document-reference-repository.response';
+import { NgxFirebaseRepositoryUpdateRequestError } from '../error/ngx-firebase-repository-update-request.error';
+import { NgxFirebaseRepositoryDeleteRequestError } from '../error/ngx-firebase-repository-delete-request.error';
+import { FirebaseEmptyRepositoryResponse } from '../response/firebase-empty-repository.response';
 import firebase from 'firebase';
-import {FirebaseCriteriaRepositoryRequest} from '../request/firebase-criteria-repository.request';
-import {BeforeExecuteFirebaseRequestEvent} from './event/before-execute-firebase-request.event';
-import {FirebaseRepositoryResponse} from '../response/firebase-repository.response';
+import { FirebaseCriteriaRepositoryRequest } from '../request/firebase-criteria-repository.request';
+import { BeforeExecuteFirebaseRequestEvent } from './event/before-execute-firebase-request.event';
+import { FirebaseRepositoryResponse } from '../response/firebase-repository.response';
+import { AfterExecuteFirebaseRequestEvent } from './event/after-execute-firebase-request.event';
+import { cloneDeep } from 'lodash';
 import Firestore = firebase.firestore.Firestore;
 import QuerySnapshot = firebase.firestore.QuerySnapshot;
 import DocumentData = firebase.firestore.DocumentData;
 import Query = firebase.firestore.Query;
 import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
 import DocumentReference = firebase.firestore.DocumentReference;
-import {AfterExecuteFirebaseRequestEvent} from './event/after-execute-firebase-request.event';
-import { cloneDeep } from 'lodash';
 
 // @dynamic
 @Injectable()
 export class FirebaseRepositoryDriver implements RepositoryDriver {
 
-  private readonly firestore: Firestore;
-
-  public constructor(@Inject(FIRESTORE_APP) firestore: Firestore) {
-    this.firestore = firestore;
+  public constructor(@Inject(FIRESTORE_APP) private readonly firestore: Firestore) {
   }
 
   public execute(request: FirebaseRepositoryRequest): Observable<FirebaseRepositoryResponse> {
@@ -74,7 +71,10 @@ export class FirebaseRepositoryDriver implements RepositoryDriver {
     }
 
     return obs$.pipe(
-      tap((response: FirebaseRepositoryResponse) => PublisherService.getInstance().publish(new AfterExecuteFirebaseRequestEvent(cloneDeep({request, response}))))
+      tap((response: FirebaseRepositoryResponse) => PublisherService.getInstance().publish(new AfterExecuteFirebaseRequestEvent(cloneDeep({
+        request,
+        response
+      }))))
     );
   }
 

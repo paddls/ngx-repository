@@ -1,8 +1,4 @@
-import {
-  Repository,
-  REPOSITORY_METADATA_KEY,
-  RESOURCE_CONFIGURATION_METADATA_KEY
-} from '../decorator/repository.decorator';
+import { Repository, REPOSITORY_METADATA_KEY, RESOURCE_CONFIGURATION_METADATA_KEY } from '../decorator/repository.decorator';
 import { Type } from '@angular/core';
 import { AbstractRepository } from './abstract-repository';
 import { ConfigurationProvider } from '../configuration/configuration.provider';
@@ -45,9 +41,6 @@ export abstract class AbstractRepositoryBuilder implements RepositoryBuilder {
     const defaultConfiguration: ResourceConfiguration = {
       responseType: () => resourceType
     };
-
-    // FIXME @RMA add configuration for firebase
-    // FIXME @RMA test live resource
 
     @Repository(() => resourceType, defaultConfiguration)
     class RepositoryImpl extends repositoryType {
