@@ -31,8 +31,6 @@ export interface FirebaseResourceConfiguration extends FirebaseRepositoryParamCo
 }
 
 export function createFirebaseRepositoryConfiguration(params: ResourceConfiguration): FirebaseResourceConfiguration {
-  console.log(1.5, params['path']);
-
   return {
     findById: buildOperationParams(params, ['read', 'findById']),
     findOne: buildOperationParams(params, ['read', 'findOne']),
