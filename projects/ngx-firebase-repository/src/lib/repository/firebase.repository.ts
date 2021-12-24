@@ -78,7 +78,7 @@ export class FirebaseRepository<T, K = string> extends AbstractRepository<T> imp
 
   public constructor(requestManager: RequestManager,
                      driver: FirebaseRepositoryDriver,
-                     @Inject(FIREBASE_REPOSITORY_CONFIGURATION) configuration: ResourceConfiguration) {
+                     @Inject(FIREBASE_REPOSITORY_CONFIGURATION) configuration: ResourceConfiguration = {}) {
     super(requestManager, driver, configuration);
   }
 

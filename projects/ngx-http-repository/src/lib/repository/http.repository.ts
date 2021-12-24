@@ -85,7 +85,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
   public constructor(requestManager: RequestManager,
                      driver: HttpRepositoryDriver,
                      @Inject(HTTP_REPOSITORY_CONFIGURATION)
-                       configuration: ResourceConfiguration) {
+                       configuration: ResourceConfiguration = {}) {
     super(requestManager, driver, configuration);
 
     if (this.isLiveResource()) {

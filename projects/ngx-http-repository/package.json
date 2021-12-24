@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/witty-services/ngx-repository/issues"
   },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
   "homepage": "https://github.com/witty-services/ngx-repository#readme"
 }
