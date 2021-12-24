@@ -13,18 +13,12 @@ import { FirebaseDocumentReferenceRepositoryResponse } from '../response/firebas
 import { NgxFirebaseRepositoryUpdateRequestError } from '../error/ngx-firebase-repository-update-request.error';
 import { NgxFirebaseRepositoryDeleteRequestError } from '../error/ngx-firebase-repository-delete-request.error';
 import { FirebaseEmptyRepositoryResponse } from '../response/firebase-empty-repository.response';
-import firebase from 'firebase';
 import { FirebaseCriteriaRepositoryRequest } from '../request/firebase-criteria-repository.request';
 import { BeforeExecuteFirebaseRequestEvent } from './event/before-execute-firebase-request.event';
 import { FirebaseRepositoryResponse } from '../response/firebase-repository.response';
 import { AfterExecuteFirebaseRequestEvent } from './event/after-execute-firebase-request.event';
 import { cloneDeep } from 'lodash';
-import Firestore = firebase.firestore.Firestore;
-import QuerySnapshot = firebase.firestore.QuerySnapshot;
-import DocumentData = firebase.firestore.DocumentData;
-import Query = firebase.firestore.Query;
-import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
-import DocumentReference = firebase.firestore.DocumentReference;
+import { addDoc, collection, deleteDoc, doc, DocumentReference, DocumentSnapshot, Firestore, Query, QuerySnapshot, setDoc, updateDoc } from 'firebase/firestore';
 
 // @dynamic
 @Injectable()
@@ -67,7 +61,7 @@ export class FirebaseRepositoryDriver implements RepositoryDriver {
         break;
 
       default:
-        throw new Error(`Operation not supported (${ request.operation })`);
+        throw new Error(`Operation not supported (${request.operation})`);
     }
 
     return obs$.pipe(
@@ -79,7 +73,7 @@ export class FirebaseRepositoryDriver implements RepositoryDriver {
   }
 
   public findById(request: FirebaseRepositoryRequest): Observable<RepositoryResponse> {
-    return fromRef<DocumentSnapshot>(this.firestore.doc(request.path.value)).pipe(
+    return fromRef<DocumentSnapshot>(doc(this.firestore, request.path.value)).pipe(
       catchError((err: any) => {
         if (err.name === 'FirebaseError') {
           return throwError(new NgxFirebaseRepositoryReadRequestError(request, err));
@@ -92,10 +86,10 @@ export class FirebaseRepositoryDriver implements RepositoryDriver {
   }
 
   public create(request: FirebaseRepositoryRequest): Observable<RepositoryResponse> {
-    if (request.path.id != null && request.path.id.value != null) { // TODO @RMA upgrade to typescript 4
-      const documentRef: DocumentReference = this.firestore.doc(request.path.value);
+    if (request?.path?.id?.value != null) {
+      const documentRef: DocumentReference = doc(this.firestore, request.path.value);
 
-      return from(documentRef.set(request.body)).pipe(
+      return from(setDoc(documentRef, request.body)).pipe(
         mapTo(documentRef),
         catchError((err: any) => {
           if (err.name === 'FirebaseError') {
@@ -107,7 +101,7 @@ export class FirebaseRepositoryDriver implements RepositoryDriver {
         map((response: DocumentReference) => new FirebaseDocumentReferenceRepositoryResponse(response, request))
       );
     } else {
-      return from(this.firestore.collection(request.path.value).add(request.body)).pipe(
+      return from(addDoc(collection(this.firestore, request.path.value), request.body)).pipe(
         catchError((err: any) => {
           if (err.name === 'FirebaseError') {
             return throwError(new NgxFirebaseRepositoryCreateRequestError(null, err));
@@ -121,7 +115,7 @@ export class FirebaseRepositoryDriver implements RepositoryDriver {
   }
 
   public update(request: FirebaseRepositoryRequest): Observable<RepositoryResponse> {
-    return from(this.firestore.doc(request.path.value).update(request.body)).pipe(
+    return from(updateDoc(doc(this.firestore, request.path.value), request.body)).pipe(
       catchError((err: any) => {
         if (err.name === 'FirebaseError') {
           return throwError(new NgxFirebaseRepositoryUpdateRequestError(request, err));
@@ -134,7 +128,7 @@ export class FirebaseRepositoryDriver implements RepositoryDriver {
   }
 
   public delete(request: FirebaseRepositoryRequest): Observable<RepositoryResponse> {
-    return from(this.firestore.doc(request.path.value).delete()).pipe(
+    return from(deleteDoc(doc(this.firestore, request.path.value))).pipe(
       catchError((err: any) => {
         if (err.name === 'FirebaseError') {
           return throwError(new NgxFirebaseRepositoryDeleteRequestError(request, err));
@@ -153,7 +147,7 @@ export class FirebaseRepositoryDriver implements RepositoryDriver {
 
     const query: Query = (request as FirebaseCriteriaRepositoryRequest).getQuery(this.firestore);
 
-    return fromRef<QuerySnapshot<DocumentData>>(query).pipe(
+    return fromRef<QuerySnapshot>(query).pipe(
       catchError((err: any) => {
         if (err.name === 'FirebaseError') {
           return throwError(new NgxFirebaseRepositoryReadRequestError(request, err));
@@ -161,7 +155,7 @@ export class FirebaseRepositoryDriver implements RepositoryDriver {
           return throwError(err);
         }
       }),
-      map((response: QuerySnapshot<DocumentData>) => new FirebaseCollectionRepositoryResponse(response, request))
+      map((response: QuerySnapshot) => new FirebaseCollectionRepositoryResponse(response, request))
     );
   }
 }

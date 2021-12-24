@@ -8,9 +8,8 @@ import { FirebaseNormalizer } from './normalizer/firebase.normalizer';
 import { FirebaseRepositoryDriver } from './driver/firebase-repository.driver';
 import { FirebaseRequestBuilder } from './request/firebase-request.builder';
 import { FirebaseCriteriaRequestBuilder } from './request/firebase-criteria-request.builder';
-import firebase from 'firebase';
 import { LogExecuteFirebaseRequestEventListener } from './driver/listener/log-execute-firebase-request-event.listener';
-import Firestore = firebase.firestore.Firestore;
+import { Firestore } from 'firebase/firestore';
 
 const MODULE_PROVIDERS: Provider[] = [
   FirebaseRepositoryBuilder,

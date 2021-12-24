@@ -1,22 +1,13 @@
 import { Observable, of } from 'rxjs';
-import {
-  AfterNormalizeEvent,
-  BeforeNormalizeEvent,
-  ConfigurationContextProvider,
-  Path,
-  PublisherService,
-  RequestBuilder,
-  RequestManagerContext
-} from '@witty-services/ngx-repository';
+import { AfterNormalizeEvent, BeforeNormalizeEvent, ConfigurationContextProvider, Path, PublisherService, RequestBuilder, RequestManagerContext } from '@witty-services/ngx-repository';
 import { FirebaseRepositoryRequest } from './firebase-repository.request';
 import { Inject, Injectable } from '@angular/core';
-import firebase from 'firebase';
 import { FIRESTORE_APP } from '../ngx-firebase-repository.module.di';
 import { FirebaseRepositoryParamConfiguration } from '../configuration/firebase-repository-param.configuration';
 import { FirebaseOperation } from './firebase.operation';
 import { FirebaseNormalizer } from '../normalizer/firebase.normalizer';
 import { cloneDeep } from 'lodash';
-import Firestore = firebase.firestore.Firestore;
+import { Firestore } from 'firebase/firestore';
 
 // @dynamic
 @Injectable()

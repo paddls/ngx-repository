@@ -2,9 +2,8 @@ import { Injectable, Type } from '@angular/core';
 import { InjectRepository, NgxRepositoryModule } from '@witty-services/ngx-repository';
 import { TestBed } from '@angular/core/testing';
 import { FirebaseRepository, FIRESTORE_APP, NgxFirebaseRepositoryModule } from '../../public-api';
-import firebase from 'firebase';
 import { FirestoreMock } from './firestore-mock.spec';
-import Firestore = firebase.firestore.Firestore;
+import { Firestore } from 'firebase/firestore';
 
 export interface RepositoryContext<T> {
   repository: FirebaseRepository<T, string>;

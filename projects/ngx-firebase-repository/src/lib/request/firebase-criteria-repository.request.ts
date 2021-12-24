@@ -1,10 +1,8 @@
 import { Path } from '@witty-services/ngx-repository';
-import firebase from 'firebase';
 import { FirebaseCriteria, FirebaseRequestOrderBy, FirebaseRequestQuery } from './firebase.criteria';
 import { FirebaseOperation } from './firebase.operation';
 import { FirebaseRepositoryRequest } from './firebase-repository.request';
-import Query = firebase.firestore.Query;
-import Firestore = firebase.firestore.Firestore;
+import { collection, CollectionReference, endAt, endBefore, Firestore, limit, limitToLast, orderBy, Query, query, QueryConstraint, startAfter, startAt, where } from 'firebase/firestore';
 
 export class FirebaseCriteriaRepositoryRequest extends FirebaseRepositoryRequest {
 
@@ -16,44 +14,45 @@ export class FirebaseCriteriaRepositoryRequest extends FirebaseRepositoryRequest
   }
 
   public getQuery(firestore: Firestore): Query {
-    let query: Query = firestore.collection(this.path.value);
+    const collectionReference: CollectionReference = collection(firestore, this.path.value);
+    const queries: QueryConstraint[] = [];
 
     (this.criteria.queries || []).forEach((firebaseRequestQuery: FirebaseRequestQuery) => {
-      query = query.where(
+      queries.push(where(
         firebaseRequestQuery.field,
         firebaseRequestQuery.operator,
         firebaseRequestQuery.value
-      );
+      ));
     });
 
     (this.criteria.orderBys || []).forEach((firebaseRequestOrderBy: FirebaseRequestOrderBy) => {
-      query = query.orderBy(firebaseRequestOrderBy.fieldPath, firebaseRequestOrderBy.directionStr);
+      queries.push(orderBy(firebaseRequestOrderBy.fieldPath, firebaseRequestOrderBy.directionStr));
     });
 
     if (this.criteria.startAt != null) {
-      query = query.startAt(...this.criteria.startAt);
+      queries.push(startAt(...this.criteria.startAt));
     }
 
     if (this.criteria.startAfter != null) {
-      query = query.startAfter(...this.criteria.startAfter);
+      queries.push(startAfter(...this.criteria.startAfter));
     }
 
     if (this.criteria.endAt != null) {
-      query = query.endAt(...this.criteria.endAt);
+      queries.push(endAt(...this.criteria.endAt));
     }
 
     if (this.criteria.endBefore != null) {
-      query = query.endBefore(...this.criteria.endBefore);
+      queries.push(endBefore(...this.criteria.endBefore));
     }
 
     if (this.criteria.limit != null) {
-      query = query.limit(this.criteria.limit);
+      queries.push(limit(this.criteria.limit));
     }
 
     if (this.criteria.limitToLast != null) {
-      query = query.limitToLast(this.criteria.limitToLast);
+      queries.push(limitToLast(this.criteria.limitToLast));
     }
 
-    return query;
+    return query(collectionReference, ...queries);
   }
 }

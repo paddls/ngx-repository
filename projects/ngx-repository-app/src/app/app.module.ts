@@ -14,13 +14,12 @@ import { MyPageResponseProcessor } from './module/@core/processor/my-page-respon
 import { ClientComponent } from './component/client/client.component';
 import { NgxHttpRepositoryModule } from '@witty-services/ngx-http-repository';
 import { FIRESTORE_APP, NgxFirebaseRepositoryModule } from '@witty-services/ngx-firebase-repository';
-import firebase from 'firebase';
+import { initializeApp } from 'firebase/app';
 import { BookService } from './module/@core/service/book.service';
-import Firestore = firebase.firestore.Firestore;
-import initializeApp = firebase.initializeApp;
+import { Firestore, getFirestore } from 'firebase/firestore';
 
 export function createFirestore(): Firestore {
-  return initializeApp({
+  return getFirestore(initializeApp({
     apiKey: 'AIzaSyDSd6EXdQWaWcBMxbTYp-kFAV3zxNu-ArM',
     authDomain: 'ngx-repository.firebaseapp.com',
     databaseURL: 'https://ngx-repository.firebaseio.com',
@@ -29,7 +28,7 @@ export function createFirestore(): Firestore {
     messagingSenderId: '352664344689',
     appId: '1:352664344689:web:20ec56387616cba621e3d0',
     measurementId: 'G-0RD9MTX3PB'
-  }).firestore();
+  }));
 }
 
 @NgModule({

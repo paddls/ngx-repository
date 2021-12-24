@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="test:ngx-firebase-repository" type="js.build_tools.npm">
+    <package-json value="$PROJECT_DIR$/package.json"/>
+    <command value="run"/>
+    <scripts>
+      <script value="test:ci:ngx-firebase-repository"/>
+    </scripts>
+    <node-interpreter value="project"/>
+    <envs/>
+    <method v="2"/>
+  </configuration>
+</component>

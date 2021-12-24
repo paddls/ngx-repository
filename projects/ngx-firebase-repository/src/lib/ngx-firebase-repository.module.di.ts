@@ -1,6 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import firebase from 'firebase';
-import Firestore = firebase.firestore.Firestore;
+import { Firestore } from 'firebase/firestore';
 
 /** @ignore */
 export const FIRESTORE_APP: InjectionToken<Firestore> = new InjectionToken<Firestore>('FIRESTORE_APP');

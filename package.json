@@ -41,7 +41,7 @@
     "@witty-services/ts-serializer": "^1.0.5",
     "angular-in-memory-web-api": "^0.10.0",
     "chance": "^1.1.4",
-    "firebase": "^8.3.1",
+    "firebase": "^9.6.1",
     "object-hash": "^2.0.3",
     "rxjs": "~6.6.7",
     "tslib": "^2.0.0",
