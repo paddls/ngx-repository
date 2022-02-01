@@ -2,12 +2,25 @@ import { Injectable, Type } from '@angular/core';
 import { InjectRepository, NgxRepositoryModule } from '@witty-services/ngx-repository';
 import { TestBed } from '@angular/core/testing';
 import { FirebaseRepository, FIRESTORE_APP, NgxFirebaseRepositoryModule } from '../../public-api';
-import { FirestoreMock } from './firestore-mock.spec';
-import { Firestore } from 'firebase/firestore';
+import { Firestore, getFirestore } from 'firebase/firestore';
+import { initializeApp } from 'firebase/app';
 
 export interface RepositoryContext<T> {
   repository: FirebaseRepository<T, string>;
-  firestore: FirestoreMock;
+  firestore: Firestore;
+}
+
+export function createFirestore(): Firestore {
+  return getFirestore(initializeApp({
+    apiKey: 'AIzaSyDSd6EXdQWaWcBMxbTYp-kFAV3zxNu-ArM',
+    authDomain: 'ngx-repository.firebaseapp.com',
+    databaseURL: 'https://ngx-repository.firebaseio.com',
+    projectId: 'ngx-repository',
+    storageBucket: 'ngx-repository.appspot.com',
+    messagingSenderId: '352664344689',
+    appId: '1:352664344689:web:20ec56387616cba621e3d0',
+    measurementId: 'G-0RD9MTX3PB'
+  }));
 }
 
 export function mockCollection(firestore: Firestore, value: any): void {
@@ -38,14 +51,14 @@ export function initializeRepository<T>(bookImpl: Type<T>, providers: any[] = []
       BookServiceImpl,
       {
         provide: FIRESTORE_APP,
-        useClass: FirestoreMock
+        useFactory: createFirestore
       },
       ...providers
     ]
   });
 
   return {
-    repository: TestBed.get(BookServiceImpl).repository,
-    firestore: TestBed.get(FIRESTORE_APP)
+    repository: TestBed.inject(BookServiceImpl).repository,
+    firestore: TestBed.inject(FIRESTORE_APP)
   };
 }

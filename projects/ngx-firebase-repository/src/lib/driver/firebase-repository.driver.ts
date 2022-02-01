@@ -18,7 +18,8 @@ import { BeforeExecuteFirebaseRequestEvent } from './event/before-execute-fireba
 import { FirebaseRepositoryResponse } from '../response/firebase-repository.response';
 import { AfterExecuteFirebaseRequestEvent } from './event/after-execute-firebase-request.event';
 import { cloneDeep } from 'lodash';
-import { addDoc, collection, deleteDoc, doc, DocumentReference, DocumentSnapshot, Firestore, Query, QuerySnapshot, setDoc, updateDoc } from 'firebase/firestore';
+import { DocumentReference, DocumentSnapshot, Firestore, Query, QuerySnapshot } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, setDoc, updateDoc } from '../firestore';
 
 // @dynamic
 @Injectable()
@@ -73,7 +74,7 @@ export class FirebaseRepositoryDriver implements RepositoryDriver {
   }
 
   public findById(request: FirebaseRepositoryRequest): Observable<RepositoryResponse> {
-    return fromRef<DocumentSnapshot>(doc(this.firestore, request.path.value)).pipe(
+    return fromRef(doc(this.firestore, request.path.value)).pipe(
       catchError((err: any) => {
         if (err.name === 'FirebaseError') {
           return throwError(new NgxFirebaseRepositoryReadRequestError(request, err));

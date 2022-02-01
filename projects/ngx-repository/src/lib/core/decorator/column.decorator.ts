@@ -1,5 +1,6 @@
 import {JSON_PROPERTY_METADATA_KEY, JsonProperty} from '@witty-services/ts-serializer';
 import {ColumnContext} from '../configuration/context/column-context.configuration';
+import {SerializeType} from '@witty-services/ts-serializer/dist/common';
 
 /**
  * @ignore
@@ -30,7 +31,7 @@ export const COLUMNS_METADATA_KEY: string = JSON_PROPERTY_METADATA_KEY;
  *
  * @param columnContext Decorator configuration
  */
-export function Column<T, R>(columnContext?: ColumnContext<T, R>|string|(() => new(...args: any[]) => T)): any {
+export function Column<T = any, R = any>(columnContext?: ColumnContext<T, R>|string|(() => SerializeType<T>|SerializeType<any>[])): any {
   return (target: any, propertyKey: string) => {
     JsonProperty(columnContext)(target, propertyKey);
   };

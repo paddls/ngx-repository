@@ -1,4 +1,5 @@
-import {Converter, JsonPropertyContext, JsonPropertyContextConfiguration} from '@witty-services/ts-serializer';
+import {ConstructorFunction, Converter, JsonPropertyContext, JsonPropertyContextConfiguration} from '@witty-services/ts-serializer';
+import {SerializeType} from '@witty-services/ts-serializer/dist/common';
 
 /**
  * Describe advanced configuration for Column decorator.
@@ -13,7 +14,7 @@ export interface ColumnContext<T, R> extends JsonPropertyContext<T, R> {
   /**
    * Field type after deserialization.
    */
-  type?: () => new(...args: any[]) => T;
+  type?: () => SerializeType<T>|SerializeType<T>[];
 
   /**
    * Boolean to indicate to not send the value in json to the server.
@@ -28,7 +29,7 @@ export interface ColumnContext<T, R> extends JsonPropertyContext<T, R> {
   /**
    * A converter to make a custom serialization/deserialization
    */
-  customConverter?: () => new(...args: any[]) => Converter<T, R>;
+  customConverter?: () => ConstructorFunction<Converter<T, R>>;
 
   /**
    * Boolean to override global configuration to denormalize the column when is set to null value

@@ -1,7 +1,6 @@
-import firebase from 'firebase';
-import { FirebaseRepositoryResponse } from './firebase-repository.response';
-import { RepositoryRequest } from '@witty-services/ngx-repository';
-import DocumentReference = firebase.firestore.DocumentReference;
+import {FirebaseRepositoryResponse} from './firebase-repository.response';
+import {RepositoryRequest} from '@witty-services/ngx-repository';
+import {DocumentReference} from 'firebase/firestore';
 
 export class FirebaseDocumentReferenceRepositoryResponse implements FirebaseRepositoryResponse {
 

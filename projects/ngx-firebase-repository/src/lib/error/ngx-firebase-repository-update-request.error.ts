@@ -1,7 +1,6 @@
-import firebase from 'firebase';
-import { NgxFirebaseRepositoryError } from './ngx-firebase-repository.error';
-import { FirebaseRepositoryRequest } from '../request/firebase-repository.request';
-import FirebaseError = firebase.FirebaseError;
+import {NgxFirebaseRepositoryError} from './ngx-firebase-repository.error';
+import {FirebaseRepositoryRequest} from '../request/firebase-repository.request';
+import {FirebaseError} from 'firebase/app';
 
 
 export class NgxFirebaseRepositoryUpdateRequestError extends NgxFirebaseRepositoryError {

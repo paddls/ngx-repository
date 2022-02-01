@@ -1,4 +1,4 @@
-import { Converter } from '@witty-services/ts-serializer';
+import {ConstructorFunction, Converter} from '@witty-services/ts-serializer';
 
 export interface IdContext {
 
@@ -40,5 +40,5 @@ export interface IdContext {
   /**
    * A converter to make a custom serialization/deserialization
    */
-  customConverter?: () => new(...args: any[]) => Converter<any, any>;
+  customConverter?: () => ConstructorFunction<Converter<any, any>>;
 }
