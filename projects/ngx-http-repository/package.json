@@ -1,10 +1,10 @@
 {
   "name": "@witty-services/ngx-http-repository",
-  "version": "3.0.0-rc.14",
+  "version": "3.0.0-rc.15",
   "peerDependencies": {
     "@angular/common": ">=8.0.3-rc.0 || >=8.0.3",
     "@angular/core": ">=8.0.3-rc.0 || >=8.0.3",
-    "@witty-services/ngx-repository": "^3.0.0"
+    "@witty-services/ngx-repository": "^3.0.0-rc.0 || ^3.0.0"
   },
   "repository": {
     "type": "git",

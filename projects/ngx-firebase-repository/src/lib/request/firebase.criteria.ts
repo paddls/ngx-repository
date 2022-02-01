@@ -3,7 +3,6 @@ import {
   getDeepQueryMetadataValues,
   PropertyKeyConfiguration
 } from '@witty-services/ngx-repository';
-import firebase from 'firebase';
 import { FIREBASE_CRITERIA_METADATA_KEY } from '../decorator/firebase-criteria.decorator';
 import { FIREBASE_ORDER_BY_METADATA_KEY } from '../decorator/firebase-order-by.decorator';
 import { FIREBASE_START_AT_METADATA_KEY } from '../decorator/firebase-start-at.decorator';
@@ -17,10 +16,7 @@ import {
   FirebaseOrderByContext,
   FirebaseOrderByContextConfiguration
 } from '../configuration/context/firebase-order-by-context.configuration';
-import OrderByDirection = firebase.firestore.OrderByDirection;
-import FieldPath = firebase.firestore.FieldPath;
-import WhereFilterOp = firebase.firestore.WhereFilterOp;
-
+import {FieldPath, OrderByDirection, WhereFilterOp} from 'firebase/firestore';
 
 export interface FirebaseRequestQuery {
 
@@ -70,54 +66,60 @@ export class FirebaseCriteria {
     }
   }
 
-
   protected getQueries<K>(query: any): FirebaseRequestQuery[] {
     const queries: FirebaseRequestQuery[] = [];
-    const firebaseCriterias: FirebaseCriteriaContextConfiguration[] = getDeepQueryMetadataValues(FIREBASE_CRITERIA_METADATA_KEY, query);
-    firebaseCriterias.forEach((firebaseCriteria: FirebaseCriteriaContextConfiguration) => {
-      if (query[firebaseCriteria.propertyKey] == null) {
-        return;
-      }
 
-      queries.push({
-        field: firebaseCriteria.field,
-        operator: firebaseCriteria.operator,
-        value: query[firebaseCriteria.propertyKey]
+    if (query) {
+      const firebaseCriterias: FirebaseCriteriaContextConfiguration[] = getDeepQueryMetadataValues(FIREBASE_CRITERIA_METADATA_KEY, query);
+
+      firebaseCriterias.forEach((firebaseCriteria: FirebaseCriteriaContextConfiguration) => {
+        if (query[firebaseCriteria.propertyKey] == null) {
+          return;
+        }
+
+        queries.push({
+          field: firebaseCriteria.field,
+          operator: firebaseCriteria.operator,
+          value: query[firebaseCriteria.propertyKey]
+        });
       });
-    });
+    }
 
     return queries;
   }
 
   protected getOrderBy<K>(query: any): FirebaseRequestOrderBy[] {
     const orderBys: FirebaseRequestOrderBy[] = [];
-    const firebaseOrderBy: FirebaseOrderByContextConfiguration = getDeepQueryMetadataValue(FIREBASE_ORDER_BY_METADATA_KEY, query);
-    if (!firebaseOrderBy || query[firebaseOrderBy.propertyKey] == null) {
-      return orderBys;
-    }
 
-    const value: string | FirebaseOrderByContext | (string | FirebaseOrderByContext)[] = query[firebaseOrderBy.propertyKey];
-
-    function addOrderBy(v: string | FirebaseOrderByContext): void {
-      let sort: FirebaseOrderByContext;
-      if (!(v instanceof Object)) {
-        sort = {
-          field: v as string
-        };
-      } else {
-        sort = v as FirebaseOrderByContext;
+    if (query) {
+      const firebaseOrderBy: FirebaseOrderByContextConfiguration = getDeepQueryMetadataValue(FIREBASE_ORDER_BY_METADATA_KEY, query);
+      if (!firebaseOrderBy || query[firebaseOrderBy.propertyKey] == null) {
+        return orderBys;
       }
 
-      orderBys.push({
-        fieldPath: sort.field,
-        directionStr: sort.directionStr
-      });
-    }
+      const value: string | FirebaseOrderByContext | (string | FirebaseOrderByContext)[] = query[firebaseOrderBy.propertyKey];
 
-    if (Array.isArray(value)) {
-      value.forEach(addOrderBy);
-    } else {
-      addOrderBy(value);
+      function addOrderBy(v: string | FirebaseOrderByContext): void {
+        let sort: FirebaseOrderByContext;
+        if (!(v instanceof Object)) {
+          sort = {
+            field: v as string
+          };
+        } else {
+          sort = v as FirebaseOrderByContext;
+        }
+
+        orderBys.push({
+          fieldPath: sort.field,
+          directionStr: sort.directionStr
+        });
+      }
+
+      if (Array.isArray(value)) {
+        value.forEach(addOrderBy);
+      } else {
+        addOrderBy(value);
+      }
     }
 
     return orderBys;

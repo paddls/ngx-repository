@@ -1,11 +1,10 @@
-import { Column, ColumnContext } from '@witty-services/ngx-repository';
-import { FbTimestampConverter } from '../converter/fb-timestamp.converter';
-import firebase from 'firebase';
+import {Column, ColumnContext} from '@witty-services/ngx-repository';
+import {FbTimestampConverter} from '../converter/fb-timestamp.converter';
 import {
   FirebaseCreatedAtContext,
   FirebaseCreatedAtContextConfiguration
 } from '../configuration/context/firebase-created-at-context.configuration';
-import Timestamp = firebase.firestore.Timestamp;
+import {Timestamp} from 'firebase/firestore';
 
 /**
  * @ignore

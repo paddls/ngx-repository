@@ -1,4 +1,4 @@
-import { Column, Id, Page } from '@witty-services/ngx-repository';
+/*import { Column, Id, Page } from '@witty-services/ngx-repository';
 import { FirebaseRepository, FirebaseResource } from '../public-api';
 import { expectCollectionAdd, expectDocumentDelete, expectDocumentUpdate, testFirestoreRepository } from './util/test-firestore-repository.spec';
 
@@ -493,3 +493,4 @@ describe('Column', () => {
   it('should serialize sub types');
   it('should serialize field path');
 });
+*/

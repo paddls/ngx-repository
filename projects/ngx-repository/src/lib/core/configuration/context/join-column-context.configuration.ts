@@ -1,12 +1,13 @@
 import {Type} from '@angular/core';
 import {AbstractRepository} from '../../repository/abstract-repository';
 import {PropertyKeyConfiguration} from '../../common/decorator/property-key-configuration';
+import {SerializeType} from '@witty-services/ts-serializer/dist/common';
 
 export interface JoinColumnContext<T> {
 
   attribute: string;
 
-  resourceType: () => new(...args: any[]) => T;
+  resourceType: () => SerializeType<T>;
 
   repository?: () => Type<AbstractRepository<T>>;
 }

@@ -223,7 +223,13 @@
           "options": {
             "main": "projects/ngx-firebase-repository/src/test.ts",
             "tsConfig": "projects/ngx-firebase-repository/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-firebase-repository/karma.conf.js"
+            "karmaConfig": "projects/ngx-firebase-repository/karma.conf.js",
+            "fileReplacements": [
+              {
+                "replace": "projects/ngx-firebase-repository/src/lib/firestore.ts",
+                "with": "projects/ngx-firebase-repository/src/e2e/util/firestore-mock.spec.ts"
+              }
+            ]
           }
         },
         "lint": {
