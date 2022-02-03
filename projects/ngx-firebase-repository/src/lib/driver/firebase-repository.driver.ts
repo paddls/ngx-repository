@@ -19,7 +19,8 @@ import { FirebaseRepositoryResponse } from '../response/firebase-repository.resp
 import { AfterExecuteFirebaseRequestEvent } from './event/after-execute-firebase-request.event';
 import { cloneDeep } from 'lodash';
 import { DocumentReference, DocumentSnapshot, Firestore, Query, QuerySnapshot } from 'firebase/firestore';
-import { addDoc, collection, deleteDoc, doc, setDoc, updateDoc } from '../firestore';
+import { addDoc, collection, deleteDoc, doc, setDoc, updateDoc } from '../firestore-functions';
+import { log } from '@witty-services/rxjs-common';
 
 // @dynamic
 @Injectable()

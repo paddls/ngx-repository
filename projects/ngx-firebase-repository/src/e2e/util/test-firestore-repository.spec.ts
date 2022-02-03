@@ -2,7 +2,7 @@ import { Type } from '@angular/core';
 import { FirebaseRepository } from '../../lib/repository/firebase.repository';
 import { forOwn } from 'lodash';
 import { initializeRepository, RepositoryContext } from './repository-intializer.spec';
-import { addDoc, deleteDoc, updateDoc } from '../../lib/firestore';
+import { addDoc, deleteDoc, updateDoc } from '../../lib/firestore-functions';
 import { CollectionReference, DocumentReference } from 'firebase/firestore';
 import { FirestoreMock } from './firestore-mock.spec';
 
@@ -17,6 +17,13 @@ export interface FirestoreTestContext {
 
 export function testFirestoreRepository(tests: { [key: string]: Partial<FirestoreTestContext> }): void {
   forOwn(tests, (context: Partial<FirestoreTestContext>, name: string) => {
+    beforeEach(() => {
+      FirestoreMock.reset();
+      (addDoc as any).calls.reset();
+      (updateDoc as any).calls.reset();
+      (deleteDoc as any).calls.reset();
+    });
+
     it(name, async () => {
       const {repository}: RepositoryContext<any> = initializeRepository(context.entity);
 
@@ -34,18 +41,18 @@ export function testFirestoreRepository(tests: { [key: string]: Partial<Firestor
 
 export function expectCollectionAdd<T>(value: any): (reference: CollectionReference<T>) => void {
   return (reference: CollectionReference<T>) => {
-    expect(addDoc).toHaveBeenCalledWith(reference, value);
+    expect(addDoc as any).toHaveBeenCalledOnceWith({type: 'collection', ...reference}, value);
   };
 }
 
 export function expectDocumentUpdate<T>(value: any): (reference: DocumentReference<T>) => void {
   return (reference: DocumentReference<T>) => {
-    expect(updateDoc as any).toHaveBeenCalledWith(reference, value);
+    expect(updateDoc as any).toHaveBeenCalledOnceWith({type: 'document', ...reference}, value);
   };
 }
 
 export function expectDocumentDelete<T>(): (reference: DocumentReference<T>) => void {
   return (reference: DocumentReference<T>) => {
-    expect(deleteDoc).toHaveBeenCalledWith(reference);
+    expect(deleteDoc as any).toHaveBeenCalledOnceWith({type: 'document', ...reference});
   };
 }
