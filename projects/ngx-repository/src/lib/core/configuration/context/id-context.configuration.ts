@@ -41,4 +41,9 @@ export interface IdContext {
    * A converter to make a custom serialization/deserialization
    */
   customConverter?: () => ConstructorFunction<Converter<any, any>>;
+
+  /**
+   * Groups configure to normalize the column
+   */
+  groups?: string | string[];
 }

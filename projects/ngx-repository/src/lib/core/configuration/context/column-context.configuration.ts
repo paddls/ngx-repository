@@ -50,6 +50,11 @@ export interface ColumnContext<T, R> extends JsonPropertyContext<T, R> {
    * Boolean to override global configuration to normalize the column when is set to undefined value
    */
   normalizeUndefined?: boolean;
+
+  /**
+   * Groups configure to normalize the column
+   */
+  groups?: string | string[];
 }
 
 /**

@@ -9,6 +9,8 @@ export interface SubCollectionContext<T> {
   params?: (model: any, query?: any) => any;
 
   repository?: () => Type<AbstractRepository<T>>;
+
+  groups?: string | string[];
 }
 
 /**
