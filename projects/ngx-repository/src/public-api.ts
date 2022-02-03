@@ -22,6 +22,7 @@ export {JoinColumn} from './lib/core/decorator/join-column.decorator';
 export {PathColumn} from './lib/core/decorator/path-column.decorator';
 export {PathParam} from './lib/core/decorator/path-param.decorator';
 export {Repository, getRepositoryContextConfiguration} from './lib/core/decorator/repository.decorator';
+export {ResourceTypeSupports, RESOURCE_TYPE_SUPPORTS_METADATA_KEY} from './lib/core/decorator/resource-type-supports.decorator';
 export {SoftCache} from './lib/core/decorator/soft-cache.decorator';
 export {HardCache} from './lib/core/decorator/hard-cache.decorator';
 export { SubCollection } from './lib/core/decorator/sub-collection.decorator';
