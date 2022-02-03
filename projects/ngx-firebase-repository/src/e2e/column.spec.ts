@@ -1,4 +1,4 @@
-/*import { Column, Id, Page } from '@witty-services/ngx-repository';
+import { Column, Id, Page } from '@witty-services/ngx-repository';
 import { FirebaseRepository, FirebaseResource } from '../public-api';
 import { expectCollectionAdd, expectDocumentDelete, expectDocumentUpdate, testFirestoreRepository } from './util/test-firestore-repository.spec';
 
@@ -64,11 +64,11 @@ describe('Column', () => {
       patch: {
         entity: Book,
         request: (repository: FirebaseRepository<any>) => repository.patch(new Book({
-          id: '1',
-          name: 'Book 1'
+          id: '2',
+          name: 'Book 2'
         })).toPromise(),
-        expectedPath: '/books/1',
-        expectedRequest: expectDocumentUpdate({id: '1', name: 'Book 1'}),
+        expectedPath: '/books/2',
+        expectedRequest: expectDocumentUpdate({id: '2', name: 'Book 2'}),
         expectedResponse: void 0
       },
       delete: {
@@ -493,4 +493,3 @@ describe('Column', () => {
   it('should serialize sub types');
   it('should serialize field path');
 });
-*/

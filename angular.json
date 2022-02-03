@@ -226,8 +226,8 @@
             "karmaConfig": "projects/ngx-firebase-repository/karma.conf.js",
             "fileReplacements": [
               {
-                "replace": "projects/ngx-firebase-repository/src/lib/firestore.ts",
-                "with": "projects/ngx-firebase-repository/src/e2e/util/firestore-mock.spec.ts"
+                "replace": "projects/ngx-firebase-repository/src/lib/firestore-functions.ts",
+                "with": "projects/ngx-firebase-repository/src/e2e/util/firestore-functions.spec.ts"
               }
             ]
           }
