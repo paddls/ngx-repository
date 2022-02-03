@@ -10,6 +10,8 @@ export interface JoinColumnContext<T> {
   resourceType: () => SerializeType<T>;
 
   repository?: () => Type<AbstractRepository<T>>;
+
+  groups?: string | string[];
 }
 
 /**
