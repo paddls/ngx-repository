@@ -37,8 +37,8 @@ export class LibrariesComponent {
 
   public client$: Observable<Client[]>;
 
-  public constructor(private libraryService: LibraryService,
-                     private personService: PersonService,
+  public constructor(private readonly libraryService: LibraryService,
+                     private readonly personService: PersonService,
                      private readonly clientService: ClientService) {
     this.libraries$ = this.currentPageSubject.pipe(
       switchMap((currentPage: number) => libraryService.findAll(currentPage, 5)),

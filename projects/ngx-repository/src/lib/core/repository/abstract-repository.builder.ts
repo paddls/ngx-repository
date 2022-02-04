@@ -16,7 +16,7 @@ export abstract class AbstractRepositoryBuilder implements RepositoryBuilder {
 
   public abstract supports<T>(resourceType: Type<T>, repositoryType: Type<AbstractRepository<T>>): boolean;
 
-  public getRepository<T>(resourceType: Type<T>, repositoryType?: Type<AbstractRepository<T>>): AbstractRepository<T> {
+  public getRepository<T>(resourceType: Type<T>): AbstractRepository<T> {
     if (!Reflect.hasMetadata(this.resourceContextKey, resourceType)) {
       throw new Error(`${ resourceType.name } is not a valid resource.`);
     }

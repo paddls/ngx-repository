@@ -66,7 +66,7 @@ export class FirestoreCriteria {
     }
   }
 
-  protected getQueries<K>(query: any): FirestoreRequestQuery[] {
+  protected getQueries(query: any): FirestoreRequestQuery[] {
     const queries: FirestoreRequestQuery[] = [];
 
     if (query) {
@@ -88,7 +88,7 @@ export class FirestoreCriteria {
     return queries;
   }
 
-  protected getOrderBy<K>(query: any): FirestoreRequestOrderBy[] {
+  protected getOrderBy(query: any): FirestoreRequestOrderBy[] {
     const orderBys: FirestoreRequestOrderBy[] = [];
 
     if (query) {
@@ -125,43 +125,43 @@ export class FirestoreCriteria {
     return orderBys;
   }
 
-  protected getStartAt<K>(query: any): any[] {
+  protected getStartAt(query: any): any[] {
     const values: any[] = this.getArrayValuesFromPropertyKey(query, FIRESTORE_START_AT_METADATA_KEY);
 
     return values || null;
   }
 
-  protected getStartAfter<K>(query: any): any[] {
+  protected getStartAfter(query: any): any[] {
     const values: any[] = this.getArrayValuesFromPropertyKey(query, FIRESTORE_START_AFTER_METADATA_KEY);
 
     return values || null;
   }
 
-  protected getEndAt<K>(query: any): any[] {
+  protected getEndAt(query: any): any[] {
     const values: any[] = this.getArrayValuesFromPropertyKey(query, FIRESTORE_END_AT_METADATA_KEY);
 
     return values || null;
   }
 
-  protected getEndBefore<K>(query: any): any[] {
+  protected getEndBefore(query: any): any[] {
     const values: any[] = this.getArrayValuesFromPropertyKey(query, FIRESTORE_END_BEFORE_METADATA_KEY);
 
     return values || null;
   }
 
-  protected getLimit<K>(query: any): number {
+  protected getLimit(query: any): number {
     const value: number = this.getValueFromPropertyKey(query, FIRESTORE_LIMIT_METADATA_KEY);
 
     return value || null;
   }
 
-  protected getLimitToLast<K>(query: any): number {
+  protected getLimitToLast(query: any): number {
     const value: number = this.getValueFromPropertyKey(query, FIRESTORE_LIMIT_TO_LAST_METADATA_KEY);
 
     return value || null;
   }
 
-  protected getArrayValuesFromPropertyKey<K>(query: any, metadataKey: string): any[] {
+  protected getArrayValuesFromPropertyKey(query: any, metadataKey: string): any[] {
     const propertyKeyConfiguration: PropertyKeyConfiguration = getDeepQueryMetadataValue(metadataKey, query);
     if (!propertyKeyConfiguration || query[propertyKeyConfiguration.propertyKey] == null) {
       return null;
@@ -174,7 +174,7 @@ export class FirestoreCriteria {
     }
   }
 
-  protected getValueFromPropertyKey<K>(query: any, metadataKey: string): any {
+  protected getValueFromPropertyKey(query: any, metadataKey: string): any {
     const propertyKeyConfiguration: PropertyKeyConfiguration = getDeepQueryMetadataValue(metadataKey, query);
     if (!propertyKeyConfiguration || query[propertyKeyConfiguration.propertyKey] == null) {
       return null;

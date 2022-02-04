@@ -34,7 +34,7 @@ export class NgxRepositoryTestingModule {
     };
   }
 
-  public static getRepository<T>(resourceType: Type<T>, repositoryType: Type<AbstractRepository<T>>): MockRepository {
+  public static getRepository<T>(resourceType: Type<T>, repositoryType: Type<AbstractRepository<T>>): MockRepository<T> {
     return NgxRepositoryTestingModule.testRepositoryBuilder.getRepository(resourceType, repositoryType) as any;
   }
 }

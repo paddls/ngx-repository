@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import { FirestoreRepository } from '../../lib/repository/firestoreRepository';
+import { FirestoreRepository } from '../../lib/repository/firestore.repository';
 import { forOwn } from 'lodash';
 import { initializeRepository, RepositoryContext } from './repository-intializer.spec';
 import { addDoc, deleteDoc, updateDoc } from '../../lib/firestore-functions';

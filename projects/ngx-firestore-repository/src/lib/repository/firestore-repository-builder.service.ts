@@ -1,6 +1,6 @@
 import { Injectable, Type } from '@angular/core';
 import { FIRESTORE_RESOURCE_METADATA_KEY } from '../decorator/firestore-resource.decorator';
-import { FirestoreRepository } from './firestoreRepository';
+import { FirestoreRepository } from './firestore.repository';
 import { AbstractRepository, AbstractRepositoryBuilder, RequestManager } from '@witty-services/ngx-repository';
 import { FirestoreRepositoryDriver } from '../driver/firestore-repository-driver.service';
 

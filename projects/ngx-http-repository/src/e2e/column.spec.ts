@@ -886,11 +886,11 @@ describe('Column', () => {
 
   describe('should use custom converter', () => {
     class MyConverter implements Converter<any, any> {
-      public fromJson(value: any): any {
+      public fromJson(): any {
         return 'input';
       }
 
-      public toJson(value: any): any {
+      public toJson(): any {
         return 'output';
       }
     }

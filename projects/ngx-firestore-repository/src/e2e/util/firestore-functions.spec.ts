@@ -31,7 +31,7 @@ export const setDoc: any = jasmine.createSpy().and.returnValue(of(void 0).toProm
 
 export const deleteDoc: any = jasmine.createSpy().and.returnValue(of(void 0).toPromise());
 
-export function onSnapshot<T>(reference: any,
+export function onSnapshot(reference: any,
                               options: SnapshotListenOptions,
                               observer: Observer<any>): Unsubscribe {
   return FirestoreMock.get(reference.path)

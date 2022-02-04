@@ -7,13 +7,13 @@ class MyClass {
 
 }
 
-class MyRepository extends AbstractRepository<MyClass> {
+class MyRepository<T> extends AbstractRepository<T> {
 
   public constructor() {
     super(null, null, null);
   }
 
-  protected getResourceConfiguration(resourceType: Type<any>, configuration: ResourceConfiguration): ResourceConfiguration {
+  protected getResourceConfiguration(): ResourceConfiguration {
     return null;
   }
 }
@@ -28,7 +28,7 @@ describe('TokenRegistry', () => {
 
     it('should add token if not existing into registry', () => {
       const resourceType: Type<MyClass> = MyClass;
-      const repositoryType: Type<MyRepository> = MyRepository;
+      const repositoryType: Type<MyRepository<MyClass>> = MyRepository;
 
       expect(TokenRegistry.tokenRegistry.has(repositoryType)).toBe(false);
       TokenRegistry.addTokenToRegistry(resourceType, repositoryType);
@@ -38,7 +38,7 @@ describe('TokenRegistry', () => {
 
     it('should add a new token behind the repository type and resource type into registry', () => {
       const resourceType: Type<MyClass> = MyClass;
-      const repositoryType: Type<MyRepository> = MyRepository;
+      const repositoryType: Type<MyRepository<MyClass>> = MyRepository;
       const instance: InjectionToken<MyClass> = new InjectionToken<MyClass>(resourceType.name);
       const map: Map<Type<any>, InjectionToken<any>> = new Map();
       TokenRegistry.tokenRegistry.set(repositoryType, map);
@@ -53,13 +53,13 @@ describe('TokenRegistry', () => {
 
     it('should return null is token is not into registry', () => {
       const resourceType: Type<MyClass> = MyClass;
-      const repositoryType: Type<MyRepository> = MyRepository;
+      const repositoryType: Type<MyRepository<MyClass>> = MyRepository;
       expect(TokenRegistry.findToken(resourceType, repositoryType)).toBeNull();
     });
 
     it('should return the token behind repository type and resource type into registry', () => {
       const resourceType: Type<MyClass> = MyClass;
-      const repositoryType: Type<MyRepository> = MyRepository;
+      const repositoryType: Type<MyRepository<MyClass>> = MyRepository;
       const instance: InjectionToken<MyClass> = new InjectionToken<MyClass>(repositoryType.name);
       const map: Map<Type<any>, InjectionToken<any>> = new Map();
 

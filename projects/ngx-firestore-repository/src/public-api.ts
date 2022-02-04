@@ -44,10 +44,10 @@ export { AfterFirestoreUpdateEvent } from './lib/repository/event/after-firestor
 export { BeforeFirestoreUpdateEvent } from './lib/repository/event/before-firestore-update.event';
 export { AfterFirestorePatchEvent } from './lib/repository/event/after-firestore-patch.event';
 export { BeforeFirestorePatchEvent } from './lib/repository/event/before-firestore-patch.event';
-export { FirestoreRepository } from './lib/repository/firestoreRepository';
+export { FirestoreRepository } from './lib/repository/firestore.repository';
 export { FirestoreRepositoryBuilder } from './lib/repository/firestore-repository-builder.service';
 
-export * from './lib/request/firestoreCriteria';
+export * from './lib/request/firestore.criteria';
 export { FirestoreOperation } from './lib/request/firestore.operation';
 export { FirestoreCriteriaRepositoryRequest } from './lib/request/firestore-criteria-repository.request';
 export { FirestoreCriteriaRequestBuilder } from './lib/request/firestore-criteria-request-builder.service';

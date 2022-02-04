@@ -13,7 +13,7 @@ export abstract class AbstractRepository<T> {
 
   public readonly configurationProvider: ConfigurationProvider;
 
-  public readonly resourceType: Type<any>;
+  public readonly resourceType: Type<T>;
 
   protected constructor(protected readonly requestManager: RequestManager,
                         protected readonly driver: RepositoryDriver,
