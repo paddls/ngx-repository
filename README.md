@@ -16,11 +16,11 @@ NgxRepository allows you to easily create a strongly typed data access layer in 
 * [How to install](#how-to-install)
   * [Main module](#main-module)
   * [Http Driver](#http-driver)
-  * [Firebase Driver](#firebase-driver)
+  * [Firestore Driver](#firestore-driver)
   * [Import Modules](#import-modules)
 * [Basic usage](#basic-usage)
   * [Resource](#resource)
-    * [HttpResource and FirebaseResource](#httpresource-and-firebaseresource)
+    * [HttpResource and FirestoreResource](#httpresource-and-firestoreresource)
     * [Id and Column](#id-and-column)
   * [Repository](#repository)
 * [Id and Column configuration](#id-and-column-configuration)
@@ -61,10 +61,10 @@ After that, choose drivers and install them as follows.
 npm install --save @witty-services/ngx-http-repository
 ```
 
-### Firebase Driver
+### Firestore Driver
 
 ```shell script
-npm install --save @witty-services/ngx-firebase-repository
+npm install --save @witty-services/ngx-firestore-repository
 ```
 
 ### Import modules
@@ -74,13 +74,13 @@ To start using NgxRepository, import `NgxRepositoryModule` and the modules corre
 ```typescript
 import { NgxRepositoryModule } from '@witty-services/ngx-repository';
 import { NgxHttpRepositoryModule } from '@witty-services/ngx-http-repository';
-import { NgxFirebaseRepositoryModule } from '@witty-services/ngx-firebase-repository';
+import { NgxFirestoreRepositoryModule } from '@witty-services/ngx-firestore-repository';
 
 @NgModule({
   imports: [
     NgxRepositoryModule.forRoot(),
     NgxHttpRepositoryModule, // Http driver
-    NgxFirebaseRepositoryModule.forRoot(
+    NgxFirestoreRepositoryModule.forRoot(
       firebase.initializeApp({
         apiKey: 'TODO',
         authDomain: 'TODO',
@@ -91,7 +91,7 @@ import { NgxFirebaseRepositoryModule } from '@witty-services/ngx-firebase-reposi
         appId: 'TODO',
         measurementId: 'TODO'
       }).firestore()
-    ), // Firebase driver
+    ), // Firestore driver
   ]
 })
 export class AppModule {
@@ -108,22 +108,22 @@ to typescript decorators to start using auto-generated repositories.
 Start by creating a Typescript class for the type of resource you need to manipulate with NgxRepository. Once this is
 done, you can start annotating this class with the following decorators.
 
-#### HttpResource and FirebaseResource
+#### HttpResource and FirestoreResource
 
-First, add a `@HttpResource()` or `@FirebaseResource()` decorator (depending on which protocol you wish to use)
-on the resource class. The most basic configuration for this annotation consists in giving the HTTP or Firebase resource
+First, add a `@HttpResource()` or `@FirestoreResource()` decorator (depending on which protocol you wish to use)
+on the resource class. The most basic configuration for this annotation consists in giving the HTTP or Firestore resource
 path of the resource.
 
 ```typescript
-import { FirebaseResource } from '@witty-services/ngx-firebase-repository';
+import { FirestoreResource } from '@witty-services/ngx-firestore-repository';
 import { HttpResource } from '@witty-services/ngx-http-repository';
 
 // for Http
 @HttpResource({
   path: '/api/users'
 })
-// or for Firebase
-@FirebaseResource({
+// or for Firestore
+@FirestoreResource({
   path: '/users'
 })
 export class User {
@@ -137,7 +137,7 @@ Then, add an `@Id()` decorator on the resource id and `@Column()` decorators on 
 NgxRepository.
 
 ```typescript
-import { FirebaseResource } from '@witty-services/ngx-firebase-repository';
+import { FirestoreResource } from '@witty-services/ngx-firestore-repository';
 import { HttpResource } from '@witty-services/ngx-http-repository';
 import { Id, Column } from '@witty-services/ngx-repository';
 
@@ -145,8 +145,8 @@ import { Id, Column } from '@witty-services/ngx-repository';
 @HttpResource({
   path: '/api/users'
 })
-// or for Firebase
-@FirebaseResource({
+// or for Firestore
+@FirestoreResource({
   path: '/users'
 })
 export class User {
@@ -167,7 +167,7 @@ export class User {
 Right, now you have your resources. NgxRepository will generate all repositories on demand. You just have to inject it
 in your services using the
 `@InjectRepository()` decorator. You need to specify in the decorator context the type of your resource and the type of
-your repository(`HttpRepository`, `FirebaseRepository`...).
+your repository(`HttpRepository`, `FirestoreRepository`...).
 
 The generic types of the generated repository type are the type of the resource and the type of the resource id.
 
@@ -198,7 +198,7 @@ export class BookService {
 }
 ```
 
-Each repository of a resource made from `FirebaseDriver` or `HttpDriver` are singleton services stored in Angular
+Each repository of a resource made from `FirestoreDriver` or `HttpDriver` are singleton services stored in Angular
 Injector, so don't worry about injecting them on several services.
 
 Last but not least : NgxRepository automatically serializes and deserializes your resources between JSON and strongly
@@ -302,7 +302,7 @@ You can fetch associated resources using `JoinColumn`.
 ```typescript
 import { HttpResource } from '@witty-services/ngx-http-repository';
 import { Id, Column, JoinColumn } from '@witty-services/ngx-repository';
-import { FirebaseRepository } from '@witty-services/ngx-firebase-repository';
+import { FirestoreRepository } from '@witty-services/ngx-firestore-repository';
 
 @HttpResource({
   path: '/libraries/:libraryId/books'
@@ -318,8 +318,8 @@ export class Book {
   @Column()
   public authorId: string;
 
-  // initialize the request to get associated author, using instance attribute 'authorId' with User FirebaseRepository
-  @JoinColumn({attribute: 'authorId', resourceType: () => User, repository: () => FirebaseRepository})
+  // initialize the request to get associated author, using instance attribute 'authorId' with User FirestoreRepository
+  @JoinColumn({attribute: 'authorId', resourceType: () => User, repository: () => FirestoreRepository})
   public author$: Observable<Person>; // data will be lazy fetched on subscribe
 }
 ```
@@ -358,7 +358,7 @@ export class Book {
 
 With NgxRepository, a Query is an object holding some informations associated with the querying of one or several
 resources. You can then provide an instance of this Query as a parameter of any method available on `HttpRepository`
-or `FirebaseRepository`.
+or `FirestoreRepository`.
 
 Here is an example of a query for a `@HttpResource()` :
 
@@ -404,45 +404,45 @@ export class BookQuery {
 }
 ```
 
-And an example of a query for a `@FirebaseResource()` :
+And an example of a query for a `@FirestoreResource()` :
 
 ```typescript
 import {
-  FirebaseCriteria,
-  FirebaseEndAt,
-  FirebaseEndBefore,
-  FirebaseLimit,
-  FirebaseLimitToLast,
-  FirebaseOrderBy,
-  FirebaseOrderByContext,
-  FirebaseStartAfter,
-  FirebaseStartAt
-} from '@witty-services/ngx-firebase-repository';
+  FirestoreCriteria,
+  FirestoreEndAt,
+  FirestoreEndBefore,
+  FirestoreLimit,
+  FirestoreLimitToLast,
+  FirestoreOrderBy,
+  FirestoreOrderByContext,
+  FirestoreStartAfter,
+  FirestoreStartAt
+} from '@witty-services/ngx-firestore-repository';
 
 export class ClientQuery {
 
-  @FirebaseCriteria({field: 'lastName', operator: '=='})
+  @FirestoreCriteria({field: 'lastName', operator: '=='})
   public lastNameEqual?: string;
 
-  @FirebaseOrderBy()
-  public orderBy?: string | FirebaseOrderByContext | (FirebaseOrderByContext | string)[];
+  @FirestoreOrderBy()
+  public orderBy?: string | FirestoreOrderByContext | (FirestoreOrderByContext | string)[];
 
-  @FirebaseStartAt()
+  @FirestoreStartAt()
   public startAt?: any;
 
-  @FirebaseStartAfter()
+  @FirestoreStartAfter()
   public startAfter?: any;
 
-  @FirebaseEndAt()
+  @FirestoreEndAt()
   public endAt?: any;
 
-  @FirebaseEndBefore()
+  @FirestoreEndBefore()
   public endBefore?: any;
 
-  @FirebaseLimit()
+  @FirestoreLimit()
   public limit?: number;
 
-  @FirebaseLimitToLast()
+  @FirestoreLimitToLast()
   public limitToLast?: number;
 
   public constructor(data: Partial<ClientQuery> = {}) {
@@ -456,26 +456,26 @@ available.
 
 | Decorator                | Description                                                       | Repository type                        |
 |--------------------------|-------------------------------------------------------------------|----------------------------------------|
-| `@PathParam()`           | Replaces path parameter with field value                          | `HttpRepository`, `FirebaseRepository` |
+| `@PathParam()`           | Replaces path parameter with field value                          | `HttpRepository`, `FirestoreRepository` |
 | `@HttpQueryParam()`      | Adds a query param to the HTTP request (eg. `/users/?name=Oscar`) | `HttpRepository`                       |
 | `@HttpHeader()`          | Adds a HTTP header to the request with field value                | `HttpRepository`                       |
-| `@FirebaseCriteria()`    | Adds a Firestore query criteria                                   | `FirebaseRepository`                   |
-| `@FirebaseOrderBy()`     | Adds a `.orderBy()` clause to Firestore request                   | `FirebaseRepository`                   |
-| `@FirebaseLimit()`       | Adds a `.limit()` clause to Firestore request                     | `FirebaseRepository`                   |
-| `@FirebaseLimitToLast()` | Adds a `.limitToLast()` clause to Firestore request               | `FirebaseRepository`                   |
-| `@FirebaseStartAt()`     | Adds a `.startAt()` query cursor to Firestore request             | `FirebaseRepository`                   |
-| `@FirebaseStartAfter()`  | Adds a `.startAfter()` query cursor to Firestore request          | `FirebaseRepository`                   |
-| `@FirebaseEndAt()`       | Adds a `.endAt()` query cursor to Firestore request               | `FirebaseRepository`                   |
-| `@FirebaseEndBefore()`   | Adds a `.endBefore()` query cursor to Firestore request           | `FirebaseRepository`                   |
+| `@FirestoreCriteria()`    | Adds a Firestore query criteria                                   | `FirestoreRepository`                   |
+| `@FirestoreOrderBy()`     | Adds a `.orderBy()` clause to Firestore request                   | `FirestoreRepository`                   |
+| `@FirestoreLimit()`       | Adds a `.limit()` clause to Firestore request                     | `FirestoreRepository`                   |
+| `@FirestoreLimitToLast()` | Adds a `.limitToLast()` clause to Firestore request               | `FirestoreRepository`                   |
+| `@FirestoreStartAt()`     | Adds a `.startAt()` query cursor to Firestore request             | `FirestoreRepository`                   |
+| `@FirestoreStartAfter()`  | Adds a `.startAfter()` query cursor to Firestore request          | `FirestoreRepository`                   |
+| `@FirestoreEndAt()`       | Adds a `.endAt()` query cursor to Firestore request               | `FirestoreRepository`                   |
+| `@FirestoreEndBefore()`   | Adds a `.endBefore()` query cursor to Firestore request           | `FirestoreRepository`                   |
 
-The following example shows a query used in a `findAll()` operation on a Firebase resource.
+The following example shows a query used in a `findAll()` operation on a Firestore resource.
 
 ```typescript
 @Injectable()
 export class ClientService {
 
-  @InjectRepository({resourceType: () => Client, repository: () => FirebaseRepository})
-  private repository: FirebaseRepository<Client, string>;
+  @InjectRepository({resourceType: () => Client, repository: () => FirestoreRepository})
+  private repository: FirestoreRepository<Client, string>;
 
   public searchByLastName(searchedLastName: string): Observable<Page<Client>> {
     return this.repository.findAll(new ClientQuery({
@@ -489,7 +489,7 @@ export class ClientService {
 ## Resource configuration
 
 You can configure your resource to your needs by adding context to `@HttpResource()`
-and `@FirebaseResource()` resource decorators.
+and `@FirestoreResource()` resource decorators.
 
 > For example, you may need to specify a different path to your resource depending on
 > the operation. This can be done by using the syntax in the following example.
@@ -910,22 +910,22 @@ Here is the list of all events produced in ``NgxRepository`` :
 | `AfterHttpPatchEvent`               | `HttpRepository`                         |
 | `AfterHttpUpdateEvent`              | `HttpRepository`                         |
 | `AfterExecuteHttpRequestEvent`      | `HttpRepository`                         |
-| `BeforeExecuteFirebaseRequestEvent` | `FirebaseRepository`                     |
-| `BeforeFirebaseCreateEvent`         | `FirebaseRepository`                     |
-| `BeforeFirebaseDeleteEvent`         | `FirebaseRepository`                     |
-| `BeforeFirebaseFindAllEvent`        | `FirebaseRepository`                     |
-| `BeforeFirebaseFindByIdEvent`       | `FirebaseRepository`                     |
-| `BeforeFirebaseFindOneEvent`        | `FirebaseRepository`                     |
-| `BeforeFirebasePatchEvent`          | `FirebaseRepository`                     |
-| `BeforeFirebaseUpdateEvent`         | `FirebaseRepository`                     |
-| `AfterFirebaseCreateEvent`          | `FirebaseRepository`                     |
-| `AfterFirebaseDeleteEvent`          | `FirebaseRepository`                     |
-| `AfterFirebaseFindAllEvent`         | `FirebaseRepository`                     |
-| `AfterFirebaseFindByIdEvent`        | `FirebaseRepository`                     |
-| `AfterFirebaseFindOneEvent`         | `FirebaseRepository`                     |
-| `AfterFirebasePatchEvent`           | `FirebaseRepository`                     |
-| `AfterFirebaseUpdateEvent`          | `FirebaseRepository`                     |
-| `AfterExecuteFirebaseRequestEvent`  | `FirebaseRepository`                     |
+| `BeforeExecuteFirestoreRequestEvent` | `FirestoreRepository`                     |
+| `BeforeFirestoreCreateEvent`         | `FirestoreRepository`                     |
+| `BeforeFirestoreDeleteEvent`         | `FirestoreRepository`                     |
+| `BeforeFirestoreFindAllEvent`        | `FirestoreRepository`                     |
+| `BeforeFirestoreFindByIdEvent`       | `FirestoreRepository`                     |
+| `BeforeFirestoreFindOneEvent`        | `FirestoreRepository`                     |
+| `BeforeFirestorePatchEvent`          | `FirestoreRepository`                     |
+| `BeforeFirestoreUpdateEvent`         | `FirestoreRepository`                     |
+| `AfterFirestoreCreateEvent`          | `FirestoreRepository`                     |
+| `AfterFirestoreDeleteEvent`          | `FirestoreRepository`                     |
+| `AfterFirestoreFindAllEvent`         | `FirestoreRepository`                     |
+| `AfterFirestoreFindByIdEvent`        | `FirestoreRepository`                     |
+| `AfterFirestoreFindOneEvent`         | `FirestoreRepository`                     |
+| `AfterFirestorePatchEvent`           | `FirestoreRepository`                     |
+| `AfterFirestoreUpdateEvent`          | `FirestoreRepository`                     |
+| `AfterExecuteFirestoreRequestEvent`  | `FirestoreRepository`                     |
 
 ## Test and debug
 
@@ -998,7 +998,7 @@ You can enable debug mode by setting ``debug`` flag to ``true`` in your reposito
     BrowserModule,
     CoreModule,
     NgxRepositoryModule.forRoot(),
-    NgxFirebaseRepositoryModule.forRoot({
+    NgxFirestoreRepositoryModule.forRoot({
       debug: true
     }),
     NgxHttpRepositoryModule.forRoot({

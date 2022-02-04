@@ -3,9 +3,9 @@ import {Page, SubCollection, Column} from '@witty-services/ngx-repository';
 import {Observable} from 'rxjs';
 import {Purchase} from './purchase.model';
 import {PurchaseQuery} from '../query/purchase.query';
-import {FirebaseCreatedAt, FirebaseRepository, FirebaseResource, FirebaseUpdatedAt} from '@witty-services/ngx-firebase-repository';
+import {FirestoreCreatedAt, FirestoreRepository, FirestoreResource, FirestoreUpdatedAt} from '@witty-services/ngx-firestore-repository';
 
-@FirebaseResource({
+@FirestoreResource({
   path: '/clients'
 })
 export class Client extends Identifiable {
@@ -22,14 +22,14 @@ export class Client extends Identifiable {
   @SubCollection({
     resourceType: () => Purchase,
     params: (client: Client) => new PurchaseQuery({clientId: client.id}),
-    repository: () => FirebaseRepository
+    repository: () => FirestoreRepository
   })
   public purchases$: Observable<Page<Purchase>>;
 
-  @FirebaseCreatedAt()
+  @FirestoreCreatedAt()
   public createdAt: Date;
 
-  @FirebaseUpdatedAt()
+  @FirestoreUpdatedAt()
   public updatedAt: Date;
 
   public constructor(data: Partial<Client> = {}) {

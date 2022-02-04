@@ -5,17 +5,17 @@ import { Client } from '../model/client.model';
 import { Chance } from 'chance';
 import { Purchase } from '../model/purchase.model';
 import { ClientQuery } from '../query/client.query';
-import { FirebaseRepository } from '@witty-services/ngx-firebase-repository';
+import { FirestoreRepository } from '@witty-services/ngx-firestore-repository';
 import { PurchaseQuery } from '../query/purchase.query';
 
 @Injectable()
 export class ClientService {
 
-  @InjectRepository({ resourceType: () => Client, repository: () => FirebaseRepository })
-  private repository: FirebaseRepository<Client, string>;
+  @InjectRepository({ resourceType: () => Client, repository: () => FirestoreRepository })
+  private repository: FirestoreRepository<Client, string>;
 
-  @InjectRepository({ resourceType: () => Purchase, repository: () => FirebaseRepository })
-  private purchaseRepository: FirebaseRepository<Purchase, string>;
+  @InjectRepository({ resourceType: () => Purchase, repository: () => FirestoreRepository })
+  private purchaseRepository: FirestoreRepository<Purchase, string>;
 
   private chance: Chance.Chance = new Chance.Chance();
 

@@ -200,34 +200,34 @@
         }
       }
     },
-    "ngx-firebase-repository": {
+    "ngx-firestore-repository": {
       "projectType": "library",
-      "root": "projects/ngx-firebase-repository",
-      "sourceRoot": "projects/ngx-firebase-repository/src",
+      "root": "projects/ngx-firestore-repository",
+      "sourceRoot": "projects/ngx-firestore-repository/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/ngx-firebase-repository/tsconfig.build.json",
-            "project": "projects/ngx-firebase-repository/ng-package.json"
+            "tsConfig": "projects/ngx-firestore-repository/tsconfig.build.json",
+            "project": "projects/ngx-firestore-repository/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ngx-firebase-repository/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ngx-firestore-repository/tsconfig.lib.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ngx-firebase-repository/src/test.ts",
-            "tsConfig": "projects/ngx-firebase-repository/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-firebase-repository/karma.conf.js",
+            "main": "projects/ngx-firestore-repository/src/test.ts",
+            "tsConfig": "projects/ngx-firestore-repository/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-firestore-repository/karma.conf.js",
             "fileReplacements": [
               {
-                "replace": "projects/ngx-firebase-repository/src/lib/firestore-functions.ts",
-                "with": "projects/ngx-firebase-repository/src/e2e/util/firestore-functions.spec.ts"
+                "replace": "projects/ngx-firestore-repository/src/lib/firestore-functions.ts",
+                "with": "projects/ngx-firestore-repository/src/e2e/util/firestore-functions.spec.ts"
               }
             ]
           }
@@ -236,8 +236,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/ngx-firebase-repository/tsconfig.lib.json",
-              "projects/ngx-firebase-repository/tsconfig.spec.json"
+              "projects/ngx-firestore-repository/tsconfig.lib.json",
+              "projects/ngx-firestore-repository/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

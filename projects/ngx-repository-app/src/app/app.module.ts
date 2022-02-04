@@ -13,7 +13,7 @@ import { NgxRepositoryModule } from '@witty-services/ngx-repository';
 import { MyPageResponseProcessor } from './module/@core/processor/my-page-response.processor';
 import { ClientComponent } from './component/client/client.component';
 import { NgxHttpRepositoryModule } from '@witty-services/ngx-http-repository';
-import { FIRESTORE_APP, NgxFirebaseRepositoryModule } from '@witty-services/ngx-firebase-repository';
+import { FIRESTORE_APP, NgxFirestoreRepositoryModule } from '@witty-services/ngx-firestore-repository';
 import { initializeApp } from 'firebase/app';
 import { BookService } from './module/@core/service/book.service';
 import { Firestore, getFirestore } from 'firebase/firestore';
@@ -54,7 +54,7 @@ export function createFirestore(): Firestore {
         normalizeUndefined: false
       }
     }),
-    NgxFirebaseRepositoryModule.forRoot({
+    NgxFirestoreRepositoryModule.forRoot({
       debug: true
     }),
     NgxHttpRepositoryModule.forRoot({
