@@ -1,13 +1,6 @@
 import { HttpRepository, HttpResource } from '../public-api';
 import { Injectable } from '@angular/core';
-import {
-  Column,
-  Id,
-  Page,
-  RepositoryResponse,
-  RequestManagerContext,
-  ResponseProcessor
-} from '@witty-services/ngx-repository';
+import { Column, Id, Page, ResponseProcessor } from '@witty-services/ngx-repository';
 import { testHttpRepository } from './util/test-http-repository.spec';
 
 describe('Page', () => {
@@ -44,7 +37,7 @@ describe('Page', () => {
   describe('should override default page response processor with array body', () => {
     @Injectable()
     class MyPageResponseProcessor implements ResponseProcessor {
-      public transform(body: any, origin: RepositoryResponse, ctx: RequestManagerContext): any {
+      public transform(body: any): any {
         return Page.build(body, 1, 2, 3);
       }
     }
@@ -88,7 +81,7 @@ describe('Page', () => {
   describe('should override default page response processor with object body', () => {
     @Injectable()
     class MyPageResponseProcessor implements ResponseProcessor {
-      public transform(body: any, origin: RepositoryResponse, ctx: RequestManagerContext): any {
+      public transform(body: any): any {
         return Page.build(body.data, 1, 2, 3);
       }
     }
@@ -132,7 +125,7 @@ describe('Page', () => {
   describe('should override root module response processor', () => {
     @Injectable()
     class MyPageResponseProcessor implements ResponseProcessor {
-      public transform(body: any, origin: RepositoryResponse, ctx: RequestManagerContext): any {
+      public transform(body: any): any {
         return Page.build(body, 1, 2, 3);
       }
     }

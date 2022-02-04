@@ -7,13 +7,13 @@ class MyClass {
 
 }
 
-class MyRepository extends AbstractRepository<MyClass> {
+class MyRepository extends AbstractRepository {
 
   public constructor() {
     super(null, null, null);
   }
 
-  protected getResourceConfiguration(resourceType: Type<any>, configuration: ResourceConfiguration): ResourceConfiguration {
+  protected getResourceConfiguration(): ResourceConfiguration {
     return null;
   }
 }

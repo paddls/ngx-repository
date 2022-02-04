@@ -73,7 +73,7 @@ export class HttpRequestBuilder implements RequestBuilder {
   }
 
 
-  protected getHeaders<K>(query: any, headers: any = {}): any {
+  protected getHeaders(query: any, headers: any = {}): any {
     if (query) {
       const httpHeaders: HttpHeaderContextConfiguration[] = getDeepQueryMetadataValues(HTTP_HEADER_METADATA_KEY, query);
 

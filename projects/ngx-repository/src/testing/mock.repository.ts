@@ -22,11 +22,11 @@ export interface AllRepository extends FindByIdRepository,
 
 // @dynamic
 @Injectable()
-export class MockRepository implements AllRepository {
+export class MockRepository<T> implements AllRepository {
 
   private readonly values: { [key: string]: Subject<any> };
 
-  public constructor(public readonly resourceType: Type<any>, public readonly repositoryType: Type<AbstractRepository<any>>) {
+  public constructor(public readonly resourceType: Type<any>, public readonly repositoryType: Type<AbstractRepository<T>>) {
     this.values = {
       create: new Subject<any>(),
       update: new Subject<any>(),
@@ -38,35 +38,35 @@ export class MockRepository implements AllRepository {
     };
   }
 
-  public static filter(resourceType: Type<any>, repositoryType: Type<AbstractRepository<any>>): Predicate<MockRepository> {
-    return (repository: MockRepository) => repository.resourceType === resourceType && repository.repositoryType === repositoryType;
+  public static filter<T>(resourceType: Type<T>, repositoryType: Type<AbstractRepository<T>>): Predicate<MockRepository<T>> {
+    return (repository: MockRepository<T>) => repository.resourceType === resourceType && repository.repositoryType === repositoryType;
   }
 
-  public create<T, R>(object: T, query?: any): Observable<R> {
+  public create<R>(): Observable<R> {
     return this.values.create;
   }
 
-  public delete<T, R>(object: T, query?: any): Observable<R> {
+  public delete<R>(): Observable<R> {
     return this.values.delete;
   }
 
-  public findAll<R>(query?: any): Observable<R> {
+  public findAll<R>(): Observable<R> {
     return this.values.findAll;
   }
 
-  public findById<R, K>(id: K, query?: any): Observable<R> {
+  public findById<R>(): Observable<R> {
     return this.values.findById;
   }
 
-  public findOne<R>(query?: any): Observable<R> {
+  public findOne<R>(): Observable<R> {
     return this.values.findOne;
   }
 
-  public patch<T, R>(object: T, query?: any): Observable<R> {
+  public patch<R>(): Observable<R> {
     return this.values.patch;
   }
 
-  public update<T, R>(object: T, query?: any): Observable<R> {
+  public update<R>(): Observable<R> {
     return this.values.update;
   }
 

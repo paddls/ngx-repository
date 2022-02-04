@@ -6,14 +6,14 @@ import { MockRepository } from './mock.repository';
 @Injectable()
 export class TestRepositoryBuilder implements RepositoryBuilder {
 
-  private readonly repositories: MockRepository[] = [];
+  private readonly repositories: MockRepository<any>[] = [];
 
-  public supports<T>(resourceType: Type<T>, repositoryType: Type<AbstractRepository<T>>): boolean {
+  public supports(): boolean {
     return true;
   }
 
   public getRepository<T>(resourceType: Type<T>, repositoryType: Type<AbstractRepository<T>>): AbstractRepository<T> {
-    let repository: MockRepository = this.repositories.find(MockRepository.filter(resourceType, repositoryType));
+    let repository: MockRepository<T> = this.repositories.find(MockRepository.filter<T>(resourceType, repositoryType));
 
     if (repository == null) {
       repository = new MockRepository(resourceType, repositoryType);

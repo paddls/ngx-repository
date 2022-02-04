@@ -23,16 +23,6 @@ export function createFirestore(): Firestore {
   }));
 }
 
-export function mockCollection(firestore: Firestore, value: any): void {
-  // firestore.doc = () => null;
-  // spyOn(firestore, 'collection').and.returnValue({
-  //   onSnapshot: (subscriber: any) => {
-  //     subscriber.next(value);
-  //     subscriber.complete();
-  //   }
-  // } as any);
-}
-
 export function initializeRepository<T>(bookImpl: Type<T>, providers: any[] = []): RepositoryContext<T> {
   @Injectable()
   class BookServiceImpl {

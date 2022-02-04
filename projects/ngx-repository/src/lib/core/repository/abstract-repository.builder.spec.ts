@@ -10,7 +10,7 @@ import { ResourceConfiguration } from '../configuration/resource.configuration';
 class MyClass {
 }
 
-class MyRepository<T> extends AbstractRepository<T> {
+class MyRepository extends AbstractRepository {
 
   public constructor(requestManager: RequestManager = null, driver: RepositoryDriver = null, configuration: ResourceConfiguration = {}) {
     super(requestManager, driver, configuration);
@@ -20,7 +20,7 @@ class MyRepository<T> extends AbstractRepository<T> {
     return super.execute(body, query, configurationPaths);
   }
 
-  protected getResourceConfiguration(resourceType: Type<any>, configuration: ResourceConfiguration): ResourceConfiguration {
+  protected getResourceConfiguration(): ResourceConfiguration {
     return null;
   }
 
@@ -32,13 +32,13 @@ class RepositoryBuilder extends AbstractRepositoryBuilder {
     super(resourceContextKey);
   }
 
-  public getRepositoryInstance<T>(resourceType: Type<T>): MyRepository<T> {
-    const repositoryClass: Type<MyRepository<T>> = this.createRepositoryClass<T>(MyRepository, resourceType);
+  public getRepositoryInstance<T>(resourceType: Type<T>): MyRepository {
+    const repositoryClass: Type<MyRepository> = this.createRepositoryClass(MyRepository, resourceType);
 
     return new repositoryClass();
   }
 
-  public supports<T>(resourceType: Type<T>, repositoryType: Type<AbstractRepository<T>>): boolean {
+  public supports(): boolean {
     return false;
   }
 }
@@ -77,11 +77,11 @@ describe('AbstractRepositoryBuilder', () => {
         super(resourceContextKey);
       }
 
-      public getRepositoryInstance<T>(resourceType: Type<T>): AbstractRepository<T> {
+      public getRepositoryInstance(): AbstractRepository {
         return new MyRepository();
       }
 
-      public supports<T>(resourceType: Type<T>, repositoryType: Type<AbstractRepository<T>>): boolean {
+      public supports(): boolean {
         return false;
       }
     }

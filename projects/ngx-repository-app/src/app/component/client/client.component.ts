@@ -17,7 +17,7 @@ export class ClientComponent {
                      private clientService: ClientService) {
     this.client$ = activatedRoute.params.pipe(
       filter((params: Params) => !!params),
-      map((params: Params) => params[`clientId`]),
+      map((params: Params) => params['clientId']),
       switchMap((clientId: string) => this.clientService.findById(clientId))
     );
   }

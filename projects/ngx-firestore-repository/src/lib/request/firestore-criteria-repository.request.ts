@@ -1,5 +1,5 @@
 import { Path } from '@witty-services/ngx-repository';
-import { FirestoreCriteria, FirestoreRequestOrderBy, FirestoreRequestQuery } from './firestoreCriteria';
+import { FirestoreCriteria, FirestoreRequestOrderBy, FirestoreRequestQuery } from './firestore.criteria';
 import { FirestoreOperation } from './firestore.operation';
 import { FirestoreRepositoryRequest } from './firestore-repository.request';
 import { CollectionReference, endAt, endBefore, Firestore, limit, limitToLast, orderBy, Query, query, QueryConstraint, startAfter, startAt, where } from 'firebase/firestore';

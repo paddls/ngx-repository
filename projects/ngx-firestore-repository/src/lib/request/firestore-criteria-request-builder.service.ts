@@ -2,7 +2,7 @@ import { Observable, of } from 'rxjs';
 import { Path, RequestManagerContext } from '@witty-services/ngx-repository';
 import { Inject, Injectable } from '@angular/core';
 import { FIRESTORE_APP } from '../ngx-firestore-repository.module.di';
-import { FirestoreCriteria } from './firestoreCriteria';
+import { FirestoreCriteria } from './firestore.criteria';
 import { FirestoreOperation } from './firestore.operation';
 import { FirestoreNormalizer } from '../normalizer/firestore.normalizer';
 import { FirestoreCriteriaRepositoryRequest } from './firestore-criteria-repository.request';

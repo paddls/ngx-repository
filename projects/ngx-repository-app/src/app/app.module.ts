@@ -19,18 +19,16 @@ import { BookService } from './module/@core/service/book.service';
 import { Firestore, getFirestore } from 'firebase/firestore';
 import { PersonComponent } from './component/person/person.component';
 
-export function createFirestore(): Firestore {
-  return getFirestore(initializeApp({
-    apiKey: 'AIzaSyDSd6EXdQWaWcBMxbTYp-kFAV3zxNu-ArM',
-    authDomain: 'ngx-repository.firebaseapp.com',
-    databaseURL: 'https://ngx-repository.firebaseio.com',
-    projectId: 'ngx-repository',
-    storageBucket: 'ngx-repository.appspot.com',
-    messagingSenderId: '352664344689',
-    appId: '1:352664344689:web:20ec56387616cba621e3d0',
-    measurementId: 'G-0RD9MTX3PB'
-  }));
-}
+export const createFirestore: () => Firestore = () => getFirestore(initializeApp({
+  apiKey: 'AIzaSyDSd6EXdQWaWcBMxbTYp-kFAV3zxNu-ArM',
+  authDomain: 'ngx-repository.firebaseapp.com',
+  databaseURL: 'https://ngx-repository.firebaseio.com',
+  projectId: 'ngx-repository',
+  storageBucket: 'ngx-repository.appspot.com',
+  messagingSenderId: '352664344689',
+  appId: '1:352664344689:web:20ec56387616cba621e3d0',
+  measurementId: 'G-0RD9MTX3PB'
+}));
 
 @NgModule({
   declarations: [

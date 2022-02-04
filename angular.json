@@ -31,6 +31,15 @@
               "/projects/*/src/testing/**.*"
             ]
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ngx-repository/**/*.ts",
+              "projects/ngx-repository/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -134,6 +143,15 @@
               "devServerTarget": "ngx-repository-app:serve:production"
             }
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ngx-repository-app/**/*.ts",
+              "projects/ngx-repository-app/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -161,6 +179,15 @@
             "main": "projects/ngx-http-repository/src/test.ts",
             "tsConfig": "projects/ngx-http-repository/tsconfig.spec.json",
             "karmaConfig": "projects/ngx-http-repository/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ngx-http-repository/**/*.ts",
+              "projects/ngx-http-repository/**/*.html"
+            ]
           }
         }
       }
@@ -196,9 +223,21 @@
               }
             ]
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ngx-firestore-repository/**/*.ts",
+              "projects/ngx-firestore-repository/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "ngx-repository"
+  "defaultProject": "ngx-repository",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
