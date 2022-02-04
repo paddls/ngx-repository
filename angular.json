@@ -31,18 +31,6 @@
               "/projects/*/src/testing/**.*"
             ]
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/ngx-repository/tsconfig.lib.json",
-              "projects/ngx-repository/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
         }
       }
     },
@@ -135,17 +123,6 @@
             "browserTarget": "ngx-repository-app:build"
           }
         },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/ngx-repository-app/tsconfig.app.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
@@ -185,18 +162,6 @@
             "tsConfig": "projects/ngx-http-repository/tsconfig.spec.json",
             "karmaConfig": "projects/ngx-http-repository/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/ngx-http-repository/tsconfig.lib.json",
-              "projects/ngx-http-repository/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
         }
       }
     },
@@ -229,18 +194,6 @@
                 "replace": "projects/ngx-firestore-repository/src/lib/firestore-functions.ts",
                 "with": "projects/ngx-firestore-repository/src/e2e/util/firestore-functions.spec.ts"
               }
-            ]
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/ngx-firestore-repository/tsconfig.lib.json",
-              "projects/ngx-firestore-repository/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
             ]
           }
         }
