@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Person } from '../model/person.model';
 import { PersonRepository } from '../repository/person.repository';
 import { Chance } from 'chance';
+import { PersonQuery } from '../query/person.query';
 
 @Injectable()
 export class PersonService {
@@ -14,6 +15,10 @@ export class PersonService {
 
   public searchByFirstName(searchedFirstName: string): Observable<Person[]> {
     return this.personRepository.searchByFirstName(searchedFirstName);
+  }
+
+  public findOneById(id: string): Observable<Person> {
+    return this.personRepository.findOne(new PersonQuery({idEqualsTo: id}));
   }
 
   public create(): Observable<string> {

@@ -17,6 +17,7 @@ import { FIRESTORE_APP, NgxFirebaseRepositoryModule } from '@witty-services/ngx-
 import { initializeApp } from 'firebase/app';
 import { BookService } from './module/@core/service/book.service';
 import { Firestore, getFirestore } from 'firebase/firestore';
+import { PersonComponent } from './component/person/person.component';
 
 export function createFirestore(): Firestore {
   return getFirestore(initializeApp({
@@ -36,7 +37,8 @@ export function createFirestore(): Firestore {
     AppComponent,
     LibrariesComponent,
     LibraryComponent,
-    ClientComponent
+    ClientComponent,
+    PersonComponent
   ],
   imports: [
     AppRoutingModule,

@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {LibrariesComponent} from './component/libraries/libraries.component';
 import {LibraryComponent} from './component/library/library.component';
 import { ClientComponent } from './component/client/client.component';
+import { PersonComponent } from './component/person/person.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
       {
         path: ':libraryId',
         component: LibraryComponent
+      },
+      {
+        path: 'persons/:personId',
+        component: PersonComponent
       }
     ]
   }
