@@ -21,7 +21,7 @@
              (ngModelChange)="onSearchedPersonFirstNameChange()"/>
     </li>
     <li *ngFor="let person of person$|async">
-      {{ person.fullName }}
+      <a [routerLink]="['/', 'libraries', 'persons', person.id]">{{ person.fullName }}</a>
       <button (click)="updatePerson(person)">update</button>
       <button (click)="patchPerson(person)">patch</button>
     </li>
@@ -37,11 +37,10 @@
              (ngModelChange)="onSearchedClientLastNameChange()"/>
     </li>
     <li *ngFor="let client of client$|async">
-      {{ client?.fullName }}
+      <a [routerLink]="['/', 'libraries', 'clients', client.id]">{{ client?.fullName }}</a>
       <button (click)="deleteClient(client)">delete</button>
       <button (click)="updateClient(client)">update</button>
       <button (click)="patchClient(client)">patch</button>
-      <button routerLink="/libraries/clients/{{client?.id}}">view</button>
     </li>
     <li><button (click)="createClient()">create</button></li>
   </ul>
