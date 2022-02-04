@@ -2,10 +2,10 @@ import {Identifiable} from './identifiable.model';
 import {Column, JoinColumn} from '@witty-services/ngx-repository';
 import {EMPTY, Observable} from 'rxjs';
 import {Book} from './book.model';
-import {FirebaseResource} from '@witty-services/ngx-firebase-repository';
+import {FirestoreResource} from '@witty-services/ngx-firestore-repository';
 import {HttpRepository} from '@witty-services/ngx-http-repository';
 
-@FirebaseResource({
+@FirestoreResource({
   path: '/clients/:clientId/purchases'
 })
 export class Purchase extends Identifiable {

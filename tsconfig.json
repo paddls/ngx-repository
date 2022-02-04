@@ -30,11 +30,11 @@
       "@witty-services/ngx-http-repository/*": [
         "dist/ngx-http-repository/*"
       ],
-      "@witty-services/ngx-firebase-repository": [
-        "dist/ngx-firebase-repository"
+      "@witty-services/ngx-firestore-repository": [
+        "dist/ngx-firestore-repository"
       ],
-      "@witty-services/ngx-firebase-repository/*": [
-        "dist/ngx-firebase-repository/*"
+      "@witty-services/ngx-firestore-repository/*": [
+        "dist/ngx-firestore-repository/*"
       ]
     }
   },

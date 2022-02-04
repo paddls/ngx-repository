@@ -1,39 +1,39 @@
 import {
-  FirebaseCriteria,
-  FirebaseEndAt,
-  FirebaseEndBefore,
-  FirebaseLimit,
-  FirebaseLimitToLast,
-  FirebaseOrderBy,
-  FirebaseOrderByContext,
-  FirebaseStartAfter,
-  FirebaseStartAt
-} from '@witty-services/ngx-firebase-repository';
+  FirestoreCriteria,
+  FirestoreEndAt,
+  FirestoreEndBefore,
+  FirestoreLimit,
+  FirestoreLimitToLast,
+  FirestoreOrderBy,
+  FirestoreOrderByContext,
+  FirestoreStartAfter,
+  FirestoreStartAt
+} from '@witty-services/ngx-firestore-repository';
 
 export class ClientQuery {
 
-  @FirebaseCriteria({field: 'lastName', operator: '=='})
+  @FirestoreCriteria({field: 'lastName', operator: '=='})
   public lastNameEqual?: string;
 
-  @FirebaseOrderBy()
-  public orderBy?: string|FirebaseOrderByContext|(FirebaseOrderByContext|string)[];
+  @FirestoreOrderBy()
+  public orderBy?: string|FirestoreOrderByContext|(FirestoreOrderByContext|string)[];
 
-  @FirebaseStartAt()
+  @FirestoreStartAt()
   public startAt?: any;
 
-  @FirebaseStartAfter()
+  @FirestoreStartAfter()
   public startAfter?: any;
 
-  @FirebaseEndAt()
+  @FirestoreEndAt()
   public endAt?: any;
 
-  @FirebaseEndBefore()
+  @FirestoreEndBefore()
   public endBefore?: any;
 
-  @FirebaseLimit()
+  @FirestoreLimit()
   public limit?: number;
 
-  @FirebaseLimitToLast()
+  @FirestoreLimitToLast()
   public limitToLast?: number;
 
   public constructor(data: Partial<ClientQuery> = {}) {
