@@ -1,4 +1,4 @@
-import { Column, Id, Page } from '@witty-services/ngx-repository';
+import { Column, Id, Page } from '@paddls/ngx-repository';
 import { FirestoreResource } from '../lib/decorator/firestore-resource.decorator';
 import { expectCollectionAdd, expectDocumentDelete, expectDocumentUpdate, testFirestoreRepository } from './util/test-firestore-repository.spec';
 import { FirestoreRepository } from '../lib/repository/firestore.repository';

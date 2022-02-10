@@ -1,5 +1,5 @@
 import {Observable, timer} from 'rxjs';
-import {hardCache} from '@witty-services/rxjs-common';
+import {hardCache} from '@paddls/rxjs-common';
 import {takeUntil} from 'rxjs/operators';
 import {isObject} from 'lodash';
 import {HardCacheContext, HardCacheContextConfiguration} from '../configuration/context/hard-cache-context.configuration';

@@ -11,7 +11,7 @@ import {
   RepositoryRequest,
   RequestBuilder,
   RequestManagerContext
-} from '@witty-services/ngx-repository';
+} from '@paddls/ngx-repository';
 import { HttpRepositoryRequest } from './http-repository.request';
 import { Injectable } from '@angular/core';
 import { HTTP_QUERY_PARAM_METADATA_KEY } from '../decorator/http-query-param.decorator';

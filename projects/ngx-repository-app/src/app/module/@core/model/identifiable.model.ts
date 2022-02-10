@@ -1,4 +1,4 @@
-import {Id} from '@witty-services/ngx-repository';
+import {Id} from '@paddls/ngx-repository';
 
 export class Identifiable {
 

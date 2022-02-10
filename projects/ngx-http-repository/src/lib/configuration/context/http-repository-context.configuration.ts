@@ -9,7 +9,7 @@ import {
   PageResponseProcessor,
   ResponseBuilder,
   VoidResponseProcessor
-} from '@witty-services/ngx-repository';
+} from '@paddls/ngx-repository';
 
 export interface HttpRepositoryContextConfiguration extends HttpRepositoryParamContextConfiguration {
   read?: HttpRepositoryParamContextConfiguration | string;

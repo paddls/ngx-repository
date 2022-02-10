@@ -1,4 +1,4 @@
-import { Path, PathRequest, RepositoryRequest } from '@witty-services/ngx-repository';
+import { Path, PathRequest, RepositoryRequest } from '@paddls/ngx-repository';
 import { FirestoreOperation } from './firestore.operation';
 
 export class FirestoreRepositoryRequest implements RepositoryRequest, PathRequest {

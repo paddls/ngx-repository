@@ -1,3 +1,3 @@
 # NgxFirestoreRepository
 
-For documentation, please see [NgxRepository](https://www.npmjs.com/package/@witty-services/ngx-repository).
+For documentation, please see [NgxRepository](https://www.npmjs.com/package/@paddls/ngx-repository).

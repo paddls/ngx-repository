@@ -1,6 +1,6 @@
 import { HttpQueryParam, HttpRepository, HttpResource } from '../public-api';
 import { testHttpRepository } from './util/test-http-repository.spec';
-import { Column, DateConverter, Id, Page, SubQuery } from '@witty-services/ngx-repository';
+import { Column, DateConverter, Id, Page, SubQuery } from '@paddls/ngx-repository';
 import { buildHttpParams } from './util/build-http.params.spec';
 
 describe('HttpQueryParam', () => {

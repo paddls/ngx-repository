@@ -1,4 +1,4 @@
-import { EventListener, Listener } from '@witty-services/ngx-repository';
+import { EventListener, Listener } from '@paddls/ngx-repository';
 import { BeforeExecuteHttpRequestEvent } from '../event/before-execute-http-request.event';
 import { AfterExecuteHttpRequestEvent } from '../event/after-execute-http-request.event';
 import { Injectable } from '@angular/core';

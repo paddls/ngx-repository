@@ -1,4 +1,4 @@
-import { RepositoryRequest, RepositoryResponse } from '@witty-services/ngx-repository';
+import { RepositoryRequest, RepositoryResponse } from '@paddls/ngx-repository';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 
 export class HttpRepositoryResponse implements RepositoryResponse {

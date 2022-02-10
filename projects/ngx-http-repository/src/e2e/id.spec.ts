@@ -1,7 +1,7 @@
 import { HttpRepository, HttpResource } from '../public-api';
-import { Id, Page } from '@witty-services/ngx-repository';
+import { Id, Page } from '@paddls/ngx-repository';
 import { testHttpRepository } from './util/test-http-repository.spec';
-import { Converter } from '@witty-services/ts-serializer';
+import { Converter } from '@paddls/ts-serializer';
 
 describe('Id', () => {
 

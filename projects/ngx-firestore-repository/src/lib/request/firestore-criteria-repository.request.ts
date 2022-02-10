@@ -1,4 +1,4 @@
-import { Path } from '@witty-services/ngx-repository';
+import { Path } from '@paddls/ngx-repository';
 import { FirestoreCriteria, FirestoreRequestOrderBy, FirestoreRequestQuery } from './firestore.criteria';
 import { FirestoreOperation } from './firestore.operation';
 import { FirestoreRepositoryRequest } from './firestore-repository.request';

@@ -8,7 +8,7 @@ import {
   RequestManager,
   ResponseBuilder,
   TypeGetter
-} from '@witty-services/ngx-repository';
+} from '@paddls/ngx-repository';
 import { HttpRepositoryDriver } from '../driver/http-repository.driver';
 import { HttpRequestBuilder } from '../request/http-request.builder';
 import { flattenDeep, isString } from 'lodash';

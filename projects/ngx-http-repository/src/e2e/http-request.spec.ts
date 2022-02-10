@@ -8,7 +8,7 @@ import {
   PageResponseProcessor,
   PathColumn,
   PathParam
-} from '@witty-services/ngx-repository';
+} from '@paddls/ngx-repository';
 import { NgxHttpRepositoryModule } from '../lib/ngx-http-repository.module';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';

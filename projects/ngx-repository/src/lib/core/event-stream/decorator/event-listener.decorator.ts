@@ -3,7 +3,7 @@ import {PublisherService} from '../publisher.service';
 import {asyncScheduler, Observable} from 'rxjs';
 import {filter, observeOn} from 'rxjs/operators';
 import {chain} from 'lodash';
-import {softCache} from '@witty-services/rxjs-common';
+import {softCache} from '@paddls/rxjs-common';
 
 const EVENT_LISTENER_OBS_METADATA_KEY: string = 'ngx-repository:event-listener-observable';
 

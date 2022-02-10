@@ -2,7 +2,7 @@ import {
   getDeepQueryMetadataValue,
   getDeepQueryMetadataValues,
   PropertyKeyConfiguration
-} from '@witty-services/ngx-repository';
+} from '@paddls/ngx-repository';
 import { FIRESTORE_CRITERIA_METADATA_KEY } from '../decorator/firestore-criteria.decorator';
 import { FIRESTORE_ORDER_BY_METADATA_KEY } from '../decorator/firestore-order-by.decorator';
 import { FIRESTORE_START_AT_METADATA_KEY } from '../decorator/firestore-start-at.decorator';

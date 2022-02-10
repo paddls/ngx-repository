@@ -1,13 +1,13 @@
 # NGX-REPOSITORY
 
-![ngx-repository-ci](https://github.com/witty-services/ngx-repository/workflows/build/badge.svg?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/witty-services/ngx-repository/badge.svg?branch=master)](https://coveralls.io/github/witty-services/ngx-repository?branch=master)
-[![npm version](https://badge.fury.io/js/%40witty-services%2Fngx-repository.svg)](https://badge.fury.io/js/%40witty-services%2Fngx-repository)
-![GitHub](https://img.shields.io/github/license/witty-services/ngx-repository)
-![GitHub repo size](https://img.shields.io/github/repo-size/witty-services/ngx-repository)
-![GitHub last commit](https://img.shields.io/github/last-commit/witty-services/ngx-repository)
-![GitHub issues](https://img.shields.io/github/issues/witty-services/ngx-repository)
-![GitHub top language](https://img.shields.io/github/languages/top/witty-services/ngx-repository)
+![ngx-repository-ci](https://github.com/paddls/ngx-repository/workflows/build/badge.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/paddls/ngx-repository/badge.svg?branch=master)](https://coveralls.io/github/paddls/ngx-repository?branch=master)
+[![npm version](https://badge.fury.io/js/%40paddls%2Fngx-repository.svg)](https://badge.fury.io/js/%40paddls%2Fngx-repository)
+![GitHub](https://img.shields.io/github/license/paddls/ngx-repository)
+![GitHub repo size](https://img.shields.io/github/repo-size/paddls/ngx-repository)
+![GitHub last commit](https://img.shields.io/github/last-commit/paddls/ngx-repository)
+![GitHub issues](https://img.shields.io/github/issues/paddls/ngx-repository)
+![GitHub top language](https://img.shields.io/github/languages/top/paddls/ngx-repository)
 
 NgxRepository allows you to easily create a strongly typed data access layer in your Angular project.
 
@@ -50,7 +50,7 @@ NgxRepository allows you to easily create a strongly typed data access layer in 
 First install the main library in your project :
 
 ```shell script
-npm install --save @witty-services/ngx-repository
+npm install --save @paddls/ngx-repository
 ```
 
 After that, choose drivers and install them as follows.
@@ -58,13 +58,13 @@ After that, choose drivers and install them as follows.
 ### Http Driver
 
 ```shell script
-npm install --save @witty-services/ngx-http-repository
+npm install --save @paddls/ngx-http-repository
 ```
 
 ### Firestore Driver
 
 ```shell script
-npm install --save @witty-services/ngx-firestore-repository
+npm install --save @paddls/ngx-firestore-repository
 ```
 
 ### Import modules
@@ -72,9 +72,9 @@ npm install --save @witty-services/ngx-firestore-repository
 To start using NgxRepository, import `NgxRepositoryModule` and the modules corresponding to the chosen drivers :
 
 ```typescript
-import { NgxRepositoryModule } from '@witty-services/ngx-repository';
-import { NgxHttpRepositoryModule } from '@witty-services/ngx-http-repository';
-import { NgxFirestoreRepositoryModule } from '@witty-services/ngx-firestore-repository';
+import { NgxRepositoryModule } from '@paddls/ngx-repository';
+import { NgxHttpRepositoryModule } from '@paddls/ngx-http-repository';
+import { NgxFirestoreRepositoryModule } from '@paddls/ngx-firestore-repository';
 
 @NgModule({
   imports: [
@@ -115,8 +115,8 @@ on the resource class. The most basic configuration for this annotation consists
 path of the resource.
 
 ```typescript
-import { FirestoreResource } from '@witty-services/ngx-firestore-repository';
-import { HttpResource } from '@witty-services/ngx-http-repository';
+import { FirestoreResource } from '@paddls/ngx-firestore-repository';
+import { HttpResource } from '@paddls/ngx-http-repository';
 
 // for Http
 @HttpResource({
@@ -137,9 +137,9 @@ Then, add an `@Id()` decorator on the resource id and `@Column()` decorators on 
 NgxRepository.
 
 ```typescript
-import { FirestoreResource } from '@witty-services/ngx-firestore-repository';
-import { HttpResource } from '@witty-services/ngx-http-repository';
-import { Id, Column } from '@witty-services/ngx-repository';
+import { FirestoreResource } from '@paddls/ngx-firestore-repository';
+import { HttpResource } from '@paddls/ngx-http-repository';
+import { Id, Column } from '@paddls/ngx-repository';
 
 // for Http
 @HttpResource({
@@ -172,8 +172,8 @@ your repository(`HttpRepository`, `FirestoreRepository`...).
 The generic types of the generated repository type are the type of the resource and the type of the resource id.
 
 ```typescript
-import { InjectRepository, Page } from '@witty-services/ngx-repository';
-import { HttpRepository } from '@witty-services/ngx-http-repository'
+import { InjectRepository, Page } from '@paddls/ngx-repository';
+import { HttpRepository } from '@paddls/ngx-http-repository'
 
 @Injectable()
 export class BookService {
@@ -210,8 +210,8 @@ typed TypeScript classes. Note that only fields with
 You can add configuration to `@Id()` and `@Column()` decorators as follows.
 
 ```typescript
-import { HttpResource } from '@witty-services/ngx-http-repository';
-import { Id, Column, DateConverter } from '@witty-services/ngx-repository';
+import { HttpResource } from '@paddls/ngx-http-repository';
+import { Id, Column, DateConverter } from '@paddls/ngx-repository';
 
 @HttpResource({
   path: '/api/users'
@@ -268,8 +268,8 @@ the [query system](#query).
 field.
 
 ```typescript
-import { HttpResource } from '@witty-services/ngx-http-repository';
-import { Id, Column, PathColumn } from '@witty-services/ngx-repository';
+import { HttpResource } from '@paddls/ngx-http-repository';
+import { Id, Column, PathColumn } from '@paddls/ngx-repository';
 
 @HttpResource({
   path: '/libraries/:libraryId/books'
@@ -300,9 +300,9 @@ export class Book {
 You can fetch associated resources using `JoinColumn`.
 
 ```typescript
-import { HttpResource } from '@witty-services/ngx-http-repository';
-import { Id, Column, JoinColumn } from '@witty-services/ngx-repository';
-import { FirestoreRepository } from '@witty-services/ngx-firestore-repository';
+import { HttpResource } from '@paddls/ngx-http-repository';
+import { Id, Column, JoinColumn } from '@paddls/ngx-repository';
+import { FirestoreRepository } from '@paddls/ngx-firestore-repository';
 
 @HttpResource({
   path: '/libraries/:libraryId/books'
@@ -329,8 +329,8 @@ export class Book {
 You can fetch associated resources using `SubCollection`.
 
 ```typescript
-import { HttpResource, HttpRepository } from '@witty-services/ngx-http-repository';
-import { Id, Column, SubCollection } from '@witty-services/ngx-repository';
+import { HttpResource, HttpRepository } from '@paddls/ngx-http-repository';
+import { Id, Column, SubCollection } from '@paddls/ngx-repository';
 
 @HttpResource({
   path: '/libraries/:libraryId/books'
@@ -363,8 +363,8 @@ or `FirestoreRepository`.
 Here is an example of a query for a `@HttpResource()` :
 
 ```typescript
-import { HttpQueryParam, HttpHeader } from '@witty-services/ngx-http-repository';
-import { PathParam } from '@witty-services/ngx-repository';
+import { HttpQueryParam, HttpHeader } from '@paddls/ngx-http-repository';
+import { PathParam } from '@paddls/ngx-repository';
 
 export class BookQuery {
 
@@ -417,7 +417,7 @@ import {
   FirestoreOrderByContext,
   FirestoreStartAfter,
   FirestoreStartAt
-} from '@witty-services/ngx-firestore-repository';
+} from '@paddls/ngx-firestore-repository';
 
 export class ClientQuery {
 
@@ -626,8 +626,8 @@ the body... ). To indicate how the server returns these elements, you have to cr
 
 ```typescript
 import { Injectable } from '@angular/core';
-import { Page, RequestManagerContext, ResponseProcessor } from '@witty-services/ngx-repository';
-import { HttpRepositoryResponse } from '@witty-services/ngx-http-repository';
+import { Page, RequestManagerContext, ResponseProcessor } from '@paddls/ngx-repository';
+import { HttpRepositoryResponse } from '@paddls/ngx-http-repository';
 
 @Injectable()
 export class MyPageResponseProcessor implements ResponseProcessor {
@@ -661,7 +661,7 @@ By annotating your model with ``@HttpLiveResource()`` decorator, each observable
 a writing method is called on the repository.
 
 ```typescript
-import { HttpLiveResource, HttpResource } from '@witty-services/ngx-http-repository';
+import { HttpLiveResource, HttpResource } from '@paddls/ngx-http-repository';
 
 @HttpLiveResource()
 @HttpResource('/libraries')
@@ -676,8 +676,8 @@ export class Library {
 In specific case, you can define a custom repository like that :
 
 ```typescript
-import { Repository } from '@witty-services/ng-repository';
-import { HttpRepository, HTTP_REPOSITORY_CONFIGURATION } from '@witty-services/ng-http-repository';
+import { Repository } from '@paddls/ng-repository';
+import { HttpRepository, HTTP_REPOSITORY_CONFIGURATION } from '@paddls/ng-http-repository';
 
 @Injectable()
 @Repository(() => Person)
@@ -936,10 +936,10 @@ example :
 
 ```typescript
 import { TestBed } from '@angular/core/testing';
-import { MockRepository, NgxRepositoryTestingModule, Page } from '@witty-services/ngx-repository';
+import { MockRepository, NgxRepositoryTestingModule, Page } from '@paddls/ngx-repository';
 import { LibraryService } from './library.service';
 import { Library } from '../model/library.model';
-import { HttpRepository } from '@witty-services/ngx-http-repository';
+import { HttpRepository } from '@paddls/ngx-http-repository';
 import { LibraryQuery } from '../query/library.query';
 
 describe('LibraryService', () => {

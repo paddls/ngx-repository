@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { MockRepository, NgxRepositoryTestingModule } from '@witty-services/ngx-repository';
-import { HttpRepository } from '@witty-services/ngx-http-repository';
+import { MockRepository, NgxRepositoryTestingModule } from '@paddls/ngx-repository';
+import { HttpRepository } from '@paddls/ngx-http-repository';
 import { Observable } from 'rxjs';
 import { BookService } from './book.service';
 import { Book } from '../model/book.model';

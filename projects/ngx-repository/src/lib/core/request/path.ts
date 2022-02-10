@@ -4,7 +4,7 @@ import { PathParamContextConfiguration } from '../configuration/context/path-par
 import { Id } from './id';
 import { getDeepQueryMetadataValues } from '../decorator/sub-query.decorator';
 import { get } from 'lodash';
-import { ISerializer } from '@witty-services/ts-serializer';
+import { ISerializer } from '@paddls/ts-serializer';
 
 export class Path {
 

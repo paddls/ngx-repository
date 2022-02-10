@@ -1,5 +1,5 @@
 import { Injectable, Type } from '@angular/core';
-import { InjectRepository, NgxRepositoryModule } from '@witty-services/ngx-repository';
+import { InjectRepository, NgxRepositoryModule } from '@paddls/ngx-repository';
 import { TestBed } from '@angular/core/testing';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpRepository } from '../../lib/repository/http.repository';

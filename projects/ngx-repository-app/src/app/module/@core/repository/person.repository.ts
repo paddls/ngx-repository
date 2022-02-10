@@ -2,8 +2,8 @@ import { Person } from '../model/person.model';
 import { Observable } from 'rxjs';
 import { PersonQuery } from '../query/person.query';
 import { Injectable } from '@angular/core';
-import { Repository, RequestManager } from '@witty-services/ngx-repository';
-import { HttpRepository, HttpRepositoryDriver } from '@witty-services/ngx-http-repository';
+import { Repository, RequestManager } from '@paddls/ngx-repository';
+import { HttpRepository, HttpRepositoryDriver } from '@paddls/ngx-http-repository';
 
 @Injectable()
 @Repository(() => Person)

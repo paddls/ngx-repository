@@ -17,7 +17,7 @@ import {
   ResponseBuilder,
   UpdateRepository,
   VoidResponseProcessor
-} from '@witty-services/ngx-repository';
+} from '@paddls/ngx-repository';
 import { Observable } from 'rxjs';
 import { FirestoreRequestBuilder } from '../request/firestore-request-builder.service';
 import { cloneDeep, first, merge } from 'lodash';

@@ -1,6 +1,6 @@
 import { PropertyKeyConfiguration } from '../../common/decorator/property-key-configuration';
 import { Type } from '@angular/core';
-import { Converter } from '@witty-services/ts-serializer';
+import { Converter } from '@paddls/ts-serializer';
 
 export interface PathParamContext {
   name?: string;

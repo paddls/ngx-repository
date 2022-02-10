@@ -44,7 +44,7 @@ export {
   Serializer,
   DateConverter,
   Converter
-} from '@witty-services/ts-serializer';
+} from '@paddls/ts-serializer';
 
 export * from './lib/core/query/id.query';
 
@@ -100,7 +100,7 @@ export { NgxRepositoryTestingModule } from './testing/ngx-repository-testing.mod
 export { MockRepository } from './testing/mock.repository';
 export { NgxRepositoryService } from './lib/ngx-repository.service';
 
-export { NgxSerializerService } from '@witty-services/ngx-serializer';
+export { NgxSerializerService } from '@paddls/ngx-serializer';
 export { ResponseBuilderParam } from './lib/core/response/response-builder.param';
 export { ResponseProcessorWithParams } from './lib/core/response/response-processor-with.params';
 export { ResponseProcessorToken } from './lib/core/response/response-processor.token';

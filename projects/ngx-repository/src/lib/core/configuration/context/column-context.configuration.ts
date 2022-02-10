@@ -1,5 +1,5 @@
-import {ConstructorFunction, Converter, JsonPropertyContext, JsonPropertyContextConfiguration} from '@witty-services/ts-serializer';
-import {SerializeType} from '@witty-services/ts-serializer/dist/common';
+import {ConstructorFunction, Converter, JsonPropertyContext, JsonPropertyContextConfiguration} from '@paddls/ts-serializer';
+import {SerializeType} from '@paddls/ts-serializer/dist/common';
 
 /**
  * Describe advanced configuration for Column decorator.

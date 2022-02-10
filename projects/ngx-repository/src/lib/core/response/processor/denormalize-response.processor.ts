@@ -2,7 +2,7 @@ import { Injectable, Type } from '@angular/core';
 import { RepositoryNormalizer } from '../../../normalizer/repository-denormalizer';
 import { RepositoryResponse } from '../repository.response';
 import { RequestManagerContext } from '../../manager/request-manager.context';
-import { NormalizerConfiguration } from '@witty-services/ts-serializer';
+import { NormalizerConfiguration } from '@paddls/ts-serializer';
 import { ResponseProcessor } from './response.processor';
 import { PublisherService } from '../../event-stream/publisher.service';
 import { BeforeDenormalizeEvent } from '../../../normalizer/event/before-denormalize.event';

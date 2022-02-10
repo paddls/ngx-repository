@@ -1,6 +1,6 @@
 import { Inject, Injectable, Type } from '@angular/core';
 import { HTTP_RESOURCE_METADATA_KEY } from '../decorator/http-resource.decorator';
-import { AbstractRepository, AbstractRepositoryBuilder, RequestManager } from '@witty-services/ngx-repository';
+import { AbstractRepository, AbstractRepositoryBuilder, RequestManager } from '@paddls/ngx-repository';
 import { HttpRepository } from './http.repository';
 import { HttpRepositoryDriver } from '../driver/http-repository.driver';
 import {

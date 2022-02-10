@@ -2,10 +2,10 @@ import {Inject, Injectable} from '@angular/core';
 import {set} from 'lodash';
 import {FIRESTORE_CREATED_AT_METADATA_KEY} from '../decorator/firestore-created-at.decorator';
 import {FIRESTORE_UPDATED_AT_METADATA_KEY} from '../decorator/firestore-updated-at.decorator';
-import {NormalizerConfiguration, RepositoryNormalizer} from '@witty-services/ngx-repository';
+import {NormalizerConfiguration, RepositoryNormalizer} from '@paddls/ngx-repository';
 import {FirestoreCreatedAtContextConfiguration} from '../configuration/context/firestore-created-at-context.configuration';
 import {FirestoreUpdatedAtContextConfiguration} from '../configuration/context/firestore-updated-at-context.configuration';
-import {NORMALIZER_CONFIGURATION_TOKEN} from '@witty-services/ngx-serializer';
+import {NORMALIZER_CONFIGURATION_TOKEN} from '@paddls/ngx-serializer';
 import {serverTimestamp} from 'firebase/firestore';
 
 /**

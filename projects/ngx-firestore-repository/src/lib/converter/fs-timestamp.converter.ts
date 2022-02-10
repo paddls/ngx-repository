@@ -1,4 +1,4 @@
-import {Converter} from '@witty-services/ngx-repository';
+import {Converter} from '@paddls/ngx-repository';
 import {Timestamp} from 'firebase/firestore';
 
 /**

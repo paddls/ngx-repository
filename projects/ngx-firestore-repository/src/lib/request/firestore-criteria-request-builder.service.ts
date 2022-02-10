@@ -1,5 +1,5 @@
 import { Observable, of } from 'rxjs';
-import { Path, RequestManagerContext } from '@witty-services/ngx-repository';
+import { Path, RequestManagerContext } from '@paddls/ngx-repository';
 import { Inject, Injectable } from '@angular/core';
 import { FIRESTORE_APP } from '../ngx-firestore-repository.module.di';
 import { FirestoreCriteria } from './firestore.criteria';

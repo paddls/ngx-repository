@@ -1,5 +1,5 @@
-import {PathParam} from '@witty-services/ngx-repository';
-import {HttpQueryParam} from '@witty-services/ngx-http-repository';
+import {PathParam} from '@paddls/ngx-repository';
+import {HttpQueryParam} from '@paddls/ngx-http-repository';
 
 export class BookQuery {
 

@@ -1,9 +1,9 @@
 import {Identifiable} from './identifiable.model';
-import {Page, SubCollection, Column} from '@witty-services/ngx-repository';
+import {Page, SubCollection, Column} from '@paddls/ngx-repository';
 import {Observable} from 'rxjs';
 import {Purchase} from './purchase.model';
 import {PurchaseQuery} from '../query/purchase.query';
-import {FirestoreCreatedAt, FirestoreRepository, FirestoreResource, FirestoreUpdatedAt} from '@witty-services/ngx-firestore-repository';
+import {FirestoreCreatedAt, FirestoreRepository, FirestoreResource, FirestoreUpdatedAt} from '@paddls/ngx-firestore-repository';
 
 @FirestoreResource({
   path: '/clients'

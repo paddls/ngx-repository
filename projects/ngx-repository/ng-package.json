@@ -5,9 +5,9 @@
     "entryFile": "src/public-api.ts"
   },
   "allowedNonPeerDependencies": [
-    "@witty-services/ts-serializer",
-    "@witty-services/ngx-serializer",
-    "@witty-services/rxjs-common",
+    "@paddls/ts-serializer",
+    "@paddls/ngx-serializer",
+    "@paddls/rxjs-common",
     "object-hash"
   ]
 }

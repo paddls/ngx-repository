@@ -1,4 +1,4 @@
-import {Column, ColumnContext} from '@witty-services/ngx-repository';
+import {Column, ColumnContext} from '@paddls/ngx-repository';
 import {FsTimestampConverter} from '../converter/fs-timestamp.converter';
 import {
   FirestoreUpdatedAtContext,

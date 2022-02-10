@@ -2,7 +2,7 @@ import 'reflect-metadata';
 
 import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { REPOSITORY_BUILDER_TOKEN } from '@witty-services/ngx-repository';
+import { REPOSITORY_BUILDER_TOKEN } from '@paddls/ngx-repository';
 import { HttpRepositoryDriver } from './driver/http-repository.driver';
 import { HttpRequestBuilder } from './request/http-request.builder';
 import { HttpRepositoryContextConfiguration } from './configuration/context/http-repository-context.configuration';

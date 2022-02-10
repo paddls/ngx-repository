@@ -1,5 +1,5 @@
 import {FirestoreRepositoryRequest} from '../../request/firestore-repository.request';
-import {InternalEvent} from '@witty-services/ngx-repository';
+import {InternalEvent} from '@paddls/ngx-repository';
 
 export class BeforeExecuteFirestoreRequestEvent implements InternalEvent {
 

@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
 import { FirestoreRepositoryBuilder } from './repository/firestore-repository-builder.service';
 import { FIRESTORE_APP } from './ngx-firestore-repository.module.di';
-import { REPOSITORY_BUILDER_TOKEN } from '@witty-services/ngx-repository';
+import { REPOSITORY_BUILDER_TOKEN } from '@paddls/ngx-repository';
 import { FirestoreNormalizer } from './normalizer/firestore.normalizer';
 import { FirestoreRepositoryDriver } from './driver/firestore-repository-driver.service';
 import { FirestoreRequestBuilder } from './request/firestore-request-builder.service';

@@ -1,6 +1,6 @@
-import { Converter } from '@witty-services/ts-serializer';
+import { Converter } from '@paddls/ts-serializer';
 import { Type } from '@angular/core';
-import { PropertyKeyConfiguration } from '@witty-services/ngx-repository';
+import { PropertyKeyConfiguration } from '@paddls/ngx-repository';
 
 export interface HttpParamContext {
   name?: string;

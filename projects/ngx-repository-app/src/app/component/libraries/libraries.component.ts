@@ -4,11 +4,11 @@ import {Library} from '../../module/@core/model/library.model';
 import {Person} from '../../module/@core/model/person.model';
 import {PersonService} from '../../module/@core/service/person.service';
 import {map, switchMap} from 'rxjs/operators';
-import {Page} from '@witty-services/ngx-repository';
+import {Page} from '@paddls/ngx-repository';
 import {Client} from '../../module/@core/model/client.model';
 import {ClientService} from '../../module/@core/service/client.service';
-import {OnDestroyListener} from '@witty-services/ngx-common';
-import {softCache} from '@witty-services/rxjs-common';
+import {OnDestroyListener} from '@paddls/ngx-common';
+import {softCache} from '@paddls/rxjs-common';
 import {LibraryService} from '../../module/@core/service/library.service';
 
 @Component({

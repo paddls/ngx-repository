@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { HttpRepositoryRequest } from '../request/http-repository.request';
 import { Observable } from 'rxjs';
-import { PublisherService, RepositoryDriver } from '@witty-services/ngx-repository';
+import { PublisherService, RepositoryDriver } from '@paddls/ngx-repository';
 import { map, tap } from 'rxjs/operators';
 import { HttpRepositoryResponse } from '../response/http-repository.response';
 import { BeforeExecuteHttpRequestEvent } from './event/before-execute-http-request.event';

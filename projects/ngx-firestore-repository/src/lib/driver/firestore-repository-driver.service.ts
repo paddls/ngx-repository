@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { FirestoreRepositoryRequest } from '../request/firestore-repository.request';
 import { from, Observable, throwError } from 'rxjs';
-import { PublisherService, RepositoryDriver, RepositoryResponse } from '@witty-services/ngx-repository';
+import { PublisherService, RepositoryDriver, RepositoryResponse } from '@paddls/ngx-repository';
 import { FIRESTORE_APP } from '../ngx-firestore-repository.module.di';
 import { catchError, map, mapTo, tap } from 'rxjs/operators';
 import { NgxFirestoreRepositoryReadRequestError } from '../error/ngx-firestore-repository-read-request.error';

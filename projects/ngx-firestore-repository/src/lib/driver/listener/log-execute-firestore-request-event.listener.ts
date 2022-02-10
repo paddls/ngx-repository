@@ -1,4 +1,4 @@
-import { EventListener, Listener } from '@witty-services/ngx-repository';
+import { EventListener, Listener } from '@paddls/ngx-repository';
 import { Injectable } from '@angular/core';
 import { BeforeExecuteFirestoreRequestEvent } from '../event/before-execute-firestore-request.event';
 import { AfterExecuteFirestoreRequestEvent } from '../event/after-execute-firestore-request.event';

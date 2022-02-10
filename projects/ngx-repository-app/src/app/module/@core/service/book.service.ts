@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpRepository } from '@witty-services/ngx-http-repository';
+import { HttpRepository } from '@paddls/ngx-http-repository';
 import { Book } from '../model/book.model';
-import {InjectRepository, Page} from '@witty-services/ngx-repository';
+import {InjectRepository, Page} from '@paddls/ngx-repository';
 import { Observable } from 'rxjs';
 import { Chance } from 'chance';
 import { BookQuery } from '../query/book.query';

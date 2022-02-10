@@ -1,4 +1,4 @@
-import {InternalEvent} from '@witty-services/ngx-repository';
+import {InternalEvent} from '@paddls/ngx-repository';
 
 export class BeforeFirestoreFindByIdEvent<K> implements InternalEvent {
 

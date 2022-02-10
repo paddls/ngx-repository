@@ -1,6 +1,6 @@
 import { HttpHeader, HttpRepository, HttpResource } from '../public-api';
-import { Column, Id, Page, SubQuery } from '@witty-services/ngx-repository';
-import { Converter } from '@witty-services/ts-serializer';
+import { Column, Id, Page, SubQuery } from '@paddls/ngx-repository';
+import { Converter } from '@paddls/ts-serializer';
 import { testHttpRepository } from './util/test-http-repository.spec';
 
 describe('HttpHeader', () => {

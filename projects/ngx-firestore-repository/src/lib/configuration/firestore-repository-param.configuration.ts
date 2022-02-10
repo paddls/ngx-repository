@@ -1,4 +1,4 @@
-import { PathParamConfiguration, ResourceParamConfiguration } from '@witty-services/ngx-repository';
+import { PathParamConfiguration, ResourceParamConfiguration } from '@paddls/ngx-repository';
 
 /**
  * @ignore

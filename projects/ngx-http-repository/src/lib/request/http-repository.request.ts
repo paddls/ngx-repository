@@ -1,4 +1,4 @@
-import { Path, PathRequest, RepositoryRequest } from '@witty-services/ngx-repository';
+import { Path, PathRequest, RepositoryRequest } from '@paddls/ngx-repository';
 import { HttpParams } from '@angular/common/http';
 
 export class HttpRepositoryRequest implements RepositoryRequest, PathRequest {

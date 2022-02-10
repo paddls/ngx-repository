@@ -53,35 +53,84 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: ./coverage/merged/lcov.info
 
-      - name: Publish NgxRepository
+      - name: "Publish @paddls/ngx-repository"
         uses: pascalgn/npm-publish-action@1.3.8
         with:
-          create_tag: "false"
-          workspace: "./dist/ngx-repository"
           tag_name: "v%s"
           tag_message: "v%s"
           commit_pattern: "^release: v(\\S+)"
+          workspace: "./dist/ngx-repository"
+          publish_args: "--access public"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-
-      - name: Publish NgxFirestoreRepository
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_PADDLS }}
+      - name: "PrePublish @witty-services/ngx-repository"
+        uses: jossef/action-set-json-field@v1
+        with:
+          file: "./dist/ngx-repository/package.json"
+          field: name
+          value: "@witty-services/ngx-repository"
+      - name: "Publish @witty-services/ngx-repository"
         uses: pascalgn/npm-publish-action@1.3.8
         with:
-          create_tag: "false"
           commit_pattern: "^release: v(\\S+)"
-          workspace: "./dist/ngx-firebase-repository"
-          publish_args: "--non-interactive"
+          workspace: "./dist/ngx-repository"
+          publish_args: "--access public"
+          create_tag: "false"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_PADDLS }}
 
-      - name: Publish NgxHttpRepository
+      - name: "Publish @paddls/ngx-http-repository"
         uses: pascalgn/npm-publish-action@1.3.8
         with:
           commit_pattern: "^release: v(\\S+)"
           workspace: "./dist/ngx-http-repository"
-          publish_args: "--non-interactive"
+          publish_args: "--access public"
+          create_tag: "false"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_PADDLS }}
+      - name: "PrePublish @witty-services/ngx-http-repository"
+        uses: jossef/action-set-json-field@v1
+        with:
+          file: "./dist/ngx-http-repository/package.json"
+          field: name
+          value: "@witty-services/ngx-http-repository"
+      - name: "Publish @witty-services/ngx-http-repository"
+        uses: pascalgn/npm-publish-action@1.3.8
+        with:
+          commit_pattern: "^release: v(\\S+)"
+          workspace: "./dist/ngx-http-repository"
+          publish_args: "--access public"
+          create_tag: "false"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_PADDLS }}
+
+      - name: "Publish @paddls/ngx-firestore-repository"
+        uses: pascalgn/npm-publish-action@1.3.8
+        with:
+          commit_pattern: "^release: v(\\S+)"
+          workspace: "./dist/ngx-firestore-repository"
+          publish_args: "--access public"
+          create_tag: "false"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_PADDLS }}
+      - name: "PrePublish @witty-services/ngx-firestore-repository"
+        uses: jossef/action-set-json-field@v1
+        with:
+          file: "./dist/ngx-firestore-repository/package.json"
+          field: name
+          value: "@witty-services/ngx-firestore-repository"
+      - name: "Publish @witty-services/ngx-firestore-repository"
+        uses: pascalgn/npm-publish-action@1.3.8
+        with:
+          commit_pattern: "^release: v(\\S+)"
+          workspace: "./dist/ngx-firestore-repository"
+          publish_args: "--access public"
+          create_tag: "false"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_PADDLS }}

@@ -22,7 +22,7 @@ import {
   ResponseBuilder,
   UpdateRepository,
   VoidResponseProcessor
-} from '@witty-services/ngx-repository';
+} from '@paddls/ngx-repository';
 import { HTTP_RESOURCE_METADATA_KEY } from '../decorator/http-resource.decorator';
 import { filter, map, tap } from 'rxjs/operators';
 import { HttpRequestBuilder } from '../request/http-request.builder';
@@ -41,7 +41,7 @@ import { AfterHttpUpdateEvent } from './event/after-http-update.event';
 import { BeforeHttpPatchEvent } from './event/before-http-patch.event';
 import { AfterHttpPatchEvent } from './event/after-http-patch.event';
 import { HTTP_LIVE_RESOURCE_METADATA_KEY } from '../decorator/http-live-resource.decorator';
-import { refreshOn } from '@witty-services/rxjs-common';
+import { refreshOn } from '@paddls/rxjs-common';
 import { OnHttpResourceChange } from '../decorator/on-http-resource-change.decorator';
 import { Inject, Type } from '@angular/core';
 import { createHttpRepositoryConfiguration } from '../configuration/context/http-repository-context.configuration';

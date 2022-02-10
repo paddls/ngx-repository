@@ -1,6 +1,6 @@
 import {HttpRepositoryRequest} from '../../request/http-repository.request';
 import {HttpRepositoryResponse} from '../../response/http-repository.response';
-import {InternalEvent} from '@witty-services/ngx-repository';
+import {InternalEvent} from '@paddls/ngx-repository';
 
 export class AfterExecuteHttpRequestEvent implements InternalEvent {
 

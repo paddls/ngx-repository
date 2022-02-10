@@ -18,22 +18,22 @@
       "dom"
     ],
     "paths": {
-      "@witty-services/ngx-repository": [
+      "@paddls/ngx-repository": [
         "dist/ngx-repository"
       ],
-      "@witty-services/ngx-repository/*": [
+      "@paddls/ngx-repository/*": [
         "dist/ngx-repository/*"
       ],
-      "@witty-services/ngx-http-repository": [
+      "@paddls/ngx-http-repository": [
         "dist/ngx-http-repository"
       ],
-      "@witty-services/ngx-http-repository/*": [
+      "@paddls/ngx-http-repository/*": [
         "dist/ngx-http-repository/*"
       ],
-      "@witty-services/ngx-firestore-repository": [
+      "@paddls/ngx-firestore-repository": [
         "dist/ngx-firestore-repository"
       ],
-      "@witty-services/ngx-firestore-repository/*": [
+      "@paddls/ngx-firestore-repository/*": [
         "dist/ngx-firestore-repository/*"
       ]
     }

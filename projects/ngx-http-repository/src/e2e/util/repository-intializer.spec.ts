@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Type } from '@angular/core';
-import { InjectRepository, NgxRepositoryModule } from '@witty-services/ngx-repository';
+import { InjectRepository, NgxRepositoryModule } from '@paddls/ngx-repository';
 import { HttpRepository } from '../../lib/repository/http.repository';
 import { TestBed } from '@angular/core/testing';
 import { NgxHttpRepositoryModule } from '../../lib/ngx-http-repository.module';

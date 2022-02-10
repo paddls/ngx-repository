@@ -1,6 +1,6 @@
-import {JSON_PROPERTY_METADATA_KEY, JsonProperty} from '@witty-services/ts-serializer';
+import {JSON_PROPERTY_METADATA_KEY, JsonProperty} from '@paddls/ts-serializer';
 import {ColumnContext} from '../configuration/context/column-context.configuration';
-import {SerializeType} from '@witty-services/ts-serializer/dist/common';
+import {SerializeType} from '@paddls/ts-serializer/dist/common';
 
 /**
  * @ignore

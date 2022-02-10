@@ -1,5 +1,5 @@
 import { Observable, of } from 'rxjs';
-import { AfterNormalizeEvent, BeforeNormalizeEvent, ConfigurationContextProvider, Path, PublisherService, RequestBuilder, RequestManagerContext } from '@witty-services/ngx-repository';
+import { AfterNormalizeEvent, BeforeNormalizeEvent, ConfigurationContextProvider, Path, PublisherService, RequestBuilder, RequestManagerContext } from '@paddls/ngx-repository';
 import { FirestoreRepositoryRequest } from './firestore-repository.request';
 import { Inject, Injectable } from '@angular/core';
 import { FIRESTORE_APP } from '../ngx-firestore-repository.module.di';

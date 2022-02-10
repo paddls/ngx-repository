@@ -1,5 +1,5 @@
 import {Type} from '@angular/core';
-import {InternalEvent} from '@witty-services/ngx-repository';
+import {InternalEvent} from '@paddls/ngx-repository';
 
 export class BeforeHttpFindOneEvent implements InternalEvent {
 

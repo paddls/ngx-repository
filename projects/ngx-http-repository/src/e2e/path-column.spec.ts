@@ -1,6 +1,6 @@
 import { HttpRepository, HttpResource } from '../public-api';
-import { Id, Page, PathColumn, PathParam } from '@witty-services/ngx-repository';
-import { DateConverter } from '@witty-services/ts-serializer';
+import { Id, Page, PathColumn, PathParam } from '@paddls/ngx-repository';
+import { DateConverter } from '@paddls/ts-serializer';
 import { testHttpRepository } from './util/test-http-repository.spec';
 
 describe('PathColumn', () => {

@@ -7,13 +7,13 @@
       "node"
     ],
     "paths": {
-      "@witty-services/ngx-repository": [
+      "@paddls/ngx-repository": [
         "projects/ngx-repository/src/public-api.ts"
       ],
-      "@witty-services/ngx-http-repository": [
+      "@paddls/ngx-http-repository": [
         "projects/ngx-http-repository/src/public-api.ts"
       ],
-      "@witty-services/ngx-firestore-repository": [
+      "@paddls/ngx-firestore-repository": [
         "projects/ngx-firestore-repository/src/public-api.ts"
       ]
     }

@@ -2,7 +2,7 @@ import { CollectionReference, DocumentData, DocumentReference, Firestore } from 
 import { SnapshotListenOptions, Unsubscribe } from '@firebase/firestore';
 import { Observer, of } from 'rxjs';
 import { FirestoreMock } from 'projects/ngx-firestore-repository/src/e2e/util/firestore-mock.spec';
-import { wif } from '@witty-services/rxjs-common';
+import { wif } from '@paddls/rxjs-common';
 import { map } from 'rxjs/operators';
 
 export function collection(firestore: Firestore, path: string): CollectionReference<DocumentData> {

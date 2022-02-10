@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { ResponseProcessorToken } from '@witty-services/ngx-repository';
+import { ResponseProcessorToken } from '@paddls/ngx-repository';
 import { HttpRepositoryParamConfiguration } from '../http-repository-param.configuration';
 
 export type HttpQueryFn<R, Q = any> = (query?: Q) => Observable<R>;

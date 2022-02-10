@@ -1,4 +1,4 @@
-import {HttpQueryParam} from '@witty-services/ngx-http-repository';
+import {HttpQueryParam} from '@paddls/ngx-http-repository';
 
 export class PersonQuery {
 

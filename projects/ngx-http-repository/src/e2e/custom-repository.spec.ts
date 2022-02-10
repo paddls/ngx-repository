@@ -1,5 +1,5 @@
 import { HttpRepository, HttpRepositoryDriver, HttpResource } from '../public-api';
-import { Id, Page, Repository, RequestManager, ResourceConfiguration } from '@witty-services/ngx-repository';
+import { Id, Page, Repository, RequestManager, ResourceConfiguration } from '@paddls/ngx-repository';
 import { testHttpRepository } from './util/test-http-repository.spec';
 import { Inject, Injectable } from '@angular/core';
 import { HTTP_REPOSITORY_CONFIGURATION } from '../lib/configuration/http-repository.configuration';

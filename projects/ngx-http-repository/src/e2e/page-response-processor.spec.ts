@@ -1,6 +1,6 @@
 import { HttpRepository, HttpResource } from '../public-api';
 import { Injectable } from '@angular/core';
-import { Column, Id, Page, ResponseProcessor } from '@witty-services/ngx-repository';
+import { Column, Id, Page, ResponseProcessor } from '@paddls/ngx-repository';
 import { testHttpRepository } from './util/test-http-repository.spec';
 
 describe('Page', () => {

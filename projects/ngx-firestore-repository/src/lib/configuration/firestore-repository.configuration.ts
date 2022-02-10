@@ -1,5 +1,5 @@
 import { FirestoreRepositoryParamConfiguration } from './firestore-repository-param.configuration';
-import { ResourceConfiguration, ResourceParamConfiguration } from '@witty-services/ngx-repository';
+import { ResourceConfiguration, ResourceParamConfiguration } from '@paddls/ngx-repository';
 import { InjectionToken } from '@angular/core';
 import { get, isString, isUndefined, merge, omit } from 'lodash';
 import { FIRESTORE_OPERATIONS } from '../request/firestore.operation';

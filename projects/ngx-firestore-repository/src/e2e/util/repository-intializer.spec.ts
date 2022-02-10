@@ -1,5 +1,5 @@
 import { Injectable, Type } from '@angular/core';
-import { InjectRepository, NgxRepositoryModule } from '@witty-services/ngx-repository';
+import { InjectRepository, NgxRepositoryModule } from '@paddls/ngx-repository';
 import { TestBed } from '@angular/core/testing';
 import { Firestore, getFirestore } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';

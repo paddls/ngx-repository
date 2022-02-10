@@ -1,5 +1,5 @@
-import { JsonTypeSupports } from '@witty-services/ts-serializer';
-import { JSON_TYPE_SUPPORTS_METADATA_KEY } from '@witty-services/ts-serializer/dist/decorator/json-type-supports.decorator';
+import { JsonTypeSupports } from '@paddls/ts-serializer';
+import { JSON_TYPE_SUPPORTS_METADATA_KEY } from '@paddls/ts-serializer/dist/decorator/json-type-supports.decorator';
 
 /**
  * @ignore

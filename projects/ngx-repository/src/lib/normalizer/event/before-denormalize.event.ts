@@ -1,5 +1,5 @@
 import {Type} from '@angular/core';
-import {NormalizerConfiguration} from '@witty-services/ts-serializer';
+import {NormalizerConfiguration} from '@paddls/ts-serializer';
 
 export class BeforeDenormalizeEvent {
 

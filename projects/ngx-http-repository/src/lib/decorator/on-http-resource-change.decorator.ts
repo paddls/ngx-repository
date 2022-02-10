@@ -1,6 +1,6 @@
 import {Predicate, Type} from '@angular/core';
 import {isFunction, isObject} from 'rxjs/internal-compatibility';
-import {EventListener, TypeGetter} from '@witty-services/ngx-repository';
+import {EventListener, TypeGetter} from '@paddls/ngx-repository';
 import {HTTP_WRITE_OPERATIONS, HttpWriteOperation} from '../request/http.operation';
 import {AfterHttpCreateEvent} from '../repository/event/after-http-create.event';
 import {AfterHttpUpdateEvent} from '../repository/event/after-http-update.event';

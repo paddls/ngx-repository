@@ -7,7 +7,7 @@
       "node"
     ],
     "paths": {
-      "@witty-services/ngx-repository": [
+      "@paddls/ngx-repository": [
         "projects/ngx-repository/src/public-api.ts"
       ]
     }

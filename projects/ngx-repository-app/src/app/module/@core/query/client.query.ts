@@ -8,7 +8,7 @@ import {
   FirestoreOrderByContext,
   FirestoreStartAfter,
   FirestoreStartAt
-} from '@witty-services/ngx-firestore-repository';
+} from '@paddls/ngx-firestore-repository';
 
 export class ClientQuery {
 

@@ -1,4 +1,4 @@
-import {PropertyKeyConfiguration} from '@witty-services/ngx-repository';
+import {PropertyKeyConfiguration} from '@paddls/ngx-repository';
 
 /**
  * @ignore

@@ -1,4 +1,4 @@
-import {ConstructorFunction, Converter} from '@witty-services/ts-serializer';
+import {ConstructorFunction, Converter} from '@paddls/ts-serializer';
 
 export interface IdContext {
 

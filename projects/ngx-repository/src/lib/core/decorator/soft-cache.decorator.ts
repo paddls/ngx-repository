@@ -1,5 +1,5 @@
 import {Observable, timer} from 'rxjs';
-import {softCache} from '@witty-services/rxjs-common';
+import {softCache} from '@paddls/rxjs-common';
 import {takeUntil} from 'rxjs/operators';
 import {isObject} from 'lodash';
 import {SoftCacheContext, SoftCacheContextConfiguration} from '../configuration/context/soft-cache-context.configuration';

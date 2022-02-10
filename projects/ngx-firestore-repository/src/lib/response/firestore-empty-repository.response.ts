@@ -1,5 +1,5 @@
 import { FirestoreRepositoryResponse } from './firestore-repository.response';
-import { RepositoryRequest } from '@witty-services/ngx-repository';
+import { RepositoryRequest } from '@paddls/ngx-repository';
 
 export class FirestoreEmptyRepositoryResponse implements FirestoreRepositoryResponse {
 

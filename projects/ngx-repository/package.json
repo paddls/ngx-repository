@@ -1,24 +1,24 @@
 {
-  "name": "@witty-services/ngx-repository",
-  "version": "3.0.0-rc.16",
+  "name": "@paddls/ngx-repository",
+  "version": "3.0.0-rc.17",
   "peerDependencies": {
     "@angular/common": ">=8.0.3-rc.0 || >=8.0.3",
     "@angular/core": ">=8.0.3-rc.0 || >=8.0.3"
   },
   "dependencies": {
-    "@witty-services/ngx-serializer": "^1.0.6",
-    "@witty-services/rxjs-common": "^1.0.6",
+    "@paddls/ngx-serializer": "^1.0.6",
+    "@paddls/rxjs-common": "^1.0.6",
     "object-hash": "^2.0.3",
     "tslib": "^2.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/witty-services/ngx-repository.git"
+    "url": "git+https://github.com/paddls/ngx-repository.git"
   },
   "author": "Thomas Nisole",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/witty-services/ngx-repository/issues"
+    "url": "https://github.com/paddls/ngx-repository/issues"
   },
-  "homepage": "https://github.com/witty-services/ngx-repository#readme"
+  "homepage": "https://github.com/paddls/ngx-repository#readme"
 }

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { InjectRepository, Page } from '@witty-services/ngx-repository';
+import { InjectRepository, Page } from '@paddls/ngx-repository';
 import { Client } from '../model/client.model';
 import { Chance } from 'chance';
 import { Purchase } from '../model/purchase.model';
 import { ClientQuery } from '../query/client.query';
-import { FirestoreRepository } from '@witty-services/ngx-firestore-repository';
+import { FirestoreRepository } from '@paddls/ngx-firestore-repository';
 import { PurchaseQuery } from '../query/purchase.query';
 
 @Injectable()

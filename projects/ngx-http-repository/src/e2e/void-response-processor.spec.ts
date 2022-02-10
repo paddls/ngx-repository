@@ -1,5 +1,5 @@
 import { HttpRepository, HttpResource } from '../public-api';
-import { Column, Id } from '@witty-services/ngx-repository';
+import { Column, Id } from '@paddls/ngx-repository';
 import { testHttpRepository } from './util/test-http-repository.spec';
 
 describe('VoidResponseProcessor', () => {

@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { MockRepository, NgxRepositoryTestingModule, Page } from '@witty-services/ngx-repository';
+import { MockRepository, NgxRepositoryTestingModule, Page } from '@paddls/ngx-repository';
 import { LibraryService } from './library.service';
 import { Library } from '../model/library.model';
-import { HttpRepository } from '@witty-services/ngx-http-repository';
+import { HttpRepository } from '@paddls/ngx-http-repository';
 import { LibraryQuery } from '../query/library.query';
 
 describe('LibraryService', () => {
