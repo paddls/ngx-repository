@@ -1,6 +1,6 @@
 {
   "name": "ngx-repository",
-  "version": "0.0.0",
+  "version": "3.0.0-rc.17",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --project ngx-repository-app",
@@ -26,7 +26,8 @@
     "lint:ngx-http-repository": "ng lint --project ngx-http-repository",
     "lint:ngx-firestore-repository": "ng lint --project ngx-firestore-repository",
     "lint:ngx-repository-app": "ng lint --project ngx-repository-app",
-    "release": "cd projects/ngx-repository && npm version ${npm_config_release} && cd ../ngx-http-repository && npm version ${npm_config_release} && cd ../ngx-firestore-repository && npm version ${npm_config_release} && git commit -a -m \"release: v${npm_config_release}\"",
+    "changelog": "changelog -x build,ci,chore,docs,other,perf,refactor,revert,style,test && git add CHANGELOG.md && git commit -m 'ci: updated CHANGELOG.md'",
+    "release": "npm version ${npm_config_release} && cd projects/ngx-repository && npm version ${npm_config_release} && cd ../ngx-http-repository && npm version ${npm_config_release} && cd ../ngx-firestore-repository && npm version ${npm_config_release} && git commit -a -m \"release: v${npm_config_release}\"",
     "lint": "ng lint"
   },
   "private": true,
@@ -75,6 +76,7 @@
     "eslint-plugin-jsdoc": "latest",
     "eslint-plugin-prefer-arrow": "latest",
     "eslint-plugin-unused-imports": "^2.0.0",
+    "generate-changelog": "^1.8.0",
     "husky": "^7.0.4",
     "istanbul-combine": "^0.3.0",
     "jasmine-core": "~3.6.0",
