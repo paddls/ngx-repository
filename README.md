@@ -9,7 +9,7 @@
 ![GitHub issues](https://img.shields.io/github/issues/paddls/ngx-repository)
 ![GitHub top language](https://img.shields.io/github/languages/top/paddls/ngx-repository)
 
-NgxRepository allows you to easily create a strongly typed data access layer in your Angular project.
+Easily create a **strongly typed data access layer** in your **Angular** project.
 
 ## Summary
 
