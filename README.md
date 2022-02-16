@@ -14,6 +14,7 @@ NgxRepository allows you to easily create a strongly typed data access layer in 
 ## Summary
 
 * [How to install](#how-to-install)
+  * [Recommended Angular versions](#recommended-angular-versions)
   * [Main module](#main-module)
   * [Http Driver](#http-driver)
   * [Firestore Driver](#firestore-driver)
@@ -44,6 +45,13 @@ NgxRepository allows you to easily create a strongly typed data access layer in 
 * [Install and build project](#install-and-build-project)
 
 ## How to install
+
+### Recommended Angular versions
+
+| `Angular`                 | `NgxRepository`       |
+|-------------------------- | --------------------- |
+| `13.0.0` and above        | `3.0.0` and above     |
+| `8.0.0` and above         | `1.0.0` and above     |
 
 ### Main module
 
@@ -111,8 +119,8 @@ done, you can start annotating this class with the following decorators.
 #### HttpResource and FirestoreResource
 
 First, add a `@HttpResource()` or `@FirestoreResource()` decorator (depending on which protocol you wish to use)
-on the resource class. The most basic configuration for this annotation consists in giving the HTTP or Firestore resource
-path of the resource.
+on the resource class. The most basic configuration for this annotation consists in giving the HTTP or Firestore
+resource path of the resource.
 
 ```typescript
 import { FirestoreResource } from '@paddls/ngx-firestore-repository';
@@ -892,40 +900,40 @@ the decorator to filter the events you want to listen to.
 
 Here is the list of all events produced in ``NgxRepository`` :
 
-| Event                               | Repository type                          |
-| -------------------------------     | ---------------------------------------- |
-| `BeforeExecuteHttpRequestEvent`     | `HttpRepository`                         |
-| `BeforeHttpCreateEvent`             | `HttpRepository`                         |
-| `BeforeHttpDeleteEvent`             | `HttpRepository`                         |
-| `BeforeHttpFindAllEvent`            | `HttpRepository`                         |
-| `BeforeHttpFindByIdEvent`           | `HttpRepository`                         |
-| `BeforeHttpFindOneEvent`            | `HttpRepository`                         |
-| `BeforeHttpPatchEvent`              | `HttpRepository`                         |
-| `BeforeHttpUpdateEvent`             | `HttpRepository`                         |
-| `AfterHttpCreateEvent`              | `HttpRepository`                         |
-| `AfterHttpDeleteEvent`              | `HttpRepository`                         |
-| `AfterHttpFindAllEvent`             | `HttpRepository`                         |
-| `AfterHttpFindByIdEvent`            | `HttpRepository`                         |
-| `AfterHttpFindOneEvent`             | `HttpRepository`                         |
-| `AfterHttpPatchEvent`               | `HttpRepository`                         |
-| `AfterHttpUpdateEvent`              | `HttpRepository`                         |
-| `AfterExecuteHttpRequestEvent`      | `HttpRepository`                         |
-| `BeforeExecuteFirestoreRequestEvent` | `FirestoreRepository`                     |
-| `BeforeFirestoreCreateEvent`         | `FirestoreRepository`                     |
-| `BeforeFirestoreDeleteEvent`         | `FirestoreRepository`                     |
-| `BeforeFirestoreFindAllEvent`        | `FirestoreRepository`                     |
-| `BeforeFirestoreFindByIdEvent`       | `FirestoreRepository`                     |
-| `BeforeFirestoreFindOneEvent`        | `FirestoreRepository`                     |
-| `BeforeFirestorePatchEvent`          | `FirestoreRepository`                     |
-| `BeforeFirestoreUpdateEvent`         | `FirestoreRepository`                     |
-| `AfterFirestoreCreateEvent`          | `FirestoreRepository`                     |
-| `AfterFirestoreDeleteEvent`          | `FirestoreRepository`                     |
-| `AfterFirestoreFindAllEvent`         | `FirestoreRepository`                     |
-| `AfterFirestoreFindByIdEvent`        | `FirestoreRepository`                     |
-| `AfterFirestoreFindOneEvent`         | `FirestoreRepository`                     |
-| `AfterFirestorePatchEvent`           | `FirestoreRepository`                     |
-| `AfterFirestoreUpdateEvent`          | `FirestoreRepository`                     |
-| `AfterExecuteFirestoreRequestEvent`  | `FirestoreRepository`                     |
+| Event                                | Repository type                          |
+| -------------------------------      | ---------------------------------------- |
+| `BeforeExecuteHttpRequestEvent`      | `HttpRepository`                         |
+| `BeforeHttpCreateEvent`              | `HttpRepository`                         |
+| `BeforeHttpDeleteEvent`              | `HttpRepository`                         |
+| `BeforeHttpFindAllEvent`             | `HttpRepository`                         |
+| `BeforeHttpFindByIdEvent`            | `HttpRepository`                         |
+| `BeforeHttpFindOneEvent`             | `HttpRepository`                         |
+| `BeforeHttpPatchEvent`               | `HttpRepository`                         |
+| `BeforeHttpUpdateEvent`              | `HttpRepository`                         |
+| `AfterHttpCreateEvent`               | `HttpRepository`                         |
+| `AfterHttpDeleteEvent`               | `HttpRepository`                         |
+| `AfterHttpFindAllEvent`              | `HttpRepository`                         |
+| `AfterHttpFindByIdEvent`             | `HttpRepository`                         |
+| `AfterHttpFindOneEvent`              | `HttpRepository`                         |
+| `AfterHttpPatchEvent`                | `HttpRepository`                         |
+| `AfterHttpUpdateEvent`               | `HttpRepository`                         |
+| `AfterExecuteHttpRequestEvent`       | `HttpRepository`                         |
+| `BeforeExecuteFirestoreRequestEvent` | `FirestoreRepository`                    |
+| `BeforeFirestoreCreateEvent`         | `FirestoreRepository`                    |
+| `BeforeFirestoreDeleteEvent`         | `FirestoreRepository`                    |
+| `BeforeFirestoreFindAllEvent`        | `FirestoreRepository`                    |
+| `BeforeFirestoreFindByIdEvent`       | `FirestoreRepository`                    |
+| `BeforeFirestoreFindOneEvent`        | `FirestoreRepository`                    |
+| `BeforeFirestorePatchEvent`          | `FirestoreRepository`                    |
+| `BeforeFirestoreUpdateEvent`         | `FirestoreRepository`                    |
+| `AfterFirestoreCreateEvent`          | `FirestoreRepository`                    |
+| `AfterFirestoreDeleteEvent`          | `FirestoreRepository`                    |
+| `AfterFirestoreFindAllEvent`         | `FirestoreRepository`                    |
+| `AfterFirestoreFindByIdEvent`        | `FirestoreRepository`                    |
+| `AfterFirestoreFindOneEvent`         | `FirestoreRepository`                    |
+| `AfterFirestorePatchEvent`           | `FirestoreRepository`                    |
+| `AfterFirestoreUpdateEvent`          | `FirestoreRepository`                    |
+| `AfterExecuteFirestoreRequestEvent`  | `FirestoreRepository`                    |
 
 ## Test and debug
 
