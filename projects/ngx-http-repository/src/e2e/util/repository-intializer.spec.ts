@@ -31,7 +31,7 @@ export function initializeRepository<T>(bookImpl: Type<T>, providers: any[] = []
   });
 
   return {
-    httpClient: TestBed.get(HttpClient),
-    repository: TestBed.get(BookServiceImpl).repository
+    httpClient: TestBed.inject(HttpClient),
+    repository: TestBed.inject(BookServiceImpl).repository
   };
 }

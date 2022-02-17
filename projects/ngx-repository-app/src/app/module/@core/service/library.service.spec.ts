@@ -20,7 +20,7 @@ describe('LibraryService', () => {
     });
 
     libraryRepository = NgxRepositoryTestingModule.getRepository(Library, HttpRepository);
-    libraryService = TestBed.get(LibraryService);
+    libraryService = TestBed.inject(LibraryService);
   });
 
   describe('#findAll', () => {

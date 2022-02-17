@@ -1,8 +1,9 @@
 import { get } from 'lodash';
+import { ResourceConfiguration } from './resource.configuration';
 
 export class ConfigurationProvider {
 
-  public constructor(private readonly params: any) {
+  public constructor(private readonly params: ResourceConfiguration) {
   }
 
   public getConfiguration(property: string, paths: string[]): any {
@@ -12,9 +13,9 @@ export class ConfigurationProvider {
       return configuration;
     }
 
-    console.error(`Unable to found configuration '${ property }' (${ JSON.stringify(paths) })`, this.params);
+    console.error(`Unable to find configuration '${ property }' (${ JSON.stringify(paths) })`, this.params);
 
-    throw new Error(`Unable to found configuration '${ property }' (${ JSON.stringify(paths) })`);
+    throw new Error(`Unable to find configuration '${ property }' (${ JSON.stringify(paths) })`);
   }
 
   public findConfiguration(property: string, paths: string[]): any {

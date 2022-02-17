@@ -1,36 +1,45 @@
 import { RequestManager } from './request.manager';
-import { Injector } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { RequestManagerContext } from './request-manager.context';
 import { RepositoryDriver } from '../driver/repository.driver';
 import { ConfigurationContextProvider } from '../configuration/configuration-context.provider';
 import { BuilderParam } from '../configuration/resource-param.configuration';
+import { RequestBuilder } from '../request/request.builder';
+import { EMPTY, Observable } from 'rxjs';
+import { RepositoryRequest } from '../request/repository.request';
+import { TestBed } from '@angular/core/testing';
 
-class MyRequest {
+@Injectable()
+class MyRequestBuilder implements RequestBuilder {
+  public build(context: RequestManagerContext): Observable<RepositoryRequest> {
+    return EMPTY;
+  }
 }
 
-// TODO complete unit test
-xdescribe('RequestManager', () => {
+describe('RequestManager', () => {
   let manager: RequestManager;
-  let injector: Injector;
+  let requestBuilder: RequestBuilder;
 
   beforeEach(() => {
-    injector = {
-      get: () => void 0
-    };
+    TestBed.configureTestingModule({
+      providers: [
+        RequestManager,
+        MyRequestBuilder
+      ]
+    })
 
-    manager = new RequestManager(
-      injector
-    );
+    manager = TestBed.inject(RequestManager);
+    requestBuilder = TestBed.inject(MyRequestBuilder);
   });
 
-  it('should build an observable which contain request', () => {
+  it('should build and execute request and build response', () => {
     const configuration: ConfigurationContextProvider = {
       getOperation: () => void 0,
       getConfiguration: () => void 0,
       findConfiguration: () => void 0
     } as any;
-    const requestBuilderParam: BuilderParam<MyRequest> = {
-      builder: MyRequest,
+    const requestBuilderParam: BuilderParam<MyRequestBuilder> = {
+      builder: MyRequestBuilder,
       params: 'test'
     };
     spyOn(configuration, 'getConfiguration').and.returnValue(requestBuilderParam);
@@ -46,7 +55,7 @@ xdescribe('RequestManager', () => {
     };
 
     manager.execute(context);
-    expect(configuration.getConfiguration).toHaveBeenCalledTimes(1);
-    expect(configuration.getConfiguration).toHaveBeenCalledWith('request');
+    expect(configuration.getConfiguration).toHaveBeenCalledTimes(2);
+    expect(configuration.getConfiguration).toHaveBeenCalledWith('requestBuilder');
   });
 });

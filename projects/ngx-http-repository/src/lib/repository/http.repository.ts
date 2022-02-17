@@ -48,7 +48,7 @@ import { createHttpRepositoryConfiguration } from '../configuration/context/http
 import { HTTP_REPOSITORY_CONFIGURATION } from '../configuration/http-repository.configuration';
 
 @Repository(null, {
-  request: HttpRequestBuilder,
+  requestBuilder: HttpRequestBuilder,
   responseBuilder: ResponseBuilder.withParams(),
   findAll: {
     responseBuilder: ResponseBuilder.withParams({
@@ -84,8 +84,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
 
   public constructor(requestManager: RequestManager,
                      driver: HttpRepositoryDriver,
-                     @Inject(HTTP_REPOSITORY_CONFIGURATION)
-                       configuration: ResourceConfiguration = {}) {
+                     @Inject(HTTP_REPOSITORY_CONFIGURATION) configuration: ResourceConfiguration = {}) {
     super(requestManager, driver, configuration);
 
     if (this.isLiveResource()) {

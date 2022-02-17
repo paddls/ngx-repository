@@ -202,10 +202,10 @@ describe('HttpRequestDecorator', () => {
       ]
     });
 
-    TestBed.get(NgxRepositoryService);
+    TestBed.inject(NgxRepositoryService);
 
-    httpClient = TestBed.get(HttpClient);
-    api = TestBed.get(Api);
+    httpClient = TestBed.inject(HttpClient);
+    api = TestBed.inject(Api);
   });
 
   describe('should send custom request', () => {

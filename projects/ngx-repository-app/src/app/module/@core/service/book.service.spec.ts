@@ -27,7 +27,7 @@ describe('BookService', () => {
       expect(actual).toEqual(expected);
     }));
     bookRepository = NgxRepositoryTestingModule.getRepository(Book, HttpRepository);
-    bookService = TestBed.get(BookService);
+    bookService = TestBed.inject(BookService);
   });
 
   describe('#findAll', () => {

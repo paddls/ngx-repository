@@ -47,8 +47,8 @@ describe('LiveResource', () => {
       ]
     });
 
-    httpClient = TestBed.get(HttpClient);
-    repository = TestBed.get(BookService).repository;
+    httpClient = TestBed.inject(HttpClient);
+    repository = TestBed.inject(BookService).repository;
   });
 
   describe('#findAll', () => {

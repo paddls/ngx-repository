@@ -64,8 +64,8 @@ export async function httpTest(httpTestContext: HttpTestContext): Promise<void> 
     ]
   });
 
-  const repository: HttpRepository<any, any> = httpTestContext.repository ? TestBed.get(httpTestContext.repository) : TestBed.get(service).repository;
-  const httpClient: HttpClient = TestBed.get(HttpClient);
+  const repository: HttpRepository<any, any> = httpTestContext.repository ? TestBed.inject(httpTestContext.repository) : TestBed.inject(service).repository;
+  const httpClient: HttpClient = TestBed.inject(HttpClient);
 
   const context: HttpTestContext = {
     httpClient,

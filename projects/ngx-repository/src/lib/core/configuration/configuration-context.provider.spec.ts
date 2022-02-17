@@ -29,9 +29,9 @@ describe('ConfigurationContextProvider', () => {
       const obj: any = {};
       spyOn(provider, 'getConfiguration').and.returnValue(obj);
 
-      expect(providerContext.getConfiguration('request')).toEqual(obj);
+      expect(providerContext.getConfiguration('requestBuilder')).toEqual(obj);
       expect(provider.getConfiguration).toHaveBeenCalledTimes(1);
-      expect(provider.getConfiguration).toHaveBeenCalledWith('request', paths);
+      expect(provider.getConfiguration).toHaveBeenCalledWith('requestBuilder', paths);
     });
   });
 
@@ -41,9 +41,9 @@ describe('ConfigurationContextProvider', () => {
       const obj: any = {};
       spyOn(provider, 'findConfiguration').and.returnValue(obj);
 
-      expect(providerContext.findConfiguration('request')).toEqual(obj);
+      expect(providerContext.findConfiguration('requestBuilder')).toEqual(obj);
       expect(provider.findConfiguration).toHaveBeenCalledTimes(1);
-      expect(provider.findConfiguration).toHaveBeenCalledWith('request', paths);
+      expect(provider.findConfiguration).toHaveBeenCalledWith('requestBuilder', paths);
     });
   });
 });

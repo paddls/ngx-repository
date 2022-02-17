@@ -46,7 +46,7 @@ import { FIRESTORE_RESOURCE_METADATA_KEY } from '../decorator/firestore-resource
  * @ignore
  */
 @Repository<FirestoreResourceConfiguration>(null, {
-  request: FirestoreRequestBuilder,
+  requestBuilder: FirestoreRequestBuilder,
   responseBuilder: ResponseBuilder.withParams(),
   create: {
     responseBuilder: ResponseBuilder.withParams({
@@ -59,13 +59,13 @@ import { FIRESTORE_RESOURCE_METADATA_KEY } from '../decorator/firestore-resource
     })
   },
   findAll: {
-    request: FirestoreCriteriaRequestBuilder,
+    requestBuilder: FirestoreCriteriaRequestBuilder,
     responseBuilder: ResponseBuilder.withParams({
       postResponseProcessors: [PageResponseProcessor]
     })
   },
   findOne: {
-    request: FirestoreCriteriaRequestBuilder
+    requestBuilder: FirestoreCriteriaRequestBuilder
   }
 })
 export class FirestoreRepository<T, K = string> extends AbstractRepository<T> implements FindAllRepository,

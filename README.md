@@ -48,10 +48,10 @@ Easily create a **strongly typed data access layer** in your **Angular** project
 
 ### Recommended Angular versions
 
-| `Angular`                 | `NgxRepository`       |
-|-------------------------- | --------------------- |
-| `13.0.0` and above        | `3.0.0` and above     |
-| `8.0.0` and above         | `1.0.0` and above     |
+| `Angular`          | `NgxRepository`   |
+|--------------------|-------------------|
+| `13.0.0` and above | `3.0.0` and above |
+| `8.0.0` and above  | `1.0.0` and above |
 
 ### Main module
 
@@ -462,11 +462,11 @@ export class ClientQuery {
 The following table lists all the type of fields you can add to a query object and with which repository they are
 available.
 
-| Decorator                | Description                                                       | Repository type                        |
-|--------------------------|-------------------------------------------------------------------|----------------------------------------|
-| `@PathParam()`           | Replaces path parameter with field value                          | `HttpRepository`, `FirestoreRepository` |
-| `@HttpQueryParam()`      | Adds a query param to the HTTP request (eg. `/users/?name=Oscar`) | `HttpRepository`                       |
-| `@HttpHeader()`          | Adds a HTTP header to the request with field value                | `HttpRepository`                       |
+| Decorator                 | Description                                                       | Repository type                         |
+|---------------------------|-------------------------------------------------------------------|-----------------------------------------|
+| `@PathParam()`            | Replaces path parameter with field value                          | `HttpRepository`, `FirestoreRepository` |
+| `@HttpQueryParam()`       | Adds a query param to the HTTP request (eg. `/users/?name=Oscar`) | `HttpRepository`                        |
+| `@HttpHeader()`           | Adds a HTTP header to the request with field value                | `HttpRepository`                        |
 | `@FirestoreCriteria()`    | Adds a Firestore query criteria                                   | `FirestoreRepository`                   |
 | `@FirestoreOrderBy()`     | Adds a `.orderBy()` clause to Firestore request                   | `FirestoreRepository`                   |
 | `@FirestoreLimit()`       | Adds a `.limit()` clause to Firestore request                     | `FirestoreRepository`                   |
@@ -900,40 +900,40 @@ the decorator to filter the events you want to listen to.
 
 Here is the list of all events produced in ``NgxRepository`` :
 
-| Event                                | Repository type                          |
-| -------------------------------      | ---------------------------------------- |
-| `BeforeExecuteHttpRequestEvent`      | `HttpRepository`                         |
-| `BeforeHttpCreateEvent`              | `HttpRepository`                         |
-| `BeforeHttpDeleteEvent`              | `HttpRepository`                         |
-| `BeforeHttpFindAllEvent`             | `HttpRepository`                         |
-| `BeforeHttpFindByIdEvent`            | `HttpRepository`                         |
-| `BeforeHttpFindOneEvent`             | `HttpRepository`                         |
-| `BeforeHttpPatchEvent`               | `HttpRepository`                         |
-| `BeforeHttpUpdateEvent`              | `HttpRepository`                         |
-| `AfterHttpCreateEvent`               | `HttpRepository`                         |
-| `AfterHttpDeleteEvent`               | `HttpRepository`                         |
-| `AfterHttpFindAllEvent`              | `HttpRepository`                         |
-| `AfterHttpFindByIdEvent`             | `HttpRepository`                         |
-| `AfterHttpFindOneEvent`              | `HttpRepository`                         |
-| `AfterHttpPatchEvent`                | `HttpRepository`                         |
-| `AfterHttpUpdateEvent`               | `HttpRepository`                         |
-| `AfterExecuteHttpRequestEvent`       | `HttpRepository`                         |
-| `BeforeExecuteFirestoreRequestEvent` | `FirestoreRepository`                    |
-| `BeforeFirestoreCreateEvent`         | `FirestoreRepository`                    |
-| `BeforeFirestoreDeleteEvent`         | `FirestoreRepository`                    |
-| `BeforeFirestoreFindAllEvent`        | `FirestoreRepository`                    |
-| `BeforeFirestoreFindByIdEvent`       | `FirestoreRepository`                    |
-| `BeforeFirestoreFindOneEvent`        | `FirestoreRepository`                    |
-| `BeforeFirestorePatchEvent`          | `FirestoreRepository`                    |
-| `BeforeFirestoreUpdateEvent`         | `FirestoreRepository`                    |
-| `AfterFirestoreCreateEvent`          | `FirestoreRepository`                    |
-| `AfterFirestoreDeleteEvent`          | `FirestoreRepository`                    |
-| `AfterFirestoreFindAllEvent`         | `FirestoreRepository`                    |
-| `AfterFirestoreFindByIdEvent`        | `FirestoreRepository`                    |
-| `AfterFirestoreFindOneEvent`         | `FirestoreRepository`                    |
-| `AfterFirestorePatchEvent`           | `FirestoreRepository`                    |
-| `AfterFirestoreUpdateEvent`          | `FirestoreRepository`                    |
-| `AfterExecuteFirestoreRequestEvent`  | `FirestoreRepository`                    |
+| Event                                | Repository type       |
+|--------------------------------------|-----------------------|
+| `BeforeExecuteHttpRequestEvent`      | `HttpRepository`      |
+| `BeforeHttpCreateEvent`              | `HttpRepository`      |
+| `BeforeHttpDeleteEvent`              | `HttpRepository`      |
+| `BeforeHttpFindAllEvent`             | `HttpRepository`      |
+| `BeforeHttpFindByIdEvent`            | `HttpRepository`      |
+| `BeforeHttpFindOneEvent`             | `HttpRepository`      |
+| `BeforeHttpPatchEvent`               | `HttpRepository`      |
+| `BeforeHttpUpdateEvent`              | `HttpRepository`      |
+| `AfterHttpCreateEvent`               | `HttpRepository`      |
+| `AfterHttpDeleteEvent`               | `HttpRepository`      |
+| `AfterHttpFindAllEvent`              | `HttpRepository`      |
+| `AfterHttpFindByIdEvent`             | `HttpRepository`      |
+| `AfterHttpFindOneEvent`              | `HttpRepository`      |
+| `AfterHttpPatchEvent`                | `HttpRepository`      |
+| `AfterHttpUpdateEvent`               | `HttpRepository`      |
+| `AfterExecuteHttpRequestEvent`       | `HttpRepository`      |
+| `BeforeExecuteFirestoreRequestEvent` | `FirestoreRepository` |
+| `BeforeFirestoreCreateEvent`         | `FirestoreRepository` |
+| `BeforeFirestoreDeleteEvent`         | `FirestoreRepository` |
+| `BeforeFirestoreFindAllEvent`        | `FirestoreRepository` |
+| `BeforeFirestoreFindByIdEvent`       | `FirestoreRepository` |
+| `BeforeFirestoreFindOneEvent`        | `FirestoreRepository` |
+| `BeforeFirestorePatchEvent`          | `FirestoreRepository` |
+| `BeforeFirestoreUpdateEvent`         | `FirestoreRepository` |
+| `AfterFirestoreCreateEvent`          | `FirestoreRepository` |
+| `AfterFirestoreDeleteEvent`          | `FirestoreRepository` |
+| `AfterFirestoreFindAllEvent`         | `FirestoreRepository` |
+| `AfterFirestoreFindByIdEvent`        | `FirestoreRepository` |
+| `AfterFirestoreFindOneEvent`         | `FirestoreRepository` |
+| `AfterFirestorePatchEvent`           | `FirestoreRepository` |
+| `AfterFirestoreUpdateEvent`          | `FirestoreRepository` |
+| `AfterExecuteFirestoreRequestEvent`  | `FirestoreRepository` |
 
 ## Test and debug
 

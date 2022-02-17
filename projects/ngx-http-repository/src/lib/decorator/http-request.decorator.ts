@@ -23,7 +23,7 @@ export function HttpRequestDecorator(params: HttpRequestParamsContext): Property
         const requestManager: RequestManager = injector.get(RequestManager);
         const driver: RepositoryDriver = injector.get(HttpRepositoryDriver);
         const configuration: ConfigurationContextProvider = new ConfigurationContextProvider(new ConfigurationProvider({
-          request: HttpRequestBuilder,
+          requestBuilder: HttpRequestBuilder,
           responseBuilder: ResponseBuilder.withParams({
             postResponseProcessors: flattenDeep([params.postResponseProcessors || []])
           }),

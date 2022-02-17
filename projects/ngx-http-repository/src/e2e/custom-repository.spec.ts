@@ -29,8 +29,7 @@ describe('Custom Repository', () => {
 
       public constructor(requestManager: RequestManager,
                          driver: HttpRepositoryDriver,
-                         @Inject(HTTP_REPOSITORY_CONFIGURATION)
-                           configuration: ResourceConfiguration) {
+                         @Inject(HTTP_REPOSITORY_CONFIGURATION) configuration: ResourceConfiguration) {
         super(requestManager, driver, configuration);
       }
     }
@@ -42,8 +41,8 @@ describe('Custom Repository', () => {
         request: (repository: HttpRepository<any, any>) => repository.findAll().toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
-        expectedResponse: Page.build([new Book({ id: 1 }), new Book({ id: 2 })]),
-        mockedResponseBody: [{ id: 1 }, { id: 2 }]
+        expectedResponse: Page.build([new Book({id: 1}), new Book({id: 2})]),
+        mockedResponseBody: [{id: 1}, {id: 2}]
       },
       findOne: {
         entity: Book,
@@ -51,8 +50,8 @@ describe('Custom Repository', () => {
         request: (repository: HttpRepository<any, any>) => repository.findOne().toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
-        expectedResponse: new Book({ id: 1 }),
-        mockedResponseBody: [{ id: 1 }, { id: 2 }]
+        expectedResponse: new Book({id: 1}),
+        mockedResponseBody: [{id: 1}, {id: 2}]
       },
       findById: {
         entity: Book,
@@ -60,8 +59,8 @@ describe('Custom Repository', () => {
         request: (repository: HttpRepository<any, any>) => repository.findById(1).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/1',
-        expectedResponse: new Book({ id: 1 }),
-        mockedResponseBody: { id: 1 }
+        expectedResponse: new Book({id: 1}),
+        mockedResponseBody: {id: 1}
       },
       create: {
         entity: Book,
@@ -70,8 +69,8 @@ describe('Custom Repository', () => {
         expectedMethod: 'POST',
         expectedPath: '/books',
         expectedRequestBody: {},
-        expectedResponse: new Book({ id: 1 }),
-        mockedResponseBody: { id: 1 }
+        expectedResponse: new Book({id: 1}),
+        mockedResponseBody: {id: 1}
       },
       update: {
         entity: Book,
@@ -81,9 +80,9 @@ describe('Custom Repository', () => {
         })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
-        expectedRequestBody: { id: 1 },
-        expectedResponse: new Book({ id: 1 }),
-        mockedResponseBody: { id: 1 }
+        expectedRequestBody: {id: 1},
+        expectedResponse: new Book({id: 1}),
+        mockedResponseBody: {id: 1}
       },
       patch: {
         entity: Book,
@@ -93,9 +92,9 @@ describe('Custom Repository', () => {
         })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
-        expectedRequestBody: { id: 1 },
-        expectedResponse: new Book({ id: 1 }),
-        mockedResponseBody: { id: 1 }
+        expectedRequestBody: {id: 1},
+        expectedResponse: new Book({id: 1}),
+        mockedResponseBody: {id: 1}
       },
       delete: {
         entity: Book,
@@ -105,9 +104,9 @@ describe('Custom Repository', () => {
         })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
-        expectedRequestBody: { id: 1 },
-        expectedResponse: new Book({ id: 1 }),
-        mockedResponseBody: { id: 1 }
+        expectedRequestBody: {id: 1},
+        expectedResponse: new Book({id: 1}),
+        mockedResponseBody: {id: 1}
       }
     });
   });

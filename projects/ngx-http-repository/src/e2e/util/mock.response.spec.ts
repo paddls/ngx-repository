@@ -12,26 +12,3 @@ export interface RequestContext {
   expectedResponse?: any;
   mockedResponse?: any;
 }
-
-export function mockResponse(httpClient: HttpClient, body: any = null): void {
-  spyOn(httpClient, 'request').and.returnValue(of(new HttpResponse({
-    body
-  })));
-}
-
-export function mockResponse2(httpClient: HttpClient, context: RequestContext): void {
-  spyOn(httpClient, 'request').and.returnValue(of(new HttpResponse({
-    body: context.mockedResponse || null
-  })));
-}
-
-
-export function assertRequest(httpClient: HttpClient, context: RequestContext): void {
-  expect(httpClient.request).toHaveBeenCalledWith(context.expectedMethod, context.expectedPath, {
-    params: context.expectedRequestParams || new HttpParams(),
-    headers: context.expectedRequestHeaders || {},
-    observe: 'response',
-    body: context.expectedRequestBody || null,
-    responseType: 'json'
-  });
-}

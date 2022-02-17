@@ -7,12 +7,12 @@ import { Type } from '@angular/core';
 export type BuilderParam<T> = Type<T> | TypeGetter<T> | { builder: Type<T>, params: any };
 
 export interface ResourceParamConfiguration {
-  /**
-   * @deprecated show use requestBuilder
-   * TODO @RMA rename to requestBuilder
-   */
-  request?: BuilderParam<RequestBuilder>;
+
+  requestBuilder?: BuilderParam<RequestBuilder>;
+
   normalizerConfiguration?: NormalizerConfiguration;
+
   responseBuilder?: BuilderParam<ResponseBuilder>;
+
   responseType?: TypeGetter;
 }
