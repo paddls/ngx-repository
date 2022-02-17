@@ -11,7 +11,7 @@ beforeEach(() => {
 
   spyOn(PublisherService, 'addListenerToRegistry').and.returnValue(void 0);
   spyOn(PublisherService, 'getPublisher').and.returnValue(publisher$);
-})
+});
 
 describe('EventListenerDecorator', () => {
   it('should add listener to registry when no predicate', () => {
@@ -59,7 +59,7 @@ describe('EventListenerDecorator', () => {
     randomClass.listener$.subscribe((v: any) => {
       expect(v).toBeInstanceOf(BeforeDenormalizeEvent);
       done();
-    })
+    });
 
     publisher$.next(new BeforeDenormalizeEvent());
   });
@@ -76,7 +76,7 @@ describe('EventListenerDecorator', () => {
     randomClass.listener$.subscribe((v: any) => {
       expect(v).toBeInstanceOf(BeforeDenormalizeEvent);
       done();
-    })
+    });
 
     publisher$.next(new BeforeDenormalizeEvent());
   });

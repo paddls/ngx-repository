@@ -41,7 +41,7 @@ describe('RepositoryNormalizer', () => {
       const raw: any = {
         director: 'Oscar',
         ageLimit: null
-      }
+      };
 
       const movie: Movie = normalizer.denormalize(Movie, raw);
 
@@ -53,7 +53,7 @@ describe('RepositoryNormalizer', () => {
       const raw: any = {
         director: 'Oscar',
         ageLimit: null
-      }
+      };
 
       const movie: Movie = normalizer.denormalize(Movie, raw, {});
 
@@ -71,7 +71,7 @@ describe('RepositoryNormalizer', () => {
           director: 'Thomas',
           ageLimit: 18
         }
-      ]
+      ];
 
       const movies: Movie[] = normalizer.denormalize(Movie, raw);
 
@@ -88,7 +88,7 @@ describe('RepositoryNormalizer', () => {
         ageLimit: null
       });
 
-      const raw: any = normalizer.normalize(movie)
+      const raw: any = normalizer.normalize(movie);
 
       expect(raw.director).toEqual('Oscar');
       expect(raw.ageLimit).toBeNull();
@@ -100,7 +100,7 @@ describe('RepositoryNormalizer', () => {
         ageLimit: null
       });
 
-      const raw: any = normalizer.normalize(movie, {})
+      const raw: any = normalizer.normalize(movie, {});
 
       expect(raw.director).toEqual('Oscar');
       expect(raw.ageLimit).toBeUndefined();
@@ -116,7 +116,7 @@ describe('RepositoryNormalizer', () => {
           director: 'Thomas',
           ageLimit: 18
         })
-      ]
+      ];
 
       const raws: any[] = normalizer.denormalize(Movie, movies);
 

@@ -1,5 +1,5 @@
 import { RequestManager } from './request.manager';
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { RequestManagerContext } from './request-manager.context';
 import { RepositoryDriver } from '../driver/repository.driver';
 import { ConfigurationContextProvider } from '../configuration/configuration-context.provider';
@@ -11,14 +11,13 @@ import { TestBed } from '@angular/core/testing';
 
 @Injectable()
 class MyRequestBuilder implements RequestBuilder {
-  public build(context: RequestManagerContext): Observable<RepositoryRequest> {
+  public build(): Observable<RepositoryRequest> {
     return EMPTY;
   }
 }
 
 describe('RequestManager', () => {
   let manager: RequestManager;
-  let requestBuilder: RequestBuilder;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -26,10 +25,9 @@ describe('RequestManager', () => {
         RequestManager,
         MyRequestBuilder
       ]
-    })
+    });
 
     manager = TestBed.inject(RequestManager);
-    requestBuilder = TestBed.inject(MyRequestBuilder);
   });
 
   it('should build and execute request and build response', () => {

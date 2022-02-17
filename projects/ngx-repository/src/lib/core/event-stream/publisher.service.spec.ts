@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 @EventListener(() => true)
 class MyEventListener implements Listener<any> {
 
-  public on(event: any): void {
+  public on(): void {
   }
 }
 
@@ -38,13 +38,13 @@ describe('PublisherService', () => {
 
       service.publish(new AfterDenormalizeEvent());
 
-      expect(listener.on).toHaveBeenCalledWith(jasmine.any(AfterDenormalizeEvent));
+      expect(listener.on).toHaveBeenCalled();
     });
   });
 
   describe('#getPublisher()', () => {
     it('should return valid publisher', () => {
       expect(PublisherService.getPublisher()).toBeDefined();
-    })
-  })
+    });
+  });
 });
