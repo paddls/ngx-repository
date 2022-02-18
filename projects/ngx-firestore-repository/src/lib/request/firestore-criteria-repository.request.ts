@@ -2,8 +2,19 @@ import { Path } from '@paddls/ngx-repository';
 import { FirestoreCriteria, FirestoreRequestOrderBy, FirestoreRequestQuery } from './firestore.criteria';
 import { FirestoreOperation } from './firestore.operation';
 import { FirestoreRepositoryRequest } from './firestore-repository.request';
-import { CollectionReference, endAt, endBefore, Firestore, limit, limitToLast, orderBy, Query, query, QueryConstraint, startAfter, startAt, where } from 'firebase/firestore';
-import { collection } from '../firestore-functions';
+import { CollectionReference, Firestore, Query, QueryConstraint } from 'firebase/firestore';
+import {
+  collection,
+  endAt,
+  endBefore,
+  limit,
+  limitToLast,
+  orderBy,
+  query,
+  startAfter,
+  startAt,
+  where
+} from '../firestore-functions';
 
 export class FirestoreCriteriaRepositoryRequest extends FirestoreRepositoryRequest {
 

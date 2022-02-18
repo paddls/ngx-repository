@@ -2,7 +2,7 @@ import { Type } from '@angular/core';
 import { FirestoreRepository } from '../../lib/repository/firestore.repository';
 import { forOwn } from 'lodash';
 import { initializeRepository, RepositoryContext } from './repository-intializer.spec';
-import { addDoc, deleteDoc, updateDoc } from '../../lib/firestore-functions';
+import { addDoc, deleteDoc, query, updateDoc } from '../../lib/firestore-functions';
 import { CollectionReference, DocumentReference } from 'firebase/firestore';
 import { FirestoreMock } from './firestore-mock.spec';
 
@@ -11,6 +11,7 @@ export interface FirestoreTestContext {
   request: (repository: FirestoreRepository<any>) => Promise<any>;
   expectedPath: string;
   expectedResponse: any;
+  expectedQuery: any;
   expectedRequest: (reference: { path: string }) => void;
   mockedResponse: any;
 }
@@ -35,6 +36,9 @@ export function testFirestoreRepository(tests: { [key: string]: Partial<Firestor
       if (context.expectedRequest) {
         context.expectedRequest({path: context.expectedPath});
       }
+      if (context.expectedQuery) {
+        context.expectedQuery();
+      }
     });
   });
 }
@@ -54,5 +58,11 @@ export function expectDocumentUpdate<T>(value: any): (reference: DocumentReferen
 export function expectDocumentDelete<T>(): (reference: DocumentReference<T>) => void {
   return (reference: DocumentReference<T>) => {
     expect(deleteDoc as any).toHaveBeenCalledOnceWith({type: 'document', ...reference});
+  };
+}
+
+export function expectQuery(type: string, args: any): () => void {
+  return () => {
+    expect(query as any).toHaveBeenCalledWith(jasmine.anything(), {type, data: {...args}});
   };
 }

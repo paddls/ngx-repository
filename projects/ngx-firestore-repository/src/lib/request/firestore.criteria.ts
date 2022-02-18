@@ -11,12 +11,14 @@ import { FIRESTORE_END_AT_METADATA_KEY } from '../decorator/firestore-end-at.dec
 import { FIRESTORE_END_BEFORE_METADATA_KEY } from '../decorator/firestore-end-before.decorator';
 import { FIRESTORE_LIMIT_METADATA_KEY } from '../decorator/firestore-limit.decorator';
 import { FIRESTORE_LIMIT_TO_LAST_METADATA_KEY } from '../decorator/firestore-limit-to-last.decorator';
-import { FirestoreCriteriaContextConfiguration } from '../configuration/context/firestore-criteria-context.configuration';
+import {
+  FirestoreCriteriaContextConfiguration
+} from '../configuration/context/firestore-criteria-context.configuration';
 import {
   FirestoreOrderByContext,
   FirestoreOrderByContextConfiguration
 } from '../configuration/context/firestore-order-by-context.configuration';
-import {FieldPath, OrderByDirection, WhereFilterOp} from 'firebase/firestore';
+import { FieldPath, OrderByDirection, WhereFilterOp } from 'firebase/firestore';
 
 export interface FirestoreRequestQuery {
 
@@ -70,9 +72,9 @@ export class FirestoreCriteria {
     const queries: FirestoreRequestQuery[] = [];
 
     if (query) {
-      const firestoreCriterias: FirestoreCriteriaContextConfiguration[] = getDeepQueryMetadataValues(FIRESTORE_CRITERIA_METADATA_KEY, query);
+      const firestoreCriteriaContextConfigurations: FirestoreCriteriaContextConfiguration[] = getDeepQueryMetadataValues(FIRESTORE_CRITERIA_METADATA_KEY, query);
 
-      firestoreCriterias.forEach((firestoreCriteria: FirestoreCriteriaContextConfiguration) => {
+      firestoreCriteriaContextConfigurations.forEach((firestoreCriteria: FirestoreCriteriaContextConfiguration) => {
         if (query[firestoreCriteria.propertyKey] == null) {
           return;
         }
