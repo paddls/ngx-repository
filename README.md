@@ -35,6 +35,7 @@ Easily create a **strongly typed data access layer** in your **Angular** project
   * [Page type](#page-type)
   * [Page response processor](#page-response-processor)
 * [HttpLiveResource](#httpliveresource)
+* [@FirestoreCreatedAt and @FirestoreUpdatedAt](#firestorecreatedat-and-firestoreupdatedat)
 * [Advanced usage](#advanced-usage)
   * [Custom repository](#custom-repository)
   * [Custom HTTP API](#custom-http-api)
@@ -675,6 +676,39 @@ import { HttpLiveResource, HttpResource } from '@paddls/ngx-http-repository';
 @HttpResource('/libraries')
 export class Library {
 }
+```
+
+## FirestoreCreatedAt and FirestoreUpdatedAt
+
+Use `@FirestoreCreatedAt()` and `@FirestoreUpdatedAt()` decorators on a `@FirestoreResource()` field to automatically
+inject creation and last update date of each resource firestore document.
+
+You can also retrieve information for a particular resource field by adding its property name directly in the decorator
+context.
+
+```typescript
+@FirestoreResource({
+  path: '/clients'
+})
+export class Client {
+
+  @Id()
+  public id: string;
+
+  @Column()
+  public name: string;
+
+  @FirestoreCreatedAt()
+  public createdAt: Date;
+
+  @FirestoreUpdatedAt('name')
+  public updatedAt: Date;
+
+  public constructor(data: Partial<Client> = {}) {
+    Object.assign(this, data);
+  }
+}
+
 ```
 
 ## Advanced usage

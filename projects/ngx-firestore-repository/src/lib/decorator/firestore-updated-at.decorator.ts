@@ -1,15 +1,15 @@
-import {Column, ColumnContext} from '@paddls/ngx-repository';
-import {FsTimestampConverter} from '../converter/fs-timestamp.converter';
+import { Column, ColumnContext } from '@paddls/ngx-repository';
+import { FsTimestampConverter } from '../converter/fs-timestamp.converter';
 import {
   FirestoreUpdatedAtContext,
   FirestoreUpdatedAtContextConfiguration
 } from '../configuration/context/firestore-updated-at-context.configuration';
-import {Timestamp} from 'firebase/firestore';
+import { Timestamp } from 'firebase/firestore';
 
 /**
  * @ignore
  */
-export const FIRESTORE_UPDATED_AT_METADATA_KEY: string = 'firestoreUpdatedAts';
+export const FIRESTORE_UPDATED_AT_METADATA_KEY: string = 'firestoreUpdatedAtMetadataKey';
 
 export function FirestoreUpdatedAt(firestoreUpdatedAtContext?: FirestoreUpdatedAtContext | string): any {
   return (target: any, propertyKey: string): void => {

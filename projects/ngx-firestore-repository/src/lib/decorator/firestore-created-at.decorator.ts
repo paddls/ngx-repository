@@ -1,15 +1,15 @@
-import {Column, ColumnContext} from '@paddls/ngx-repository';
-import {FsTimestampConverter} from '../converter/fs-timestamp.converter';
+import { Column, ColumnContext } from '@paddls/ngx-repository';
+import { FsTimestampConverter } from '../converter/fs-timestamp.converter';
 import {
   FirestoreCreatedAtContext,
   FirestoreCreatedAtContextConfiguration
 } from '../configuration/context/firestore-created-at-context.configuration';
-import {Timestamp} from 'firebase/firestore';
+import { Timestamp } from 'firebase/firestore';
 
 /**
  * @ignore
  */
-export const FIRESTORE_CREATED_AT_METADATA_KEY: string = 'firestoreCreatedAts';
+export const FIRESTORE_CREATED_AT_METADATA_KEY: string = 'firestoreCreatedAtMetadataKey';
 
 export function FirestoreCreatedAt(firestoreCreatedAtContext?: FirestoreCreatedAtContext | string): any {
   return (target: any, propertyKey: string): void => {
