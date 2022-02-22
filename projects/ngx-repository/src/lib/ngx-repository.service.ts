@@ -1,9 +1,9 @@
-import {Inject, Injectable, InjectionToken, Injector, Type} from '@angular/core';
-import {RepositoryBuilder} from './core/repository/repository.builder';
-import {REPOSITORY_BUILDER_TOKEN} from './ngx-repository.module.di';
-import {TokenRegistry} from './core/registry/token.registry';
-import {AbstractRepository} from './core/repository/abstract-repository';
-import {RepositoryService} from './repository-service';
+import { Inject, Injectable, InjectionToken, Injector, Type } from '@angular/core';
+import { RepositoryBuilder } from './core/repository/repository.builder';
+import { REPOSITORY_BUILDER_TOKEN } from './ngx-repository.module.di';
+import { TokenRegistry } from './core/registry/token.registry';
+import { AbstractRepository } from './core/repository/abstract-repository';
+import { RepositoryService } from './repository-service';
 
 /**
  * @ignore
@@ -58,7 +58,7 @@ export class NgxRepositoryService implements RepositoryService {
     if (repositories && Array.isArray(repositories)) {
       if (!repositoryType) {
         throw new Error(
-          `With multiple connection types, you must have to provide the repository argument in JoinColumn, SubCollection and InjectRepository decorator of your ${ resourceType.name } resource.`
+          `With multiple connection types, you must provide the repository argument in JoinColumn, SubCollection and InjectRepository decorator of your ${ resourceType.name } resource.`
         );
       }
 
@@ -70,7 +70,7 @@ export class NgxRepositoryService implements RepositoryService {
 
   private createNewRepository<T>(resourceType: Type<T>, repositoryType?: Type<AbstractRepository<T>>): AbstractRepository<T> {
     if (this.repositoryBuilders.length === 0) {
-      throw new Error('There is not connection configured.');
+      throw new Error('There is no connection configured.');
     }
 
     let repository: AbstractRepository<T>;
@@ -79,12 +79,12 @@ export class NgxRepositoryService implements RepositoryService {
     } else if (this.repositoryBuilders.length > 1) {
       if (!repositoryType) {
         throw new Error(
-          `With multiple connection types, you must have to provide the repository argument in JoinColumn, SubCollection and InjectRepository decorator of your ${ resourceType.name } resource.`
+          `With multiple connection types, you must provide the repository argument in JoinColumn, SubCollection and InjectRepository decorators of your ${ resourceType.name } resource.`
         );
       }
       const connection: RepositoryBuilder = this.repositoryBuilders.find((c: RepositoryBuilder) => c.supports(resourceType, repositoryType));
       if (!connection) {
-        throw new Error(`There is no RepositoryBuilder to support the repository type ${ repositoryType.name }`);
+        throw new Error(`There is no RepositoryBuilder to support ${ repositoryType.name } repository type`);
       }
 
       repository = connection.getRepository(resourceType, repositoryType);
