@@ -1,36 +1,36 @@
-export {Page} from './lib/core/model/page';
-export {TypeGetter} from './lib/core/common/model/type-getter.type';
+export { Page } from './lib/core/model/page';
+export { TypeGetter } from './lib/core/common/model/type-getter.type';
 
-export {PathParamConfiguration} from './lib/core/configuration/path-param.configuration';
+export { PathParamConfiguration } from './lib/core/configuration/path-param.configuration';
 
-export {PropertyKeyConfiguration} from './lib/core/common/decorator/property-key-configuration';
+export { PropertyKeyConfiguration } from './lib/core/common/decorator/property-key-configuration';
 
-export {ColumnContext} from './lib/core/configuration/context/column-context.configuration';
-export {IdContext} from './lib/core/configuration/context/id-context.configuration';
-export {InjectRepositoryContext} from './lib/core/configuration/context/inject-repository-context.configuration';
-export {JoinColumnContext} from './lib/core/configuration/context/join-column-context.configuration';
-export {PathColumnContext} from './lib/core/configuration/context/path-column-context.configuration';
-export {PathParamContext} from './lib/core/configuration/context/path-param-context.configuration';
-export {SoftCacheContext} from './lib/core/configuration/context/soft-cache-context.configuration';
-export {HardCacheContext} from './lib/core/configuration/context/hard-cache-context.configuration';
-export {SubCollectionContext} from './lib/core/configuration/context/sub-collection-context.configuration';
+export { ColumnContext } from './lib/core/configuration/context/column-context.configuration';
+export { IdContext } from './lib/core/configuration/context/id-context.configuration';
+export { InjectRepositoryContext } from './lib/core/configuration/context/inject-repository-context.configuration';
+export { JoinColumnContext } from './lib/core/configuration/context/join-column-context.configuration';
+export { PathColumnContext } from './lib/core/configuration/context/path-column-context.configuration';
+export { PathParamContext } from './lib/core/configuration/context/path-param-context.configuration';
+export { SoftCacheContext } from './lib/core/configuration/context/soft-cache-context.configuration';
+export { HardCacheContext } from './lib/core/configuration/context/hard-cache-context.configuration';
+export { SubCollectionContext } from './lib/core/configuration/context/sub-collection-context.configuration';
 
-export {Column, COLUMNS_METADATA_KEY} from './lib/core/decorator/column.decorator';
-export {Id} from './lib/core/decorator/id.decorator';
-export {InjectRepository} from './lib/core/decorator/inject-repository.decorator';
-export {JoinColumn} from './lib/core/decorator/join-column.decorator';
-export {PathColumn} from './lib/core/decorator/path-column.decorator';
-export {PathParam} from './lib/core/decorator/path-param.decorator';
-export {Repository, getRepositoryContextConfiguration} from './lib/core/decorator/repository.decorator';
-export {ResourceTypeSupports, RESOURCE_TYPE_SUPPORTS_METADATA_KEY} from './lib/core/decorator/resource-type-supports.decorator';
-export {SoftCache} from './lib/core/decorator/soft-cache.decorator';
-export {HardCache} from './lib/core/decorator/hard-cache.decorator';
+export { Column, COLUMNS_METADATA_KEY } from './lib/core/decorator/column.decorator';
+export { Id } from './lib/core/decorator/id.decorator';
+export { InjectRepository } from './lib/core/decorator/inject-repository.decorator';
+export { JoinColumn } from './lib/core/decorator/join-column.decorator';
+export { PathColumn } from './lib/core/decorator/path-column.decorator';
+export { PathParam } from './lib/core/decorator/path-param.decorator';
+export { Repository, getRepositoryContextConfiguration } from './lib/core/decorator/repository.decorator';
+export { ResourceTypeSupports, RESOURCE_TYPE_SUPPORTS_METADATA_KEY } from './lib/core/decorator/resource-type-supports.decorator';
+export { SoftCache } from './lib/core/decorator/soft-cache.decorator';
+export { HardCache } from './lib/core/decorator/hard-cache.decorator';
 export { SubCollection } from './lib/core/decorator/sub-collection.decorator';
 export {
   SubQuery, getDeepQueryMetadataValue, getDeepQueryMetadataValues
 } from './lib/core/decorator/sub-query.decorator';
 
-export {TokenRegistry} from './lib/core/registry/token.registry';
+export { TokenRegistry } from './lib/core/registry/token.registry';
 
 export { REPOSITORY_BUILDER_TOKEN } from './lib/ngx-repository.module.di';
 
@@ -104,3 +104,5 @@ export { NgxSerializerService } from '@paddls/ngx-serializer';
 export { ResponseBuilderParam } from './lib/core/response/response-builder.param';
 export { ResponseProcessorWithParams } from './lib/core/response/response-processor-with.params';
 export { ResponseProcessorToken } from './lib/core/response/response-processor.token';
+
+export { fetchAllPage } from './lib/operator/fetch-all-page.operator';
