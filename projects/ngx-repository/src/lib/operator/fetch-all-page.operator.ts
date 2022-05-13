@@ -1,7 +1,7 @@
 import { EMPTY, Observable, of, OperatorFunction } from 'rxjs';
 import { flatten } from 'lodash';
 import { expand, first, map, switchMap, toArray } from 'rxjs/operators';
-import { Page } from '@paddls/ngx-repository';
+import { Page } from '../core/model/page';
 
 export function fetchAllPage<T>(fetch: (page: number) => Observable<Page<any>>): OperatorFunction<Page<T>, T[]> {
   return (source: Observable<Page<T>>): Observable<T[]> => {
@@ -13,6 +13,7 @@ export function fetchAllPage<T>(fetch: (page: number) => Observable<Page<any>>):
               first()
             );
           }
+
           return EMPTY;
         }),
         toArray(),
