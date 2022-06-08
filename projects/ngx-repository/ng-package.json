@@ -8,6 +8,7 @@
     "@paddls/ts-serializer",
     "@paddls/ngx-serializer",
     "@paddls/rxjs-common",
-    "object-hash"
+    "object-hash",
+    "lodash.merge"
   ]
 }
