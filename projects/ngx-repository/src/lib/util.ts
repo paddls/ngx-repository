@@ -46,7 +46,7 @@ export function isUndefined(value: any): boolean {
 
 export function forOwn(object: any, iteratee: (value: any, key: string, object: any) => boolean|void): void {
   const obj = Object(object);
-  Object.keys(obj).forEach((key: string) => iteratee(obj[key], key, obj))
+  Object.keys(obj).forEach((key: string) => iteratee(obj[key], key, obj));
 }
 
 export function omit(originalObj: any, props: string[]): any {
@@ -82,7 +82,7 @@ export function valuesIn(object): any[] {
 
   const keys: string[] = [];
   for (const key in object) {
-    keys.push(key)
+    keys.push(key);
   }
 
   return keys.map((key: string) => object[key]);

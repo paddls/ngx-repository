@@ -4,9 +4,9 @@ describe('Util', () => {
 
   describe('#get', () => {
 
-    const simpleObject = { a: { b: 2 } }
-    const complexObject = { a: [{ bar: { c: 3 } }] }
-    const falsyObject = { a: null, b: undefined, c: 0 }
+    const simpleObject = { a: { b: 2 } };
+    const complexObject = { a: [{ bar: { c: 3 } }] };
+    const falsyObject = { a: null, b: undefined, c: 0 };
 
     it('a.b', () => {
       expect(get(simpleObject, 'a.b')).toEqual(2);
@@ -127,14 +127,14 @@ describe('Util', () => {
 
     it('should make another object without specified properties', () => {
       expect(omit({a: 1, b: 2, c: 3}, ['b'])).toEqual({a: 1, c: 3});
-    })
+    });
   });
 
   describe('#omitBy', () => {
 
     it('should make another object without properties which not satisfied predicate', () => {
       expect(omitBy({a: 1, b: 2, c: 3}, (value: any, key: string) => key === 'b' || value === 3)).toEqual({a: 1});
-    })
+    });
   });
 
   describe('#pick', () => {
@@ -155,6 +155,6 @@ describe('Util', () => {
       Foo.prototype.c = 3;
 
       expect(valuesIn(new Foo)).toEqual([1, 2, 3]);
-    })
+    });
   });
 });
