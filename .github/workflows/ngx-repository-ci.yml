@@ -54,7 +54,7 @@ jobs:
           path-to-lcov: ./coverage/merged/lcov.info
 
       - name: "Publish @paddls/ngx-repository"
-        uses: pascalgn/npm-publish-action@1.3.8
+        uses: pascalgn/npm-publish-action@1.3.9
         with:
           tag_name: "v%s"
           tag_message: "v%s"
@@ -71,7 +71,7 @@ jobs:
           field: name
           value: "@witty-services/ngx-repository"
       - name: "Publish @witty-services/ngx-repository"
-        uses: pascalgn/npm-publish-action@1.3.8
+        uses: pascalgn/npm-publish-action@1.3.9
         with:
           commit_pattern: "^release: v(\\S+)"
           workspace: "./dist/ngx-repository"
@@ -82,7 +82,7 @@ jobs:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_PADDLS }}
 
       - name: "Publish @paddls/ngx-http-repository"
-        uses: pascalgn/npm-publish-action@1.3.8
+        uses: pascalgn/npm-publish-action@1.3.9
         with:
           commit_pattern: "^release: v(\\S+)"
           workspace: "./dist/ngx-http-repository"
@@ -98,7 +98,7 @@ jobs:
           field: name
           value: "@witty-services/ngx-http-repository"
       - name: "Publish @witty-services/ngx-http-repository"
-        uses: pascalgn/npm-publish-action@1.3.8
+        uses: pascalgn/npm-publish-action@1.3.9
         with:
           commit_pattern: "^release: v(\\S+)"
           workspace: "./dist/ngx-http-repository"
@@ -109,7 +109,7 @@ jobs:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_PADDLS }}
 
       - name: "Publish @paddls/ngx-firestore-repository"
-        uses: pascalgn/npm-publish-action@1.3.8
+        uses: pascalgn/npm-publish-action@1.3.9
         with:
           commit_pattern: "^release: v(\\S+)"
           workspace: "./dist/ngx-firestore-repository"
@@ -125,7 +125,7 @@ jobs:
           field: name
           value: "@witty-services/ngx-firestore-repository"
       - name: "Publish @witty-services/ngx-firestore-repository"
-        uses: pascalgn/npm-publish-action@1.3.8
+        uses: pascalgn/npm-publish-action@1.3.9
         with:
           commit_pattern: "^release: v(\\S+)"
           workspace: "./dist/ngx-firestore-repository"
