@@ -6,7 +6,6 @@ import { FIRESTORE_APP } from '../ngx-firestore-repository.module.di';
 import { FirestoreRepositoryParamConfiguration } from '../configuration/firestore-repository-param.configuration';
 import { FirestoreOperation } from './firestore.operation';
 import { FirestoreNormalizer } from '../normalizer/firestore.normalizer';
-import { cloneDeep } from 'lodash';
 import { Firestore } from 'firebase/firestore';
 
 // @dynamic
@@ -36,9 +35,9 @@ export class FirestoreRequestBuilder implements RequestBuilder {
       return null;
     }
 
-    PublisherService.getInstance().publish(new BeforeNormalizeEvent(cloneDeep({body})));
+    PublisherService.getInstance().publish(new BeforeNormalizeEvent({body}));
     const data: any = this.normalizer.normalize(body);
-    PublisherService.getInstance().publish(new AfterNormalizeEvent(cloneDeep({body, data})));
+    PublisherService.getInstance().publish(new AfterNormalizeEvent({body, data}));
 
     return data;
   }

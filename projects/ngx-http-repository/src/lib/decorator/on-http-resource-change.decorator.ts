@@ -1,12 +1,11 @@
 import {Predicate, Type} from '@angular/core';
 import {isFunction, isObject} from 'rxjs/internal-compatibility';
-import {EventListener, TypeGetter} from '@paddls/ngx-repository';
+import {EventListener, pick, TypeGetter, valuesIn} from '@paddls/ngx-repository';
 import {HTTP_WRITE_OPERATIONS, HttpWriteOperation} from '../request/http.operation';
 import {AfterHttpCreateEvent} from '../repository/event/after-http-create.event';
 import {AfterHttpUpdateEvent} from '../repository/event/after-http-update.event';
 import {AfterHttpPatchEvent} from '../repository/event/after-http-patch.event';
 import {AfterHttpDeleteEvent} from '../repository/event/after-http-delete.event';
-import {chain} from 'lodash';
 
 const eventMapping: { [key: string]: any } = {
   write: [AfterHttpCreateEvent, AfterHttpUpdateEvent, AfterHttpPatchEvent, AfterHttpDeleteEvent],
@@ -53,12 +52,7 @@ export function OnHttpResourceChange<T>(context: OnHttpResourceChangeContext<T>|
         return true;
       }
 
-      return chain(eventMapping)
-          .pick(finalContext.actions)
-          .valuesIn()
-          .flatten()
-          .some((v: any) => event instanceof v)
-          .value();
+      return valuesIn(pick(eventMapping, finalContext.actions)).flat().some((v: any) => event instanceof v);
     })(target, propertyKey);
   };
 }

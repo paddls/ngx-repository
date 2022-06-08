@@ -9,6 +9,7 @@
     "@paddls/ngx-serializer": "^1.0.6",
     "@paddls/rxjs-common": "^1.0.6",
     "object-hash": "^2.0.3",
+    "lodash.merge": "^4.6.2",
     "tslib": "^2.0.0"
   },
   "repository": {

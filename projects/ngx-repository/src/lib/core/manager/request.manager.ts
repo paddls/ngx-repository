@@ -1,5 +1,4 @@
 import { RequestManagerContext } from './request-manager.context';
-import { get } from 'lodash';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { RepositoryRequest } from '../request/repository.request';
@@ -10,6 +9,7 @@ import { ResponseBuilder } from '../response/response.builder';
 import { BuilderParam } from '../configuration/resource-param.configuration';
 import { ConfigurationContextProvider } from '../configuration/configuration-context.provider';
 import { RepositoryDriver } from '../driver/repository.driver';
+import { get } from '../../util';
 
 @Injectable()
 export class RequestManager {

@@ -1,8 +1,8 @@
 import { FirestoreRepositoryParamConfiguration } from './firestore-repository-param.configuration';
-import { ResourceConfiguration, ResourceParamConfiguration } from '@paddls/ngx-repository';
+import {get, isString, isUndefined, omit, ResourceConfiguration, ResourceParamConfiguration} from '@paddls/ngx-repository';
 import { InjectionToken } from '@angular/core';
-import { get, isString, isUndefined, merge, omit } from 'lodash';
 import { FIRESTORE_OPERATIONS } from '../request/firestore.operation';
+import merge from 'lodash.merge';
 
 export const FIRESTORE_REPOSITORY_CONFIGURATION: InjectionToken<FirestoreResourceConfiguration> = new InjectionToken<FirestoreResourceConfiguration>('FIRESTORE_REPOSITORY_CONFIGURATION');
 

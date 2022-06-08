@@ -1,17 +1,16 @@
 import { Injector } from '@angular/core';
 import {
   ConfigurationContextProvider,
-  ConfigurationProvider,
+  ConfigurationProvider, isString,
   NGX_REPOSITORY_INJECTOR_INSTANCE,
   NgxRepositoryModule,
   RepositoryDriver,
   RequestManager,
-  ResponseBuilder,
+  ResponseBuilder, ResponseProcessorToken,
   TypeGetter
 } from '@paddls/ngx-repository';
 import { HttpRepositoryDriver } from '../driver/http-repository.driver';
 import { HttpRequestBuilder } from '../request/http-request.builder';
-import { flattenDeep, isString } from 'lodash';
 import { Observable } from 'rxjs';
 import { HttpRequestParamsContext } from '../configuration/context/http-request-params-context.configuration';
 
@@ -25,7 +24,7 @@ export function HttpRequestDecorator(params: HttpRequestParamsContext): Property
         const configuration: ConfigurationContextProvider = new ConfigurationContextProvider(new ConfigurationProvider({
           requestBuilder: HttpRequestBuilder,
           responseBuilder: ResponseBuilder.withParams({
-            postResponseProcessors: flattenDeep([params.postResponseProcessors || []])
+            postResponseProcessors: [params.postResponseProcessors || []].flat(Infinity) as ResponseProcessorToken[]
           }),
           ...params
         }));
@@ -49,8 +48,8 @@ export function HttpRequestDecorator(params: HttpRequestParamsContext): Property
 
 function formatParams(params: string | HttpRequestParamsContext): HttpRequestParamsContext {
   return isString(params) ? {
-    path: params
-  } : params;
+    path: params as string
+  } : params as HttpRequestParamsContext;
 }
 
 function buildHttpRequestDecorator(params: string | HttpRequestParamsContext, responseType: TypeGetter, method: string, withBody: boolean): PropertyDecorator {

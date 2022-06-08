@@ -1,5 +1,4 @@
 import { Injectable, Type } from '@angular/core';
-import { isArray } from 'lodash';
 import { Page } from '../../model/page';
 import { ResponseProcessor } from './response.processor';
 import { ResponseBuilder } from '../response.builder';
@@ -19,6 +18,6 @@ export class PageResponseProcessor implements ResponseProcessor {
   }
 
   public transform(response: any): any {
-    return isArray(response) ? Page.build(response) : response;
+    return Array.isArray(response) ? Page.build(response) : response;
   }
 }

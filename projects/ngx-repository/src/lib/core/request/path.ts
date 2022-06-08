@@ -3,8 +3,8 @@ import { PATH_COLUMN_METADATA_KEY } from '../decorator/path-column.decorator';
 import { PathParamContextConfiguration } from '../configuration/context/path-param-context.configuration';
 import { Id } from './id';
 import { getDeepQueryMetadataValues } from '../decorator/sub-query.decorator';
-import { get } from 'lodash';
 import { ISerializer } from '@paddls/ts-serializer';
+import { get } from '../../util';
 
 export class Path {
 

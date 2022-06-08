@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { isArray } from 'lodash';
 import { RepositoryResponse } from '../repository.response';
 import { RequestManagerContext } from '../../manager/request-manager.context';
 import { ResponseProcessor } from './response.processor';
@@ -15,7 +14,7 @@ export class OriginalQueryResponseProcessor implements ResponseProcessor {
 
   public transform(response: any, origin: RepositoryResponse, { query }: RequestManagerContext): any {
     if (query) {
-      if (isArray(response)) {
+      if (Array.isArray(response)) {
         response.forEach((item: any) => Reflect.defineMetadata(ORIGINAL_QUERY_METADATA_KEY, query, item));
       } else if (isObject(response)) {
         Reflect.defineMetadata(ORIGINAL_QUERY_METADATA_KEY, query, response);

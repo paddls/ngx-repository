@@ -2,7 +2,6 @@ import {Predicate} from '@angular/core';
 import {PublisherService} from '../publisher.service';
 import {asyncScheduler, Observable} from 'rxjs';
 import {filter, observeOn} from 'rxjs/operators';
-import {chain} from 'lodash';
 import {softCache} from '@paddls/rxjs-common';
 
 const EVENT_LISTENER_OBS_METADATA_KEY: string = 'ngx-repository:event-listener-observable';
@@ -30,7 +29,7 @@ export function EventListener<E>(predicate?: Predicate<E>|(Predicate<E>[])): any
         let source$: Observable<any>;
         if (Array.isArray(finalPredicate)) {
           source$ = PublisherService.getPublisher().pipe(
-            filter((event: any) => chain(finalPredicate).some((p: Predicate<E>) => p(event)).value())
+            filter((event: any) => (finalPredicate as Predicate<E>[]).some((p: Predicate<E>) => p(event)))
           );
         } else {
           source$ = PublisherService.getPublisher().pipe(

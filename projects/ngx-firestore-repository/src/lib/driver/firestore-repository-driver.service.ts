@@ -19,7 +19,6 @@ import { FirestoreCriteriaRepositoryRequest } from '../request/firestore-criteri
 import { BeforeExecuteFirestoreRequestEvent } from './event/before-execute-firestore-request.event';
 import { FirestoreRepositoryResponse } from '../response/firestore-repository.response';
 import { AfterExecuteFirestoreRequestEvent } from './event/after-execute-firestore-request.event';
-import { cloneDeep } from 'lodash';
 import { DocumentReference, DocumentSnapshot, Firestore, Query, QuerySnapshot } from 'firebase/firestore';
 import { addDoc, collection, deleteDoc, doc, setDoc, updateDoc } from '../firestore-functions';
 
@@ -31,7 +30,7 @@ export class FirestoreRepositoryDriver implements RepositoryDriver {
   }
 
   public execute(request: FirestoreRepositoryRequest): Observable<FirestoreRepositoryResponse> {
-    PublisherService.getInstance().publish(new BeforeExecuteFirestoreRequestEvent(cloneDeep({request})));
+    PublisherService.getInstance().publish(new BeforeExecuteFirestoreRequestEvent({request}));
 
     let obs$: Observable<RepositoryResponse>;
 
@@ -68,10 +67,10 @@ export class FirestoreRepositoryDriver implements RepositoryDriver {
     }
 
     return obs$.pipe(
-      tap((response: FirestoreRepositoryResponse) => PublisherService.getInstance().publish(new AfterExecuteFirestoreRequestEvent(cloneDeep({
+      tap((response: FirestoreRepositoryResponse) => PublisherService.getInstance().publish(new AfterExecuteFirestoreRequestEvent({
         request,
         response
-      }))))
+      })))
     );
   }
 

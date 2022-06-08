@@ -1,5 +1,4 @@
 import { Inject, Injectable, Type } from '@angular/core';
-import { isArray } from 'lodash';
 import { Denormalizer, Normalizer, NormalizerConfiguration } from '@paddls/ts-serializer';
 import { NORMALIZER_CONFIGURATION_TOKEN } from '@paddls/ngx-serializer';
 
@@ -17,7 +16,7 @@ export class RepositoryNormalizer {
   public denormalize(type: Type<any>, body: any, configuration?: NormalizerConfiguration): any {
     const denormalizer: Denormalizer = configuration ? new Denormalizer(configuration) : this.denormalizer;
 
-    if (isArray(body)) {
+    if (Array.isArray(body)) {
       return body.map((item: any) => denormalizer.deserialize(type, item));
     } else {
       return denormalizer.deserialize(type, body);

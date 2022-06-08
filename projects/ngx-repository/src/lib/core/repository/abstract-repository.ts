@@ -7,7 +7,7 @@ import { ConfigurationContextProvider } from '../configuration/configuration-con
 import { Type } from '@angular/core';
 import { REPOSITORY_METADATA_KEY } from '../decorator/repository.decorator';
 import { RepositoryContextConfiguration } from '../configuration/context/repository-context.configuration';
-import { merge } from 'lodash';
+import merge from 'lodash.merge';
 
 export abstract class AbstractRepository<T> {
 

@@ -20,7 +20,6 @@ import {
 } from '@paddls/ngx-repository';
 import { Observable } from 'rxjs';
 import { FirestoreRequestBuilder } from '../request/firestore-request-builder.service';
-import { cloneDeep, first, merge } from 'lodash';
 import { map, tap } from 'rxjs/operators';
 import { FirestoreRepositoryDriver } from '../driver/firestore-repository-driver.service';
 import { createFirestoreRepositoryConfiguration, FIRESTORE_REPOSITORY_CONFIGURATION, FirestoreResourceConfiguration } from '../configuration/firestore-repository.configuration';
@@ -41,6 +40,7 @@ import { BeforeFirestorePatchEvent } from './event/before-firestore-patch.event'
 import { AfterFirestorePatchEvent } from './event/after-firestore-patch.event';
 import { Inject, Type } from '@angular/core';
 import { FIRESTORE_RESOURCE_METADATA_KEY } from '../decorator/firestore-resource.decorator';
+import merge from 'lodash.merge';
 
 /**
  * @ignore
@@ -83,85 +83,85 @@ export class FirestoreRepository<T, K = string> extends AbstractRepository<T> im
   }
 
   public findAll<R = Page<T>>(query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeFirestoreFindAllEvent(cloneDeep({query})));
+    PublisherService.getInstance().publish(new BeforeFirestoreFindAllEvent({query}));
 
     return this.execute(null, query, ['findAll', 'read']).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterFirestoreFindAllEvent(cloneDeep({
+      tap((data: R) => PublisherService.getInstance().publish(new AfterFirestoreFindAllEvent({
         query,
         data
-      }))))
+      })))
     );
   }
 
   public findOne<R = T>(query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeFirestoreFindOneEvent(cloneDeep({query})));
+    PublisherService.getInstance().publish(new BeforeFirestoreFindOneEvent({query}));
 
     return this.execute(null, query, ['findOne', 'read']).pipe(
-      map((result: any) => first(result) || null),
-      tap((data: R) => PublisherService.getInstance().publish(new AfterFirestoreFindOneEvent(cloneDeep({
+      map((result: any) => result?.[0] || null),
+      tap((data: R) => PublisherService.getInstance().publish(new AfterFirestoreFindOneEvent({
         query,
         data
-      }))))
+      })))
     );
   }
 
   public findById<R = T, ID = K>(id: ID, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeFirestoreFindByIdEvent(cloneDeep({id, query})));
+    PublisherService.getInstance().publish(new BeforeFirestoreFindByIdEvent({id, query}));
 
     return this.execute(null, new IdQuery(id, query), ['findById', 'read']).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterFirestoreFindByIdEvent(cloneDeep({
+      tap((data: R) => PublisherService.getInstance().publish(new AfterFirestoreFindByIdEvent({
         id,
         query,
         data
-      }))))
+      })))
     );
   }
 
   public create<O = T, R = K>(object: O, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeFirestoreCreateEvent(cloneDeep({object, query})));
+    PublisherService.getInstance().publish(new BeforeFirestoreCreateEvent({object, query}));
 
     return this.execute(object, query, ['create', 'write']).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterFirestoreCreateEvent(cloneDeep({
+      tap((data: R) => PublisherService.getInstance().publish(new AfterFirestoreCreateEvent({
         object,
         query,
         data
-      }))))
+      })))
     );
   }
 
   public delete<O = T, R = void>(object: O, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeFirestoreDeleteEvent(cloneDeep({object, query})));
+    PublisherService.getInstance().publish(new BeforeFirestoreDeleteEvent({object, query}));
 
     return this.execute(object, query, ['delete', 'write']).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterFirestoreDeleteEvent(cloneDeep({
+      tap((data: R) => PublisherService.getInstance().publish(new AfterFirestoreDeleteEvent({
         object,
         query,
         data
-      }))))
+      })))
     );
   }
 
   public update<O = T, R = void>(object: O, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeFirestoreUpdateEvent(cloneDeep({object, query})));
+    PublisherService.getInstance().publish(new BeforeFirestoreUpdateEvent({object, query}));
 
     return this.execute(object, query, ['update', 'write']).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterFirestoreUpdateEvent(cloneDeep({
+      tap((data: R) => PublisherService.getInstance().publish(new AfterFirestoreUpdateEvent({
         object,
         query,
         data
-      }))))
+      })))
     );
   }
 
   public patch<O = T, R = void>(object: O, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeFirestorePatchEvent(cloneDeep({object, query})));
+    PublisherService.getInstance().publish(new BeforeFirestorePatchEvent({object, query}));
 
     return this.execute(object, query, ['patch', 'write']).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterFirestorePatchEvent(cloneDeep({
+      tap((data: R) => PublisherService.getInstance().publish(new AfterFirestorePatchEvent({
         object,
         query,
         data
-      }))))
+      })))
     );
   }
 

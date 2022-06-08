@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import {
-  Column,
+  Column, forOwn,
   Id,
   NgxRepositoryModule,
   NgxRepositoryService,
@@ -26,7 +26,6 @@ import {
   HttpQueryParam
 } from '../public-api';
 import { buildHttpParams } from './util/build-http.params.spec';
-import { Dictionary, forOwn } from 'lodash';
 
 describe('HttpRequestDecorator', () => {
 
@@ -209,7 +208,7 @@ describe('HttpRequestDecorator', () => {
   });
 
   describe('should send custom request', () => {
-    const tests: Dictionary<Partial<HttpRequestTestContext>> = {
+    const tests: {[key: string]: Partial<HttpRequestTestContext>} = {
       HttpGet: {
         request: () => api.get().toPromise(),
         expectedMethod: 'GET'
@@ -258,7 +257,7 @@ describe('HttpRequestDecorator', () => {
   });
 
   describe('should send custom request with body', () => {
-    const tests: Dictionary<Partial<HttpRequestTestContext>> = {
+    const tests: {[key: string]: Partial<HttpRequestTestContext>} = {
       HttpGet: {
         request: () => api.getWithBody(new ApiRequest({ name: 'theName' })).toPromise(),
         expectedMethod: 'GET'
@@ -288,7 +287,7 @@ describe('HttpRequestDecorator', () => {
   });
 
   describe('should send custom request without body', () => {
-    const tests: Dictionary<Partial<HttpRequestTestContext>> = {
+    const tests: {[key: string]: Partial<HttpRequestTestContext>} = {
       HttpPost: {
         request: () => api.postWithoutBody().toPromise(),
         expectedMethod: 'POST'
@@ -325,7 +324,7 @@ describe('HttpRequestDecorator', () => {
   });
 
   describe('should receive array body', () => {
-    const tests: Dictionary<Partial<HttpRequestTestContext>> = {
+    const tests: {[key: string]: Partial<HttpRequestTestContext>} = {
       HttpGet: {
         request: () => api.get().toPromise(),
         expectedMethod: 'GET'
@@ -374,7 +373,7 @@ describe('HttpRequestDecorator', () => {
   });
 
   describe('should define response processor', () => {
-    const tests: Dictionary<Partial<HttpRequestTestContext>> = {
+    const tests: {[key: string]: Partial<HttpRequestTestContext>} = {
       HttpGet: {
         request: () => api.getWithResponseProcessor().toPromise(),
         expectedMethod: 'GET'
@@ -423,7 +422,7 @@ describe('HttpRequestDecorator', () => {
   });
 
   describe('should send custom request with path param & column', () => {
-    const tests: Dictionary<Partial<HttpRequestTestContext>> = {
+    const tests: {[key: string]: Partial<HttpRequestTestContext>} = {
       HttpGet: {
         request: () => api.getWithPathParam(new ApiQuery({ version: 'v1' })).toPromise(),
         expectedMethod: 'GET'
@@ -472,7 +471,7 @@ describe('HttpRequestDecorator', () => {
   });
 
   describe('should send custom request with query param', () => {
-    const tests: Dictionary<Partial<HttpRequestTestContext>> = {
+    const tests: {[key: string]: Partial<HttpRequestTestContext>} = {
       HttpGet: {
         request: () => api.get(new ApiQuery({ name: 'theRequestedName' })).toPromise(),
         expectedMethod: 'GET'
@@ -522,7 +521,7 @@ describe('HttpRequestDecorator', () => {
   });
 
   describe('should send custom request with headers', () => {
-    const tests: Dictionary<Partial<HttpRequestTestContext>> = {
+    const tests: {[key: string]: Partial<HttpRequestTestContext>} = {
       HttpGet: {
         request: () => api.get(new ApiQuery({ size: 3 })).toPromise(),
         expectedMethod: 'GET'

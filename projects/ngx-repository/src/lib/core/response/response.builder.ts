@@ -5,7 +5,6 @@ import { ConfigurationContextProvider } from '../configuration/configuration-con
 import { Injectable, Injector, Type } from '@angular/core';
 import { ResponseProcessor } from './processor/response.processor';
 import { BuilderParam } from '../configuration/resource-param.configuration';
-import { get, isFunction, isObject } from 'lodash';
 import { BodyResponseProcessor } from './processor/body.response-processor';
 import { DenormalizeResponseProcessor } from './processor/denormalize-response.processor';
 import { PathColumnResponseProcessor } from './processor/path-column-response.processor';
@@ -13,6 +12,7 @@ import { OriginalQueryResponseProcessor } from './processor/original-query-respo
 import { ResponseBuilderParam } from './response-builder.param';
 import { ResponseProcessorWithParams } from './response-processor-with.params';
 import { ResponseProcessorToken } from './response-processor.token';
+import {get, isFunction, isObject} from '../../util';
 
 @Injectable()
 export class ResponseBuilder {

@@ -1,10 +1,10 @@
 import { Type } from '@angular/core';
 import { FirestoreRepository } from '../../lib/repository/firestore.repository';
-import { forOwn } from 'lodash';
 import { initializeRepository, RepositoryContext } from './repository-intializer.spec';
 import { addDoc, deleteDoc, query, updateDoc } from '../../lib/firestore-functions';
 import { CollectionReference, DocumentReference } from 'firebase/firestore';
 import { FirestoreMock } from './firestore-mock.spec';
+import { forOwn } from '@paddls/ngx-repository';
 
 export interface FirestoreTestContext {
   entity: Type<any>;

@@ -1,6 +1,5 @@
 import { HttpRepositoryDriver } from '../driver/http-repository.driver';
 import { Observable } from 'rxjs';
-import { cloneDeep, first, merge } from 'lodash';
 import {
   AbstractRepository,
   CreateRepository,
@@ -46,6 +45,7 @@ import { OnHttpResourceChange } from '../decorator/on-http-resource-change.decor
 import { Inject, Type } from '@angular/core';
 import { createHttpRepositoryConfiguration } from '../configuration/context/http-repository-context.configuration';
 import { HTTP_REPOSITORY_CONFIGURATION } from '../configuration/http-repository.configuration';
+import merge from 'lodash.merge';
 
 @Repository(null, {
   requestBuilder: HttpRequestBuilder,
@@ -96,17 +96,17 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
   }
 
   public findAll<R = Page<T>>(query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeHttpFindAllEvent(cloneDeep({
+    PublisherService.getInstance().publish(new BeforeHttpFindAllEvent({
       type: this.resourceType,
       query
-    })));
+    }));
 
     let findAll$: Observable<R> = this.execute(null, query, ['findAll', 'read']).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterHttpFindAllEvent(cloneDeep({
+      tap((data: R) => PublisherService.getInstance().publish(new AfterHttpFindAllEvent({
         type: this.resourceType,
         query,
         data
-      }))))
+      })))
     );
 
     if (this.isLiveResource()) {
@@ -117,18 +117,18 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
   }
 
   public findOne<R = T>(query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeHttpFindOneEvent(cloneDeep({
+    PublisherService.getInstance().publish(new BeforeHttpFindOneEvent({
       type: this.resourceType,
       query
-    })));
+    }));
 
     let findOne$: Observable<R> = this.execute(null, query, ['findOne', 'read']).pipe(
-      map((result: any) => first(result) || null),
-      tap((data: R) => PublisherService.getInstance().publish(new AfterHttpFindOneEvent(cloneDeep({
+      map((result: any) => result?.[0] || null),
+      tap((data: R) => PublisherService.getInstance().publish(new AfterHttpFindOneEvent({
         type: this.resourceType,
         query,
         data
-      }))))
+      })))
     );
 
     if (this.isLiveResource()) {
@@ -156,19 +156,19 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
   }
 
   public findById<R = T, ID = K>(id: ID, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeHttpFindByIdEvent(cloneDeep({
+    PublisherService.getInstance().publish(new BeforeHttpFindByIdEvent({
       type: this.resourceType,
       id,
       query
-    })));
+    }));
 
     let findById$: Observable<R> = this.execute(null, new IdQuery(id, query), ['findById', 'read']).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterHttpFindByIdEvent(cloneDeep({
+      tap((data: R) => PublisherService.getInstance().publish(new AfterHttpFindByIdEvent({
         type: this.resourceType,
         id,
         query,
         data
-      }))))
+      })))
     );
 
     if (this.isLiveResource()) {
@@ -194,70 +194,70 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
   }
 
   public create<O = T, R = K>(object: O, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeHttpCreateEvent(cloneDeep({
+    PublisherService.getInstance().publish(new BeforeHttpCreateEvent({
       type: this.resourceType,
       object,
       query
-    })));
+    }));
 
     return this.execute(object, query, ['create', 'write']).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterHttpCreateEvent(cloneDeep({
+      tap((data: R) => PublisherService.getInstance().publish(new AfterHttpCreateEvent({
         type: this.resourceType,
         object,
         query,
         data
-      }))))
+      })))
     );
   }
 
   public delete<O = T, R = void>(object: O, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeHttpDeleteEvent(cloneDeep({
+    PublisherService.getInstance().publish(new BeforeHttpDeleteEvent({
       type: this.resourceType,
       object,
       query
-    })));
+    }));
 
     return this.execute(object, query, ['delete', 'write']).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterHttpDeleteEvent(cloneDeep({
+      tap((data: R) => PublisherService.getInstance().publish(new AfterHttpDeleteEvent({
         type: this.resourceType,
         object,
         query,
         data
-      }))))
+      })))
     );
   }
 
   public update<O = T, R = void>(object: O, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeHttpUpdateEvent(cloneDeep({
+    PublisherService.getInstance().publish(new BeforeHttpUpdateEvent({
       type: this.resourceType,
       object,
       query
-    })));
+    }));
 
     return this.execute(object, query, ['update', 'write']).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterHttpUpdateEvent(cloneDeep({
+      tap((data: R) => PublisherService.getInstance().publish(new AfterHttpUpdateEvent({
         type: this.resourceType,
         object,
         query,
         data
-      }))))
+      })))
     );
   }
 
   public patch<O = T, R = void>(object: O, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeHttpPatchEvent(cloneDeep({
+    PublisherService.getInstance().publish(new BeforeHttpPatchEvent({
       type: this.resourceType,
       object,
       query
-    })));
+    }));
 
     return this.execute(object, query, ['patch', 'write']).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterHttpPatchEvent(cloneDeep({
+      tap((data: R) => PublisherService.getInstance().publish(new AfterHttpPatchEvent({
         type: this.resourceType,
         object,
         query,
         data
-      }))))
+      })))
     );
   }
 

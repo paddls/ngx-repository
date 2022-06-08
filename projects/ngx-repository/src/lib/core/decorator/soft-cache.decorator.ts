@@ -1,8 +1,8 @@
 import {Observable, timer} from 'rxjs';
 import {softCache} from '@paddls/rxjs-common';
 import {takeUntil} from 'rxjs/operators';
-import {isObject} from 'lodash';
 import {SoftCacheContext, SoftCacheContextConfiguration} from '../configuration/context/soft-cache-context.configuration';
+import {isObject} from '../../util';
 
 /**
  * @ignore
@@ -23,7 +23,7 @@ export function SoftCache(softCacheContext?: SoftCacheContext|number): any {
           ...(softCacheContext as SoftCacheContext)
         };
       } else {
-        softCacheContextConfiguration.expires = softCacheContext;
+        softCacheContextConfiguration.expires = softCacheContext as number;
       }
     }
 

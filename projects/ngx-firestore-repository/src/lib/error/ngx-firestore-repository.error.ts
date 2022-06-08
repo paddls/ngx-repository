@@ -1,5 +1,5 @@
-import { omitBy } from 'lodash';
 import { FirestoreRepositoryRequest } from '../request/firestore-repository.request';
+import {omitBy} from '@paddls/ngx-repository';
 
 const IGNORED_KEYS: string[] = ['paths', 'readPath', 'createPath', 'updatePath', 'deletePath', 'pathParams', 'replaceParams'];
 

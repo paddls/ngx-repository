@@ -1,10 +1,9 @@
 import { Injectable, Type } from '@angular/core';
-import { InjectRepository, NgxRepositoryModule } from '@paddls/ngx-repository';
+import { forOwn, InjectRepository, NgxRepositoryModule } from '@paddls/ngx-repository';
 import { TestBed } from '@angular/core/testing';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpRepository } from '../../lib/repository/http.repository';
 import { NgxHttpRepositoryModule, NgxHttpRepositoryModuleConfiguration } from '../../public-api';
-import { forOwn } from 'lodash';
 import { expectHttpRequest, HttpRequestTestContext } from './expect-http-request.spec';
 
 export interface HttpTestContext extends HttpRequestTestContext {

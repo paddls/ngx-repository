@@ -7,7 +7,6 @@ import { map, tap } from 'rxjs/operators';
 import { HttpRepositoryResponse } from '../response/http-repository.response';
 import { BeforeExecuteHttpRequestEvent } from './event/before-execute-http-request.event';
 import { AfterExecuteHttpRequestEvent } from './event/after-execute-http-request.event';
-import { cloneDeep } from 'lodash';
 
 @Injectable()
 export class HttpRepositoryDriver implements RepositoryDriver {
@@ -16,7 +15,7 @@ export class HttpRepositoryDriver implements RepositoryDriver {
   }
 
   public execute(request: HttpRepositoryRequest): Observable<HttpRepositoryResponse> {
-    PublisherService.getInstance().publish(new BeforeExecuteHttpRequestEvent(cloneDeep({ request })));
+    PublisherService.getInstance().publish(new BeforeExecuteHttpRequestEvent({ request }));
 
     return this.http.request(request.method, request.path.value, {
       params: request.queryParams,
@@ -26,10 +25,10 @@ export class HttpRepositoryDriver implements RepositoryDriver {
       responseType: 'json'
     }).pipe(
       map((response: HttpResponse<any>) => new HttpRepositoryResponse(response, request)),
-      tap((response: HttpRepositoryResponse) => PublisherService.getInstance().publish(new AfterExecuteHttpRequestEvent(cloneDeep({
+      tap((response: HttpRepositoryResponse) => PublisherService.getInstance().publish(new AfterExecuteHttpRequestEvent({
         request,
         response
-      }))))
+      })))
     );
   }
 }

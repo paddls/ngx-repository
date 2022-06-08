@@ -1,9 +1,9 @@
 import { Observable, of } from 'rxjs';
-import { cloneDeep, get } from 'lodash';
 import {
   AfterNormalizeEvent,
   BeforeNormalizeEvent,
   ConfigurationContextProvider,
+  get,
   getDeepQueryMetadataValues,
   Path,
   PublisherService,
@@ -50,9 +50,9 @@ export class HttpRequestBuilder implements RequestBuilder {
       return null;
     }
 
-    PublisherService.getInstance().publish(new BeforeNormalizeEvent(cloneDeep({ body })));
+    PublisherService.getInstance().publish(new BeforeNormalizeEvent({ body }));
     const data: any = this.normalizer.normalize(body);
-    PublisherService.getInstance().publish(new AfterNormalizeEvent(cloneDeep({ body, data })));
+    PublisherService.getInstance().publish(new AfterNormalizeEvent({ body, data }));
 
     return data;
   }
@@ -98,7 +98,7 @@ export class HttpRequestBuilder implements RequestBuilder {
     if (params.customConverter) {
       value = new (params.customConverter())().toJson(property, this.normalizer.getNormalizer());
     } else {
-      value = cloneDeep(params.format).replace(/:value/gi, property);
+      value = params.format.replace(/:value/gi, property);
     }
 
     setter(value);

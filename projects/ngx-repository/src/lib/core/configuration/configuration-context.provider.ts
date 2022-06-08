@@ -1,4 +1,3 @@
-import { first } from 'lodash';
 import { ConfigurationProvider } from './configuration.provider';
 import { ResourceConfiguration } from './resource.configuration';
 
@@ -9,7 +8,7 @@ export class ConfigurationContextProvider {
   }
 
   public getOperation(): string {
-    return first(this.paths);
+    return this.paths?.[0];
   }
 
   public getConfiguration<T extends ResourceConfiguration = ResourceConfiguration>(property: keyof T): any {

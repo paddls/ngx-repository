@@ -1,6 +1,5 @@
 import { Injectable, Injector, Predicate, Type } from '@angular/core';
 import { Listener } from './listener';
-import { chain, some } from 'lodash';
 import { Observable, Subject } from 'rxjs';
 
 interface RegistryItem {
@@ -32,12 +31,11 @@ export class PublisherService {
   }
 
   public publish<E>(event: E): void {
-    chain(PublisherService.registryItems)
-      .filter((item: RegistryItem) => Array.isArray(item.predicate) ? some(item.predicate, (p: Predicate<E>) => p(event)) : item.predicate(event))
+    PublisherService.registryItems
+      .filter((item: RegistryItem) => Array.isArray(item.predicate) ? item.predicate.some((p: Predicate<E>) => p(event)) : item.predicate(event))
       .map((item: RegistryItem) => this.injector.get(item.listener as Type<any>, null))
       .filter((service: Listener<any>) => !!service)
-      .each((service: Listener<any>) => service.on(event))
-      .value();
+      .forEach((service: Listener<any>) => service.on(event));
 
     PublisherService.publisher$.next(event);
   }

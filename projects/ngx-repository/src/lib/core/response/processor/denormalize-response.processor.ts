@@ -6,7 +6,6 @@ import { NormalizerConfiguration } from '@paddls/ts-serializer';
 import { ResponseProcessor } from './response.processor';
 import { PublisherService } from '../../event-stream/publisher.service';
 import { BeforeDenormalizeEvent } from '../../../normalizer/event/before-denormalize.event';
-import { cloneDeep } from 'lodash';
 import { AfterDenormalizeEvent } from '../../../normalizer/event/after-denormalize.event';
 
 @Injectable()
@@ -19,9 +18,9 @@ export class DenormalizeResponseProcessor implements ResponseProcessor {
     const responseType: Type<any> = configuration.getConfiguration('responseType')();
     const normalizerConfiguration: NormalizerConfiguration = configuration.findConfiguration('normalizerConfiguration');
 
-    PublisherService.getInstance().publish(new BeforeDenormalizeEvent(cloneDeep({type: responseType, body: response, normalizerConfiguration})));
+    PublisherService.getInstance().publish(new BeforeDenormalizeEvent({type: responseType, body: response, configuration: normalizerConfiguration}));
     const data: any = this.normalizer.denormalize(responseType, response, normalizerConfiguration);
-    PublisherService.getInstance().publish(new AfterDenormalizeEvent(cloneDeep({type: responseType, body: response, normalizerConfiguration, data})));
+    PublisherService.getInstance().publish(new AfterDenormalizeEvent({type: responseType, body: response, configuration: normalizerConfiguration, data}));
 
     return data;
   }

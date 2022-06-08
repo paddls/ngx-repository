@@ -1,7 +1,7 @@
 import { Type } from '@angular/core';
-import { merge } from 'lodash';
 import { ResourceConfiguration } from '../configuration/resource.configuration';
 import {RepositoryContextConfiguration} from '../configuration/context/repository-context.configuration';
+import merge from 'lodash.merge';
 
 /**
  * @ignore

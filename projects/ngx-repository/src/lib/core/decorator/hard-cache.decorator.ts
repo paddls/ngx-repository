@@ -1,8 +1,8 @@
 import {Observable, timer} from 'rxjs';
 import {hardCache} from '@paddls/rxjs-common';
 import {takeUntil} from 'rxjs/operators';
-import {isObject} from 'lodash';
 import {HardCacheContext, HardCacheContextConfiguration} from '../configuration/context/hard-cache-context.configuration';
+import {isObject} from '../../util';
 
 /**
  * @ignore
@@ -23,7 +23,7 @@ export function HardCache(hardCacheContext?: HardCacheContext|number): any {
           ...(hardCacheContext as HardCacheContext)
         };
       } else {
-        hardCacheContextConfiguration.expires = hardCacheContext;
+        hardCacheContextConfiguration.expires = hardCacheContext as number;
       }
     }
 
