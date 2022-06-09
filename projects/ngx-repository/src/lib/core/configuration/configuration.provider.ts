@@ -1,5 +1,5 @@
 import { ResourceConfiguration } from './resource.configuration';
-import {get} from '../../util';
+import get from 'lodash.get';
 
 export class ConfigurationProvider {
 

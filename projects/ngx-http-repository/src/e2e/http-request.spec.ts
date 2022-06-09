@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import {
-  Column, forOwn,
+  Column,
   Id,
   NgxRepositoryModule,
   NgxRepositoryService,
@@ -26,6 +26,7 @@ import {
   HttpQueryParam
 } from '../public-api';
 import { buildHttpParams } from './util/build-http.params.spec';
+import forOwn from 'lodash.forown';
 
 describe('HttpRequestDecorator', () => {
 

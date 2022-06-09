@@ -3,7 +3,6 @@ import {
   AfterNormalizeEvent,
   BeforeNormalizeEvent,
   ConfigurationContextProvider,
-  get,
   getDeepQueryMetadataValues,
   Path,
   PublisherService,
@@ -22,6 +21,7 @@ import { HttpRepositoryParamConfiguration } from '../configuration/http-reposito
 import { HttpQueryParamContextConfiguration } from '../configuration/context/http-query-param-context.configuration';
 import { HttpHeaderContextConfiguration } from '../configuration/context/http-header-context.configuration';
 import { HttpParamContextConfiguration } from '../configuration/context/http-param-context.configuration';
+import get from 'lodash.get';
 
 @Injectable()
 export class HttpRequestBuilder implements RequestBuilder {

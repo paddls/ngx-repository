@@ -1,18 +1,20 @@
 import { Injector } from '@angular/core';
 import {
   ConfigurationContextProvider,
-  ConfigurationProvider, isString,
+  ConfigurationProvider,
   NGX_REPOSITORY_INJECTOR_INSTANCE,
   NgxRepositoryModule,
   RepositoryDriver,
   RequestManager,
-  ResponseBuilder, ResponseProcessorToken,
+  ResponseBuilder,
   TypeGetter
 } from '@paddls/ngx-repository';
 import { HttpRepositoryDriver } from '../driver/http-repository.driver';
 import { HttpRequestBuilder } from '../request/http-request.builder';
 import { Observable } from 'rxjs';
 import { HttpRequestParamsContext } from '../configuration/context/http-request-params-context.configuration';
+import isString from 'lodash.isstring';
+import flattenDeep from 'lodash.flattendeep';
 
 export function HttpRequestDecorator(params: HttpRequestParamsContext): PropertyDecorator {
   return (target: any, propertyKey: string) => {
@@ -24,7 +26,7 @@ export function HttpRequestDecorator(params: HttpRequestParamsContext): Property
         const configuration: ConfigurationContextProvider = new ConfigurationContextProvider(new ConfigurationProvider({
           requestBuilder: HttpRequestBuilder,
           responseBuilder: ResponseBuilder.withParams({
-            postResponseProcessors: [params.postResponseProcessors || []].flat(Infinity) as ResponseProcessorToken[]
+            postResponseProcessors: flattenDeep([params.postResponseProcessors || []])
           }),
           ...params
         }));

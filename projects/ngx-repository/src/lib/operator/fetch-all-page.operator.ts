@@ -1,6 +1,7 @@
 import { EMPTY, Observable, of, OperatorFunction } from 'rxjs';
 import { expand, first, map, switchMap, toArray } from 'rxjs/operators';
 import { Page } from '../core/model/page';
+import flatten from 'lodash.flatten';
 
 export function fetchAllPage<T>(fetch: (page: number) => Observable<Page<any>>): OperatorFunction<Page<T>, T[]> {
   return (source: Observable<Page<T>>): Observable<T[]> => {
@@ -16,7 +17,7 @@ export function fetchAllPage<T>(fetch: (page: number) => Observable<Page<any>>):
           return EMPTY;
         }),
         toArray(),
-        map((arr: Page<any>[]) => arr.flat())
+        map((arr: Page<any>[]) => flatten(arr))
       ))
     );
   };

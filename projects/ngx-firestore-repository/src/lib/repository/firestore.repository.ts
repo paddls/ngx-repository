@@ -41,6 +41,7 @@ import { AfterFirestorePatchEvent } from './event/after-firestore-patch.event';
 import { Inject, Type } from '@angular/core';
 import { FIRESTORE_RESOURCE_METADATA_KEY } from '../decorator/firestore-resource.decorator';
 import merge from 'lodash.merge';
+import first from 'lodash.first';
 
 /**
  * @ignore
@@ -97,7 +98,7 @@ export class FirestoreRepository<T, K = string> extends AbstractRepository<T> im
     PublisherService.getInstance().publish(new BeforeFirestoreFindOneEvent({query}));
 
     return this.execute(null, query, ['findOne', 'read']).pipe(
-      map((result: any) => result?.[0] || null),
+      map((result: any) => first(result) || null),
       tap((data: R) => PublisherService.getInstance().publish(new AfterFirestoreFindOneEvent({
         query,
         data

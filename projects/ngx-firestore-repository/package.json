@@ -7,6 +7,23 @@
     "@paddls/ngx-repository": "^3.0.0-rc.0 || ^3.0.0",
     "firebase": ">= 9.0.0"
   },
+  "dependencies": {
+    "lodash.first": "^3.0.0",
+    "lodash.flatten": "^4.4.0",
+    "lodash.flattendeep": "^4.4.0",
+    "lodash.get": "^4.4.2",
+    "lodash.isfunction": "^3.0.9",
+    "lodash.isobject": "^3.0.2",
+    "lodash.isstring": "^4.0.1",
+    "lodash.isundefined": "^3.0.1",
+    "lodash.merge": "^4.6.2",
+    "lodash.omit": "^4.5.0",
+    "lodash.omitby": "^4.6.0",
+    "lodash.pick": "^4.4.0",
+    "lodash.set": "^4.3.2",
+    "lodash.valuesin": "^4.3.0",
+    "tslib": "^2.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/paddls/ngx-repository.git"
@@ -15,9 +32,6 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/paddls/ngx-repository/issues"
-  },
-  "dependencies": {
-    "tslib": "^2.0.0"
   },
   "homepage": "https://github.com/paddls/ngx-repository#readme"
 }

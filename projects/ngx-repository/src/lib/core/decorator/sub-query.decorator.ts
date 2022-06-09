@@ -1,5 +1,7 @@
 import { PropertyKeyConfiguration } from '../common/decorator/property-key-configuration';
-import { isString } from '../../util';
+import isString from 'lodash.isstring';
+import first from 'lodash.first';
+import flattenDeep from 'lodash.flattendeep';
 
 /**
  * @ignore
@@ -34,12 +36,12 @@ export function getDeepQueryMetadataValues<T extends PropertyKeyConfiguration>(m
         propertyKey: parent ? `${ parent }.${ property.propertyKey }` : property.propertyKey
       })) as T[];
 
-    return [childMetadata, modifiedMetadata].flat(Infinity) as T[];
+    return flattenDeep([childMetadata, modifiedMetadata]);
   }
 
   return [];
 }
 
 export function getDeepQueryMetadataValue(metadataKey: string, query: any): any {
-  return getDeepQueryMetadataValues(metadataKey, query)?.[0];
+  return first(getDeepQueryMetadataValues(metadataKey, query));
 }

@@ -2,7 +2,7 @@ import {Observable, timer} from 'rxjs';
 import {softCache} from '@paddls/rxjs-common';
 import {takeUntil} from 'rxjs/operators';
 import {SoftCacheContext, SoftCacheContextConfiguration} from '../configuration/context/soft-cache-context.configuration';
-import {isObject} from '../../util';
+import isObject from 'lodash.isobject';
 
 /**
  * @ignore

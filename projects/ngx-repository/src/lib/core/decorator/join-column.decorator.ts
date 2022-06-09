@@ -4,7 +4,7 @@ import {hasHardCache, setHardCache} from './hard-cache.decorator';
 import {FindByIdRepository} from '../repository/find-by-id.repository';
 import {JoinColumnContext, JoinColumnContextConfiguration} from '../configuration/context/join-column-context.configuration';
 import {NgxRepositoryService} from '../../ngx-repository.service';
-import {get} from '../../util';
+import get from 'lodash.get';
 
 /**
  * @ignore

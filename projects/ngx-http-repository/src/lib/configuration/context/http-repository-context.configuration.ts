@@ -4,16 +4,16 @@ import { HttpRepositoryParamConfiguration } from '../http-repository-param.confi
 import { HttpRepositoryFindAllParamContextConfiguration } from './http-repository-find-all-param-context.configuration';
 import { HttpRepositoryWriteParamContextConfiguration } from './http-repository-write-param-context.configuration';
 import {
-  get,
   IdResponseProcessor,
-  isString,
-  isUndefined,
-  omit,
   PageResponseProcessor,
   ResponseBuilder,
   VoidResponseProcessor
 } from '@paddls/ngx-repository';
 import merge from 'lodash.merge';
+import get from 'lodash.get';
+import isString from 'lodash.isstring';
+import isUndefined from 'lodash.isundefined';
+import omit from 'lodash.omit';
 
 export interface HttpRepositoryContextConfiguration extends HttpRepositoryParamContextConfiguration {
   read?: HttpRepositoryParamContextConfiguration | string;
