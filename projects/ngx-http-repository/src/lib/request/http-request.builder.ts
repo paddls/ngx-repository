@@ -88,20 +88,24 @@ export class HttpRequestBuilder implements RequestBuilder {
   }
 
   protected setParam(query: any, params: HttpParamContextConfiguration, setter: (value: any) => void): void {
-    const property: any = get(query, params.propertyKey);
+    let property: any = get(query, params.propertyKey);
 
     if (property == null) {
       return;
     }
 
-    let value: string;
-    if (params.customConverter) {
-      value = new (params.customConverter())().toJson(property, this.normalizer.getNormalizer());
-    } else {
-      value = params.format.replace(/:value/gi, property);
-    }
+    property = Array.isArray(property) ? property : [property];
 
-    setter(value);
+    property.forEach((p: any) => {
+      let value: string;
+      if (params.customConverter) {
+        value = new (params.customConverter())().toJson(p, this.normalizer.getNormalizer());
+      } else {
+        value = params.format.replace(/:value/gi, p);
+      }
+
+      setter(value);
+    });
   }
 
   // TODO @RMA move to Repository side - use method configuration instead
