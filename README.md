@@ -678,6 +678,29 @@ export class Library {
 }
 ```
 
+## Multipart
+
+> ⚠️ This feature is only available for `@HttpResource()`
+
+To enable multipart, you should specify `multipart`field from `write`, `create`, `update`, `patch`, `delete`.
+Then you can specified each part on field using `@HttpMultipartColumn` decorator.
+
+```typescript
+import { HttpMultipartColumn, HttpResource } from '@paddls/ngx-http-repository';
+
+@HttpResource({
+    path: '/libraries',
+    write: {
+      multipart: 'partNameOfLibrary',
+    }
+})
+export class Library {
+
+    @HttpMultipartColumn('partNameOfFile')
+    public file: File
+}
+```
+
 ## FirestoreCreatedAt and FirestoreUpdatedAt
 
 Use `@FirestoreCreatedAt()` and `@FirestoreUpdatedAt()` decorators on a `@FirestoreResource()` field to automatically
