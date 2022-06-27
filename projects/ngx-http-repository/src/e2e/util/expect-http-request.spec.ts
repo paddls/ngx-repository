@@ -12,8 +12,8 @@ export interface HttpRequestTestContext {
   mockedResponseBody?: any;
   mockedResponseHeader?: { [name: string]: string };
   expectedResponse: any;
+  verify: (params: any) => void;
 }
-
 
 export async function expectHttpRequest(httpTestContext: HttpRequestTestContext): Promise<void> {
   const context: HttpRequestTestContext = {
@@ -26,17 +26,24 @@ export async function expectHttpRequest(httpTestContext: HttpRequestTestContext)
     expectedRequestHeaders: httpTestContext.expectedRequestHeaders || {},
     expectedRequestBody: httpTestContext.expectedRequestBody || null,
     mockedResponseBody: httpTestContext.mockedResponseBody || null,
-    mockedResponseHeader: httpTestContext.mockedResponseHeader || null
+    mockedResponseHeader: httpTestContext.mockedResponseHeader || null,
+    verify: httpTestContext.verify || null
   };
 
   const httpClient: HttpClient = context.httpClient;
 
   const mockedResponseBody: any = context.mockedResponseBody;
 
-  spyOn(httpClient, 'request').and.returnValue(of(new HttpResponse({
-    body: mockedResponseBody,
-    headers: new HttpHeaders(context.mockedResponseHeader)
-  })));
+  spyOn(httpClient, 'request').and.callFake((...params: any) => {
+    if (context.verify) {
+      context.verify(params);
+    }
+
+    return of(new HttpResponse({
+      body: mockedResponseBody,
+      headers: new HttpHeaders(context.mockedResponseHeader)
+    })) as any;
+  });
 
   const response: any = await context.request();
 

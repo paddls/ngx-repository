@@ -33,7 +33,6 @@ fdescribe('HttpMultipartResource', () => {
   describe('should send http request over multipart', () => {
     const name: string = 'Naruto';
     const expectedRequestBody: FormData = new FormData();
-    expectedRequestBody.set('data', {id: 1, name} as any);
 
     testHttpRepository({
       create: {
@@ -43,7 +42,11 @@ fdescribe('HttpMultipartResource', () => {
         expectedPath: '/books',
         expectedRequestBody,
         mockedResponseBody: {id: 1, name},
-        expectedResponse: 1
+        expectedResponse: 1,
+        verify(params: any) {
+          const givenRequestBody: FormData = params[2].body;
+          expect(givenRequestBody.get('data')).toEqual(JSON.stringify({name}));
+        }
       },
       update: {
         entity: Book,
@@ -55,7 +58,11 @@ fdescribe('HttpMultipartResource', () => {
         expectedPath: '/books/1',
         expectedRequestBody,
         mockedResponseBody: {id: 1, name},
-        expectedResponse: void 0
+        expectedResponse: void 0,
+        verify(params: any) {
+          const givenRequestBody: FormData = params[2].body;
+          expect(givenRequestBody.get('data')).toEqual(JSON.stringify({id: 1, name}));
+        }
       },
       patch: {
         entity: Book,
@@ -67,7 +74,11 @@ fdescribe('HttpMultipartResource', () => {
         expectedPath: '/books/1',
         expectedRequestBody,
         mockedResponseBody: {id: 1, name},
-        expectedResponse: void 0
+        expectedResponse: void 0,
+        verify(params: any) {
+          const givenRequestBody: FormData = params[2].body;
+          expect(givenRequestBody.get('data')).toEqual(JSON.stringify({id: 1, name}));
+        }
       },
       delete: {
         entity: Book,
@@ -79,7 +90,11 @@ fdescribe('HttpMultipartResource', () => {
         expectedPath: '/books/1',
         expectedRequestBody,
         mockedResponseBody: {id: 1, name},
-        expectedResponse: void 0
+        expectedResponse: void 0,
+        verify(params: any) {
+          const givenRequestBody: FormData = params[2].body;
+          expect(givenRequestBody.get('data')).toEqual(JSON.stringify({id: 1, name}));
+        }
       }
     });
   });
@@ -87,8 +102,8 @@ fdescribe('HttpMultipartResource', () => {
   describe('should send http request over multipart with column', () => {
     const name: string = 'Naruto';
     const expectedRequestBody: FormData = new FormData();
-    expectedRequestBody.set('data', {id: 1, name} as any);
-    expectedRequestBody.set('file', 'hello.txt');
+    // expectedRequestBody.set('data', {id: 1, name} as any);
+    // expectedRequestBody.set('file', 'hello.txt');
 
     testHttpRepository({
       create: {
@@ -98,7 +113,12 @@ fdescribe('HttpMultipartResource', () => {
         expectedPath: '/books',
         expectedRequestBody,
         mockedResponseBody: {id: 1, name},
-        expectedResponse: 1
+        expectedResponse: 1,
+        verify(params: any) {
+          const givenRequestBody: FormData = params[2].body;
+          expect(givenRequestBody.get('data')).toEqual(JSON.stringify({name}));
+          expect(givenRequestBody.get('file')).toEqual('hello.txt');
+        }
       },
       update: {
         entity: Book,
@@ -111,7 +131,12 @@ fdescribe('HttpMultipartResource', () => {
         expectedPath: '/books/1',
         expectedRequestBody,
         mockedResponseBody: {id: 1, name},
-        expectedResponse: void 0
+        expectedResponse: void 0,
+        verify(params: any) {
+          const givenRequestBody: FormData = params[2].body;
+          expect(givenRequestBody.get('data')).toEqual(JSON.stringify({id: 1, name}));
+          expect(givenRequestBody.get('file')).toEqual('hello.txt');
+        }
       },
       patch: {
         entity: Book,
@@ -124,7 +149,12 @@ fdescribe('HttpMultipartResource', () => {
         expectedPath: '/books/1',
         expectedRequestBody,
         mockedResponseBody: {id: 1, name},
-        expectedResponse: void 0
+        expectedResponse: void 0,
+        verify(params: any) {
+          const givenRequestBody: FormData = params[2].body;
+          expect(givenRequestBody.get('data')).toEqual(JSON.stringify({id: 1, name}));
+          expect(givenRequestBody.get('file')).toEqual('hello.txt');
+        }
       },
       delete: {
         entity: Book,
@@ -137,7 +167,12 @@ fdescribe('HttpMultipartResource', () => {
         expectedPath: '/books/1',
         expectedRequestBody,
         mockedResponseBody: {id: 1, name},
-        expectedResponse: void 0
+        expectedResponse: void 0,
+        verify(params: any) {
+          const givenRequestBody: FormData = params[2].body;
+          expect(givenRequestBody.get('data')).toEqual(JSON.stringify({id: 1, name}));
+          expect(givenRequestBody.get('file')).toEqual('hello.txt');
+        }
       }
     });
   });
@@ -145,8 +180,6 @@ fdescribe('HttpMultipartResource', () => {
   describe('should send http request over multipart with column and alias', () => {
     const name: string = 'Naruto';
     const expectedRequestBody: FormData = new FormData();
-    expectedRequestBody.set('data', {id: 1, name} as any);
-    expectedRequestBody.set('theFile', 'world.txt');
 
     testHttpRepository({
       create: {
@@ -156,7 +189,12 @@ fdescribe('HttpMultipartResource', () => {
         expectedPath: '/books',
         expectedRequestBody,
         mockedResponseBody: {id: 1, name},
-        expectedResponse: 1
+        expectedResponse: 1,
+        verify(params: any) {
+          const givenRequestBody: FormData = params[2].body;
+          expect(givenRequestBody.get('data')).toEqual(JSON.stringify({name}));
+          expect(givenRequestBody.get('theFile')).toEqual('world.txt');
+        }
       },
       update: {
         entity: Book,
@@ -169,7 +207,12 @@ fdescribe('HttpMultipartResource', () => {
         expectedPath: '/books/1',
         expectedRequestBody,
         mockedResponseBody: {id: 1, name},
-        expectedResponse: void 0
+        expectedResponse: void 0,
+        verify(params: any) {
+          const givenRequestBody: FormData = params[2].body;
+          expect(givenRequestBody.get('data')).toEqual(JSON.stringify({id: 1, name}));
+          expect(givenRequestBody.get('theFile')).toEqual('world.txt');
+        }
       },
       patch: {
         entity: Book,
@@ -182,7 +225,12 @@ fdescribe('HttpMultipartResource', () => {
         expectedPath: '/books/1',
         expectedRequestBody,
         mockedResponseBody: {id: 1, name},
-        expectedResponse: void 0
+        expectedResponse: void 0,
+        verify(params: any) {
+          const givenRequestBody: FormData = params[2].body;
+          expect(givenRequestBody.get('data')).toEqual(JSON.stringify({id: 1, name}));
+          expect(givenRequestBody.get('theFile')).toEqual('world.txt');
+        }
       },
       delete: {
         entity: Book,
@@ -195,7 +243,12 @@ fdescribe('HttpMultipartResource', () => {
         expectedPath: '/books/1',
         expectedRequestBody,
         mockedResponseBody: {id: 1, name},
-        expectedResponse: void 0
+        expectedResponse: void 0,
+        verify(params: any) {
+          const givenRequestBody: FormData = params[2].body;
+          expect(givenRequestBody.get('data')).toEqual(JSON.stringify({id: 1, name}));
+          expect(givenRequestBody.get('theFile')).toEqual('world.txt');
+        }
       }
     });
   });
@@ -203,9 +256,6 @@ fdescribe('HttpMultipartResource', () => {
   describe('should send http request over multipart with multiple columns', () => {
     const name: string = 'Naruto';
     const expectedRequestBody: FormData = new FormData();
-    expectedRequestBody.set('data', {id: 1, name} as any);
-    expectedRequestBody.set('file', 'hello.txt');
-    expectedRequestBody.set('theFile', 'world.txt');
 
     testHttpRepository({
       create: {
@@ -219,7 +269,13 @@ fdescribe('HttpMultipartResource', () => {
         expectedPath: '/books',
         expectedRequestBody,
         mockedResponseBody: {id: 1, name},
-        expectedResponse: 1
+        expectedResponse: 1,
+        verify(params: any) {
+          const givenRequestBody: FormData = params[2].body;
+          expect(givenRequestBody.get('data')).toEqual(JSON.stringify({name}));
+          expect(givenRequestBody.get('theFile')).toEqual('world.txt');
+          expect(givenRequestBody.get('file')).toEqual('hello.txt');
+        }
       },
       update: {
         entity: Book,
@@ -233,7 +289,13 @@ fdescribe('HttpMultipartResource', () => {
         expectedPath: '/books/1',
         expectedRequestBody,
         mockedResponseBody: {id: 1, name},
-        expectedResponse: void 0
+        expectedResponse: void 0,
+        verify(params: any) {
+          const givenRequestBody: FormData = params[2].body;
+          expect(givenRequestBody.get('data')).toEqual(JSON.stringify({id: 1, name}));
+          expect(givenRequestBody.get('theFile')).toEqual('world.txt');
+          expect(givenRequestBody.get('file')).toEqual('hello.txt');
+        }
       },
       patch: {
         entity: Book,
@@ -247,7 +309,13 @@ fdescribe('HttpMultipartResource', () => {
         expectedPath: '/books/1',
         expectedRequestBody,
         mockedResponseBody: {id: 1, name},
-        expectedResponse: void 0
+        expectedResponse: void 0,
+        verify(params: any) {
+          const givenRequestBody: FormData = params[2].body;
+          expect(givenRequestBody.get('data')).toEqual(JSON.stringify({id: 1, name}));
+          expect(givenRequestBody.get('theFile')).toEqual('world.txt');
+          expect(givenRequestBody.get('file')).toEqual('hello.txt');
+        }
       },
       delete: {
         entity: Book,
@@ -261,7 +329,13 @@ fdescribe('HttpMultipartResource', () => {
         expectedPath: '/books/1',
         expectedRequestBody,
         mockedResponseBody: {id: 1, name},
-        expectedResponse: void 0
+        expectedResponse: void 0,
+        verify(params: any) {
+          const givenRequestBody: FormData = params[2].body;
+          expect(givenRequestBody.get('data')).toEqual(JSON.stringify({id: 1, name}));
+          expect(givenRequestBody.get('theFile')).toEqual('world.txt');
+          expect(givenRequestBody.get('file')).toEqual('hello.txt');
+        }
       }
     });
   });
