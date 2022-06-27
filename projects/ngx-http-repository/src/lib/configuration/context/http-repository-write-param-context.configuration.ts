@@ -6,4 +6,9 @@ export interface HttpRepositoryWriteParamContextConfiguration extends HttpReposi
    * default: false
    */
   fullResponse?: boolean;
+
+  /**
+   * enable multipart and use the value as multipart name for the object.
+   */
+  multipart?: string;
 }

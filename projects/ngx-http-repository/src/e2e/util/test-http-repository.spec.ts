@@ -78,7 +78,8 @@ export async function httpTest(httpTestContext: HttpTestContext): Promise<void> 
     expectedRequestHeaders: httpTestContext.expectedRequestHeaders || {},
     expectedRequestBody: httpTestContext.expectedRequestBody || null,
     mockedResponseBody: httpTestContext.mockedResponseBody || null,
-    expectedResponse: httpTestContext.expectedResponse
+    expectedResponse: httpTestContext.expectedResponse,
+    verify: httpTestContext.verify
   };
 
   await expectHttpRequest({
