@@ -106,6 +106,13 @@ jobs:
         env:
           CI: true
 
+      - name: Archive artifact
+        if: github.ref == 'refs/heads/master'
+        uses: actions/upload-artifact@master
+        with:
+          name: ngx-repository
+          path: ./dist/ngx-repository
+
   build-ngx-http-repository:
     name: Build ngx-http-repository
     runs-on: ubuntu-latest
@@ -129,6 +136,13 @@ jobs:
         run: npm run build:ngx-http-repository
         env:
           CI: true
+
+      - name: Archive artifact
+        if: github.ref == 'refs/heads/master'
+        uses: actions/upload-artifact@master
+        with:
+          name: ngx-http-repository
+          path: ./dist/ngx-http-repository
 
   build-ngx-firestore-repository:
     name: Build ngx-firestore-repository
@@ -154,6 +168,13 @@ jobs:
         env:
           CI: true
 
+      - name: Archive artifact
+        if: github.ref == 'refs/heads/master'
+        uses: actions/upload-artifact@master
+        with:
+          name: ngx-firestore-repository
+          path: ./dist/ngx-firestore-repository
+
   deploy-ngx-repository:
     name: Deploy ngx-repository
     runs-on: ubuntu-latest
@@ -167,13 +188,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Download artifact
+        uses: actions/download-artifact@master
         with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Installation
-        run: npm ci
+          name: ngx-repository
+          path: ./dist/ngx-repository
 
       - name: "Publish @paddls/ngx-repository"
         uses: pascalgn/npm-publish-action@1.3.9
@@ -200,13 +219,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Download artifact
+        uses: actions/download-artifact@master
         with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Installation
-        run: npm ci
+          name: ngx-repository
+          path: ./dist/ngx-repository
 
       - name: "PrePublish @witty-services/ngx-repository"
         uses: jossef/action-set-json-field@v1
@@ -238,13 +255,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Download artifact
+        uses: actions/download-artifact@master
         with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Installation
-        run: npm ci
+          name: ngx-http-repository
+          path: ./dist/ngx-http-repository
 
       - name: "Publish @paddls/ngx-http-repository"
         uses: pascalgn/npm-publish-action@1.3.9
@@ -270,13 +285,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Download artifact
+        uses: actions/download-artifact@master
         with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Installation
-        run: npm ci
+          name: ngx-http-repository
+          path: ./dist/ngx-http-repository
 
       - name: "PrePublish @witty-services/ngx-http-repository"
         uses: jossef/action-set-json-field@v1
@@ -308,13 +321,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Download artifact
+        uses: actions/download-artifact@master
         with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Installation
-        run: npm ci
+          name: ngx-firestore-repository
+          path: ./dist/ngx-firestore-repository
 
       - name: "Publish @paddls/ngx-firestore-repository"
         uses: pascalgn/npm-publish-action@1.3.9
@@ -340,13 +351,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Download artifact
+        uses: actions/download-artifact@master
         with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Installation
-        run: npm ci
+          name: ngx-firestore-repository
+          path: ./dist/ngx-firestore-repository
 
       - name: "PrePublish @witty-services/ngx-firestore-repository"
         uses: jossef/action-set-json-field@v1
