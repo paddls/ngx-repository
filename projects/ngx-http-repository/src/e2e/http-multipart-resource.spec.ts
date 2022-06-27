@@ -102,8 +102,6 @@ fdescribe('HttpMultipartResource', () => {
   describe('should send http request over multipart with column', () => {
     const name: string = 'Naruto';
     const expectedRequestBody: FormData = new FormData();
-    // expectedRequestBody.set('data', {id: 1, name} as any);
-    // expectedRequestBody.set('file', 'hello.txt');
 
     testHttpRepository({
       create: {

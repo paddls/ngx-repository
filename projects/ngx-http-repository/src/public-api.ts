@@ -39,4 +39,4 @@ export { NgxHttpRepositoryModule, NgxHttpRepositoryModuleConfiguration } from '.
 export {
   HttpRepositoryConfiguration, HTTP_REPOSITORY_CONFIGURATION
 } from './lib/configuration/http-repository.configuration';
-
+export {HttpMultipartColumn} from './lib/decorator/http-multipart-resource';

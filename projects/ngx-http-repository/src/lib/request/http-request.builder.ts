@@ -57,7 +57,7 @@ export class HttpRequestBuilder implements RequestBuilder {
 
     if (multipart) {
       const data: FormData = new FormData();
-      data.set('data', JSON.stringify(normalizedBody));
+      data.set(multipart, new Blob([JSON.stringify(normalizedBody)], {type: 'application/json'}));
 
       const parts: HttpMultipartColumnContext[] = Reflect.getMetadata(HTTP_MULTIPART_COLUMN_METADATA_KEY, body) || [];
       parts.forEach((part: HttpMultipartColumnContext) => {
