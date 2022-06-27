@@ -1,22 +1,97 @@
 name: build
 
 on:
-  workflow_run:
-    workflows: [ "release" ]
-    types: [ completed ]
   push:
-    branches:
-      - 'master'
-jobs:
-  ci:
-    runs-on: ubuntu-latest
+    branches: [ '**' ]
+  pull_request:
+    branches: [ '**' ]
 
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [ 14.18.2 ]
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Installation
+        run: npm ci
+
+      - name: Linter
+        run: npm run lint
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 14.18.2 ]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Installation
+        run: npm ci
+
+      - name: Test
+        run: npm run test:ci
+
+      - name: Archive coverage artifact
+        if: github.ref == 'refs/heads/master'
+        uses: actions/upload-artifact@master
+        with:
+          name: ngx-repository-coverage
+          path: ./coverage
+
+  coverall:
+    name: Coverall
+    needs: [test, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository]
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 14.16.1 ]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Download artifact
+        uses: actions/download-artifact@master
+        with:
+          name: ngx-repository-coverage
+          path: ./coverage
+
+      - name: Send coverage to Coverall
+        uses: coverallsapp/github-action@v1.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./coverage/merged/lcov.info
+
+  build-ngx-repository:
+    name: Build ngx-repository
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 14.18.2 ]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -31,27 +106,74 @@ jobs:
         env:
           CI: true
 
+  build-ngx-http-repository:
+    name: Build ngx-http-repository
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 14.18.2 ]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Installation
+        run: npm ci
+
       - name: Build NgxHttpRepository
         run: npm run build:ngx-http-repository
         env:
           CI: true
+
+  build-ngx-firestore-repository:
+    name: Build ngx-firestore-repository
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 14.18.2 ]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Installation
+        run: npm ci
 
       - name: Build NgxFirestoreRepository
         run: npm run build:ngx-firestore-repository
         env:
           CI: true
 
-      - name: Linter
-        run: npm run lint
+  deploy-ngx-repository:
+    name: Deploy ngx-repository
+    runs-on: ubuntu-latest
+    needs: [ test, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
+    if: github.ref == 'refs/heads/master'
+    strategy:
+      matrix:
+        node-version: [ 14.18.2 ]
 
-      - name: Test
-        run: npm run test:ci
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-      - name: Send coverage to Coverall
-        uses: coverallsapp/github-action@v1.0.1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: ./coverage/merged/lcov.info
+          node-version: ${{ matrix.node-version }}
+
+      - name: Installation
+        run: npm ci
 
       - name: "Publish @paddls/ngx-repository"
         uses: pascalgn/npm-publish-action@1.3.9
@@ -64,6 +186,28 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_PADDLS }}
+
+  deploy-witty-ngx-repository:
+    name: Deploy witty ngx-repository
+    runs-on: ubuntu-latest
+    needs: [ test, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
+    if: github.ref == 'refs/heads/master'
+    strategy:
+      matrix:
+        node-version: [ 14.18.2 ]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Installation
+        run: npm ci
+
       - name: "PrePublish @witty-services/ngx-repository"
         uses: jossef/action-set-json-field@v1
         with:
@@ -81,6 +225,27 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_PADDLS }}
 
+  deploy-ngx-http-repository:
+    name: Deploy ngx-http-repository
+    runs-on: ubuntu-latest
+    needs: [ test, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
+    if: github.ref == 'refs/heads/master'
+    strategy:
+      matrix:
+        node-version: [ 14.18.2 ]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Installation
+        run: npm ci
+
       - name: "Publish @paddls/ngx-http-repository"
         uses: pascalgn/npm-publish-action@1.3.9
         with:
@@ -91,6 +256,28 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_PADDLS }}
+
+  deploy-witty-ngx-http-repository:
+    name: Deploy witty ngx-http-repository
+    runs-on: ubuntu-latest
+    needs: [ test, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
+    if: github.ref == 'refs/heads/master'
+    strategy:
+      matrix:
+        node-version: [ 14.18.2 ]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Installation
+        run: npm ci
+
       - name: "PrePublish @witty-services/ngx-http-repository"
         uses: jossef/action-set-json-field@v1
         with:
@@ -108,6 +295,27 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_PADDLS }}
 
+  deploy-ngx-firestore-repository:
+    name: Deploy ngx-firestore-repository
+    runs-on: ubuntu-latest
+    needs: [ test, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
+    if: github.ref == 'refs/heads/master'
+    strategy:
+      matrix:
+        node-version: [ 14.18.2 ]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Installation
+        run: npm ci
+
       - name: "Publish @paddls/ngx-firestore-repository"
         uses: pascalgn/npm-publish-action@1.3.9
         with:
@@ -118,6 +326,28 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_PADDLS }}
+
+  deploy-witty-ngx-firestore-repository:
+    name: Deploy witty ngx-firestore-repository
+    runs-on: ubuntu-latest
+    needs: [ test, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
+    if: github.ref == 'refs/heads/master'
+    strategy:
+      matrix:
+        node-version: [ 14.18.2 ]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Installation
+        run: npm ci
+
       - name: "PrePublish @witty-services/ngx-firestore-repository"
         uses: jossef/action-set-json-field@v1
         with:
