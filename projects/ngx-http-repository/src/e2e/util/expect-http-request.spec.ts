@@ -12,7 +12,7 @@ export interface HttpRequestTestContext {
   mockedResponseBody?: any;
   mockedResponseHeader?: { [name: string]: string };
   expectedResponse: any;
-  verify: (params: any) => void;
+  verify: (params: any) => Promise<void>;
 }
 
 export async function expectHttpRequest(httpTestContext: HttpRequestTestContext): Promise<void> {
@@ -33,11 +33,10 @@ export async function expectHttpRequest(httpTestContext: HttpRequestTestContext)
   const httpClient: HttpClient = context.httpClient;
 
   const mockedResponseBody: any = context.mockedResponseBody;
+  let invokedParams: any;
 
   spyOn(httpClient, 'request').and.callFake((...params: any) => {
-    if (context.verify) {
-      context.verify(params);
-    }
+    invokedParams = params;
 
     return of(new HttpResponse({
       body: mockedResponseBody,
@@ -48,6 +47,9 @@ export async function expectHttpRequest(httpTestContext: HttpRequestTestContext)
   const response: any = await context.request();
 
   expect(response).withContext('response not match').toEqual(context.expectedResponse);
+  if (context.verify) {
+    await context.verify(invokedParams);
+  }
 
   const expectedMethod: any = context.expectedMethod;
   const expectedPath: any = context.expectedPath;
