@@ -25,6 +25,17 @@ describe('EventListenerDecorator', () => {
     expect(PublisherService.addListenerToRegistry).toHaveBeenCalledWith(jasmine.anything(), NoPredicateEventListener);
   });
 
+  it('should add listener to registry when no predicate', () => {
+    @EventListener()
+    class SinglePredicateEventListener implements Listener<any> {
+
+      public on(): void {
+      }
+    }
+
+    expect(PublisherService.addListenerToRegistry).toHaveBeenCalledWith(jasmine.anything(), SinglePredicateEventListener);
+  });
+
   it('should add listener to registry when one predicate', () => {
     @EventListener(() => true)
     class SinglePredicateEventListener implements Listener<any> {

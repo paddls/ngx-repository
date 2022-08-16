@@ -68,4 +68,16 @@ describe('TokenRegistry', () => {
       expect(TokenRegistry.findToken(resourceType, repositoryType)).toBe(instance);
     });
   });
+
+  describe('#clear', () => {
+    it('should clear map', () => {
+      const resourceType: Type<MyClass> = MyClass;
+      const repositoryType: Type<MyRepository<MyClass>> = MyRepository;
+      TokenRegistry.addTokenToRegistry(resourceType, repositoryType);
+
+      TokenRegistry.clear();
+
+      expect(TokenRegistry.tokenRegistry).toEqual(new Map());
+    });
+  });
 });

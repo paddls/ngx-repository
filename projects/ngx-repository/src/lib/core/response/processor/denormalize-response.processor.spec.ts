@@ -8,17 +8,9 @@ import {
   RepositoryResponse,
   RequestManagerContext
 } from '../../../../public-api';
+import createSpy = jasmine.createSpy;
 
-xdescribe('DenormalizeResponseProcessor', () => {
-
-  class FakePublisherService {
-    public static getInstance() {
-      return null;
-    };
-
-    public publish(): void {
-    }
-  }
+describe('DenormalizeResponseProcessor', () => {
 
   let processor: DenormalizeResponseProcessor;
 
@@ -26,10 +18,6 @@ xdescribe('DenormalizeResponseProcessor', () => {
     TestBed.configureTestingModule({
       providers: [
         DenormalizeResponseProcessor,
-        {
-          provide: PublisherService,
-          useClass: FakePublisherService
-        },
         {
           provide: RepositoryNormalizer,
           useValue: {
@@ -44,6 +32,17 @@ xdescribe('DenormalizeResponseProcessor', () => {
   });
 
   it('should return origin body', () => {
+    PublisherService.getInstance = createSpy().and.returnValue({
+      publish: (event: any) => {
+        if (!event) {
+
+          return;
+        }
+
+        return;
+      }
+    } as PublisherService);
+
     class Book {
     }
 

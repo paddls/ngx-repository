@@ -4,6 +4,7 @@ import { EventListener } from './decorator/event-listener.decorator';
 import { TestBed } from '@angular/core/testing';
 import { AfterDenormalizeEvent } from '../../normalizer/event/after-denormalize.event';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable()
 @EventListener(() => true)
@@ -44,7 +45,7 @@ describe('PublisherService', () => {
 
   describe('#getPublisher()', () => {
     it('should return valid publisher', () => {
-      expect(PublisherService.getPublisher()).toBeDefined();
+      expect(PublisherService.getPublisher()).toEqual(new Subject<any>());
     });
   });
 });
