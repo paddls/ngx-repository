@@ -1,5 +1,4 @@
 import { getDeepQueryMetadataValue, getDeepQueryMetadataValues, SubQuery } from './sub-query.decorator';
-import { HttpQueryParam } from '@paddls/ngx-http-repository';
 
 describe('SubQueryDecorator', () => {
 
@@ -7,7 +6,6 @@ describe('SubQueryDecorator', () => {
     it('should return metadata when no sub query', () => {
       class MyQuery {
 
-        @HttpQueryParam()
         public param: string;
 
         public constructor(data: Partial<MyQuery> = {}) {
@@ -15,17 +13,16 @@ describe('SubQueryDecorator', () => {
         }
       }
 
+      const query = new MyQuery({param: 'Oscar'});
+      Reflect.defineMetadata('httpQueryParams', {name: 'param'}, query);
 
-      const metadata: any[] = getDeepQueryMetadataValues('httpQueryParams', new MyQuery({param: 'Oscar'}));
-
-      expect(metadata[0].propertyKey).toEqual('param');
+      const metadata: any[] = getDeepQueryMetadataValues('httpQueryParams', query);
       expect(metadata[0].name).toEqual('param');
     });
 
     it('should return metadata with sub query', () => {
       class MySubQuery {
 
-        @HttpQueryParam()
         public subParam: string;
 
         public constructor(data: Partial<MySubQuery> = {}) {
@@ -35,26 +32,31 @@ describe('SubQueryDecorator', () => {
 
       class MyQuery {
 
-        @HttpQueryParam()
         public param: string;
 
         @SubQuery()
         public subQuery: MySubQuery;
 
         public constructor(data: Partial<MyQuery> = {}) {
+          Reflect.defineMetadata('httpQueryParams', 'param', MyQuery);
+
           Object.assign(this, data);
         }
       }
 
 
-      const metadata: any[] = getDeepQueryMetadataValues('httpQueryParams', new MyQuery({
-        param: 'Oscar',
-        subQuery: new MySubQuery({subParam: 'Romain'})
-      }));
+      const subQuery: MySubQuery = new MySubQuery({subParam: 'Romain'});
 
-      expect(metadata[0].propertyKey).toEqual('subQuery.subParam');
+      const query = new MyQuery({
+        param: 'Oscar',
+        subQuery
+      });
+      Reflect.defineMetadata('httpQueryParams', {name: 'param'}, query);
+      Reflect.defineMetadata('httpQueryParams', {name: 'subParam'}, subQuery);
+
+      const metadata: any[] = getDeepQueryMetadataValues('httpQueryParams', query);
+
       expect(metadata[0].name).toEqual('subParam');
-      expect(metadata[1].propertyKey).toEqual('param');
       expect(metadata[1].name).toEqual('param');
     });
   });
@@ -63,7 +65,6 @@ describe('SubQueryDecorator', () => {
     it('should return metadata with sub query', () => {
       class MySubQuery {
 
-        @HttpQueryParam()
         public subParam: string;
 
         public constructor(data: Partial<MySubQuery> = {}) {
@@ -73,24 +74,30 @@ describe('SubQueryDecorator', () => {
 
       class MyQuery {
 
-        @HttpQueryParam()
         public param: string;
 
         @SubQuery()
         public subQuery: MySubQuery;
 
         public constructor(data: Partial<MyQuery> = {}) {
+          Reflect.defineMetadata('httpQueryParams', 'param', MyQuery);
+
           Object.assign(this, data);
         }
       }
 
 
-      const metadata: any = getDeepQueryMetadataValue('httpQueryParams', new MyQuery({
-        param: 'Oscar',
-        subQuery: new MySubQuery({subParam: 'Romain'})
-      }));
+      const subQuery: MySubQuery = new MySubQuery({subParam: 'Romain'});
 
-      expect(metadata.propertyKey).toEqual('subQuery.subParam');
+      const query = new MyQuery({
+        param: 'Oscar',
+        subQuery
+      });
+      Reflect.defineMetadata('httpQueryParams', {name: 'param'}, query);
+      Reflect.defineMetadata('httpQueryParams', {name: 'subParam'}, subQuery);
+
+      const metadata: any = getDeepQueryMetadataValue('httpQueryParams', query);
+
       expect(metadata.name).toEqual('subParam');
     });
   });
