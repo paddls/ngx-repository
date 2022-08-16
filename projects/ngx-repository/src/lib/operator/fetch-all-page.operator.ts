@@ -3,7 +3,7 @@ import { expand, first, map, switchMap, toArray } from 'rxjs/operators';
 import { Page } from '../core/model/page';
 import flatten from 'lodash.flatten';
 
-export function fetchAllPage<T>(fetch: (page: number) => Observable<Page<any>>): OperatorFunction<Page<T>, T[]> {
+export function fetchAllPage<T>(fetch: (page: number) => Observable<Page>): OperatorFunction<Page<T>, T[]> {
   return (source: Observable<Page<T>>): Observable<T[]> => {
     return source.pipe(
       switchMap((firstPage: Page<T>) => of(firstPage).pipe(
@@ -17,7 +17,7 @@ export function fetchAllPage<T>(fetch: (page: number) => Observable<Page<any>>):
           return EMPTY;
         }),
         toArray(),
-        map((arr: Page<any>[]) => flatten(arr))
+        map((arr: Page[]) => flatten(arr)),
       ))
     );
   };
