@@ -11,6 +11,7 @@ describe('fetchAllPage', () => {
     page1$.pipe(
       fetchAllPage((page: number) => {
         expect(page).toEqual(1);
+
         return page2$;
       })
     ).subscribe((result: any[]) => {
