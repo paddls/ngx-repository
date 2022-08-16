@@ -46,7 +46,7 @@
     "@types/chance": "^1.0.10",
     "angular-in-memory-web-api": "^0.10.0",
     "chance": "^1.1.4",
-    "firebase": "^9.6.1",
+    "firebase": "^9.9.2",
     "lodash.first": "^3.0.0",
     "lodash.flatten": "^4.4.0",
     "lodash.flattendeep": "^4.4.0",
