@@ -1,5 +1,10 @@
-import {ConstructorFunction, Converter, JsonPropertyContext, JsonPropertyContextConfiguration} from '@paddls/ts-serializer';
-import {SerializeType} from '@paddls/ts-serializer/dist/common';
+import {
+  ConstructorFunction,
+  Converter,
+  JsonPropertyContext,
+  JsonPropertyContextConfiguration
+} from '@paddls/ts-serializer';
+import { SerializeType } from '@paddls/ts-serializer/dist/common';
 
 /**
  * Describe advanced configuration for Column decorator.
@@ -14,7 +19,7 @@ export interface ColumnContext<T, R> extends JsonPropertyContext<T, R> {
   /**
    * Field type after deserialization.
    */
-  type?: () => SerializeType<T>|SerializeType<T>[];
+  type?: () => SerializeType<T> | SerializeType<any>[];
 
   /**
    * Boolean to indicate to not send the value in json to the server.

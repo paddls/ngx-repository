@@ -45,7 +45,7 @@ export class NgxHttpRepositoryModule {
     const providers: Provider[] = [
       {
         provide: HTTP_REPOSITORY_CONFIGURATION,
-        useValue: config ? config.configuration || {} : {} // TODO @RMA simplify when typescript 4
+        useValue: config?.configuration || {}
       }
     ];
 

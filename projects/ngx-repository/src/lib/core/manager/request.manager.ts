@@ -30,7 +30,6 @@ export class RequestManager {
     );
   }
 
-  // TODO @RMA share with requestBuilder
   protected getResponseBuilderType(configuration: ConfigurationContextProvider): Type<ResponseBuilder> {
     const responseBuilderParam: BuilderParam<ResponseBuilder> = configuration.getConfiguration('responseBuilder');
 
