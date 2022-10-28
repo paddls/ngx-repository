@@ -1,11 +1,12 @@
-import {Predicate, Type} from '@angular/core';
-import {isFunction, isObject} from 'rxjs/internal-compatibility';
-import {EventListener, TypeGetter} from '@paddls/ngx-repository';
-import {HTTP_WRITE_OPERATIONS, HttpWriteOperation} from '../request/http.operation';
-import {AfterHttpCreateEvent} from '../repository/event/after-http-create.event';
-import {AfterHttpUpdateEvent} from '../repository/event/after-http-update.event';
-import {AfterHttpPatchEvent} from '../repository/event/after-http-patch.event';
-import {AfterHttpDeleteEvent} from '../repository/event/after-http-delete.event';
+import { Predicate, Type } from '@angular/core';
+import isObject from 'lodash.isobject';
+import isFunction from 'lodash.isfunction';
+import { EventListener, TypeGetter } from '@paddls/ngx-repository';
+import { HTTP_WRITE_OPERATIONS, HttpWriteOperation } from '../request/http.operation';
+import { AfterHttpCreateEvent } from '../repository/event/after-http-create.event';
+import { AfterHttpUpdateEvent } from '../repository/event/after-http-update.event';
+import { AfterHttpPatchEvent } from '../repository/event/after-http-patch.event';
+import { AfterHttpDeleteEvent } from '../repository/event/after-http-delete.event';
 import pick from 'lodash.pick';
 import valuesIn from 'lodash.valuesin';
 import flatten from 'lodash.flatten';
@@ -43,7 +44,7 @@ export function OnHttpResourceChange<T>(context: OnHttpResourceChangeContext<T>|
         ...context
       };
     } else {
-      finalContext.type = context;
+      finalContext.type = context as TypeGetter<T>;
     }
 
     EventListener((event: { type: Type<any>  }) => {
