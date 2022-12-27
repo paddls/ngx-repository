@@ -2,9 +2,9 @@
   "name": "@paddls/ngx-http-repository",
   "version": "3.1.0",
   "peerDependencies": {
-    "@angular/common": ">=8.0.3-rc.0 || >=8.0.3",
-    "@angular/core": ">=8.0.3-rc.0 || >=8.0.3",
-    "@paddls/ngx-repository": "^3.0.0-rc.0 || ^3.0.0"
+    "@angular/common": ">= 14.2.12",
+    "@angular/core": ">= 14.2.12",
+    "@paddls/ngx-repository": "^3.0.0"
   },
   "dependencies": {
     "lodash.first": "^3.0.0",
