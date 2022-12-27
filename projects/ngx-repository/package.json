@@ -1,9 +1,9 @@
 {
   "name": "@paddls/ngx-repository",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "peerDependencies": {
-    "@angular/common": ">=8.0.3",
-    "@angular/core": ">=8.0.3"
+    "@angular/common": ">=14.0.0",
+    "@angular/core": ">=14.0.0"
   },
   "dependencies": {
     "@paddls/ngx-serializer": "^2.0.1",
