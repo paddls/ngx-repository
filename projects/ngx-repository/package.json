@@ -1,6 +1,6 @@
 {
   "name": "@paddls/ngx-repository",
-  "version": "4.0.1",
+  "version": "5.0.0",
   "peerDependencies": {
     "@angular/common": ">=15.0.0",
     "@angular/core": ">=15.0.0"

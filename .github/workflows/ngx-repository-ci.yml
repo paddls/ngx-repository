@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 14.18.2 ]
+        node-version: [ 16.13.2 ]
 
     steps:
       - name: Checkout Repository
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 14.18.2 ]
+        node-version: [ 16.13.2 ]
 
     steps:
       - name: Checkout Repository
@@ -65,7 +65,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 14.16.1 ]
+        node-version: [ 16.13.2 ]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -87,7 +87,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 14.18.2 ]
+        node-version: [ 16.13.2 ]
 
     steps:
       - name: Checkout Repository
@@ -118,7 +118,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 14.18.2 ]
+        node-version: [ 16.13.2 ]
 
     steps:
       - name: Checkout Repository
@@ -149,7 +149,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 14.18.2 ]
+        node-version: [ 16.13.2 ]
 
     steps:
       - name: Checkout Repository
@@ -182,7 +182,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
     strategy:
       matrix:
-        node-version: [ 14.18.2 ]
+        node-version: [ 16.13.2 ]
 
     steps:
       - name: Checkout Repository
@@ -213,7 +213,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
     strategy:
       matrix:
-        node-version: [ 14.18.2 ]
+        node-version: [ 16.13.2 ]
 
     steps:
       - name: Checkout Repository
@@ -249,7 +249,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
     strategy:
       matrix:
-        node-version: [ 14.18.2 ]
+        node-version: [ 16.13.2 ]
 
     steps:
       - name: Checkout Repository
@@ -279,7 +279,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
     strategy:
       matrix:
-        node-version: [ 14.18.2 ]
+        node-version: [ 16.13.2 ]
 
     steps:
       - name: Checkout Repository
@@ -315,7 +315,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
     strategy:
       matrix:
-        node-version: [ 14.18.2 ]
+        node-version: [ 16.13.2 ]
 
     steps:
       - name: Checkout Repository
@@ -345,7 +345,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
     strategy:
       matrix:
-        node-version: [ 14.18.2 ]
+        node-version: [ 16.13.2 ]
 
     steps:
       - name: Checkout Repository
