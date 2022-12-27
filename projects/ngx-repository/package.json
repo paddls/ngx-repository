@@ -2,11 +2,11 @@
   "name": "@paddls/ngx-repository",
   "version": "4.0.1",
   "peerDependencies": {
-    "@angular/common": ">=14.0.0",
-    "@angular/core": ">=14.0.0"
+    "@angular/common": ">=15.0.0",
+    "@angular/core": ">=15.0.0"
   },
   "dependencies": {
-    "@paddls/ngx-serializer": "^2.0.1",
+    "@paddls/ngx-serializer": "^3.0.0",
     "@paddls/rxjs-common": "^2.1.0",
     "object-hash": "^2.0.3",
     "lodash.first": "^3.0.0",

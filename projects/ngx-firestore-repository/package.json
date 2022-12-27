@@ -2,8 +2,8 @@
   "name": "@paddls/ngx-firestore-repository",
   "version": "4.0.1",
   "peerDependencies": {
-    "@angular/common": ">= 14.0.0",
-    "@angular/core": ">= 14.0.0",
+    "@angular/common": ">= 15.0.0",
+    "@angular/core": ">= 15.0.0",
     "@paddls/ngx-repository": "^4.0.0",
     "firebase": ">= 9.9.2"
   },
