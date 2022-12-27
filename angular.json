@@ -164,7 +164,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/ngx-http-repository/tsconfig.build.json",
+            "tsConfig": "projects/ngx-http-repository/tsconfig.lib.json",
             "project": "projects/ngx-http-repository/ng-package.json"
           },
           "configurations": {
@@ -201,7 +201,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/ngx-firestore-repository/tsconfig.build.json",
+            "tsConfig": "projects/ngx-firestore-repository/tsconfig.lib.json",
             "project": "projects/ngx-firestore-repository/ng-package.json"
           },
           "configurations": {
