@@ -38,7 +38,8 @@
             "accessibility": "explicit",
             "overrides": {
               "accessors": "explicit",
-              "constructors": "explicit"
+              "constructors": "explicit",
+              "parameterProperties": "off"
             }
           }
         ],

@@ -8,11 +8,8 @@
   ],
   "rules": {
     "no-unused-vars": "off",
-    "unused-imports/no-unused-imports": "error",
-    "unused-imports/no-unused-vars": [
-      "error",
-      { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
-    ],
+    "unused-imports/no-unused-imports": "off",
+    "unused-imports/no-unused-vars": "off",
     "prefer-const": "error"
   },
   "overrides": [
@@ -56,7 +53,8 @@
             "accessibility": "explicit",
             "overrides": {
               "accessors": "explicit",
-              "constructors": "explicit"
+              "constructors": "explicit",
+              "parameterProperties": "off"
             }
           }
         ],

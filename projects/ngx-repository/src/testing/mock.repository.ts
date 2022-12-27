@@ -26,7 +26,8 @@ export class MockRepository<T> implements AllRepository {
 
   private readonly values: { [key: string]: Subject<any> };
 
-  public constructor(public readonly resourceType: Type<any>, public readonly repositoryType: Type<AbstractRepository<T>>) {
+  public constructor(public readonly resourceType: Type<any>,
+                     public readonly repositoryType: Type<AbstractRepository<T>>) {
     this.values = {
       create: new Subject<any>(),
       update: new Subject<any>(),
