@@ -51,6 +51,7 @@ Easily create a **strongly typed data access layer** in your **Angular** project
 
 | `Angular`          | `NgxRepository`   |
 |--------------------|-------------------|
+| `15.0.0` and above | `5.0.0` and above |
 | `14.0.0` and above | `4.0.1` and above |
 | `13.0.0` and above | `3.0.0` and above |
 | `8.0.0` and above  | `1.0.0` and above |
@@ -89,7 +90,7 @@ import { NgxFirestoreRepositoryModule } from '@paddls/ngx-firestore-repository';
 @NgModule({
   imports: [
     NgxRepositoryModule.forRoot(),
-    NgxHttpRepositoryModule, // Http driver
+    NgxHttpRepositoryModule.forRoot(), // Http driver
     NgxFirestoreRepositoryModule.forRoot(
       firebase.initializeApp({
         apiKey: 'TODO',
