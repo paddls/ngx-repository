@@ -86,23 +86,30 @@ To start using NgxRepository, import `NgxRepositoryModule` and the modules corre
 import { NgxRepositoryModule } from '@paddls/ngx-repository';
 import { NgxHttpRepositoryModule } from '@paddls/ngx-http-repository';
 import { NgxFirestoreRepositoryModule } from '@paddls/ngx-firestore-repository';
+import {initializeFirestore} from 'firebase/firestore';
+
+const firebaseApp: FirebaseApp = initializeApp({
+  apiKey: 'TODO',
+  authDomain: 'TODO',
+  databaseURL: 'TODO',
+  projectId: 'TODO',
+  storageBucket: 'TODO',
+  messagingSenderId: 'TODO',
+  appId: 'TODO',
+  measurementId: 'TODO'
+});
+
+const firestore = initializeFirestore(firebaseApp, {
+  localCache: persistentLocalCache()
+});
 
 @NgModule({
   imports: [
     NgxRepositoryModule.forRoot(),
     NgxHttpRepositoryModule.forRoot(), // Http driver
-    NgxFirestoreRepositoryModule.forRoot(
-      firebase.initializeApp({
-        apiKey: 'TODO',
-        authDomain: 'TODO',
-        databaseURL: 'TODO',
-        projectId: 'TODO',
-        storageBucket: 'TODO',
-        messagingSenderId: 'TODO',
-        appId: 'TODO',
-        measurementId: 'TODO'
-      }).firestore()
-    ), // Firestore driver
+    NgxFirestoreRepositoryModule.forRoot({
+      firestore 
+    }), // Firestore driver
   ]
 })
 export class AppModule {
