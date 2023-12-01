@@ -9,9 +9,7 @@ import { FirestoreCollectionRepositoryResponse } from '../response/firestore-col
 import { fromRef } from './from-ref.function';
 import { FirestoreDocumentRepositoryResponse } from '../response/firestore-document-repository.response';
 import { NgxFirestoreRepositoryCreateRequestError } from '../error/ngx-firestore-repository-create-request.error';
-import {
-  FirestoreDocumentReferenceRepositoryResponse
-} from '../response/firestore-document-reference-repository.response';
+import { FirestoreDocumentReferenceRepositoryResponse } from '../response/firestore-document-reference-repository.response';
 import { NgxFirestoreRepositoryUpdateRequestError } from '../error/ngx-firestore-repository-update-request.error';
 import { NgxFirestoreRepositoryDeleteRequestError } from '../error/ngx-firestore-repository-delete-request.error';
 import { FirestoreEmptyRepositoryResponse } from '../response/firestore-empty-repository.response';
@@ -95,7 +93,7 @@ export class FirestoreRepositoryDriver implements RepositoryDriver {
         mapTo(documentRef),
         catchError((err: any) => {
           if (err.name === 'FirebaseError') {
-            return throwError(new NgxFirestoreRepositoryCreateRequestError(null, err));
+            return throwError(new NgxFirestoreRepositoryCreateRequestError(request, err));
           } else {
             return throwError(err);
           }
@@ -106,7 +104,7 @@ export class FirestoreRepositoryDriver implements RepositoryDriver {
       return from(addDoc(collection(this.firestore, request.path.value), request.body)).pipe(
         catchError((err: any) => {
           if (err.name === 'FirebaseError') {
-            return throwError(new NgxFirestoreRepositoryCreateRequestError(null, err));
+            return throwError(new NgxFirestoreRepositoryCreateRequestError(request, err));
           } else {
             return throwError(err);
           }
