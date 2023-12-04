@@ -118,18 +118,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ngx-repository-app:build"
+            "buildTarget": "ngx-repository-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ngx-repository-app:build:production"
+              "buildTarget": "ngx-repository-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ngx-repository-app:build"
+            "buildTarget": "ngx-repository-app:build"
           }
         },
         "e2e": {
