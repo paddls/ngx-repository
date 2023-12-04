@@ -1,6 +1,6 @@
 {
   "name": "@paddls/ngx-firestore-repository",
-  "version": "5.0.2",
+  "version": "6.0.0",
   "peerDependencies": {
     "@angular/common": ">= 15.0.0",
     "@angular/core": ">= 15.0.0",
