@@ -7,7 +7,6 @@ import {map, switchMap} from 'rxjs/operators';
 import {Page} from '@paddls/ngx-repository';
 import {Client} from '../../module/@core/model/client.model';
 import {ClientService} from '../../module/@core/service/client.service';
-import {OnDestroyListener} from '@paddls/ngx-common';
 import {softCache} from '@paddls/rxjs-common';
 import {LibraryService} from '../../module/@core/service/library.service';
 
@@ -16,7 +15,6 @@ import {LibraryService} from '../../module/@core/service/library.service';
   templateUrl: './libraries.component.html',
   styleUrls: ['./libraries.component.scss']
 })
-@OnDestroyListener()
 export class LibrariesComponent {
 
   private readonly currentPageSubject: BehaviorSubject<number> = new BehaviorSubject<number>(1);

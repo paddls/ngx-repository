@@ -55,12 +55,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/ngx-repository-app",
+            "outputPath": {
+              "base": "dist/ngx-repository-app"
+            },
             "index": "projects/ngx-repository-app/src/index.html",
-            "main": "projects/ngx-repository-app/src/main.ts",
-            "polyfills": "projects/ngx-repository-app/src/polyfills.ts",
+            "polyfills": [
+              "projects/ngx-repository-app/src/polyfills.ts"
+            ],
             "tsConfig": "projects/ngx-repository-app/tsconfig.app.json",
             "assets": [
               "projects/ngx-repository-app/src/favicon.ico",
@@ -70,12 +73,11 @@
               "projects/ngx-repository-app/src/styles.scss"
             ],
             "scripts": [],
-            "vendorChunk": true,
             "extractLicenses": false,
-            "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "browser": "projects/ngx-repository-app/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -90,8 +92,6 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
