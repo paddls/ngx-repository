@@ -1,14 +1,14 @@
 import 'reflect-metadata';
 
-import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { REPOSITORY_BUILDER_TOKEN } from '@paddls/ngx-repository';
-import { HttpRepositoryDriver } from './driver/http-repository.driver';
-import { HttpRequestBuilder } from './request/http-request.builder';
-import { HttpRepositoryContextConfiguration } from './configuration/context/http-repository-context.configuration';
-import { LogExecuteHttpRequestEventListener } from './driver/listener/log-execute-http-request-event.listener';
-import { HttpRepositoryBuilder } from './repository/http-repository.builder';
-import { HTTP_REPOSITORY_CONFIGURATION } from './configuration/http-repository.configuration';
+import {ModuleWithProviders, NgModule, Provider} from '@angular/core';
+import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
+import {REPOSITORY_BUILDER_TOKEN} from '@paddls/ngx-repository';
+import {HttpRepositoryDriver} from './driver/http-repository.driver';
+import {HttpRequestBuilder} from './request/http-request.builder';
+import {HttpRepositoryContextConfiguration} from './configuration/context/http-repository-context.configuration';
+import {LogExecuteHttpRequestEventListener} from './driver/listener/log-execute-http-request-event.listener';
+import {HttpRepositoryBuilder} from './repository/http-repository.builder';
+import {HTTP_REPOSITORY_CONFIGURATION} from './configuration/http-repository.configuration';
 
 const PROVIDERS: Provider[] = [
   HttpRepositoryBuilder,
@@ -32,11 +32,9 @@ export interface NgxHttpRepositoryModuleConfiguration {
  * @ignore
  */
 @NgModule({
-  imports: [
-    HttpClientModule
-  ],
-  providers: [
-    ...PROVIDERS
+  imports: [], providers: [
+    ...PROVIDERS,
+    provideHttpClient(withInterceptorsFromDi())
   ]
 })
 export class NgxHttpRepositoryModule {

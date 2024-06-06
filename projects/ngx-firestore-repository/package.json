@@ -1,10 +1,10 @@
 {
   "name": "@paddls/ngx-firestore-repository",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "peerDependencies": {
-    "@angular/common": ">= 17.0.0",
-    "@angular/core": ">= 17.0.0",
-    "@paddls/ngx-repository": "^7.0.0",
+    "@angular/common": ">= 18.0.0",
+    "@angular/core": ">= 18.0.0",
+    "@paddls/ngx-repository": "^8.0.0",
     "firebase": ">= 9.9.2"
   },
   "dependencies": {
