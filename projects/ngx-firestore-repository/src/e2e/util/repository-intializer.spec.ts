@@ -1,11 +1,11 @@
-import { Injectable, Type } from '@angular/core';
-import { InjectRepository, NgxRepositoryModule } from '@paddls/ngx-repository';
-import { TestBed } from '@angular/core/testing';
-import { Firestore, getFirestore } from 'firebase/firestore';
-import { initializeApp } from 'firebase/app';
-import { FirestoreRepository } from '../../lib/repository/firestore.repository';
-import { NgxFirestoreRepositoryModule } from '../../lib/ngx-firestore-repository.module';
-import { FIRESTORE_APP } from '../../lib/ngx-firestore-repository.module.di';
+import {Injectable, Type} from '@angular/core';
+import {InjectRepository, NgxRepositoryModule, provideNgxRepositoryModule} from '@paddls/ngx-repository';
+import {TestBed} from '@angular/core/testing';
+import {Firestore, getFirestore} from 'firebase/firestore';
+import {initializeApp} from 'firebase/app';
+import {FirestoreRepository} from '../../lib/repository/firestore.repository';
+import {NgxFirestoreRepositoryModule, provideNgxFirestoreRepository} from '../../lib/ngx-firestore-repository.module';
+import {FIRESTORE_APP} from '../../lib/ngx-firestore-repository.module.di';
 
 export interface RepositoryContext<T> {
   repository: FirestoreRepository<T, string>;
@@ -36,10 +36,12 @@ export function initializeRepository<T>(bookImpl: Type<T>, providers: any[] = []
 
   TestBed.configureTestingModule({
     imports: [
-      NgxRepositoryModule.forRoot(),
-      NgxFirestoreRepositoryModule.forRoot()
+      NgxRepositoryModule,
+      NgxFirestoreRepositoryModule
     ],
     providers: [
+      provideNgxRepositoryModule(),
+      provideNgxFirestoreRepository(),
       BookServiceImpl,
       {
         provide: FIRESTORE_APP,

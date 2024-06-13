@@ -1,23 +1,30 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { AppComponent } from './component/app/app.component';
-import { CoreModule } from './module/@core/core.module';
-import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './service/in-memory-data.service';
-import { SystemModule } from './module/@system/system.module';
-import { LibrariesComponent } from './component/libraries/libraries.component';
-import { LibraryComponent } from './component/library/library.component';
-import { NgxRepositoryModule } from '@paddls/ngx-repository';
-import { MyPageResponseProcessor } from './module/@core/processor/my-page-response.processor';
-import { ClientComponent } from './component/client/client.component';
-import { NgxHttpRepositoryModule } from '@paddls/ngx-http-repository';
-import { FIRESTORE_APP, NgxFirestoreRepositoryModule } from '@paddls/ngx-firestore-repository';
-import { initializeApp } from 'firebase/app';
-import { BookService } from './module/@core/service/book.service';
-import { Firestore, getFirestore } from 'firebase/firestore';
-import { PersonComponent } from './component/person/person.component';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {AppComponent} from './component/app/app.component';
+import {CoreModule} from './module/@core/core.module';
+import {AppRoutingModule} from './app-routing.module';
+import {FormsModule} from '@angular/forms';
+import {InMemoryWebApiModule} from 'angular-in-memory-web-api';
+import {InMemoryDataService} from './service/in-memory-data.service';
+import {SystemModule} from './module/@system/system.module';
+import {LibrariesComponent} from './component/libraries/libraries.component';
+import {LibraryComponent} from './component/library/library.component';
+import {NgxRepositoryModule, provideNgxRepositoryModule} from '@paddls/ngx-repository';
+import {MyPageResponseProcessor} from './module/@core/processor/my-page-response.processor';
+import {ClientComponent} from './component/client/client.component';
+import {
+  FIRESTORE_APP,
+  NgxFirestoreRepositoryModule,
+  provideNgxFirestoreRepository
+} from '@paddls/ngx-firestore-repository';
+import {initializeApp} from 'firebase/app';
+import {BookService} from './module/@core/service/book.service';
+import {Firestore, getFirestore} from 'firebase/firestore';
+import {PersonComponent} from './component/person/person.component';
+import {
+  NgxHttpRepositoryModule,
+  provideNgxHttpRepositoryModule
+} from "../../../ngx-http-repository/src/lib/ngx-http-repository.module";
 
 export const createFirestore: () => Firestore = () => getFirestore(initializeApp({
   apiKey: 'AIzaSyDSd6EXdQWaWcBMxbTYp-kFAV3zxNu-ArM',
@@ -36,7 +43,7 @@ export const createFirestore: () => Firestore = () => getFirestore(initializeApp
     LibrariesComponent,
     LibraryComponent,
     ClientComponent,
-    PersonComponent
+    PersonComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -44,7 +51,13 @@ export const createFirestore: () => Firestore = () => getFirestore(initializeApp
     CoreModule,
     FormsModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 100 }),
-    NgxRepositoryModule.forRoot({
+    SystemModule,
+    NgxFirestoreRepositoryModule,
+    NgxHttpRepositoryModule,
+    NgxRepositoryModule,
+  ],
+  providers: [
+    provideNgxRepositoryModule({
       normalizerConfiguration: {
         denormalizeNull: true,
         normalizeNull: false,
@@ -52,15 +65,12 @@ export const createFirestore: () => Firestore = () => getFirestore(initializeApp
         normalizeUndefined: false
       }
     }),
-    NgxFirestoreRepositoryModule.forRoot({
+    provideNgxFirestoreRepository({
       debug: true
     }),
-    NgxHttpRepositoryModule.forRoot({
+    provideNgxHttpRepositoryModule({
       debug: true
     }),
-    SystemModule
-  ],
-  providers: [
     MyPageResponseProcessor,
     BookService,
     {

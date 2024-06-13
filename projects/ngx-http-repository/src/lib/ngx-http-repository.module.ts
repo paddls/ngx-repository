@@ -28,6 +28,22 @@ export interface NgxHttpRepositoryModuleConfiguration {
   debug?: boolean;
 }
 
+export function provideNgxHttpRepositoryModule(config: NgxHttpRepositoryModuleConfiguration = { debug: false }): Provider[] {
+  const providers: Provider[] = [
+    ...PROVIDERS,
+    {
+      provide: HTTP_REPOSITORY_CONFIGURATION,
+      useValue: config?.configuration || {}
+    }
+  ];
+
+  if (config.debug) {
+    providers.push(LogExecuteHttpRequestEventListener);
+  }
+
+  return providers
+}
+
 /**
  * @ignore
  */
@@ -39,6 +55,9 @@ export interface NgxHttpRepositoryModuleConfiguration {
 })
 export class NgxHttpRepositoryModule {
 
+  /**
+   *  @deprecated The method should not be used, use provideNgxHttpRepositoryModule
+   */
   public static forRoot(config: NgxHttpRepositoryModuleConfiguration = { debug: false }): ModuleWithProviders<NgxHttpRepositoryModule> {
     const providers: Provider[] = [
       {

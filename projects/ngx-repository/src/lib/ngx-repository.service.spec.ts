@@ -1,10 +1,10 @@
-import { TestBed } from '@angular/core/testing';
-import { NgxRepositoryService } from './ngx-repository.service';
-import { AbstractRepository } from './core/repository/abstract-repository';
-import { Injectable, InjectionToken, Type } from '@angular/core';
-import { REPOSITORY_BUILDER_TOKEN } from './ngx-repository.module.di';
-import { TokenRegistry } from './core/registry/token.registry';
-import { RepositoryBuilder } from './core/repository/repository.builder';
+import {TestBed} from '@angular/core/testing';
+import {NgxRepositoryService} from './ngx-repository.service';
+import {AbstractRepository} from './core/repository/abstract-repository';
+import {Injectable, InjectionToken, Type} from '@angular/core';
+import {REPOSITORY_BUILDER_TOKEN} from './ngx-repository.module.di';
+import {TokenRegistry} from './core/registry/token.registry';
+import {RepositoryBuilder} from './core/repository/repository.builder';
 
 describe('NgxRepositoryService', () => {
 
@@ -162,7 +162,7 @@ describe('NgxRepositoryService', () => {
     expect(repository).toEqual('Book - MyBookRepository');
   });
 
-  it('should throw error when multiple builders and repository type is not configured', () => {
+  it('should throw error when multiple builders and : type is not configured', () => {
     TestBed.configureTestingModule({
       providers: [
         NgxRepositoryService,
