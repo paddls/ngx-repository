@@ -162,7 +162,7 @@ describe('NgxRepositoryService', () => {
     expect(repository).toEqual('Book - MyBookRepository');
   });
 
-  it('should throw error when multiple builders and : type is not configured', () => {
+  it('should throw error when multiple builders and repository type is not configured', () => {
     TestBed.configureTestingModule({
       providers: [
         NgxRepositoryService,

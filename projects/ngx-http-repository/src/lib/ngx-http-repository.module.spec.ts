@@ -37,6 +37,7 @@ describe('provideNgxHttpRepositoryModule', () => {
 });
 
 function testHttpRepository() {
+
   it('should provide HttpRepositoryBuilder', () => {
     expect(() => TestBed.inject(HTTP_REPOSITORY_CONFIGURATION)).toBeTruthy();
   });
