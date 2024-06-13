@@ -6,7 +6,7 @@ import {
 } from './ngx-firestore-repository.module';
 import {LogExecuteFirestoreRequestEventListener} from './driver/listener/log-execute-firestore-request-event.listener';
 import {FIRESTORE_APP} from './ngx-firestore-repository.module.di';
-import {FirestoreNormalizer} from "./normalizer/firestore.normalizer";
+import {FirestoreNormalizer} from './normalizer/firestore.normalizer';
 
 
 describe('NgxFirestoreRepositoryModule.forRoot', () => {
@@ -19,7 +19,7 @@ describe('NgxFirestoreRepositoryModule.forRoot', () => {
       imports: [NgxFirestoreRepositoryModule.forRoot(config)],
     });
   });
-  testFirestoreRepository()
+  testFirestoreRepository();
 });
 describe('provideNgxFirestoreRepositoryModule', () => {
   const config: NgxFirestoreRepositoryModuleConfiguration = {
@@ -34,7 +34,7 @@ describe('provideNgxFirestoreRepositoryModule', () => {
       ]
     });
   });
-  testFirestoreRepository()
+  testFirestoreRepository();
 });
 
 function testFirestoreRepository() {

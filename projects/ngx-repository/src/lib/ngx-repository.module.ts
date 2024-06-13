@@ -15,7 +15,7 @@ import {NgxSerializerModule, NORMALIZER_CONFIGURATION_TOKEN} from '@paddls/ngx-s
 import {VoidResponseProcessor} from './core/response/processor/void-response.processor';
 import {ResponseBuilder} from './core/response/response.builder';
 import {BodyResponseProcessor} from './core/response/processor/body.response-processor';
-import {TokenRegistry} from "../public-api";
+import {TokenRegistry} from '../public-api';
 
 /**
  * @ignore

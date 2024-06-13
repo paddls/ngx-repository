@@ -44,7 +44,7 @@ const MODULE_PROVIDERS: Provider[] = [
       providers.push(LogExecuteFirestoreRequestEventListener);
     }
 
-    return providers
+    return providers;
   }
 
   /**

@@ -41,7 +41,7 @@ export function provideNgxHttpRepositoryModule(config: NgxHttpRepositoryModuleCo
     providers.push(LogExecuteHttpRequestEventListener);
   }
 
-  return providers
+  return providers;
 }
 
 /**

@@ -24,7 +24,7 @@ import {PersonComponent} from './component/person/person.component';
 import {
   NgxHttpRepositoryModule,
   provideNgxHttpRepositoryModule
-} from "../../../ngx-http-repository/src/lib/ngx-http-repository.module";
+} from '@paddls/ngx-http-repository';
 
 export const createFirestore: () => Firestore = () => getFirestore(initializeApp({
   apiKey: 'AIzaSyDSd6EXdQWaWcBMxbTYp-kFAV3zxNu-ArM',

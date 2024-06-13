@@ -1,8 +1,7 @@
-import {NgxRepositoryModule} from "@paddls/ngx-repository";
-import {TestBed} from "@angular/core/testing";
-import {NgxRepositoryService} from "./ngx-repository.service";
-import {provideNgxRepositoryModule} from "./ngx-repository.module";
-import {NORMALIZER_CONFIGURATION_TOKEN} from "@paddls/ngx-serializer";
+import {TestBed} from '@angular/core/testing';
+import {NgxRepositoryService} from './ngx-repository.service';
+import {NgxRepositoryModule, provideNgxRepositoryModule} from './ngx-repository.module';
+import {NORMALIZER_CONFIGURATION_TOKEN} from '@paddls/ngx-serializer';
 
 
 describe('NgxRepositoryModule.forRoot', () => {
@@ -12,7 +11,7 @@ describe('NgxRepositoryModule.forRoot', () => {
       imports: [NgxRepositoryModule.forRoot()]
     });
   });
-  testNgxRepository()
+  testNgxRepository();
 });
 
 describe('provideNgxRepositoryModule', () => {
@@ -24,7 +23,7 @@ describe('provideNgxRepositoryModule', () => {
       ]
     });
   });
-  testNgxRepository()
+  testNgxRepository();
 });
 
 function testNgxRepository() {

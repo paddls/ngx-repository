@@ -12,7 +12,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {of} from 'rxjs';
 import {take, toArray} from 'rxjs/operators';
-import {NgxHttpRepositoryModule, provideNgxHttpRepositoryModule} from "../lib/ngx-http-repository.module";
+import {NgxHttpRepositoryModule, provideNgxHttpRepositoryModule} from '../lib/ngx-http-repository.module';
 
 describe('LiveResource', () => {
 
