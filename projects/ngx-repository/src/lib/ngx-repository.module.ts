@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import {Injector, ModuleWithProviders, NgModule, Provider} from '@angular/core';
+import {APP_INITIALIZER, Injector, ModuleWithProviders, NgModule, Provider} from '@angular/core';
 import {NgxRepositoryService} from './ngx-repository.service';
 import {DEFAULT_NORMALIZER_CONFIGURATION, NormalizerConfiguration} from '@paddls/ts-serializer';
 import {RequestManager} from './core/manager/request.manager';
@@ -27,9 +27,28 @@ export interface Config {
 /**
  * @ignore
  */
+export function ngxRepositoryInitializer(injector: Injector, n: NgxRepositoryService, p: PublisherService): () => void {
+  return () => {
+    Reflect.defineMetadata(NGX_REPOSITORY_INJECTOR_INSTANCE, injector, NgxRepositoryModule);
+    TokenRegistry.clear();
+    NgxRepositoryService.getInstance = () => n; // TODO @RMA review this
+    PublisherService.getInstance = () => p; // TODO @RMA review this
+  };
+}
+
+/**
+ * @ignore
+ */
 const MODULE_PROVIDERS: Provider[] = [
   RepositoryNormalizer,
   NgxRepositoryService,
+  PublisherService,
+  {
+    provide: APP_INITIALIZER,
+    useFactory: ngxRepositoryInitializer,
+    multi: true,
+    deps: [Injector, NgxRepositoryService, PublisherService]
+  },
   RequestManager,
   ResponseBuilder,
   DenormalizeResponseProcessor,
@@ -38,8 +57,7 @@ const MODULE_PROVIDERS: Provider[] = [
   BodyResponseProcessor,
   VoidResponseProcessor,
   OriginalQueryResponseProcessor,
-  PathColumnResponseProcessor,
-  PublisherService
+  PathColumnResponseProcessor
 ];
 
 /**
@@ -58,7 +76,6 @@ export function provideNgxRepositoryModule(config?: Config): Provider[] {
 }
 
 
-
 /**
  * @ignore
  */
@@ -69,13 +86,6 @@ export function provideNgxRepositoryModule(config?: Config): Provider[] {
   providers: MODULE_PROVIDERS
 })
 export class NgxRepositoryModule {
-
-  public constructor(injector: Injector) {
-    Reflect.defineMetadata(NGX_REPOSITORY_INJECTOR_INSTANCE, injector, NgxRepositoryModule);
-    TokenRegistry.clear();
-    NgxRepositoryService.getInstance = () => injector.get(NgxRepositoryService); // TODO @RMA review this
-    PublisherService.getInstance = () => injector.get(PublisherService);
-  }
 
   /**
    * @deprecated The method should not be used, use provideNgxRepositoryModule instead
@@ -91,5 +101,4 @@ export class NgxRepositoryModule {
       ]
     };
   }
-
 }
