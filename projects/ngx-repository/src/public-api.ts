@@ -34,7 +34,9 @@ export { TokenRegistry } from './lib/core/registry/token.registry';
 
 export { REPOSITORY_BUILDER_TOKEN } from './lib/ngx-repository.module.di';
 
-export { NgxRepositoryModule, NGX_REPOSITORY_INJECTOR_INSTANCE } from './lib/ngx-repository.module';
+export {
+  provideNgxRepositoryModule, NgxRepositoryModule, NGX_REPOSITORY_INJECTOR_INSTANCE
+} from './lib/ngx-repository.module';
 
 export {
   NormalizerConfiguration,
