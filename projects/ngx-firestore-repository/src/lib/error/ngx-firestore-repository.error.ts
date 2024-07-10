@@ -1,6 +1,5 @@
 import { FirestoreRepositoryRequest } from '../request/firestore-repository.request';
-import omitBy from 'lodash.omitby';
-
+import { omitBy } from '../functions';
 const IGNORED_KEYS: string[] = ['paths', 'readPath', 'createPath', 'updatePath', 'deletePath', 'pathParams', 'replaceParams'];
 
 export class NgxFirestoreRepositoryError extends Error {

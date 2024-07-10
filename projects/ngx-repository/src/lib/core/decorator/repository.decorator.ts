@@ -1,8 +1,9 @@
 import { Type } from '@angular/core';
 import { ResourceConfiguration } from '../configuration/resource.configuration';
 import { RepositoryContextConfiguration } from '../configuration/context/repository-context.configuration';
-import merge from 'lodash.merge';
+// import { merge } from '../common/functions'
 
+//todo voir mergeDeep
 /**
  * @ignore
  */
@@ -20,7 +21,8 @@ export function Repository<RC extends ResourceConfiguration, T = any>(resourceTy
     const defaultConfiguration: ResourceConfiguration = defaultRepositoryConfiguration ? defaultRepositoryConfiguration.defaultConfiguration : null;
     const params: RepositoryContextConfiguration<T> = {
       resourceType,
-      defaultConfiguration: merge({}, defaultConfiguration, configuration)
+      defaultConfiguration:
+        Object.assign({}, defaultConfiguration, configuration)
     };
 
     Reflect.defineMetadata(REPOSITORY_METADATA_KEY, params, target);

@@ -21,7 +21,8 @@ import { HttpRepositoryParamConfiguration } from '../configuration/http-reposito
 import { HttpQueryParamContextConfiguration } from '../configuration/context/http-query-param-context.configuration';
 import { HttpHeaderContextConfiguration } from '../configuration/context/http-header-context.configuration';
 import { HttpParamContextConfiguration } from '../configuration/context/http-param-context.configuration';
-import get from 'lodash.get';
+import { get } from '../functions';
+
 import {
   HttpRepositoryWriteParamContextConfiguration
 } from '../configuration/context/http-repository-write-param-context.configuration';

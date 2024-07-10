@@ -4,7 +4,7 @@ import { PathParamContextConfiguration } from '../configuration/context/path-par
 import { Id } from './id';
 import { getDeepQueryMetadataValues } from '../decorator/sub-query.decorator';
 import { ISerializer } from '@paddls/ts-serializer';
-import get from 'lodash.get';
+import { get } from '../common/functions';
 
 export class Path {
 

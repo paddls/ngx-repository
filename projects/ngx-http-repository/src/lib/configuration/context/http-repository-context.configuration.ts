@@ -9,11 +9,7 @@ import {
   ResponseBuilder,
   VoidResponseProcessor
 } from '@paddls/ngx-repository';
-import merge from 'lodash.merge';
-import get from 'lodash.get';
-import isString from 'lodash.isstring';
-import isUndefined from 'lodash.isundefined';
-import omit from 'lodash.omit';
+import { get, isString, isUndefined, omit } from '../../functions';
 
 export interface HttpRepositoryContextConfiguration extends HttpRepositoryParamContextConfiguration {
   read?: HttpRepositoryParamContextConfiguration | string;
@@ -47,7 +43,7 @@ function buildOperationParams<T>(params: HttpRepositoryContextConfiguration, pat
       .filter((value: any) => !isUndefined(value))
   ].map((value: any) => isString(value) ? {path: value} : value);
 
-  return merge({}, ...configurations);
+  return Object.assign({}, ...configurations);
 }
 
 function buildFindAllParams(params: HttpRepositoryContextConfiguration, path: string[]): HttpRepositoryParamConfiguration {

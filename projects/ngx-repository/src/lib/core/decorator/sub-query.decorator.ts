@@ -1,7 +1,5 @@
 import { PropertyKeyConfiguration } from '../common/decorator/property-key-configuration';
-import isString from 'lodash.isstring';
-import first from 'lodash.first';
-import flattenDeep from 'lodash.flattendeep';
+import { isString, flattenDeep } from '../common/functions';
 
 /**
  * @ignore
@@ -43,5 +41,5 @@ export function getDeepQueryMetadataValues<T extends PropertyKeyConfiguration>(m
 }
 
 export function getDeepQueryMetadataValue(metadataKey: string, query: any): any {
-  return first(getDeepQueryMetadataValues(metadataKey, query));
+  return getDeepQueryMetadataValues(metadataKey, query)[0];
 }

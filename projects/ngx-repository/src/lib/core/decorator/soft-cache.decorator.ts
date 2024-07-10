@@ -5,7 +5,7 @@ import {
   SoftCacheContext,
   SoftCacheContextConfiguration
 } from '../configuration/context/soft-cache-context.configuration';
-import isObject from 'lodash.isobject';
+import { isObject } from '../common/functions';
 
 /**
  * @ignore

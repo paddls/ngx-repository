@@ -2,11 +2,7 @@ import { FirestoreRepositoryParamConfiguration } from './firestore-repository-pa
 import { ResourceConfiguration, ResourceParamConfiguration } from '@paddls/ngx-repository';
 import { InjectionToken } from '@angular/core';
 import { FIRESTORE_OPERATIONS } from '../request/firestore.operation';
-import merge from 'lodash.merge';
-import omit from 'lodash.omit';
-import get from 'lodash.get';
-import isUndefined from 'lodash.isundefined';
-import isString from 'lodash.isstring';
+import { isString, isUndefined, get, omit } from '../functions';
 
 export const FIRESTORE_REPOSITORY_CONFIGURATION: InjectionToken<FirestoreResourceConfiguration> = new InjectionToken<FirestoreResourceConfiguration>('FIRESTORE_REPOSITORY_CONFIGURATION');
 
@@ -46,7 +42,7 @@ export function createFirestoreRepositoryConfiguration(params: ResourceConfigura
   };
 }
 
-function buildOperationParams<T>(params: ResourceConfiguration, path: string[]): T {
+function buildOperationParams<T>(params: ResourceConfiguration, path: string[]) {
   const rootConfiguration: any = omit(params, FIRESTORE_OPERATIONS);
   const configurations: any[] = [
     rootConfiguration,
@@ -54,5 +50,5 @@ function buildOperationParams<T>(params: ResourceConfiguration, path: string[]):
       .filter((value: any) => !isUndefined(value))
   ].map((value: any) => isString(value) ? {path: value} : value);
 
-  return merge({}, ...configurations);
+  return Object.assign({}, ...configurations);
 }

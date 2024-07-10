@@ -45,7 +45,6 @@ export async function expectHttpRequest(httpTestContext: HttpRequestTestContext)
   });
 
   const response: any = await context.request();
-
   expect(response).withContext('response not match').toEqual(context.expectedResponse);
   if (context.verify) {
     await context.verify(invokedParams);

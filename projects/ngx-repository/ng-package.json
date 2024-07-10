@@ -8,20 +8,6 @@
     "@paddls/ts-serializer",
     "@paddls/ngx-serializer",
     "@paddls/rxjs-common",
-    "object-hash",
-    "lodash.first",
-    "lodash.flatten",
-    "lodash.flattendeep",
-    "lodash.get",
-    "lodash.isfunction",
-    "lodash.isobject",
-    "lodash.isstring",
-    "lodash.isundefined",
-    "lodash.merge",
-    "lodash.omit",
-    "lodash.omitby",
-    "lodash.pick",
-    "lodash.set",
-    "lodash.valuesin"
+    "object-hash"
   ]
 }
