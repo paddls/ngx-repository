@@ -9,7 +9,7 @@ import { ResponseBuilder } from '../response/response.builder';
 import { BuilderParam } from '../configuration/resource-param.configuration';
 import { ConfigurationContextProvider } from '../configuration/configuration-context.provider';
 import { RepositoryDriver } from '../driver/repository.driver';
-import { get } from '../common/functions';
+import get from '../../../../../utils/src/get';
 
 @Injectable()
 export class RequestManager {

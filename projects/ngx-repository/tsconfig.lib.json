@@ -1,15 +1,16 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../out-tsc/lib",
+    "outDir": "../../dist/out-tsc/lib",
     "declarationMap": true,
     "declaration": true,
     "inlineSources": true,
-    "types": [],
+    "types": ["node", "jasmine"],
     "lib": [
       "dom",
       "es2018"
-    ]
+    ],
+    "rootDirs": ["src", "../utils/src"]
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
@@ -18,8 +19,13 @@
     "strictInjectionParameters": true,
     "enableResourceInlining": true
   },
+//  "include": [
+//    "src/**/*.ts",
+//    "../utils/src/*.ts"
+//  ],
   "exclude": [
     "src/test.ts",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+//    "../utils/src/*.spec.ts"
   ]
 }

@@ -1,7 +1,7 @@
 import { EMPTY, Observable, of, OperatorFunction } from 'rxjs';
 import { expand, first, map, switchMap, toArray } from 'rxjs/operators';
 import { Page } from '../core/model/page';
-import { flatten } from '../core/common/functions';
+import flatten from '../../../../utils/src/flatten';
 
 export function fetchAllPage<T>(fetch: (page: number) => Observable<Page>): OperatorFunction<Page<T>, T[]> {
   return (source: Observable<Page<T>>): Observable<T[]> => {

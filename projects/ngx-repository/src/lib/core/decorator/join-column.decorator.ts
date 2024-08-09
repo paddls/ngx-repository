@@ -7,7 +7,7 @@ import {
   JoinColumnContextConfiguration
 } from '../configuration/context/join-column-context.configuration';
 import { NgxRepositoryService } from '../../ngx-repository.service';
-import { get } from '../common/functions';
+import get from '../../../../../utils/src/get';
 
 /**
  * @ignore

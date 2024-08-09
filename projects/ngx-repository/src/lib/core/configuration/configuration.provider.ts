@@ -1,5 +1,5 @@
 import { ResourceConfiguration } from './resource.configuration';
-import { get } from '../common/functions';
+import get from '../../../../../utils/src/get';
 
 export class ConfigurationProvider {
 

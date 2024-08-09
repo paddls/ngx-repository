@@ -21,7 +21,7 @@ import { HttpRepositoryParamConfiguration } from '../configuration/http-reposito
 import { HttpQueryParamContextConfiguration } from '../configuration/context/http-query-param-context.configuration';
 import { HttpHeaderContextConfiguration } from '../configuration/context/http-header-context.configuration';
 import { HttpParamContextConfiguration } from '../configuration/context/http-param-context.configuration';
-import { get } from '../functions';
+import get from '../../../../utils/src/get';
 
 import {
   HttpRepositoryWriteParamContextConfiguration

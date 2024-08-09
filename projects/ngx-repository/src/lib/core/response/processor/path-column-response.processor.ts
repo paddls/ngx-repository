@@ -5,7 +5,8 @@ import { Path } from '../../request/path';
 import { ResponseProcessor } from './response.processor';
 import { PathColumnContextConfiguration } from '../../configuration/context/path-column-context.configuration';
 import { PathRequest } from '../../request/path.request';
-import { isObject, isUndefined } from '../../common/functions';
+import isObject from '../../../../../../utils/src/is-object';
+import isUndefined from '@shared/is-undefined';
 
 
 @Injectable()

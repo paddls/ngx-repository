@@ -5,7 +5,7 @@ import {
   SoftCacheContext,
   SoftCacheContextConfiguration
 } from '../configuration/context/soft-cache-context.configuration';
-import { isObject } from '../common/functions';
+import isObject from '../../../../../utils/src/is-object';
 
 /**
  * @ignore

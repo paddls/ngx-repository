@@ -9,7 +9,11 @@ import {
   ResponseBuilder,
   VoidResponseProcessor
 } from '@paddls/ngx-repository';
-import { get, isString, isUndefined, omit } from '../../functions';
+import get from '../../../../../utils/src/get';
+import isString from '../../../../../utils/src/is-string';
+import isUndefined from '../../../../../utils/src/is-undefined';
+import omit from '../../../../../utils/src/omit';
+
 
 export interface HttpRepositoryContextConfiguration extends HttpRepositoryParamContextConfiguration {
   read?: HttpRepositoryParamContextConfiguration | string;
