@@ -1,18 +1,18 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 import {
   Column,
   Id,
-  NgxRepositoryModule,
   NgxRepositoryService,
   Page,
   PageResponseProcessor,
   PathColumn,
-  PathParam
+  PathParam,
+  provideNgxRepositoryModule
 } from '@paddls/ngx-repository';
-import { NgxHttpRepositoryModule } from '../lib/ngx-http-repository.module';
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { expectHttpRequest, HttpRequestTestContext } from './util/expect-http-request.spec';
+import {provideNgxHttpRepositoryModule} from '../lib/ngx-http-repository.module';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {expectHttpRequest, HttpRequestTestContext} from './util/expect-http-request.spec';
 import {
   HttpBodyFn,
   HttpDelete,
@@ -25,7 +25,7 @@ import {
   HttpQueryFn,
   HttpQueryParam
 } from '../public-api';
-import { buildHttpParams } from './util/build-http.params.spec';
+import {buildHttpParams} from './util/build-http.params.spec';
 import forOwn from 'lodash.forown';
 
 describe('HttpRequestDecorator', () => {
@@ -193,11 +193,9 @@ describe('HttpRequestDecorator', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        NgxRepositoryModule.forRoot(),
-        NgxHttpRepositoryModule.forRoot()
-      ],
       providers: [
+        provideNgxRepositoryModule(),
+        provideNgxHttpRepositoryModule(),
         Api
       ]
     });

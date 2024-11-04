@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import {ModuleWithProviders, NgModule, Provider} from '@angular/core';
+import {EnvironmentProviders, ModuleWithProviders, NgModule, Provider} from '@angular/core';
 import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 import {REPOSITORY_BUILDER_TOKEN} from '@paddls/ngx-repository';
 import {HttpRepositoryDriver} from './driver/http-repository.driver';
@@ -10,7 +10,7 @@ import {LogExecuteHttpRequestEventListener} from './driver/listener/log-execute-
 import {HttpRepositoryBuilder} from './repository/http-repository.builder';
 import {HTTP_REPOSITORY_CONFIGURATION} from './configuration/http-repository.configuration';
 
-const PROVIDERS: Provider[] = [
+const PROVIDERS: (Provider | EnvironmentProviders)[] = [
   HttpRepositoryBuilder,
   HttpRepositoryDriver,
   HttpRequestBuilder,
@@ -18,7 +18,8 @@ const PROVIDERS: Provider[] = [
     provide: REPOSITORY_BUILDER_TOKEN,
     useExisting: HttpRepositoryBuilder,
     multi: true
-  }
+  },
+  provideHttpClient(withInterceptorsFromDi())
 ];
 
 export interface NgxHttpRepositoryModuleConfiguration {
@@ -28,17 +29,35 @@ export interface NgxHttpRepositoryModuleConfiguration {
   debug?: boolean;
 }
 
+export function provideNgxHttpRepositoryModule(config: NgxHttpRepositoryModuleConfiguration = { debug: false }): EnvironmentProviders | Provider[] {
+  const providers: Provider | EnvironmentProviders[] = [
+    ...PROVIDERS,
+    {
+      provide: HTTP_REPOSITORY_CONFIGURATION,
+      useValue: config?.configuration || {}
+    }
+  ];
+
+  if (config.debug) {
+    providers.push(LogExecuteHttpRequestEventListener);
+  }
+
+  return providers;
+}
+
 /**
  * @ignore
  */
 @NgModule({
   imports: [], providers: [
-    ...PROVIDERS,
-    provideHttpClient(withInterceptorsFromDi())
+    ...PROVIDERS
   ]
 })
 export class NgxHttpRepositoryModule {
 
+  /**
+   *  @deprecated The method should not be used, use provideNgxHttpRepositoryModule
+   */
   public static forRoot(config: NgxHttpRepositoryModuleConfiguration = { debug: false }): ModuleWithProviders<NgxHttpRepositoryModule> {
     const providers: Provider[] = [
       {
