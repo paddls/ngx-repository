@@ -1,12 +1,12 @@
 import {Injectable, Type} from '@angular/core';
-import {InjectRepository, NgxRepositoryModule, provideNgxRepositoryModule} from '@paddls/ngx-repository';
+import {InjectRepository, provideNgxRepositoryModule} from '@paddls/ngx-repository';
 import {TestBed} from '@angular/core/testing';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {HttpRepository} from '../../lib/repository/http.repository';
 import {NgxHttpRepositoryModuleConfiguration} from '../../public-api';
 import {expectHttpRequest, HttpRequestTestContext} from './expect-http-request.spec';
 import forOwn from 'lodash.forown';
-import {NgxHttpRepositoryModule, provideNgxHttpRepositoryModule} from '../../lib/ngx-http-repository.module';
+import {provideNgxHttpRepositoryModule} from '../../lib/ngx-http-repository.module';
 
 export interface HttpTestContext extends HttpRequestTestContext {
   entity: Type<any>;
@@ -55,10 +55,6 @@ export async function httpTest(httpTestContext: HttpTestContext): Promise<void> 
   }
 
   TestBed.configureTestingModule({
-    imports: [
-      NgxRepositoryModule,
-      NgxHttpRepositoryModule
-    ],
     providers: [
       provideNgxRepositoryModule(),
       provideNgxHttpRepositoryModule(httpTestContext.httpConfiguration || {debug: false}),
