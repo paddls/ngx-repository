@@ -12,29 +12,57 @@ import {LogExecuteFirestoreRequestEventListener} from './driver/listener/log-exe
 import {Firestore} from 'firebase/firestore';
 
 const MODULE_PROVIDERS: Provider[] = [
-    FirestoreRepositoryBuilder,
-    FirestoreNormalizer,
-    FirestoreRepositoryBuilder,
-    FirestoreRepositoryDriver,
-    FirestoreRequestBuilder,
-    FirestoreCriteriaRequestBuilder,
+  FirestoreRepositoryBuilder,
+  FirestoreNormalizer,
+  FirestoreRepositoryBuilder,
+  FirestoreRepositoryDriver,
+  FirestoreRequestBuilder,
+  FirestoreCriteriaRequestBuilder,
+  {
+    provide: REPOSITORY_BUILDER_TOKEN,
+    useExisting: FirestoreRepositoryBuilder,
+    multi: true
+  }
+];
+
+export interface NgxFirestoreRepositoryModuleConfiguration { // @TODO: RMA/TNI : Add global configuration like ngx-http
+
+  firestore?: Firestore;
+
+  debug?: boolean;
+}
+
+export function provideNgxFirestoreRepository(config: NgxFirestoreRepositoryModuleConfiguration = {debug: false}): EnvironmentProviders {
+  const providers: Provider[] = [
+    ...MODULE_PROVIDERS,
     {
-      provide: REPOSITORY_BUILDER_TOKEN,
-      useExisting: FirestoreRepositoryBuilder,
-      multi: true
+      provide: FIRESTORE_APP,
+      useValue: config.firestore
     }
   ];
 
-  export interface NgxFirestoreRepositoryModuleConfiguration { // @TODO: RMA/TNI : Add global configuration like ngx-http
-
-    firestore?: Firestore;
-
-    debug?: boolean;
+  if (config.debug) {
+    providers.push(LogExecuteFirestoreRequestEventListener);
   }
 
-  export function provideNgxFirestoreRepository(config : NgxFirestoreRepositoryModuleConfiguration = {debug: false}): EnvironmentProviders {
+  return makeEnvironmentProviders(providers);
+}
+
+/**
+ * @ignore
+ */
+@NgModule({
+  providers: [
+    ...MODULE_PROVIDERS
+  ]
+})
+export class NgxFirestoreRepositoryModule {
+
+  /**
+   *  @deprecated The method should not be used, use provideNgxFirestoreRepository instead
+   */
+  public static forRoot(config: NgxFirestoreRepositoryModuleConfiguration = {debug: false}): ModuleWithProviders<NgxFirestoreRepositoryModule> {
     const providers: Provider[] = [
-      ...MODULE_PROVIDERS,
       {
         provide: FIRESTORE_APP,
         useValue: config.firestore
@@ -45,37 +73,9 @@ const MODULE_PROVIDERS: Provider[] = [
       providers.push(LogExecuteFirestoreRequestEventListener);
     }
 
-    return makeEnvironmentProviders(providers);
+    return {
+      ngModule: NgxFirestoreRepositoryModule,
+      providers
+    };
   }
-
-  /**
-   * @ignore
-   */
-  @NgModule({
-    providers: [
-      ...MODULE_PROVIDERS
-    ]
-  })
-  export class NgxFirestoreRepositoryModule {
-
-    /**
-    *  @deprecated The method should not be used, use provideNgxFirestoreRepository instead
-    */
-    public static forRoot(config: NgxFirestoreRepositoryModuleConfiguration = {debug: false}): ModuleWithProviders<NgxFirestoreRepositoryModule> {
-      const providers: Provider[] = [
-        {
-          provide: FIRESTORE_APP,
-          useValue: config.firestore
-        }
-      ];
-
-      if (config.debug) {
-        providers.push(LogExecuteFirestoreRequestEventListener);
-      }
-
-      return {
-        ngModule: NgxFirestoreRepositoryModule,
-        providers
-      };
-    }
-  }
+}

@@ -19,8 +19,10 @@ describe('NgxFirestoreRepositoryModule.forRoot', () => {
       imports: [NgxFirestoreRepositoryModule.forRoot(config)],
     });
   });
+
   testFirestoreRepository();
 });
+
 describe('provideNgxFirestoreRepositoryModule', () => {
 
   const config: NgxFirestoreRepositoryModuleConfiguration = {
@@ -39,7 +41,6 @@ describe('provideNgxFirestoreRepositoryModule', () => {
 });
 
 function testFirestoreRepository() {
-
   it('should provide FirestoreRepositoryBuilder', () => {
     expect(() => TestBed.inject(FIRESTORE_APP)).toBeTruthy();
   });
