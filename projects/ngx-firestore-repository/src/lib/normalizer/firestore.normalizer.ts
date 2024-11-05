@@ -10,7 +10,8 @@ import {
 } from '../configuration/context/firestore-updated-at-context.configuration';
 import { NORMALIZER_CONFIGURATION_TOKEN } from '@paddls/ngx-serializer';
 import { serverTimestamp } from 'firebase/firestore';
-import set from '@paddls/utils/src/set';
+import { set } from '@paddls/utils';
+
 /**
  * @ignore
  */

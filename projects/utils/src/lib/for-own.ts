@@ -1,4 +1,6 @@
-const forOwn = (object: { [key: string]: any }, iteratee: (value: any, key: string, object: { [key: string]: any }) => void) => {
+export const forOwn = (object: { [key: string]: any }, iteratee: (value: any, key: string, object: {
+  [key: string]: any
+}) => void) => {
   if (object && typeof object === 'object') {
     for (const key in object) {
       if (Object.prototype.hasOwnProperty.call(object, key)) {
@@ -7,5 +9,3 @@ const forOwn = (object: { [key: string]: any }, iteratee: (value: any, key: stri
     }
   }
 };
-
-export default forOwn;

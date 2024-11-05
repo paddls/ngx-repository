@@ -12,9 +12,7 @@ import { OriginalQueryResponseProcessor } from './processor/original-query-respo
 import { ResponseBuilderParam } from './response-builder.param';
 import { ResponseProcessorWithParams } from './response-processor-with.params';
 import { ResponseProcessorToken } from './response-processor.token';
-import isObject from '../../../../../utils/src/is-object';
-import isFunction from '../../../../../utils/src/is-function';
-import { get } from "projects/utils/src/get";
+import { get, isFunction, isObject } from "@paddls/utils";
 
 @Injectable()
 export class ResponseBuilder {

@@ -1,7 +1,6 @@
-import flatten from './flatten';
+import { flatten } from '@paddls/utils';
 
 describe('flatten', () => {
-
   it('should flatten single deep array', () => {
     const array = [1, [2, 3]];
     const result = flatten(array);

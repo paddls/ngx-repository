@@ -1,7 +1,6 @@
-import set from './set';
+import { set } from '@paddls/utils';
 
 describe('set', () => {
-
   it('should set a value at a given path with dot notation', () => {
     const obj = { a: { b: undefined } };
     set(obj, 'a.b.c', 42);

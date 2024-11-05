@@ -26,7 +26,8 @@ import {
   HttpQueryParam
 } from '../public-api';
 import { buildHttpParams } from './util/build-http.params.spec';
-import forOwn from '../../../utils/src/for-own';
+import { forOwn } from '@paddls/utils';
+
 describe('HttpRequestDecorator', () => {
 
   class ApiResponse {

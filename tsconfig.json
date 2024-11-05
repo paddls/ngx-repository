@@ -20,22 +20,16 @@
     ],
     "paths": {
       "@paddls/ngx-repository": [
-        "dist/ngx-repository"
-      ],
-      "@paddls/ngx-repository/*": [
-        "dist/ngx-repository/*"
+        "projects/ngx-repository/src/public-api"
       ],
       "@paddls/ngx-http-repository": [
-        "dist/ngx-http-repository"
-      ],
-      "@paddls/ngx-http-repository/*": [
-        "dist/ngx-http-repository/*"
+        "projects/ngx-http-repository/src/public-api"
       ],
       "@paddls/ngx-firestore-repository": [
-        "dist/ngx-firestore-repository"
+        "projects/ngx-firestore-repository/src/public-api"
       ],
-      "@paddls/ngx-firestore-repository/*": [
-        "dist/ngx-firestore-repository/*"
+      "@paddls/utils": [
+        "projects/utils"
       ]
     },
     "useDefineForClassFields": false

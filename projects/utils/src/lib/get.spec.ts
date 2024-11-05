@@ -1,7 +1,6 @@
-import get from './get';
+import { get } from "@paddls/utils";
 
 describe('get', () => {
-
   it('should return undefined if path is empty', () => {
     const obj = { a: 1 };
     expect(get(obj, '')).toBeUndefined();

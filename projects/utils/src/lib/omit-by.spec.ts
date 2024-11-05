@@ -1,7 +1,6 @@
-import omitBy from './omit-by';
+import { omitBy } from '@paddls/utils';
 
 describe('omitBy', () => {
-
   it('should omit properties based on the check function', () => {
     const obj = { a: 1, b: '2', c: 3, d: '4' };
     const result = omitBy(obj, (value: any) => typeof value === 'string');

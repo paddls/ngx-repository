@@ -1,7 +1,6 @@
-import flattenDeep from './flatten-deep';
-// import {} from "../ngx-http-repository/src/lib/driver/http-repository.driver"
-describe('flattenDeep', () => {
+import { flattenDeep } from '@paddls/utils';
 
+describe('flattenDeep', () => {
   it('should flatten single level deep array', () => {
     const array: any[] = [1, [2, 3, 4]];
     const result = flattenDeep(array);

@@ -1,4 +1,4 @@
-const valuesIn = (object: { [key: string]: any }): any[] => {
+export const valuesIn = (object: { [key: string]: any }): any[] => {
   const result: any[] = [];
   for (const key in object) {
     if (Object.prototype.hasOwnProperty.call(object, key)) {
@@ -8,5 +8,3 @@ const valuesIn = (object: { [key: string]: any }): any[] => {
 
   return result;
 };
-
-export default valuesIn;

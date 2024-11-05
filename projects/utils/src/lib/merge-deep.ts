@@ -1,6 +1,6 @@
-import isObject from './is-object';
+import { isObject } from "./is-object";
 
-const mergeDeep = (target: { [x: string]: any; }, source: { [x: string]: any; }) => {
+export const mergeDeep = (target: { [x: string]: any; }, source: { [x: string]: any; }) => {
   const output = Object.assign({}, target);
 
   Object.keys(source).forEach(key => {
@@ -13,5 +13,3 @@ const mergeDeep = (target: { [x: string]: any; }, source: { [x: string]: any; })
 
   return output;
 };
-
-export default mergeDeep;

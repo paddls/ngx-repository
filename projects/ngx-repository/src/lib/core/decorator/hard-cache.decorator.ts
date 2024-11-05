@@ -5,7 +5,8 @@ import {
   HardCacheContext,
   HardCacheContextConfiguration
 } from '../configuration/context/hard-cache-context.configuration';
-import isObject from 'external/is-object.ts';
+import { isObject } from '@paddls/utils';
+
 /**
  * @ignore
  */

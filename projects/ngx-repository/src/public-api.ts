@@ -106,4 +106,6 @@ export { ResponseBuilderParam } from './lib/core/response/response-builder.param
 export { ResponseProcessorWithParams } from './lib/core/response/response-processor-with.params';
 export { ResponseProcessorToken } from './lib/core/response/response-processor.token';
 
+export { getIdFromObject } from './lib/core/common/functions';
+
 export { fetchAllPage } from './lib/operator/fetch-all-page.operator';

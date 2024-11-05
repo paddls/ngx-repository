@@ -1,7 +1,6 @@
-import mergeDeep from './merge-deep';
+import { mergeDeep } from '@paddls/utils';
 
 describe('mergeDeep', () => {
-
   it('should merge simple objects', () => {
     const obj = {a: 1, b: 2};
     const other = {c:3, d:4};

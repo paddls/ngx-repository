@@ -1,7 +1,6 @@
-import isUndefined from './is-undefined';
+import { isUndefined } from '@paddls/utils';
 
 describe('isUndefined', () => {
-
   it('should return true if value type is Undefined', () => {
     expect(isUndefined(undefined)).toBe(true);
   });

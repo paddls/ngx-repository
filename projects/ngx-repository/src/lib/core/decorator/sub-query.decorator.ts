@@ -1,6 +1,5 @@
 import { PropertyKeyConfiguration } from '../common/decorator/property-key-configuration';
-import isString from "../../../../../utils/src/is-string";
-import flattenDeep from "../../../../../utils/src/flatten-deep";
+import { flattenDeep, isString } from "@paddls/utils";
 
 /**
  * @ignore

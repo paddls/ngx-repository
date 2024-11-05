@@ -1,7 +1,6 @@
-import forOwn from './for-own';
+import { forOwn } from "@paddls/utils";
 
 describe('forOwn', () => {
-
   it('should iterate over own properties of an object', () => {
     const obj = { a: 1, b: 2, c: 3 };
     const result: [string, any][] = [];

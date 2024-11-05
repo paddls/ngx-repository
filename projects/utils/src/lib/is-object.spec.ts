@@ -1,7 +1,6 @@
-import isObject from './is-object';
+import { isObject } from '@paddls/utils';
 
 describe('isObject', () => {
-
   it('should return true if value type is object', () => {
     expect(isObject({})).toBe(true);
   });

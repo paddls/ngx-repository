@@ -5,7 +5,7 @@ import {
   SoftCacheContext,
   SoftCacheContextConfiguration
 } from '../configuration/context/soft-cache-context.configuration';
-import isObject from '../../../../../utils/src/is-object';
+import { isObject } from '@paddls/utils';
 
 /**
  * @ignore

@@ -1,7 +1,6 @@
-import omit from './omit';
+import { omit } from '@paddls/utils';
 
 describe('omit', () => {
-
   it('should omit a single property', () => {
     const obj = { a: 1, b: 2, c: 3 };
     const result = omit(obj, ['b']);

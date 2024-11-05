@@ -1,4 +1,4 @@
-const set = (obj: { [key: string]: any }, path: string | string[], value: any): void => {
+export const set = (obj: { [key: string]: any }, path: string | string[], value: any): void => {
   const pathArray = Array.isArray(path) ? path : path.match(/([^[.\]])+/g);
 
   if (pathArray === null) {
@@ -12,5 +12,3 @@ const set = (obj: { [key: string]: any }, path: string | string[], value: any): 
     return acc[key];
   }, obj);
 };
-
-export default set;

@@ -1,7 +1,6 @@
-import isFunction from './is-function';
+import { isFunction } from '@paddls/utils';
 
 describe('isFunction', () => {
-
   it('should return true if value type is function', () => {
     const func = () => {};
     expect(isFunction(func)).toBe(true);

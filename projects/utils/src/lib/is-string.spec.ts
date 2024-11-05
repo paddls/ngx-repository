@@ -1,7 +1,6 @@
-import isString from './is-string';
+import { isString } from '@paddls/utils';
 
 describe('isString', () => {
-
   it('should return true if value type is String', () => {
     expect(isString('12')).toBe(true);
   });

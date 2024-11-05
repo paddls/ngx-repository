@@ -10,7 +10,7 @@ import { RunHelpers } from 'rxjs/internal/testing/TestScheduler';
 
 describe('BookService', () => {
   let bookService: BookService;
-  let bookRepository: MockRepository;
+  let bookRepository: MockRepository<unknown>;
   let testScheduler: TestScheduler;
 
   beforeEach(() => {

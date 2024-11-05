@@ -5,7 +5,10 @@
     "declarationMap": true,
     "declaration": true,
     "inlineSources": true,
-    "types": ["node", "jasmine"],
+    "types": [
+      "node",
+      "jasmine"
+    ],
     "lib": [
       "dom",
       "es2018"

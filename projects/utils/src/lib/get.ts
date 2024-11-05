@@ -1,4 +1,4 @@
-const get = (obj: unknown, path: string, defValue?: any) => {
+export const get = (obj: unknown, path: string, defValue?: any) => {
   if (!path) return undefined;
   const pathArray: any = Array.isArray(path) ? path : path.match(/([^[.\]])+/g);
   const result = pathArray.reduce(
@@ -8,5 +8,3 @@ const get = (obj: unknown, path: string, defValue?: any) => {
 
   return result === undefined ? defValue : result;
 };
-
-export default get;

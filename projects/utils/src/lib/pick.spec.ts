@@ -1,7 +1,6 @@
-import pick from './pick';
+import { pick } from '@paddls/utils';
 
 describe('pick', () => {
-
   it('should pick a single property', () => {
     const obj = { a: 1, b: 2, c: 3 };
     const result = pick(obj, ['b']);
