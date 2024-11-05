@@ -4,8 +4,8 @@ import { PATH_COLUMN_METADATA_KEY } from '../../decorator/path-column.decorator'
 import { Path } from '../../request/path';
 import { ResponseProcessor } from './response.processor';
 import { PathColumnContextConfiguration } from '../../configuration/context/path-column-context.configuration';
-import { PathRequest } from '@paddls/ngx-repository';
 import { isObject, isUndefined } from '@paddls/utils';
+import { PathRequest } from '../../request/path.request';
 
 @Injectable()
 export class PathColumnResponseProcessor implements ResponseProcessor {

@@ -4,7 +4,7 @@
   "description": "",
   "main": "karma.conf.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc -p tsconfig.lib.json"
   },
   "keywords": [],
   "author": "Oscar GUERIN",
