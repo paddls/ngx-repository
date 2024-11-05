@@ -32,9 +32,9 @@ export class PathColumnResponseProcessor implements ResponseProcessor {
 
   protected mapPathColumn(pathColumns: PathColumnContextConfiguration[], item: any, path: Path): void {
     pathColumns
-      .filter((pc: PathColumnContextConfiguration) => !isUndefined(path.pathParams[`:${ pc.name }`]))
+      .filter((pc: PathColumnContextConfiguration) => !isUndefined(path.pathParams[`:${pc.name}`]))
       .forEach((pc: PathColumnContextConfiguration) => {
-        item[pc.propertyKey] = path.pathParams[`:${ pc.name }`];
+        item[pc.propertyKey] = path.pathParams[`:${pc.name}`];
       });
   }
 }

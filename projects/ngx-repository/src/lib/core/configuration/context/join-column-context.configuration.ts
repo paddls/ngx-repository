@@ -1,7 +1,7 @@
-import {Type} from '@angular/core';
-import {AbstractRepository} from '../../repository/abstract-repository';
-import {PropertyKeyConfiguration} from '../../common/decorator/property-key-configuration';
-import {SerializeType} from '@paddls/ts-serializer/dist/common';
+import { Type } from '@angular/core';
+import { AbstractRepository } from '../../repository/abstract-repository';
+import { PropertyKeyConfiguration } from '../../common/decorator/property-key-configuration';
+import { SerializeType } from '@paddls/ts-serializer/dist/common';
 
 export interface JoinColumnContext<T> {
 

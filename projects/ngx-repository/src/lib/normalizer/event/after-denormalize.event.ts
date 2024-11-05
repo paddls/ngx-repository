@@ -1,5 +1,5 @@
-import {Type} from '@angular/core';
-import {NormalizerConfiguration} from '@paddls/ts-serializer';
+import { Type } from '@angular/core';
+import { NormalizerConfiguration } from '@paddls/ts-serializer';
 
 export class AfterDenormalizeEvent {
 

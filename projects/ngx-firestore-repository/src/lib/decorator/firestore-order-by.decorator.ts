@@ -1,7 +1,9 @@
 /**
  * @ignore
  */
-import {FirestoreOrderByContextConfiguration} from '../configuration/context/firestore-order-by-context.configuration';
+import {
+  FirestoreOrderByContextConfiguration
+} from '../configuration/context/firestore-order-by-context.configuration';
 
 export const FIRESTORE_ORDER_BY_METADATA_KEY: string = 'firestoreOrderBy';
 

@@ -1,5 +1,5 @@
-import {SOFT_CACHE_METADATA_KEY, SoftCache, setSoftCache} from './soft-cache.decorator';
-import {Observable, of} from 'rxjs';
+import { setSoftCache, SOFT_CACHE_METADATA_KEY, SoftCache } from './soft-cache.decorator';
+import { Observable, of } from 'rxjs';
 
 describe('SoftCacheDecorator', () => {
 

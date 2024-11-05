@@ -1,9 +1,12 @@
-import {Observable} from 'rxjs';
-import {hasSoftCache, setSoftCache} from './soft-cache.decorator';
-import {hasHardCache, setHardCache} from './hard-cache.decorator';
-import {FindAllRepository} from '../repository/find-all.repository';
-import {ORIGINAL_QUERY_METADATA_KEY} from '../response/processor/original-query-response.processor';
-import {SubCollectionContext, SubCollectionContextConfiguration} from '../configuration/context/sub-collection-context.configuration';
+import { Observable } from 'rxjs';
+import { hasSoftCache, setSoftCache } from './soft-cache.decorator';
+import { hasHardCache, setHardCache } from './hard-cache.decorator';
+import { FindAllRepository } from '../repository/find-all.repository';
+import { ORIGINAL_QUERY_METADATA_KEY } from '../response/processor/original-query-response.processor';
+import {
+  SubCollectionContext,
+  SubCollectionContextConfiguration
+} from '../configuration/context/sub-collection-context.configuration';
 import { NgxRepositoryService } from '../../ngx-repository.service';
 
 /**
@@ -18,7 +21,7 @@ export const SUB_COLLECTION_OBS_METADATA_KEY: string = 'subCollectionObs';
 
 export function SubCollection<T>(subCollectionContext: SubCollectionContext<T>): any {
   return (target: object, propertyKey: string) => {
-    const subCollectionContextConfiguration: SubCollectionContextConfiguration = { propertyKey, ...subCollectionContext };
+    const subCollectionContextConfiguration: SubCollectionContextConfiguration = {propertyKey, ...subCollectionContext};
     Reflect.defineMetadata(SUB_COLLECTION_METADATA_KEY, subCollectionContextConfiguration, target, propertyKey);
 
     Object.defineProperty(target.constructor.prototype, propertyKey, {

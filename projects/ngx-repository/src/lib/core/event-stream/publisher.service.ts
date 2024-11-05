@@ -22,7 +22,7 @@ export class PublisherService {
   public constructor(private readonly injector: Injector) {
   }
 
-  public static addListenerToRegistry(predicate: Predicate<any>|Predicate<any>[], listener: Type<Listener<any>>): void {
+  public static addListenerToRegistry(predicate: Predicate<any> | Predicate<any>[], listener: Type<Listener<any>>): void {
     PublisherService.registryItems.push({predicate, listener});
   }
 

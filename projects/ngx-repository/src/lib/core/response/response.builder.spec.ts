@@ -56,7 +56,10 @@ describe('ResponseBuilder', () => {
         postResponseProcessors: [MyPostResponseProcessor]
       };
 
-      const builderWithParams: { builder: Type<ResponseBuilder>, params: any } = ResponseBuilder.withParams(params) as any;
+      const builderWithParams: {
+        builder: Type<ResponseBuilder>,
+        params: any
+      } = ResponseBuilder.withParams(params) as any;
 
       expect(builderWithParams.builder).toEqual(ResponseBuilder);
       expect(builderWithParams.params.responseProcessors[0]).toEqual(MyPreResponseProcessor);

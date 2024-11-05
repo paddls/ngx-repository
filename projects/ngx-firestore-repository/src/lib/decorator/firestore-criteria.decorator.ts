@@ -1,4 +1,7 @@
-import {FirestoreCriteriaContext, FirestoreCriteriaContextConfiguration} from '../configuration/context/firestore-criteria-context.configuration';
+import {
+  FirestoreCriteriaContext,
+  FirestoreCriteriaContextConfiguration
+} from '../configuration/context/firestore-criteria-context.configuration';
 
 /**
  * @ignore

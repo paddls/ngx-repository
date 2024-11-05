@@ -22,7 +22,7 @@ export class LogExecuteHttpRequestEventListener implements Listener<ExecuteHttpR
     }
   }
 
-  private makeLog(request: HttpRepositoryRequest, type: 'HTTP REQUEST'|'HTTP RESPONSE'): string {
+  private makeLog(request: HttpRepositoryRequest, type: 'HTTP REQUEST' | 'HTTP RESPONSE'): string {
     let log: string = `%c[${type}]%c [${request.method}] ${request.path.value}`;
 
     if (request.queryParams.keys().length > 0) {

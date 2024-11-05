@@ -22,9 +22,9 @@ export function getDeepQueryMetadataValues<T extends PropertyKeyConfiguration>(m
       subQueries = [subQueries];
     }
 
-    const childMetadata: T[] = subQueries.map((subQuery: string) => getDeepQueryMetadataValues<T>(metadataKey, query[subQuery], parent ? `${ parent }.${ subQuery }` : subQuery));
+    const childMetadata: T[] = subQueries.map((subQuery: string) => getDeepQueryMetadataValues<T>(metadataKey, query[subQuery], parent ? `${parent}.${subQuery}` : subQuery));
 
-    let metadata: T[]|T = Reflect.getMetadata(metadataKey, query) || [];
+    let metadata: T[] | T = Reflect.getMetadata(metadataKey, query) || [];
 
     if (!Array.isArray(metadata)) {
       metadata = [metadata];
@@ -33,7 +33,7 @@ export function getDeepQueryMetadataValues<T extends PropertyKeyConfiguration>(m
     const modifiedMetadata: T[] = metadata
       .map((property: PropertyKeyConfiguration) => ({
         ...property,
-        propertyKey: parent ? `${ parent }.${ property.propertyKey }` : property.propertyKey
+        propertyKey: parent ? `${parent}.${property.propertyKey}` : property.propertyKey
       })) as T[];
 
     return flattenDeep([childMetadata, modifiedMetadata]);

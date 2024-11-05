@@ -1,12 +1,12 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import {
   NgxHttpRepositoryModule,
   NgxHttpRepositoryModuleConfiguration,
   provideNgxHttpRepositoryModule
 } from './ngx-http-repository.module';
-import {LogExecuteHttpRequestEventListener} from './driver/listener/log-execute-http-request-event.listener';
-import {HTTP_REPOSITORY_CONFIGURATION} from './configuration/http-repository.configuration';
-import {HttpRepositoryBuilder} from './repository/http-repository.builder';
+import { LogExecuteHttpRequestEventListener } from './driver/listener/log-execute-http-request-event.listener';
+import { HTTP_REPOSITORY_CONFIGURATION } from './configuration/http-repository.configuration';
+import { HttpRepositoryBuilder } from './repository/http-repository.builder';
 
 describe('NgxHttpRepositoryModule.forRoot', () => {
   const config: NgxHttpRepositoryModuleConfiguration = {

@@ -1,7 +1,10 @@
-import {Observable, timer} from 'rxjs';
-import {hardCache} from '@paddls/rxjs-common';
-import {takeUntil} from 'rxjs/operators';
-import {HardCacheContext, HardCacheContextConfiguration} from '../configuration/context/hard-cache-context.configuration';
+import { Observable, timer } from 'rxjs';
+import { hardCache } from '@paddls/rxjs-common';
+import { takeUntil } from 'rxjs/operators';
+import {
+  HardCacheContext,
+  HardCacheContextConfiguration
+} from '../configuration/context/hard-cache-context.configuration';
 import isObject from 'lodash.isobject';
 
 /**
@@ -9,7 +12,7 @@ import isObject from 'lodash.isobject';
  */
 export const HARD_CACHE_METADATA_KEY: string = 'hardCache';
 
-export function HardCache(hardCacheContext?: HardCacheContext|number): any {
+export function HardCache(hardCacheContext?: HardCacheContext | number): any {
   return (target: object, propertyKey: string) => {
     let hardCacheContextConfiguration: HardCacheContextConfiguration = {
       propertyKey,

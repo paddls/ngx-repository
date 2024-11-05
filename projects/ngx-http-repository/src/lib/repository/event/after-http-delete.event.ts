@@ -1,5 +1,5 @@
-import {Type} from '@angular/core';
-import {InternalEvent} from '@paddls/ngx-repository';
+import { Type } from '@angular/core';
+import { InternalEvent } from '@paddls/ngx-repository';
 
 export class AfterHttpDeleteEvent<T, K> implements InternalEvent {
 

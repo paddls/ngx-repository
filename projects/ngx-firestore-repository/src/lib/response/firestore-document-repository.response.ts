@@ -1,6 +1,6 @@
-import {FirestoreRepositoryResponse} from './firestore-repository.response';
-import {RepositoryRequest} from '@paddls/ngx-repository';
-import {DocumentSnapshot} from 'firebase/firestore';
+import { FirestoreRepositoryResponse } from './firestore-repository.response';
+import { RepositoryRequest } from '@paddls/ngx-repository';
+import { DocumentSnapshot } from 'firebase/firestore';
 
 export class FirestoreDocumentRepositoryResponse implements FirestoreRepositoryResponse {
 

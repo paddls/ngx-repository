@@ -1,11 +1,11 @@
-import {Component} from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {Observable} from 'rxjs';
-import {Library} from '../../module/@core/model/library.model';
-import {filter, map, switchMap, tap} from 'rxjs/operators';
-import {LibraryService} from '../../module/@core/service/library.service';
-import {Book} from '../../module/@core/model/book.model';
-import {BookService} from '../../module/@core/service/book.service';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Library } from '../../module/@core/model/library.model';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { LibraryService } from '../../module/@core/service/library.service';
+import { Book } from '../../module/@core/model/book.model';
+import { BookService } from '../../module/@core/service/book.service';
 import clone from 'lodash.clone';
 
 @Component({

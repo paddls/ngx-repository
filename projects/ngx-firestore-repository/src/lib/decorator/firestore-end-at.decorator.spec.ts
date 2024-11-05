@@ -1,4 +1,4 @@
-import {FIRESTORE_END_AT_METADATA_KEY, FirestoreEndAt} from './firestore-end-at.decorator';
+import { FIRESTORE_END_AT_METADATA_KEY, FirestoreEndAt } from './firestore-end-at.decorator';
 
 describe('FirestoreEndAtDecorator', () => {
 

@@ -45,7 +45,7 @@ function buildOperationParams<T>(params: HttpRepositoryContextConfiguration, pat
     rootConfiguration,
     ...path.map((key: string) => get(params, key))
       .filter((value: any) => !isUndefined(value))
-  ].map((value: any) => isString(value) ? { path: value } : value);
+  ].map((value: any) => isString(value) ? {path: value} : value);
 
   return merge({}, ...configurations);
 }

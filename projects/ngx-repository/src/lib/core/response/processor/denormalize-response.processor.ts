@@ -14,13 +14,22 @@ export class DenormalizeResponseProcessor implements ResponseProcessor {
   public constructor(private readonly normalizer: RepositoryNormalizer) {
   }
 
-  public transform(response: any, origin: RepositoryResponse, { configuration }: RequestManagerContext): any {
+  public transform(response: any, origin: RepositoryResponse, {configuration}: RequestManagerContext): any {
     const responseType: Type<any> = configuration.getConfiguration('responseType')();
     const normalizerConfiguration: NormalizerConfiguration = configuration.findConfiguration('normalizerConfiguration');
 
-    PublisherService.getInstance().publish(new BeforeDenormalizeEvent({type: responseType, body: response, configuration: normalizerConfiguration}));
+    PublisherService.getInstance().publish(new BeforeDenormalizeEvent({
+      type: responseType,
+      body: response,
+      configuration: normalizerConfiguration
+    }));
     const data: any = this.normalizer.denormalize(responseType, response, normalizerConfiguration);
-    PublisherService.getInstance().publish(new AfterDenormalizeEvent({type: responseType, body: response, configuration: normalizerConfiguration, data}));
+    PublisherService.getInstance().publish(new AfterDenormalizeEvent({
+      type: responseType,
+      body: response,
+      configuration: normalizerConfiguration,
+      data
+    }));
 
     return data;
   }

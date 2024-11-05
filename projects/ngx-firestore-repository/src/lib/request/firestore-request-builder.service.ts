@@ -1,5 +1,13 @@
 import { Observable, of } from 'rxjs';
-import { AfterNormalizeEvent, BeforeNormalizeEvent, ConfigurationContextProvider, Path, PublisherService, RequestBuilder, RequestManagerContext } from '@paddls/ngx-repository';
+import {
+  AfterNormalizeEvent,
+  BeforeNormalizeEvent,
+  ConfigurationContextProvider,
+  Path,
+  PublisherService,
+  RequestBuilder,
+  RequestManagerContext
+} from '@paddls/ngx-repository';
 import { FirestoreRepositoryRequest } from './firestore-repository.request';
 import { Inject, Injectable } from '@angular/core';
 import { FIRESTORE_APP } from '../ngx-firestore-repository.module.di';
@@ -16,7 +24,7 @@ export class FirestoreRequestBuilder implements RequestBuilder {
                      @Inject(FIRESTORE_APP) protected readonly firestore: Firestore) {
   }
 
-  public build({ body, query, configuration }: RequestManagerContext): Observable<FirestoreRepositoryRequest> {
+  public build({body, query, configuration}: RequestManagerContext): Observable<FirestoreRepositoryRequest> {
     const operation: FirestoreOperation = configuration.getOperation() as FirestoreOperation;
     const path: Path = this.getPath(body, query, configuration);
     const normalizedBody: any = this.getBody(body);

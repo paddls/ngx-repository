@@ -37,7 +37,7 @@ describe('BookService', () => {
       bookService.findById('1', query).subscribe((book: Book) => {
         expect(bookRepository.findById).toHaveBeenCalledWith('1', query);
 
-        expect(book).toEqual(new Book({ id: '1' }));
+        expect(book).toEqual(new Book({id: '1'}));
 
         done();
       });
@@ -48,14 +48,14 @@ describe('BookService', () => {
     });
 
     it('should call findById from repository using marble', () => {
-      testScheduler.run(({ expectObservable, cold }: RunHelpers) => {
+      testScheduler.run(({expectObservable, cold}: RunHelpers) => {
         const query: BookQuery = new BookQuery();
 
-        spyOn(bookRepository, 'findById').and.returnValue(cold('a', { a: new Book({ id: '1' }) }));
+        spyOn(bookRepository, 'findById').and.returnValue(cold('a', {a: new Book({id: '1'})}));
 
         const source$: Observable<Book> = bookService.findById('1', query);
 
-        expectObservable(source$).toBe('a', { a: new Book({ id: '1' }) });
+        expectObservable(source$).toBe('a', {a: new Book({id: '1'})});
       });
     });
   });

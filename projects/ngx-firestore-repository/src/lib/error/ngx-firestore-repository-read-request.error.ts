@@ -1,6 +1,6 @@
-import {NgxFirestoreRepositoryError} from './ngx-firestore-repository.error';
-import {FirestoreRepositoryRequest} from '../request/firestore-repository.request';
-import {FirestoreError} from 'firebase/firestore';
+import { NgxFirestoreRepositoryError } from './ngx-firestore-repository.error';
+import { FirestoreRepositoryRequest } from '../request/firestore-repository.request';
+import { FirestoreError } from 'firebase/firestore';
 
 export class NgxFirestoreRepositoryReadRequestError extends NgxFirestoreRepositoryError {
 

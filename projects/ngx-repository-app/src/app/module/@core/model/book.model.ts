@@ -1,12 +1,12 @@
-import {Person} from './person.model';
-import {Comment} from './comment.model';
-import {Observable} from 'rxjs';
-import {Identifiable} from './identifiable.model';
-import {CommentQuery} from '../query/comment.query';
-import {JoinColumn, PathColumn, SubCollection, Column} from '@paddls/ngx-repository';
-import {HttpRepository, HttpResource} from '@paddls/ngx-http-repository';
-import {Library} from './library.model';
-import {PersonRepository} from '../repository/person.repository';
+import { Person } from './person.model';
+import { Comment } from './comment.model';
+import { Observable } from 'rxjs';
+import { Identifiable } from './identifiable.model';
+import { CommentQuery } from '../query/comment.query';
+import { Column, JoinColumn, PathColumn, SubCollection } from '@paddls/ngx-repository';
+import { HttpRepository, HttpResource } from '@paddls/ngx-http-repository';
+import { Library } from './library.model';
+import { PersonRepository } from '../repository/person.repository';
 
 @HttpResource({
   path: '/libraries/:libraryId/books'

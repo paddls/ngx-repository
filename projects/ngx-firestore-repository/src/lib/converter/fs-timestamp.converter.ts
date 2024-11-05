@@ -1,5 +1,5 @@
-import {Converter} from '@paddls/ngx-repository';
-import {Timestamp} from 'firebase/firestore';
+import { Converter } from '@paddls/ngx-repository';
+import { Timestamp } from 'firebase/firestore';
 
 /**
  * @ignore

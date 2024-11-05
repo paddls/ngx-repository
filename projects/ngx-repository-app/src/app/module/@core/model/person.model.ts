@@ -1,6 +1,6 @@
-import {Identifiable} from './identifiable.model';
-import {HttpLiveResource, HttpResource} from '@paddls/ngx-http-repository';
-import {Column} from '@paddls/ngx-repository';
+import { Identifiable } from './identifiable.model';
+import { HttpLiveResource, HttpResource } from '@paddls/ngx-http-repository';
+import { Column } from '@paddls/ngx-repository';
 
 @HttpLiveResource()
 @HttpResource({

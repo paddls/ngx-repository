@@ -1,4 +1,4 @@
-import {PathParam} from '@paddls/ngx-repository';
+import { PathParam } from '@paddls/ngx-repository';
 
 export class PurchaseQuery {
 

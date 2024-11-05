@@ -1,5 +1,5 @@
-import {PropertyKeyConfiguration} from '@paddls/ngx-repository';
-import {FieldPath, OrderByDirection} from 'firebase/firestore';
+import { PropertyKeyConfiguration } from '@paddls/ngx-repository';
+import { FieldPath, OrderByDirection } from 'firebase/firestore';
 
 export interface FirestoreOrderByContext {
   field: string | FieldPath;

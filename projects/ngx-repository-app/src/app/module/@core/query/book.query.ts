@@ -1,5 +1,5 @@
-import {PathParam} from '@paddls/ngx-repository';
-import {HttpQueryParam} from '@paddls/ngx-http-repository';
+import { PathParam } from '@paddls/ngx-repository';
+import { HttpQueryParam } from '@paddls/ngx-http-repository';
 
 export class BookQuery {
 

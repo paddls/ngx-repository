@@ -1,4 +1,4 @@
-import {FirestoreEndAtContextConfiguration} from '../configuration/context/firestore-end-at-context.configuration';
+import { FirestoreEndAtContextConfiguration } from '../configuration/context/firestore-end-at-context.configuration';
 
 /**
  * @ignore

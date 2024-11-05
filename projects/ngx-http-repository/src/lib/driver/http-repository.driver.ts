@@ -15,7 +15,7 @@ export class HttpRepositoryDriver implements RepositoryDriver {
   }
 
   public execute(request: HttpRepositoryRequest): Observable<HttpRepositoryResponse> {
-    PublisherService.getInstance().publish(new BeforeExecuteHttpRequestEvent({ request }));
+    PublisherService.getInstance().publish(new BeforeExecuteHttpRequestEvent({request}));
 
     return this.http.request(request.method, request.path.value, {
       params: request.queryParams,

@@ -23,7 +23,7 @@ export class PersonService {
 
   public create(): Observable<string> {
     return this.personRepository.create(new Person({
-      id: `${ Date.now() }`,
+      id: `${Date.now()}`,
       firstName: this.chance.first(),
       lastName: this.chance.last()
     }));

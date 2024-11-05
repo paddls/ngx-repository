@@ -1,4 +1,4 @@
-import {FIRESTORE_CRITERIA_METADATA_KEY, FirestoreCriteria} from './firestore-criteria.decorator';
+import { FIRESTORE_CRITERIA_METADATA_KEY, FirestoreCriteria } from './firestore-criteria.decorator';
 
 describe('FirestoreCriteriaDecorator', () => {
 

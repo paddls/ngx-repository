@@ -1,11 +1,11 @@
-import {Injectable, Type} from '@angular/core';
-import {InjectRepository, provideNgxRepositoryModule} from '@paddls/ngx-repository';
-import {TestBed} from '@angular/core/testing';
-import {Firestore, getFirestore} from 'firebase/firestore';
-import {initializeApp} from 'firebase/app';
-import {FirestoreRepository} from '../../lib/repository/firestore.repository';
-import {provideNgxFirestoreRepository} from '../../lib/ngx-firestore-repository.module';
-import {FIRESTORE_APP} from '../../lib/ngx-firestore-repository.module.di';
+import { Injectable, Type } from '@angular/core';
+import { InjectRepository, provideNgxRepositoryModule } from '@paddls/ngx-repository';
+import { TestBed } from '@angular/core/testing';
+import { Firestore, getFirestore } from 'firebase/firestore';
+import { initializeApp } from 'firebase/app';
+import { FirestoreRepository } from '../../lib/repository/firestore.repository';
+import { provideNgxFirestoreRepository } from '../../lib/ngx-firestore-repository.module';
+import { FIRESTORE_APP } from '../../lib/ngx-firestore-repository.module.di';
 
 export interface RepositoryContext<T> {
   repository: FirestoreRepository<T, string>;

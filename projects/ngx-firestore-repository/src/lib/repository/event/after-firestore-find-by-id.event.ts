@@ -1,4 +1,4 @@
-import {InternalEvent} from '@paddls/ngx-repository';
+import { InternalEvent } from '@paddls/ngx-repository';
 
 export class AfterFirestoreFindByIdEvent<T, K> implements InternalEvent {
 

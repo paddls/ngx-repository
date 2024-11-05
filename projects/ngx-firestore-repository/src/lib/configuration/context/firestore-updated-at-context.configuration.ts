@@ -1,4 +1,4 @@
-import {PropertyKeyConfiguration} from '@paddls/ngx-repository';
+import { PropertyKeyConfiguration } from '@paddls/ngx-repository';
 
 export interface FirestoreUpdatedAtContext {
 

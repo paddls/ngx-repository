@@ -1,4 +1,6 @@
-import {FirestoreStartAfterContextConfiguration} from '../configuration/context/firestore-start-after-context.configuration';
+import {
+  FirestoreStartAfterContextConfiguration
+} from '../configuration/context/firestore-start-after-context.configuration';
 
 /**
  * @ignore

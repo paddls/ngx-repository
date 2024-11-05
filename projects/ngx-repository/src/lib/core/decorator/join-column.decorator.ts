@@ -1,9 +1,12 @@
-import {Observable} from 'rxjs';
-import {hasSoftCache, setSoftCache} from './soft-cache.decorator';
-import {hasHardCache, setHardCache} from './hard-cache.decorator';
-import {FindByIdRepository} from '../repository/find-by-id.repository';
-import {JoinColumnContext, JoinColumnContextConfiguration} from '../configuration/context/join-column-context.configuration';
-import {NgxRepositoryService} from '../../ngx-repository.service';
+import { Observable } from 'rxjs';
+import { hasSoftCache, setSoftCache } from './soft-cache.decorator';
+import { hasHardCache, setHardCache } from './hard-cache.decorator';
+import { FindByIdRepository } from '../repository/find-by-id.repository';
+import {
+  JoinColumnContext,
+  JoinColumnContextConfiguration
+} from '../configuration/context/join-column-context.configuration';
+import { NgxRepositoryService } from '../../ngx-repository.service';
 import get from 'lodash.get';
 
 /**
@@ -18,7 +21,7 @@ export const JOIN_COLUMN_OBS_METADATA_KEY: string = 'joinColumnObs';
 
 export function JoinColumn<T>(joinColumnContext: JoinColumnContext<T>): any {
   return (target: object, propertyKey: string) => {
-    const joinColumnContextConfiguration: JoinColumnContextConfiguration = { propertyKey, ...joinColumnContext };
+    const joinColumnContextConfiguration: JoinColumnContextConfiguration = {propertyKey, ...joinColumnContext};
     Reflect.defineMetadata(JOIN_COLUMN_METADATA_KEY, joinColumnContextConfiguration, target, propertyKey);
 
     Object.defineProperty(target.constructor.prototype, propertyKey, {

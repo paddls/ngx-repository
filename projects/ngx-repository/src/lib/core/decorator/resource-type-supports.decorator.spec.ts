@@ -7,7 +7,8 @@ describe('ResourceTypeSupportsDecorator', () => {
   }
 
   @ResourceTypeSupports(resourceTypeSupportsFunction)
-  class MyClass {}
+  class MyClass {
+  }
 
   it('should place all ResourceTypeSupportsContext parameter in the good place', () => {
     expect(Reflect.getMetadata(RESOURCE_TYPE_SUPPORTS_METADATA_KEY, MyClass)).toEqual(resourceTypeSupportsFunction);

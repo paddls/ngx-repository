@@ -1,10 +1,14 @@
 import 'reflect-metadata';
-import {SUB_COLLECTION_METADATA_KEY, SUB_COLLECTION_OBS_METADATA_KEY, SubCollection} from './sub-collection.decorator';
-import {Mock} from '../../../testing/mock.model';
-import {SubCollectionContext} from '../configuration/context/sub-collection-context.configuration';
-import {Observable, of} from 'rxjs';
-import {NgxRepositoryService} from '../../ngx-repository.service';
-import {FindAllRepository} from '../repository/find-all.repository';
+import {
+  SUB_COLLECTION_METADATA_KEY,
+  SUB_COLLECTION_OBS_METADATA_KEY,
+  SubCollection
+} from './sub-collection.decorator';
+import { Mock } from '../../../testing/mock.model';
+import { SubCollectionContext } from '../configuration/context/sub-collection-context.configuration';
+import { Observable, of } from 'rxjs';
+import { NgxRepositoryService } from '../../ngx-repository.service';
+import { FindAllRepository } from '../repository/find-all.repository';
 
 describe('SubCollectionDecorator', () => {
 

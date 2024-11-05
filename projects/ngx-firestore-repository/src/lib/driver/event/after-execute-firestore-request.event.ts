@@ -1,6 +1,6 @@
-import {FirestoreRepositoryRequest} from '../../request/firestore-repository.request';
-import {FirestoreRepositoryResponse} from '../../response/firestore-repository.response';
-import {InternalEvent} from '@paddls/ngx-repository';
+import { FirestoreRepositoryRequest } from '../../request/firestore-repository.request';
+import { FirestoreRepositoryResponse } from '../../response/firestore-repository.response';
+import { InternalEvent } from '@paddls/ngx-repository';
 
 export class AfterExecuteFirestoreRequestEvent implements InternalEvent {
 

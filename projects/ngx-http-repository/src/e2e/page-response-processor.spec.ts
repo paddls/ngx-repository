@@ -28,8 +28,8 @@ describe('Page', () => {
         request: (repository: HttpRepository<any, any>) => repository.findAll().toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
-        expectedResponse: Page.build([new Book({ id: 1, name: 'Book 1' }), new Book({ id: 2, name: 'Book 2' })]),
-        mockedResponseBody: [{ id: 1, name: 'Book 1' }, { id: 2, name: 'Book 2' }]
+        expectedResponse: Page.build([new Book({id: 1, name: 'Book 1'}), new Book({id: 2, name: 'Book 2'})]),
+        mockedResponseBody: [{id: 1, name: 'Book 1'}, {id: 2, name: 'Book 2'}]
       }
     });
   });
@@ -68,10 +68,10 @@ describe('Page', () => {
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedResponse: Page.build([
-          new Book({ id: 1, name: 'Book 1' }),
-          new Book({ id: 2, name: 'Book 2' })
+          new Book({id: 1, name: 'Book 1'}),
+          new Book({id: 2, name: 'Book 2'})
         ], 1, 2, 3),
-        mockedResponseBody: [{ id: 1, name: 'Book 1' }, { id: 2, name: 'Book 2' }]
+        mockedResponseBody: [{id: 1, name: 'Book 1'}, {id: 2, name: 'Book 2'}]
       }
     }, {
       providers: [MyPageResponseProcessor]
@@ -112,10 +112,10 @@ describe('Page', () => {
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedResponse: Page.build([
-          new Book({ id: 1, name: 'Book 1' }),
-          new Book({ id: 2, name: 'Book 2' })
+          new Book({id: 1, name: 'Book 1'}),
+          new Book({id: 2, name: 'Book 2'})
         ], 1, 2, 3),
-        mockedResponseBody: { data: [{ id: 1, name: 'Book 1' }, { id: 2, name: 'Book 2' }] }
+        mockedResponseBody: {data: [{id: 1, name: 'Book 1'}, {id: 2, name: 'Book 2'}]}
       }
     }, {
       providers: [MyPageResponseProcessor]
@@ -153,10 +153,10 @@ describe('Page', () => {
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedResponse: Page.build([
-          new Book({ id: 1, name: 'Book 1' }),
-          new Book({ id: 2, name: 'Book 2' })
+          new Book({id: 1, name: 'Book 1'}),
+          new Book({id: 2, name: 'Book 2'})
         ], 1, 2, 3),
-        mockedResponseBody: [{ id: 1, name: 'Book 1' }, { id: 2, name: 'Book 2' }]
+        mockedResponseBody: [{id: 1, name: 'Book 1'}, {id: 2, name: 'Book 2'}]
       }
     }, {
       providers: [MyPageResponseProcessor],

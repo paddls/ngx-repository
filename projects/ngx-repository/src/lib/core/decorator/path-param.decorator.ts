@@ -1,11 +1,14 @@
-import {PathParamContext, PathParamContextConfiguration} from '../configuration/context/path-param-context.configuration';
+import {
+  PathParamContext,
+  PathParamContextConfiguration
+} from '../configuration/context/path-param-context.configuration';
 
 /**
  * @ignore
  */
 export const PATH_PARAM_METADATA_KEY: string = 'pathParams';
 
-export function PathParam(params?: PathParamContext|string): any {
+export function PathParam(params?: PathParamContext | string): any {
   return (target: any, propertyKey: string) => {
     let paramContextConfiguration: PathParamContextConfiguration = {
       propertyKey,

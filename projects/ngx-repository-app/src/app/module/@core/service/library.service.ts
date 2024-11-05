@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { LibraryQuery } from '../query/library.query';
 import { InjectRepository, Page } from '@paddls/ngx-repository';
 import { HttpRepository } from '@paddls/ngx-http-repository';
-import {Chance} from 'chance';
+import { Chance } from 'chance';
 
 @Injectable()
 export class LibraryService {

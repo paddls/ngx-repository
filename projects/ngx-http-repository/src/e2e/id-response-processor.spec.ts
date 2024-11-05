@@ -24,12 +24,12 @@ describe('IdResponseProcessor', () => {
     testHttpRepository({
       create: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name: 'Star Wars' })).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({name: 'Star Wars'})).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
-        expectedRequestBody: { name: 'Star Wars' },
+        expectedRequestBody: {name: 'Star Wars'},
         expectedResponse: 1,
-        mockedResponseBody: { id: 1 }
+        mockedResponseBody: {id: 1}
       }
     });
   });
@@ -57,12 +57,12 @@ describe('IdResponseProcessor', () => {
     testHttpRepository({
       create: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name: 'Star Wars' })).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({name: 'Star Wars'})).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
-        expectedRequestBody: { name: 'Star Wars' },
-        expectedResponse: new Book({ id: 1, name: 'Star Wars 1' }),
-        mockedResponseBody: { id: 1, name: 'Star Wars 1' }
+        expectedRequestBody: {name: 'Star Wars'},
+        expectedResponse: new Book({id: 1, name: 'Star Wars 1'}),
+        mockedResponseBody: {id: 1, name: 'Star Wars 1'}
       }
     });
   });
@@ -90,12 +90,12 @@ describe('IdResponseProcessor', () => {
     testHttpRepository({
       create: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name: 'Star Wars' })).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({name: 'Star Wars'})).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
-        expectedRequestBody: { name: 'Star Wars' },
-        expectedResponse: new Book({ id: 1, name: 'Star Wars 1' }),
-        mockedResponseBody: { id: 1, name: 'Star Wars 1' }
+        expectedRequestBody: {name: 'Star Wars'},
+        expectedResponse: new Book({id: 1, name: 'Star Wars 1'}),
+        mockedResponseBody: {id: 1, name: 'Star Wars 1'}
       }
     });
   });
@@ -137,12 +137,12 @@ describe('IdResponseProcessor', () => {
     testHttpRepository({
       create: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name: 'Star Wars' })).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({name: 'Star Wars'})).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
-        expectedRequestBody: { name: 'Star Wars' },
-        expectedResponse: new Manga({ identifier: 'abc', author: 'Romain' }),
-        mockedResponseBody: { identifier: 'abc', author: 'Romain' }
+        expectedRequestBody: {name: 'Star Wars'},
+        expectedResponse: new Manga({identifier: 'abc', author: 'Romain'}),
+        mockedResponseBody: {identifier: 'abc', author: 'Romain'}
       }
     });
   });
@@ -183,12 +183,12 @@ describe('IdResponseProcessor', () => {
     testHttpRepository({
       create: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name: 'Star Wars' })).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({name: 'Star Wars'})).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
-        expectedRequestBody: { name: 'Star Wars' },
+        expectedRequestBody: {name: 'Star Wars'},
         expectedResponse: 'abc',
-        mockedResponseBody: { identifier: 'abc', author: 'Romain' }
+        mockedResponseBody: {identifier: 'abc', author: 'Romain'}
       }
     });
   });

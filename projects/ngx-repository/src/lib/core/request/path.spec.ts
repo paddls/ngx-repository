@@ -107,7 +107,7 @@ describe('Path', () => {
       Reflect.defineMetadata(
         PATH_COLUMN_METADATA_KEY,
         [
-          { propertyKey: 'myFirstBodyPathParam', name: 'mySecondArg' }
+          {propertyKey: 'myFirstBodyPathParam', name: 'mySecondArg'}
         ],
         body
       );
@@ -137,7 +137,7 @@ describe('Path', () => {
       Reflect.defineMetadata(
         PATH_COLUMN_METADATA_KEY,
         [
-          { propertyKey: 'myFirstBodyPathParam', name: 'mySecondArg' }
+          {propertyKey: 'myFirstBodyPathParam', name: 'mySecondArg'}
         ],
         body
       );

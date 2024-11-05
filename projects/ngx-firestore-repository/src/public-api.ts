@@ -12,7 +12,7 @@ export { FirestoreEndAt } from './lib/decorator/firestore-end-at.decorator';
 export { FirestoreEndBefore } from './lib/decorator/firestore-end-before.decorator';
 export { FirestoreLimit } from './lib/decorator/firestore-limit.decorator';
 export { FirestoreLimitToLast } from './lib/decorator/firestore-limit-to-last.decorator';
-export { FirestoreOrderBy  } from './lib/decorator/firestore-order-by.decorator';
+export { FirestoreOrderBy } from './lib/decorator/firestore-order-by.decorator';
 export { FirestoreResource } from './lib/decorator/firestore-resource.decorator';
 export { FirestoreStartAfter } from './lib/decorator/firestore-start-after.decorator';
 export { FirestoreStartAt } from './lib/decorator/firestore-start-at.decorator';
@@ -55,7 +55,9 @@ export { FirestoreRepositoryRequest } from './lib/request/firestore-repository.r
 export { FirestoreRequestBuilder } from './lib/request/firestore-request-builder.service';
 
 export { FirestoreCollectionRepositoryResponse } from './lib/response/firestore-collection-repository.response';
-export { FirestoreDocumentReferenceRepositoryResponse } from './lib/response/firestore-document-reference-repository.response';
+export {
+  FirestoreDocumentReferenceRepositoryResponse
+} from './lib/response/firestore-document-reference-repository.response';
 export { FirestoreDocumentRepositoryResponse } from './lib/response/firestore-document-repository.response';
 export { FirestoreEmptyRepositoryResponse } from './lib/response/firestore-empty-repository.response';
 export { FirestoreRepositoryResponse } from './lib/response/firestore-repository.response';

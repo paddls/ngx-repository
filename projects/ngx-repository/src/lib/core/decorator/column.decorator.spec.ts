@@ -1,12 +1,15 @@
 import 'reflect-metadata';
-import {Column, COLUMNS_METADATA_KEY} from './column.decorator';
-import {ColumnContext, ColumnContextConfiguration} from '../configuration/context/column-context.configuration';
+import { Column, COLUMNS_METADATA_KEY } from './column.decorator';
+import { ColumnContext, ColumnContextConfiguration } from '../configuration/context/column-context.configuration';
 
 describe('ColumnDecorator', () => {
   let obj: any;
 
   const firstResult: ColumnContextConfiguration<any, any> = {propertyKey: 'myProperty', field: 'myPropertyName'};
-  const secondResult: ColumnContextConfiguration<any, any> = {propertyKey: 'mySecondProperty', field: 'myBeautifulProperty'};
+  const secondResult: ColumnContextConfiguration<any, any> = {
+    propertyKey: 'mySecondProperty',
+    field: 'myBeautifulProperty'
+  };
   const thirdResult: ColumnContextConfiguration<any, any> = {propertyKey: 'myThirdProperty', field: 'myThirdProperty'};
 
   beforeEach(() => {

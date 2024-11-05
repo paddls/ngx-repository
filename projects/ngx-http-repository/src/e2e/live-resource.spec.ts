@@ -1,11 +1,11 @@
-import {TestBed} from '@angular/core/testing';
-import {Column, Id, InjectRepository, Page, provideNgxRepositoryModule} from '@paddls/ngx-repository';
-import {HttpLiveResource, HttpRepository, HttpResource} from '../public-api';
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {of} from 'rxjs';
-import {take, toArray} from 'rxjs/operators';
-import {provideNgxHttpRepositoryModule} from '../lib/ngx-http-repository.module';
+import { TestBed } from '@angular/core/testing';
+import { Column, Id, InjectRepository, Page, provideNgxRepositoryModule } from '@paddls/ngx-repository';
+import { HttpLiveResource, HttpRepository, HttpResource } from '../public-api';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
+import { take, toArray } from 'rxjs/operators';
+import { provideNgxHttpRepositoryModule } from '../lib/ngx-http-repository.module';
 
 describe('LiveResource', () => {
 
@@ -32,7 +32,7 @@ describe('LiveResource', () => {
   @Injectable()
   class BookService {
 
-    @InjectRepository({ resourceType: () => Book, repository: () => HttpRepository })
+    @InjectRepository({resourceType: () => Book, repository: () => HttpRepository})
     public readonly repository: HttpRepository<Book, number>;
 
   }
@@ -54,22 +54,22 @@ describe('LiveResource', () => {
 
     const expectedResponse: Page<Book>[] = [
       Page.build([
-        new Book({ id: 1, name: 'Book 1' })
+        new Book({id: 1, name: 'Book 1'})
       ]),
       Page.build([
-        new Book({ id: 1, name: 'Book 1' }),
-        new Book({ id: 2, name: 'Book 2' })
+        new Book({id: 1, name: 'Book 1'}),
+        new Book({id: 2, name: 'Book 2'})
       ])
     ];
 
     beforeEach(() => {
       spyOn(httpClient, 'request').and.returnValues(
         of({
-          body: [{ id: 1, name: 'Book 1' }]
+          body: [{id: 1, name: 'Book 1'}]
         }),
         of({}),
         of({
-          body: [{ id: 1, name: 'Book 1' }, { id: 2, name: 'Book 2' }]
+          body: [{id: 1, name: 'Book 1'}, {id: 2, name: 'Book 2'}]
         })
       );
     });
@@ -125,18 +125,18 @@ describe('LiveResource', () => {
 
   describe('#findOne', () => {
     const expectedResponse: Book[] = [
-      new Book({ id: 1, name: 'Book 1' }),
-      new Book({ id: 1, name: 'Book 3' })
+      new Book({id: 1, name: 'Book 1'}),
+      new Book({id: 1, name: 'Book 3'})
     ];
 
     beforeEach(() => {
       spyOn(httpClient, 'request').and.returnValues(
         of({
-          body: [{ id: 1, name: 'Book 1' }]
+          body: [{id: 1, name: 'Book 1'}]
         }),
         of({}),
         of({
-          body: [{ id: 1, name: 'Book 3' }, { id: 2, name: 'Book 2' }]
+          body: [{id: 1, name: 'Book 3'}, {id: 2, name: 'Book 2'}]
         })
       );
     });
@@ -151,7 +151,7 @@ describe('LiveResource', () => {
         done();
       });
 
-      repository.update(new Book({ id: 1 })).subscribe();
+      repository.update(new Book({id: 1})).subscribe();
     });
 
     it('should refresh findOne on patch', (done: DoneFn) => {
@@ -163,7 +163,7 @@ describe('LiveResource', () => {
         done();
       });
 
-      repository.patch(new Book({ id: 1 })).subscribe();
+      repository.patch(new Book({id: 1})).subscribe();
     });
 
     it('should refresh findOne on delete', (done: DoneFn) => {
@@ -175,24 +175,24 @@ describe('LiveResource', () => {
         done();
       });
 
-      repository.delete(new Book({ id: 1 })).subscribe();
+      repository.delete(new Book({id: 1})).subscribe();
     });
   });
 
   describe('#findById', () => {
     const expectedResponse: Book[] = [
-      new Book({ id: 1, name: 'Book 1' }),
-      new Book({ id: 1, name: 'Book 3' })
+      new Book({id: 1, name: 'Book 1'}),
+      new Book({id: 1, name: 'Book 3'})
     ];
 
     beforeEach(() => {
       spyOn(httpClient, 'request').and.returnValues(
         of({
-          body: { id: 1, name: 'Book 1' }
+          body: {id: 1, name: 'Book 1'}
         }),
         of({}),
         of({
-          body: { id: 1, name: 'Book 3' }
+          body: {id: 1, name: 'Book 3'}
         })
       );
     });
@@ -207,7 +207,7 @@ describe('LiveResource', () => {
         done();
       });
 
-      repository.update(new Book({ id: 1 })).subscribe();
+      repository.update(new Book({id: 1})).subscribe();
     });
 
     it('should refresh findById on patch', (done: DoneFn) => {
@@ -219,7 +219,7 @@ describe('LiveResource', () => {
         done();
       });
 
-      repository.patch(new Book({ id: 1 })).subscribe();
+      repository.patch(new Book({id: 1})).subscribe();
     });
 
     it('should refresh findById on delete', (done: DoneFn) => {
@@ -231,7 +231,7 @@ describe('LiveResource', () => {
         done();
       });
 
-      repository.delete(new Book({ id: 1 })).subscribe();
+      repository.delete(new Book({id: 1})).subscribe();
     });
   });
 });

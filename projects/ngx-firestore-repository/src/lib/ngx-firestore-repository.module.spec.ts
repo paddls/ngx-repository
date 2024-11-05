@@ -1,12 +1,14 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import {
   NgxFirestoreRepositoryModule,
   NgxFirestoreRepositoryModuleConfiguration,
   provideNgxFirestoreRepository
 } from './ngx-firestore-repository.module';
-import {LogExecuteFirestoreRequestEventListener} from './driver/listener/log-execute-firestore-request-event.listener';
-import {FIRESTORE_APP} from './ngx-firestore-repository.module.di';
-import {FirestoreNormalizer} from './normalizer/firestore.normalizer';
+import {
+  LogExecuteFirestoreRequestEventListener
+} from './driver/listener/log-execute-firestore-request-event.listener';
+import { FIRESTORE_APP } from './ngx-firestore-repository.module.di';
+import { FirestoreNormalizer } from './normalizer/firestore.normalizer';
 
 
 describe('NgxFirestoreRepositoryModule.forRoot', () => {

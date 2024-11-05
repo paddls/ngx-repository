@@ -1,10 +1,10 @@
 import 'reflect-metadata';
-import {JOIN_COLUMN_METADATA_KEY, JOIN_COLUMN_OBS_METADATA_KEY, JoinColumn} from './join-column.decorator';
-import {Mock} from '../../../testing/mock.model';
-import {JoinColumnContext} from '../configuration/context/join-column-context.configuration';
-import {Observable, of} from 'rxjs';
-import {NgxRepositoryService} from '../../ngx-repository.service';
-import {FindByIdRepository} from '../repository/find-by-id.repository';
+import { JOIN_COLUMN_METADATA_KEY, JOIN_COLUMN_OBS_METADATA_KEY, JoinColumn } from './join-column.decorator';
+import { Mock } from '../../../testing/mock.model';
+import { JoinColumnContext } from '../configuration/context/join-column-context.configuration';
+import { Observable, of } from 'rxjs';
+import { NgxRepositoryService } from '../../ngx-repository.service';
+import { FindByIdRepository } from '../repository/find-by-id.repository';
 
 describe('JoinColumnDecorator', () => {
 

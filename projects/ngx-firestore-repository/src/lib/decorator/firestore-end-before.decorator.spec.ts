@@ -1,4 +1,4 @@
-import {FIRESTORE_END_BEFORE_METADATA_KEY, FirestoreEndBefore} from './firestore-end-before.decorator';
+import { FIRESTORE_END_BEFORE_METADATA_KEY, FirestoreEndBefore } from './firestore-end-before.decorator';
 
 describe('FirestoreEndBeforeDecorator', () => {
 

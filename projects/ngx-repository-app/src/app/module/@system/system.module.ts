@@ -1,9 +1,9 @@
-import {NgModule, Optional, SkipSelf} from '@angular/core';
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
-import {BaseUrlInterceptor} from './interceptor/base-url.interceptor';
-import {BookInterceptor} from './interceptor/book.interceptor';
-import {CommentInterceptor} from './interceptor/comment.interceptor';
-import {LibraryInterceptor} from './interceptor/library.interceptor';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BaseUrlInterceptor } from './interceptor/base-url.interceptor';
+import { BookInterceptor } from './interceptor/book.interceptor';
+import { CommentInterceptor } from './interceptor/comment.interceptor';
+import { LibraryInterceptor } from './interceptor/library.interceptor';
 import { PatchInterceptor } from './interceptor/patch.interceptor';
 
 @NgModule({

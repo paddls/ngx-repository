@@ -1,4 +1,4 @@
-import {ConstructorFunction, Converter} from '@paddls/ts-serializer';
+import { ConstructorFunction, Converter } from '@paddls/ts-serializer';
 
 export interface IdContext {
 

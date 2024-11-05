@@ -1,11 +1,14 @@
-import {PathColumnContext, PathColumnContextConfiguration} from '../configuration/context/path-column-context.configuration';
+import {
+  PathColumnContext,
+  PathColumnContextConfiguration
+} from '../configuration/context/path-column-context.configuration';
 
 /**
  * @ignore
  */
 export const PATH_COLUMN_METADATA_KEY: string = 'pathColumns';
 
-export function PathColumn(params?: PathColumnContext|string): any {
+export function PathColumn(params?: PathColumnContext | string): any {
   return (target: any, propertyKey: string) => {
     let pathColumnContextConfiguration: PathColumnContextConfiguration = {
       propertyKey,

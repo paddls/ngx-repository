@@ -25,10 +25,10 @@ export interface OnHttpResourceChangeContext<T> {
   actions?: HttpWriteOperation[];
 }
 
-export function OnHttpResourceChange<T>(context: OnHttpResourceChangeContext<T>|TypeGetter<T>|Predicate<any>|(Predicate<any>[])): any {
+export function OnHttpResourceChange<T>(context: OnHttpResourceChangeContext<T> | TypeGetter<T> | Predicate<any> | (Predicate<any>[])): any {
   return (target: any, propertyKey: string): any => {
     if (isFunction(context) || Array.isArray(context)) {
-      EventListener(context as Predicate<any>|(Predicate<any>[]))(target, propertyKey);
+      EventListener(context as Predicate<any> | (Predicate<any>[]))(target, propertyKey);
 
       return;
     }
@@ -47,7 +47,7 @@ export function OnHttpResourceChange<T>(context: OnHttpResourceChangeContext<T>|
       finalContext.type = context as TypeGetter<T>;
     }
 
-    EventListener((event: { type: Type<any>  }) => {
+    EventListener((event: { type: Type<any> }) => {
       if (event.type !== finalContext.type()) {
         return false;
       }

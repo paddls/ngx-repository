@@ -1,5 +1,5 @@
-import {InstanceCacheRegistry} from './instance-cache.registry';
-import {Observable, of} from 'rxjs';
+import { InstanceCacheRegistry } from './instance-cache.registry';
+import { Observable, of } from 'rxjs';
 import objectHash from 'object-hash';
 
 describe('InstanceCacheRegistry', () => {

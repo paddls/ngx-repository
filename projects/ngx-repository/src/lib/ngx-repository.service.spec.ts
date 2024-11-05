@@ -1,10 +1,10 @@
-import {TestBed} from '@angular/core/testing';
-import {NgxRepositoryService} from './ngx-repository.service';
-import {AbstractRepository} from './core/repository/abstract-repository';
-import {Injectable, InjectionToken, Type} from '@angular/core';
-import {REPOSITORY_BUILDER_TOKEN} from './ngx-repository.module.di';
-import {TokenRegistry} from './core/registry/token.registry';
-import {RepositoryBuilder} from './core/repository/repository.builder';
+import { TestBed } from '@angular/core/testing';
+import { NgxRepositoryService } from './ngx-repository.service';
+import { AbstractRepository } from './core/repository/abstract-repository';
+import { Injectable, InjectionToken, Type } from '@angular/core';
+import { REPOSITORY_BUILDER_TOKEN } from './ngx-repository.module.di';
+import { TokenRegistry } from './core/registry/token.registry';
+import { RepositoryBuilder } from './core/repository/repository.builder';
 
 describe('NgxRepositoryService', () => {
 
@@ -145,7 +145,7 @@ describe('NgxRepositoryService', () => {
           provide: REPOSITORY_BUILDER_TOKEN,
           useValue: [
             {
-              getRepository: (resourceType: Type<any>, repositoryType?: Type<AbstractRepository<any>>) => `${ resourceType.name } - ${ repositoryType.name }`
+              getRepository: (resourceType: Type<any>, repositoryType?: Type<AbstractRepository<any>>) => `${resourceType.name} - ${repositoryType.name}`
             }
           ]
         }
@@ -170,10 +170,10 @@ describe('NgxRepositoryService', () => {
           provide: REPOSITORY_BUILDER_TOKEN,
           useValue: [
             {
-              getRepository: (resourceType: Type<any>, repositoryType?: Type<AbstractRepository<any>>) => `${ resourceType.name } - ${ repositoryType.name }`
+              getRepository: (resourceType: Type<any>, repositoryType?: Type<AbstractRepository<any>>) => `${resourceType.name} - ${repositoryType.name}`
             },
             {
-              getRepository: (resourceType: Type<any>, repositoryType?: Type<AbstractRepository<any>>) => `${ resourceType.name } - ${ repositoryType.name }`
+              getRepository: (resourceType: Type<any>, repositoryType?: Type<AbstractRepository<any>>) => `${resourceType.name} - ${repositoryType.name}`
             }
           ]
         }
@@ -196,11 +196,11 @@ describe('NgxRepositoryService', () => {
           useValue: [
             {
               supports: (resourceType: Type<any>, repositoryType?: Type<AbstractRepository<any>>) => resourceType && repositoryType && false,
-              getRepository: (resourceType: Type<any>, repositoryType?: Type<AbstractRepository<any>>) => `WRONG ${ resourceType.name } - ${ repositoryType.name }`
+              getRepository: (resourceType: Type<any>, repositoryType?: Type<AbstractRepository<any>>) => `WRONG ${resourceType.name} - ${repositoryType.name}`
             },
             {
               supports: (resourceType: Type<any>, repositoryType?: Type<AbstractRepository<any>>) => resourceType && repositoryType && false,
-              getRepository: (resourceType: Type<any>, repositoryType?: Type<AbstractRepository<any>>) => `WRONG ${ resourceType.name } - ${ repositoryType.name }`
+              getRepository: (resourceType: Type<any>, repositoryType?: Type<AbstractRepository<any>>) => `WRONG ${resourceType.name} - ${repositoryType.name}`
             }
           ]
         }
@@ -221,11 +221,11 @@ describe('NgxRepositoryService', () => {
           useValue: [
             {
               supports: (resourceType: Type<any>, repositoryType?: Type<AbstractRepository<any>>) => resourceType && repositoryType && false,
-              getRepository: (resourceType: Type<any>, repositoryType?: Type<AbstractRepository<any>>) => `WRONG ${ resourceType.name } - ${ repositoryType.name }`
+              getRepository: (resourceType: Type<any>, repositoryType?: Type<AbstractRepository<any>>) => `WRONG ${resourceType.name} - ${repositoryType.name}`
             },
             {
               supports: (resourceType: Type<any>, repositoryType?: Type<AbstractRepository<any>>) => resourceType || repositoryType || true,
-              getRepository: (resourceType: Type<any>, repositoryType?: Type<AbstractRepository<any>>) => `OK ${ resourceType.name } - ${ repositoryType.name }`
+              getRepository: (resourceType: Type<any>, repositoryType?: Type<AbstractRepository<any>>) => `OK ${resourceType.name} - ${repositoryType.name}`
             }
           ]
         }

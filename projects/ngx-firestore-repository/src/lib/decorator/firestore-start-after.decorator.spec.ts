@@ -1,4 +1,4 @@
-import {FIRESTORE_START_AFTER_METADATA_KEY, FirestoreStartAfter} from './firestore-start-after.decorator';
+import { FIRESTORE_START_AFTER_METADATA_KEY, FirestoreStartAfter } from './firestore-start-after.decorator';
 
 describe('FirestoreStartAfterDecorator', () => {
 

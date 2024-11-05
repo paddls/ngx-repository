@@ -1,9 +1,9 @@
-import {Identifiable} from './identifiable.model';
-import {Column, JoinColumn} from '@paddls/ngx-repository';
-import {EMPTY, Observable} from 'rxjs';
-import {Book} from './book.model';
-import {FirestoreResource} from '@paddls/ngx-firestore-repository';
-import {HttpRepository} from '@paddls/ngx-http-repository';
+import { Identifiable } from './identifiable.model';
+import { Column, JoinColumn } from '@paddls/ngx-repository';
+import { EMPTY, Observable } from 'rxjs';
+import { Book } from './book.model';
+import { FirestoreResource } from '@paddls/ngx-firestore-repository';
+import { HttpRepository } from '@paddls/ngx-http-repository';
 
 @FirestoreResource({
   path: '/clients/:clientId/purchases'

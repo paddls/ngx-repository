@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {LibrariesComponent} from './component/libraries/libraries.component';
-import {LibraryComponent} from './component/library/library.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { LibrariesComponent } from './component/libraries/libraries.component';
+import { LibraryComponent } from './component/library/library.component';
 import { ClientComponent } from './component/client/client.component';
 import { PersonComponent } from './component/person/person.component';
 

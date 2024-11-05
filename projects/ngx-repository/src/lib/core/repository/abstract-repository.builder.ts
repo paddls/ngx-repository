@@ -1,4 +1,8 @@
-import { Repository, REPOSITORY_METADATA_KEY, RESOURCE_CONFIGURATION_METADATA_KEY } from '../decorator/repository.decorator';
+import {
+  Repository,
+  REPOSITORY_METADATA_KEY,
+  RESOURCE_CONFIGURATION_METADATA_KEY
+} from '../decorator/repository.decorator';
 import { Type } from '@angular/core';
 import { AbstractRepository } from './abstract-repository';
 import { ConfigurationProvider } from '../configuration/configuration.provider';
@@ -18,7 +22,7 @@ export abstract class AbstractRepositoryBuilder implements RepositoryBuilder {
 
   public getRepository<T>(resourceType: Type<T>): AbstractRepository<T> {
     if (!Reflect.hasMetadata(this.resourceContextKey, resourceType)) {
-      throw new Error(`${ resourceType.name } is not a valid resource.`);
+      throw new Error(`${resourceType.name} is not a valid resource.`);
     }
 
     const repository: AbstractRepository<T> = this.getRepositoryInstance<T>(resourceType);

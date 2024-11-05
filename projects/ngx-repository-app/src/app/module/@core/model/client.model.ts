@@ -1,9 +1,14 @@
-import {Identifiable} from './identifiable.model';
-import {Page, SubCollection, Column} from '@paddls/ngx-repository';
-import {Observable} from 'rxjs';
-import {Purchase} from './purchase.model';
-import {PurchaseQuery} from '../query/purchase.query';
-import {FirestoreCreatedAt, FirestoreRepository, FirestoreResource, FirestoreUpdatedAt} from '@paddls/ngx-firestore-repository';
+import { Identifiable } from './identifiable.model';
+import { Column, Page, SubCollection } from '@paddls/ngx-repository';
+import { Observable } from 'rxjs';
+import { Purchase } from './purchase.model';
+import { PurchaseQuery } from '../query/purchase.query';
+import {
+  FirestoreCreatedAt,
+  FirestoreRepository,
+  FirestoreResource,
+  FirestoreUpdatedAt
+} from '@paddls/ngx-firestore-repository';
 
 @FirestoreResource({
   path: '/clients'

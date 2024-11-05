@@ -19,7 +19,7 @@ export class LogExecuteFirestoreRequestEventListener implements Listener<Execute
     }
   }
 
-  private makeLog(request: FirestoreRepositoryRequest, type: 'FIRESTORE REQUEST'|'FIRESTORE RESPONSE'): string {
+  private makeLog(request: FirestoreRepositoryRequest, type: 'FIRESTORE REQUEST' | 'FIRESTORE RESPONSE'): string {
     return `%c[${type}]%c [${request.operation}] ${request.path.value}`;
   }
 }

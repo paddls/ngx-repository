@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {InMemoryDbService} from 'angular-in-memory-web-api';
+import { Injectable } from '@angular/core';
+import { InMemoryDbService } from 'angular-in-memory-web-api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InMemoryDataService implements InMemoryDbService {
 
-  public createDb(): {libraries: any[], persons: any[], books: any[], comments: any[]} {
+  public createDb(): { libraries: any[], persons: any[], books: any[], comments: any[] } {
     return {
       libraries: this.makeLibraries(),
       persons: this.makePersons(),

@@ -1,5 +1,5 @@
-import {HARD_CACHE_METADATA_KEY, HardCache, setHardCache} from './hard-cache.decorator';
-import {Observable, of} from 'rxjs';
+import { HARD_CACHE_METADATA_KEY, HardCache, setHardCache } from './hard-cache.decorator';
+import { Observable, of } from 'rxjs';
 
 describe('HardCacheDecorator', () => {
 

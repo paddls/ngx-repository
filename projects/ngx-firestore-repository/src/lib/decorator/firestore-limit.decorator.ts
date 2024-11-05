@@ -1,4 +1,4 @@
-import {FirestoreLimitContextConfiguration} from '../configuration/context/firestore-limit-context.configuration';
+import { FirestoreLimitContextConfiguration } from '../configuration/context/firestore-limit-context.configuration';
 
 /**
  * @ignore

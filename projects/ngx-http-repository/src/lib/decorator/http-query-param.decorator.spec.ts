@@ -1,4 +1,4 @@
-import {HTTP_QUERY_PARAM_METADATA_KEY, HttpQueryParam} from './http-query-param.decorator';
+import { HTTP_QUERY_PARAM_METADATA_KEY, HttpQueryParam } from './http-query-param.decorator';
 
 describe('HttpParamDecorator', () => {
 

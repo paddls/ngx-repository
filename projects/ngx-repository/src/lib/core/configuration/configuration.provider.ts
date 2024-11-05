@@ -13,14 +13,14 @@ export class ConfigurationProvider {
       return configuration;
     }
 
-    console.error(`Unable to find configuration '${ property }' (${ JSON.stringify(paths) })`, this.params);
+    console.error(`Unable to find configuration '${property}' (${JSON.stringify(paths)})`, this.params);
 
-    throw new Error(`Unable to find configuration '${ property }' (${ JSON.stringify(paths) })`);
+    throw new Error(`Unable to find configuration '${property}' (${JSON.stringify(paths)})`);
   }
 
   public findConfiguration(property: string, paths: string[]): any {
     for (const path of paths) {
-      const value: any = get(this.params, `${ path }.${ property }`);
+      const value: any = get(this.params, `${path}.${property}`);
       if (value != null) {
         return value;
       }

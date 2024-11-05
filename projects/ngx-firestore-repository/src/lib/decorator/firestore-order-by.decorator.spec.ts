@@ -1,4 +1,4 @@
-import {FIRESTORE_ORDER_BY_METADATA_KEY, FirestoreOrderBy} from './firestore-order-by.decorator';
+import { FIRESTORE_ORDER_BY_METADATA_KEY, FirestoreOrderBy } from './firestore-order-by.decorator';
 
 describe('FirestoreOrderByDecorator', () => {
 

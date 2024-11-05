@@ -58,7 +58,7 @@ export class NgxRepositoryService implements RepositoryService {
     if (repositories && Array.isArray(repositories)) {
       if (!repositoryType) {
         throw new Error(
-          `With multiple connection types, you must provide the repository argument in JoinColumn, SubCollection and InjectRepository decorator of your ${ resourceType.name } resource.`
+          `With multiple connection types, you must provide the repository argument in JoinColumn, SubCollection and InjectRepository decorator of your ${resourceType.name} resource.`
         );
       }
 
@@ -79,12 +79,12 @@ export class NgxRepositoryService implements RepositoryService {
     } else if (this.repositoryBuilders.length > 1) {
       if (!repositoryType) {
         throw new Error(
-          `With multiple connection types, you must provide the repository argument in JoinColumn, SubCollection and InjectRepository decorators of your ${ resourceType.name } resource.`
+          `With multiple connection types, you must provide the repository argument in JoinColumn, SubCollection and InjectRepository decorators of your ${resourceType.name} resource.`
         );
       }
       const connection: RepositoryBuilder = this.repositoryBuilders.find((c: RepositoryBuilder) => c.supports(resourceType, repositoryType));
       if (!connection) {
-        throw new Error(`There is no RepositoryBuilder to support ${ repositoryType.name } repository type`);
+        throw new Error(`There is no RepositoryBuilder to support ${repositoryType.name} repository type`);
       }
 
       repository = connection.getRepository(resourceType, repositoryType);

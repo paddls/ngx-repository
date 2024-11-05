@@ -106,7 +106,10 @@ describe('HttpMultipartResource', () => {
     testHttpRepository({
       create: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.create(new Book({name, file: 'hello.txt'})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({
+          name,
+          file: 'hello.txt'
+        })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
         expectedRequestBody,
@@ -182,7 +185,10 @@ describe('HttpMultipartResource', () => {
     testHttpRepository({
       create: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.create(new Book({name, fileWithAlias: 'world.txt'})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({
+          name,
+          fileWithAlias: 'world.txt'
+        })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
         expectedRequestBody,

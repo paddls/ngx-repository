@@ -1,5 +1,5 @@
-import {ConfigurationContextProvider} from './configuration-context.provider';
-import {ConfigurationProvider} from './configuration.provider';
+import { ConfigurationContextProvider } from './configuration-context.provider';
+import { ConfigurationProvider } from './configuration.provider';
 
 describe('ConfigurationContextProvider', () => {
   let params: any;

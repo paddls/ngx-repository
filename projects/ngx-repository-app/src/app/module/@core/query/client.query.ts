@@ -16,7 +16,7 @@ export class ClientQuery {
   public lastNameEqual?: string;
 
   @FirestoreOrderBy()
-  public orderBy?: string|FirestoreOrderByContext|(FirestoreOrderByContext|string)[];
+  public orderBy?: string | FirestoreOrderByContext | (FirestoreOrderByContext | string)[];
 
   @FirestoreStartAt()
   public startAt?: any;

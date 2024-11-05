@@ -1,7 +1,10 @@
-import {Observable, timer} from 'rxjs';
-import {softCache} from '@paddls/rxjs-common';
-import {takeUntil} from 'rxjs/operators';
-import {SoftCacheContext, SoftCacheContextConfiguration} from '../configuration/context/soft-cache-context.configuration';
+import { Observable, timer } from 'rxjs';
+import { softCache } from '@paddls/rxjs-common';
+import { takeUntil } from 'rxjs/operators';
+import {
+  SoftCacheContext,
+  SoftCacheContextConfiguration
+} from '../configuration/context/soft-cache-context.configuration';
 import isObject from 'lodash.isobject';
 
 /**
@@ -9,7 +12,7 @@ import isObject from 'lodash.isobject';
  */
 export const SOFT_CACHE_METADATA_KEY: string = 'softCache';
 
-export function SoftCache(softCacheContext?: SoftCacheContext|number): any {
+export function SoftCache(softCacheContext?: SoftCacheContext | number): any {
   return (target: object, propertyKey: string) => {
     let softCacheContextConfiguration: SoftCacheContextConfiguration = {
       propertyKey,

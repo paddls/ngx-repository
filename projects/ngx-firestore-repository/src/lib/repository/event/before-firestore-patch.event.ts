@@ -1,4 +1,4 @@
-import {InternalEvent} from '@paddls/ngx-repository';
+import { InternalEvent } from '@paddls/ngx-repository';
 
 export class BeforeFirestorePatchEvent<T> implements InternalEvent {
 

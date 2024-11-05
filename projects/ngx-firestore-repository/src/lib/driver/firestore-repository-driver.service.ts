@@ -9,7 +9,9 @@ import { FirestoreCollectionRepositoryResponse } from '../response/firestore-col
 import { fromRef } from './from-ref.function';
 import { FirestoreDocumentRepositoryResponse } from '../response/firestore-document-repository.response';
 import { NgxFirestoreRepositoryCreateRequestError } from '../error/ngx-firestore-repository-create-request.error';
-import { FirestoreDocumentReferenceRepositoryResponse } from '../response/firestore-document-reference-repository.response';
+import {
+  FirestoreDocumentReferenceRepositoryResponse
+} from '../response/firestore-document-reference-repository.response';
 import { NgxFirestoreRepositoryUpdateRequestError } from '../error/ngx-firestore-repository-update-request.error';
 import { NgxFirestoreRepositoryDeleteRequestError } from '../error/ngx-firestore-repository-delete-request.error';
 import { FirestoreEmptyRepositoryResponse } from '../response/firestore-empty-repository.response';
@@ -61,7 +63,7 @@ export class FirestoreRepositoryDriver implements RepositoryDriver {
         break;
 
       default:
-        throw new Error(`Operation not supported (${ request.operation })`);
+        throw new Error(`Operation not supported (${request.operation})`);
     }
 
     return obs$.pipe(

@@ -1,1 +1,2 @@
-export interface InternalEvent {}
+export interface InternalEvent {
+}

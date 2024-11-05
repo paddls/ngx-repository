@@ -1,4 +1,4 @@
-import {Column} from '@paddls/ngx-repository';
+import { Column } from '@paddls/ngx-repository';
 
 export class Address {
 

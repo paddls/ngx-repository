@@ -1,4 +1,4 @@
-import {FIRESTORE_LIMIT_TO_LAST_METADATA_KEY, FirestoreLimitToLast} from './firestore-limit-to-last.decorator';
+import { FIRESTORE_LIMIT_TO_LAST_METADATA_KEY, FirestoreLimitToLast } from './firestore-limit-to-last.decorator';
 
 describe('FirestoreLimitToLastDecorator', () => {
 

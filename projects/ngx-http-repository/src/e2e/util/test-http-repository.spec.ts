@@ -1,12 +1,12 @@
-import {Injectable, Type} from '@angular/core';
-import {InjectRepository, provideNgxRepositoryModule} from '@paddls/ngx-repository';
-import {TestBed} from '@angular/core/testing';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {HttpRepository} from '../../lib/repository/http.repository';
-import {NgxHttpRepositoryModuleConfiguration} from '../../public-api';
-import {expectHttpRequest, HttpRequestTestContext} from './expect-http-request.spec';
+import { Injectable, Type } from '@angular/core';
+import { InjectRepository, provideNgxRepositoryModule } from '@paddls/ngx-repository';
+import { TestBed } from '@angular/core/testing';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpRepository } from '../../lib/repository/http.repository';
+import { NgxHttpRepositoryModuleConfiguration } from '../../public-api';
+import { expectHttpRequest, HttpRequestTestContext } from './expect-http-request.spec';
 import forOwn from 'lodash.forown';
-import {provideNgxHttpRepositoryModule} from '../../lib/ngx-http-repository.module';
+import { provideNgxHttpRepositoryModule } from '../../lib/ngx-http-repository.module';
 
 export interface HttpTestContext extends HttpRequestTestContext {
   entity: Type<any>;
@@ -23,7 +23,9 @@ export interface HttpTestContext extends HttpRequestTestContext {
   expectedResponse: any;
 }
 
-export function testHttpRepository(tests: { [key: string]: Partial<HttpTestContext> }, rootContext: Partial<HttpTestContext> = {}): void {
+export function testHttpRepository(tests: {
+  [key: string]: Partial<HttpTestContext>
+}, rootContext: Partial<HttpTestContext> = {}): void {
   forOwn(tests, (context: HttpTestContext, name: string) => {
     itShouldTestHttpRepository(name, Object.assign({}, rootContext, context));
   });
@@ -43,7 +45,7 @@ export async function httpTest(httpTestContext: HttpTestContext): Promise<void> 
     @Injectable()
     class BookService {
 
-      @InjectRepository({ resourceType: () => httpTestContext.entity, repository: () => HttpRepository })
+      @InjectRepository({resourceType: () => httpTestContext.entity, repository: () => HttpRepository})
       public repository: HttpRepository<any, number>;
 
     }

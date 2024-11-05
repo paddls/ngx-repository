@@ -1,4 +1,4 @@
-import {FIRESTORE_LIMIT_METADATA_KEY, FirestoreLimit} from './firestore-limit.decorator';
+import { FIRESTORE_LIMIT_METADATA_KEY, FirestoreLimit } from './firestore-limit.decorator';
 
 describe('FirestoreLimitDecorator', () => {
 

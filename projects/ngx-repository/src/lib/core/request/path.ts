@@ -50,9 +50,9 @@ export class Path {
       }
 
       if (pathParam.customConverter) {
-        params[`:${ pathParam.name }`] = new (pathParam.customConverter())().toJson(property, this.serializer);
+        params[`:${pathParam.name}`] = new (pathParam.customConverter())().toJson(property, this.serializer);
       } else {
-        params[`:${ pathParam.name }`] = property;
+        params[`:${pathParam.name}`] = property;
       }
     });
 
@@ -66,7 +66,7 @@ export class Path {
     Object.keys(pathParams).forEach((key: string) => path = path.replace(key, pathParams[key]));
 
     if (this.id.value != null) {
-      path += `/${ this.id.value }`;
+      path += `/${this.id.value}`;
     }
 
     return path;

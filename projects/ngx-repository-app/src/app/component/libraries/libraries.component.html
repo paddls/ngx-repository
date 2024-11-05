@@ -7,9 +7,12 @@
     <li class="pagination">
       <button *ngFor="let page of pages$|async"
               [disabled]="page + 1 === (currentPageSubject|async)"
-              (click)="onClickOnPage(page + 1)">{{ page + 1 }}</button>
+              (click)="onClickOnPage(page + 1)">{{ page + 1 }}
+      </button>
     </li>
-    <li><button (click)="createLibrary()">create</button></li>
+    <li>
+      <button (click)="createLibrary()">create</button>
+    </li>
   </ul>
   <ul id="users">
     <li class="title">Persons</li>
@@ -25,7 +28,9 @@
       <button (click)="updatePerson(person)">update</button>
       <button (click)="patchPerson(person)">patch</button>
     </li>
-    <li><button (click)="createPerson()">create</button></li>
+    <li>
+      <button (click)="createPerson()">create</button>
+    </li>
   </ul>
   <ul>
     <li class="title">Clients</li>
@@ -42,7 +47,9 @@
       <button (click)="updateClient(client)">update</button>
       <button (click)="patchClient(client)">patch</button>
     </li>
-    <li><button (click)="createClient()">create</button></li>
+    <li>
+      <button (click)="createClient()">create</button>
+    </li>
   </ul>
 </div>
 <div class="library">

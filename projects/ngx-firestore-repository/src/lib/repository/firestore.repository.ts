@@ -22,7 +22,11 @@ import { Observable } from 'rxjs';
 import { FirestoreRequestBuilder } from '../request/firestore-request-builder.service';
 import { map, tap } from 'rxjs/operators';
 import { FirestoreRepositoryDriver } from '../driver/firestore-repository-driver.service';
-import { createFirestoreRepositoryConfiguration, FIRESTORE_REPOSITORY_CONFIGURATION, FirestoreResourceConfiguration } from '../configuration/firestore-repository.configuration';
+import {
+  createFirestoreRepositoryConfiguration,
+  FIRESTORE_REPOSITORY_CONFIGURATION,
+  FirestoreResourceConfiguration
+} from '../configuration/firestore-repository.configuration';
 import { FirestoreCriteriaRequestBuilder } from '../request/firestore-criteria-request-builder.service';
 import { BeforeFirestoreFindAllEvent } from './event/before-firestore-find-all.event';
 import { AfterFirestoreFindAllEvent } from './event/after-firestore-find-all.event';

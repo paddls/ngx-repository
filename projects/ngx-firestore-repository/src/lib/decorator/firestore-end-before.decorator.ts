@@ -1,4 +1,6 @@
-import {FirestoreEndBeforeContextConfiguration} from '../configuration/context/firestore-end-before-context.configuration';
+import {
+  FirestoreEndBeforeContextConfiguration
+} from '../configuration/context/firestore-end-before-context.configuration';
 
 /**
  * @ignore

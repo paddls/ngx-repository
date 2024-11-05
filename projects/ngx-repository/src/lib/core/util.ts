@@ -1,4 +1,4 @@
-import {ID_METADATA_KEY} from './decorator/id.decorator';
+import { ID_METADATA_KEY } from './decorator/id.decorator';
 
 export function getIdFromObject(object: any): any {
   if (object != null) {

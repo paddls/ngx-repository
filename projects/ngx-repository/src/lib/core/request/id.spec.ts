@@ -1,5 +1,5 @@
-import {Id} from './id';
-import {ID_METADATA_KEY} from '../decorator/id.decorator';
+import { Id } from './id';
+import { ID_METADATA_KEY } from '../decorator/id.decorator';
 
 describe('Id', () => {
 

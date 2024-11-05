@@ -1,5 +1,5 @@
-import {Type} from '@angular/core';
-import {InternalEvent} from '@paddls/ngx-repository';
+import { Type } from '@angular/core';
+import { InternalEvent } from '@paddls/ngx-repository';
 
 export class AfterHttpCreateEvent<T, K> implements InternalEvent {
 

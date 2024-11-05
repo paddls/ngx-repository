@@ -1,4 +1,4 @@
-import {PropertyKeyConfiguration} from '../../common/decorator/property-key-configuration';
+import { PropertyKeyConfiguration } from '../../common/decorator/property-key-configuration';
 
 export interface HardCacheContext {
 

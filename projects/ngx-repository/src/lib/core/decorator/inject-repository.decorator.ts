@@ -30,8 +30,8 @@ export function InjectRepository<T>(params: InjectRepositoryContext<T>): any {
 
     Object.defineProperty(target.constructor.prototype, propertyKey, {
       get(): AbstractRepository<T> {
-        if (Reflect.hasOwnMetadata(`${ INJECT_REPOSITORY_INSTANCE_METADATA_KEY }:${ propertyKey }`, this)) {
-          return Reflect.getOwnMetadata(`${ INJECT_REPOSITORY_INSTANCE_METADATA_KEY }:${ propertyKey }`, this);
+        if (Reflect.hasOwnMetadata(`${INJECT_REPOSITORY_INSTANCE_METADATA_KEY}:${propertyKey}`, this)) {
+          return Reflect.getOwnMetadata(`${INJECT_REPOSITORY_INSTANCE_METADATA_KEY}:${propertyKey}`, this);
         }
 
         const repository: AbstractRepository<T> = NgxRepositoryService.getInstance().getRepository(
@@ -39,7 +39,7 @@ export function InjectRepository<T>(params: InjectRepositoryContext<T>): any {
           injectRepositoryContextConfiguration.repository ? injectRepositoryContextConfiguration.repository() : null
         );
 
-        Reflect.defineMetadata(`${ INJECT_REPOSITORY_INSTANCE_METADATA_KEY }:${ propertyKey }`, repository, this);
+        Reflect.defineMetadata(`${INJECT_REPOSITORY_INSTANCE_METADATA_KEY}:${propertyKey}`, repository, this);
 
         return repository;
       },

@@ -1,14 +1,14 @@
-import {Predicate} from '@angular/core';
-import {PublisherService} from '../publisher.service';
-import {asyncScheduler, Observable} from 'rxjs';
-import {filter, observeOn} from 'rxjs/operators';
-import {softCache} from '@paddls/rxjs-common';
+import { Predicate } from '@angular/core';
+import { PublisherService } from '../publisher.service';
+import { asyncScheduler, Observable } from 'rxjs';
+import { filter, observeOn } from 'rxjs/operators';
+import { softCache } from '@paddls/rxjs-common';
 
 const EVENT_LISTENER_OBS_METADATA_KEY: string = 'ngx-repository:event-listener-observable';
 
-export function EventListener<E>(predicate?: Predicate<E>|(Predicate<E>[])): any {
+export function EventListener<E>(predicate?: Predicate<E> | (Predicate<E>[])): any {
   return (target: any, propertyKey?: string) => {
-    let finalPredicate: Predicate<E>|Predicate<E>[] = predicate;
+    let finalPredicate: Predicate<E> | Predicate<E>[] = predicate;
 
     if (!finalPredicate) {
       finalPredicate = () => true;

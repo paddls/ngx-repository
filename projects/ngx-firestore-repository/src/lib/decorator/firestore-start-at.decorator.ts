@@ -1,4 +1,6 @@
-import {FirestoreStartAtContextConfiguration} from '../configuration/context/firestore-start-at-context.configuration';
+import {
+  FirestoreStartAtContextConfiguration
+} from '../configuration/context/firestore-start-at-context.configuration';
 
 /**
  * @ignore
