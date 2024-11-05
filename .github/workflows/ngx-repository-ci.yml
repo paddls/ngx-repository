@@ -49,7 +49,7 @@ jobs:
         run: npm ci
 
       - name: Test
-        run: npm run testt:ci
+        run: npm run test:ci
 
       - name: Archive coverage artifact
         if: github.ref == 'refs/heads/master'
@@ -60,7 +60,7 @@ jobs:
 
   coverall:
     name: Coverall
-    needs: [testt, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository]
+    needs: [ test, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     strategy:
@@ -178,7 +178,7 @@ jobs:
   deploy-ngx-repository:
     name: Deploy ngx-repository
     runs-on: ubuntu-latest
-    needs: [ testt, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
+    needs: [ test, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
     if: github.ref == 'refs/heads/master'
     strategy:
       matrix:
@@ -209,7 +209,7 @@ jobs:
   deploy-witty-ngx-repository:
     name: Deploy witty ngx-repository
     runs-on: ubuntu-latest
-    needs: [ testt, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
+    needs: [ test, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
     if: github.ref == 'refs/heads/master'
     strategy:
       matrix:
@@ -245,7 +245,7 @@ jobs:
   deploy-ngx-http-repository:
     name: Deploy ngx-http-repository
     runs-on: ubuntu-latest
-    needs: [ testt, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
+    needs: [ test, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
     if: github.ref == 'refs/heads/master'
     strategy:
       matrix:
@@ -275,7 +275,7 @@ jobs:
   deploy-witty-ngx-http-repository:
     name: Deploy witty ngx-http-repository
     runs-on: ubuntu-latest
-    needs: [ testt, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
+    needs: [ test, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
     if: github.ref == 'refs/heads/master'
     strategy:
       matrix:
@@ -311,7 +311,7 @@ jobs:
   deploy-ngx-firestore-repository:
     name: Deploy ngx-firestore-repository
     runs-on: ubuntu-latest
-    needs: [ testt, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
+    needs: [ test, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
     if: github.ref == 'refs/heads/master'
     strategy:
       matrix:
@@ -341,7 +341,7 @@ jobs:
   deploy-witty-ngx-firestore-repository:
     name: Deploy witty ngx-firestore-repository
     runs-on: ubuntu-latest
-    needs: [ testt, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
+    needs: [ test, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
     if: github.ref == 'refs/heads/master'
     strategy:
       matrix:

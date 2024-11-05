@@ -1102,7 +1102,7 @@ After dependency installation, you can run others commands :
 
 ````shell script
 # Run the tests
-npm run testt
+npm run test
 
 # Run the linter
 npm run lint

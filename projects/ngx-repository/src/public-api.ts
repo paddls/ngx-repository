@@ -91,9 +91,6 @@ export * from './lib/core/response/processor/id-response.processor';
 export * from './lib/core/response/processor/void-response.processor';
 export * from './lib/core/response/processor/response.processor';
 
-//todo export laissé ici
-export { getIdFromObject } from './lib/core/common/functions';
-
 export { AfterDenormalizeEvent } from './lib/normalizer/event/after-denormalize.event';
 export { BeforeDenormalizeEvent } from './lib/normalizer/event/before-denormalize.event';
 export { AfterNormalizeEvent } from './lib/normalizer/event/after-normalize.event';

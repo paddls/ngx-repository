@@ -1,4 +1,4 @@
-import { Column } from '../lib/core/decorator/column.decorator';
+import {Column} from '../lib/core/decorator/column.decorator';
 
 export class Mock {
 
@@ -7,7 +7,7 @@ export class Mock {
   public mySecondProperty: string;
 
   @Column({field: 'name', writeOnly: true})
-  public name: string = 'testt';
+  public name: string = 'test';
 
   public constructor(data?: Partial<Mock>) {
     if (data) {
