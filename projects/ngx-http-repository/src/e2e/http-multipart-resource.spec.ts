@@ -59,6 +59,7 @@ describe('HttpMultipartResource', () => {
         expectedRequestBody,
         mockedResponseBody: {id: 1, name},
         expectedResponse: void 0,
+
         verify: async (params: any) => {
           const givenRequestBody: string = await params[2].body.get('data').text();
           expect(givenRequestBody).toEqual(JSON.stringify({id: 1, name}));
@@ -212,6 +213,7 @@ describe('HttpMultipartResource', () => {
         expectedRequestBody,
         mockedResponseBody: {id: 1, name},
         expectedResponse: void 0,
+
         verify: async (params: any) => {
           const givenRequestBody: string = await params[2].body.get('data').text();
           expect(givenRequestBody).toEqual(JSON.stringify({id: 1, name}));

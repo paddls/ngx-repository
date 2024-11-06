@@ -7,7 +7,6 @@ import { ConfigurationContextProvider } from '../configuration/configuration-con
 import { Type } from '@angular/core';
 import { REPOSITORY_METADATA_KEY } from '../decorator/repository.decorator';
 import { RepositoryContextConfiguration } from '../configuration/context/repository-context.configuration';
-import merge from 'lodash.merge';
 
 export abstract class AbstractRepository<T> {
 
@@ -23,7 +22,7 @@ export abstract class AbstractRepository<T> {
       throw new Error('There is no Resource type configuration for this repository.');
     }
 
-    const configuration: ResourceConfiguration = merge({
+    const configuration: ResourceConfiguration = Object.assign({
       responseType: repositoryConfiguration.resourceType
     }, repositoryConfiguration.defaultConfiguration, moduleConfiguration);
 

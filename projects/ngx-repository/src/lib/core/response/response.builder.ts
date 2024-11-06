@@ -12,9 +12,7 @@ import { OriginalQueryResponseProcessor } from './processor/original-query-respo
 import { ResponseBuilderParam } from './response-builder.param';
 import { ResponseProcessorWithParams } from './response-processor-with.params';
 import { ResponseProcessorToken } from './response-processor.token';
-import get from 'lodash.get';
-import isFunction from 'lodash.isfunction';
-import isObject from 'lodash.isobject';
+import { get, isFunction, isObject } from '@paddls/utils';
 
 @Injectable()
 export class ResponseBuilder {

@@ -26,7 +26,7 @@ import {
   HttpQueryParam
 } from '../public-api';
 import { buildHttpParams } from './util/build-http.params.spec';
-import forOwn from 'lodash.forown';
+import { forOwn } from '@paddls/utils';
 
 describe('HttpRequestDecorator', () => {
 

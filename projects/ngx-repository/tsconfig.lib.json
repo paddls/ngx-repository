@@ -5,7 +5,10 @@
     "declarationMap": true,
     "declaration": true,
     "inlineSources": true,
-    "types": [],
+    "types": [
+      "node",
+      "jasmine"
+    ],
     "lib": [
       "dom",
       "es2018"
@@ -18,6 +21,9 @@
     "strictInjectionParameters": true,
     "enableResourceInlining": true
   },
+  "include": [
+    "src/**/*.ts"
+  ],
   "exclude": [
     "src/test.ts",
     "**/*.spec.ts"

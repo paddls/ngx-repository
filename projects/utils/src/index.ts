@@ -1,0 +1,14 @@
+export { flatten } from './lib/flatten';
+export { flattenDeep } from './lib/flatten-deep';
+export { forOwn } from './lib/for-own';
+export { get } from './lib/get';
+export { isFunction } from './lib/is-function';
+export { isObject } from './lib/is-object';
+export { isString } from './lib/is-string';
+export { isUndefined } from './lib/is-undefined';
+export { mergeDeep } from './lib/merge-deep';
+export { omit } from './lib/omit';
+export { omitBy } from './lib/omit-by';
+export { pick } from './lib/pick';
+export { set } from './lib/set';
+export { valuesIn } from './lib/values-in';

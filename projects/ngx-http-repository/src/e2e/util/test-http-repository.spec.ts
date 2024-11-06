@@ -5,8 +5,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpRepository } from '../../lib/repository/http.repository';
 import { NgxHttpRepositoryModuleConfiguration } from '../../public-api';
 import { expectHttpRequest, HttpRequestTestContext } from './expect-http-request.spec';
-import forOwn from 'lodash.forown';
 import { provideNgxHttpRepositoryModule } from '../../lib/ngx-http-repository.module';
+import { forOwn } from '@paddls/utils';
 
 export interface HttpTestContext extends HttpRequestTestContext {
   entity: Type<any>;

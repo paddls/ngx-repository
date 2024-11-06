@@ -6,7 +6,6 @@ import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { LibraryService } from '../../module/@core/service/library.service';
 import { Book } from '../../module/@core/model/book.model';
 import { BookService } from '../../module/@core/service/book.service';
-import clone from 'lodash.clone';
 
 @Component({
   selector: 'app-library',
@@ -46,7 +45,7 @@ export class LibraryComponent {
   }
 
   public onUpdateLibrary(library: Library): void {
-    const libraryToUpdate: Library = clone(library);
+    const libraryToUpdate: Library = structuredClone(library);
     libraryToUpdate.name = this.libraryName;
     this.libraryService.update(libraryToUpdate).subscribe();
   }

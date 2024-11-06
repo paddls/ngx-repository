@@ -4,7 +4,6 @@ export { TypeGetter } from './lib/core/common/model/type-getter.type';
 export { PathParamConfiguration } from './lib/core/configuration/path-param.configuration';
 
 export { PropertyKeyConfiguration } from './lib/core/common/decorator/property-key-configuration';
-
 export { ColumnContext } from './lib/core/configuration/context/column-context.configuration';
 export { IdContext } from './lib/core/configuration/context/id-context.configuration';
 export { InjectRepositoryContext } from './lib/core/configuration/context/inject-repository-context.configuration';
@@ -92,8 +91,6 @@ export * from './lib/core/response/processor/id-response.processor';
 export * from './lib/core/response/processor/void-response.processor';
 export * from './lib/core/response/processor/response.processor';
 
-export * from './lib/core/util';
-
 export { AfterDenormalizeEvent } from './lib/normalizer/event/after-denormalize.event';
 export { BeforeDenormalizeEvent } from './lib/normalizer/event/before-denormalize.event';
 export { AfterNormalizeEvent } from './lib/normalizer/event/after-normalize.event';
@@ -108,5 +105,7 @@ export { NgxSerializerService } from '@paddls/ngx-serializer';
 export { ResponseBuilderParam } from './lib/core/response/response-builder.param';
 export { ResponseProcessorWithParams } from './lib/core/response/response-processor-with.params';
 export { ResponseProcessorToken } from './lib/core/response/response-processor.token';
+
+export { getIdFromObject } from './lib/core/common/functions';
 
 export { fetchAllPage } from './lib/operator/fetch-all-page.operator';

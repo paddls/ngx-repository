@@ -7,7 +7,7 @@ import { LibraryQuery } from '../query/library.query';
 
 describe('LibraryService', () => {
   let libraryService: LibraryService;
-  let libraryRepository: MockRepository;
+  let libraryRepository: MockRepository<unknown>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({

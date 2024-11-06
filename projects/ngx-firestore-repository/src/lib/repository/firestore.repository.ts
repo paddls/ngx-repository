@@ -44,8 +44,7 @@ import { BeforeFirestorePatchEvent } from './event/before-firestore-patch.event'
 import { AfterFirestorePatchEvent } from './event/after-firestore-patch.event';
 import { Inject, Type } from '@angular/core';
 import { FIRESTORE_RESOURCE_METADATA_KEY } from '../decorator/firestore-resource.decorator';
-import merge from 'lodash.merge';
-import first from 'lodash.first';
+
 
 /**
  * @ignore
@@ -102,7 +101,7 @@ export class FirestoreRepository<T, K = string> extends AbstractRepository<T> im
     PublisherService.getInstance().publish(new BeforeFirestoreFindOneEvent({query}));
 
     return this.execute(null, query, ['findOne', 'read']).pipe(
-      map((result: any) => first(result) || null),
+      map((result: any) => result?.[0] || null),
       tap((data: R) => PublisherService.getInstance().publish(new AfterFirestoreFindOneEvent({
         query,
         data
@@ -171,7 +170,7 @@ export class FirestoreRepository<T, K = string> extends AbstractRepository<T> im
   }
 
   protected getResourceConfiguration(resourceType: Type<any>, configuration: ResourceConfiguration): ResourceConfiguration {
-    const config: ResourceConfiguration = merge({}, configuration, Reflect.getMetadata(FIRESTORE_RESOURCE_METADATA_KEY, resourceType));
+    const config: ResourceConfiguration = Object.assign({}, configuration, Reflect.getMetadata(FIRESTORE_RESOURCE_METADATA_KEY, resourceType));
 
     return createFirestoreRepositoryConfiguration(config);
   }

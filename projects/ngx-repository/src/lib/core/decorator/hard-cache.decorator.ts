@@ -5,7 +5,7 @@ import {
   HardCacheContext,
   HardCacheContextConfiguration
 } from '../configuration/context/hard-cache-context.configuration';
-import isObject from 'lodash.isobject';
+import { isObject } from '@paddls/utils';
 
 /**
  * @ignore

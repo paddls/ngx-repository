@@ -45,8 +45,7 @@ import { OnHttpResourceChange } from '../decorator/on-http-resource-change.decor
 import { Inject, Type } from '@angular/core';
 import { createHttpRepositoryConfiguration } from '../configuration/context/http-repository-context.configuration';
 import { HTTP_REPOSITORY_CONFIGURATION } from '../configuration/http-repository.configuration';
-import merge from 'lodash.merge';
-import first from 'lodash.first';
+import { mergeDeep } from '@paddls/utils';
 
 @Repository(null, {
   requestBuilder: HttpRequestBuilder,
@@ -124,7 +123,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
     }));
 
     let findOne$: Observable<R> = this.execute(null, query, ['findOne', 'read']).pipe(
-      map((result: any) => first(result) || null),
+      map((result: any) => result?.[0] || null),
       tap((data: R) => PublisherService.getInstance().publish(new AfterHttpFindOneEvent({
         type: this.resourceType,
         query,
@@ -263,7 +262,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
   }
 
   protected getResourceConfiguration(resourceType: Type<any>, configuration: ResourceConfiguration): ResourceConfiguration {
-    const config: ResourceConfiguration = merge({}, configuration, Reflect.getMetadata(HTTP_RESOURCE_METADATA_KEY, resourceType));
+    const config = mergeDeep(configuration, Reflect.getMetadata(HTTP_RESOURCE_METADATA_KEY, resourceType));
 
     return createHttpRepositoryConfiguration(config);
   }
