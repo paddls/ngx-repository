@@ -1,4 +1,4 @@
-import { isObject } from "./is-object";
+import { isObject } from './is-object';
 
 export const mergeDeep = (target: { [x: string]: any; }, source: { [x: string]: any; }) => {
   const output = Object.assign({}, target);

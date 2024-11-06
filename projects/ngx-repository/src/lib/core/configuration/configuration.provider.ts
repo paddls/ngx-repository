@@ -1,5 +1,5 @@
 import { ResourceConfiguration } from './resource.configuration';
-import { get } from "@paddls/utils";
+import { get } from '@paddls/utils';
 
 export class ConfigurationProvider {
 

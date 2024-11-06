@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { RepositoryResponse } from '../repository.response';
 import { RequestManagerContext } from '../../manager/request-manager.context';
 import { ResponseProcessor } from './response.processor';
-import { isObject } from "@paddls/utils";
+import { isObject } from '@paddls/utils';
 
 /**
  * @ignore

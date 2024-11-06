@@ -45,7 +45,7 @@ import { OnHttpResourceChange } from '../decorator/on-http-resource-change.decor
 import { Inject, Type } from '@angular/core';
 import { createHttpRepositoryConfiguration } from '../configuration/context/http-repository-context.configuration';
 import { HTTP_REPOSITORY_CONFIGURATION } from '../configuration/http-repository.configuration';
-import { mergeDeep } from "@paddls/utils";
+import { mergeDeep } from '@paddls/utils';
 
 @Repository(null, {
   requestBuilder: HttpRequestBuilder,

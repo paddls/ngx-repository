@@ -1,4 +1,4 @@
-import { forOwn } from "@paddls/utils";
+import { forOwn } from '@paddls/utils';
 
 describe('forOwn', () => {
   it('should iterate over own properties of an object', () => {

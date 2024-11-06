@@ -1,4 +1,4 @@
-import { get } from "@paddls/utils";
+import { get } from '@paddls/utils';
 
 describe('get', () => {
   it('should return undefined if path is empty', () => {
