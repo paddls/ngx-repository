@@ -1,4 +1,4 @@
-import { flatten } from '@paddls/utils';
+import { flatten } from './flatten';
 
 describe('flatten', () => {
   it('should flatten single deep array', () => {

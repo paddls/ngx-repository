@@ -1,4 +1,4 @@
-import { isFunction } from '@paddls/utils';
+import { isFunction } from './is-function';
 
 describe('isFunction', () => {
   it('should return true if value type is function', () => {

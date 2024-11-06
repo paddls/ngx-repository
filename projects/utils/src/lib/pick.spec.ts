@@ -1,4 +1,4 @@
-import { pick } from '@paddls/utils';
+import { pick } from './pick';
 
 describe('pick', () => {
   it('should pick a single property', () => {

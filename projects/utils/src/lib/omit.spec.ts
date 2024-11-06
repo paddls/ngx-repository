@@ -1,4 +1,4 @@
-import { omit } from '@paddls/utils';
+import { omit } from './omit';
 
 describe('omit', () => {
   it('should omit a single property', () => {

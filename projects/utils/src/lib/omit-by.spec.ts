@@ -1,4 +1,4 @@
-import { omitBy } from '@paddls/utils';
+import { omitBy } from './omit-by';
 
 describe('omitBy', () => {
   it('should omit properties based on the check function', () => {

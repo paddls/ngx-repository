@@ -16,10 +16,10 @@ module.exports = function (config) {
       clearContext: false  // leave Jasmine Spec Runner output visible in browser
     },
     files: [
-      {pattern: 'src/*.spec.ts'}
+      {pattern: 'src/lib/*.spec.ts'}
     ],
     preprocessors: {
-      'src/*.spec.ts': ['webpack']
+      'src/lib/*.spec.ts': ['webpack']
     },
     webpack: {
       resolve: {

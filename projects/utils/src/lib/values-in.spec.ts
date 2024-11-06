@@ -1,4 +1,4 @@
-import { valuesIn } from '@paddls/utils';
+import { valuesIn } from './values-in';
 
 describe('ValuesIn', () => {
   it('should return an array with all object values', () => {

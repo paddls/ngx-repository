@@ -1,4 +1,4 @@
-import { mergeDeep } from '@paddls/utils';
+import { mergeDeep } from './merge-deep';
 
 describe('mergeDeep', () => {
   it('should merge simple objects', () => {

@@ -1,4 +1,4 @@
-import { set } from '@paddls/utils';
+import { set } from './set';
 
 describe('set', () => {
   it('should set a value at a given path with dot notation', () => {

@@ -1,4 +1,4 @@
-import { isString } from '@paddls/utils';
+import { isString } from './is-string';
 
 describe('isString', () => {
   it('should return true if value type is String', () => {

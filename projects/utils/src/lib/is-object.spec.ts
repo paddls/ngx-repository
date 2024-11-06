@@ -1,4 +1,4 @@
-import { isObject } from '@paddls/utils';
+import { isObject } from './is-object';
 
 describe('isObject', () => {
   it('should return true if value type is object', () => {
