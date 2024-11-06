@@ -56,7 +56,6 @@
     "object-hash": "^2.0.3",
     "rxjs": "7.5.3",
     "tslib": "^2.6.3",
-    "typescript": "^5.5.4",
     "zone.js": "~0.14.2"
   },
   "devDependencies": {
@@ -107,6 +106,7 @@
     "ts-loader": "^9.5.1",
     "ts-node": "~10.9.1",
     "tsify": "^5.0.4",
+    "typescript": "^5.5.4",
     "webpack": "^5.93.0",
     "webpack-cli": "^5.1.4"
   },
