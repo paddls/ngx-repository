@@ -41,5 +41,5 @@ export function getDeepQueryMetadataValues<T extends PropertyKeyConfiguration>(m
 }
 
 export function getDeepQueryMetadataValue(metadataKey: string, query: any): any {
-  return getDeepQueryMetadataValues(metadataKey, query)[0];
+  return getDeepQueryMetadataValues(metadataKey, query)?.[0];
 }

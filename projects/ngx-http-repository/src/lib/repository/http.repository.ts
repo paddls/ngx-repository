@@ -123,7 +123,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
     }));
 
     let findOne$: Observable<R> = this.execute(null, query, ['findOne', 'read']).pipe(
-      map((result: any) => result[0] || null),
+      map((result: any) => result?.[0] || null),
       tap((data: R) => PublisherService.getInstance().publish(new AfterHttpFindOneEvent({
         type: this.resourceType,
         query,

@@ -8,7 +8,7 @@ export class ConfigurationContextProvider {
   }
 
   public getOperation(): string {
-    return this.paths[0];
+    return this.paths?.[0];
   }
 
   public getConfiguration<T extends ResourceConfiguration = ResourceConfiguration>(property: keyof T): any {

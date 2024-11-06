@@ -101,7 +101,7 @@ export class FirestoreRepository<T, K = string> extends AbstractRepository<T> im
     PublisherService.getInstance().publish(new BeforeFirestoreFindOneEvent({query}));
 
     return this.execute(null, query, ['findOne', 'read']).pipe(
-      map((result: any) => result[0] || null),
+      map((result: any) => result?.[0] || null),
       tap((data: R) => PublisherService.getInstance().publish(new AfterFirestoreFindOneEvent({
         query,
         data

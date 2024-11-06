@@ -1,4 +1,4 @@
-import {Column} from '../lib/core/decorator/column.decorator';
+import { Column } from '../lib/core/decorator/column.decorator';
 
 export class Mock {
 
