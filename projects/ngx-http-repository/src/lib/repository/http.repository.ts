@@ -262,7 +262,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
   }
 
   protected getResourceConfiguration(resourceType: Type<any>, configuration: ResourceConfiguration): ResourceConfiguration {
-    const config = mergeDeep(configuration, Reflect.getMetadata(HTTP_RESOURCE_METADATA_KEY, resourceType));
+    const config: ResourceConfiguration = mergeDeep(configuration, Reflect.getMetadata(HTTP_RESOURCE_METADATA_KEY, resourceType));
 
     return createHttpRepositoryConfiguration(config);
   }

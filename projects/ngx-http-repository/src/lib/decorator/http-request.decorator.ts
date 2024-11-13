@@ -65,7 +65,7 @@ function buildHttpRequestDecorator(params: string | HttpRequestParamsContext, re
 }
 
 /**
- * Generate method to invoke Http Get request. By default HttpQueryFn but can be changed to HttpBodyFn (see withBody option)
+ * Generate method to invoke Http Get request. By default, HttpQueryFn but can be changed to HttpBodyFn (see withBody option)
  * @param params path or full configuration object.
  * @param responseType type of the response for deserialization.
  */

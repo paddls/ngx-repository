@@ -1,5 +1,6 @@
 export { HttpHeaderContext } from './lib/configuration/context/http-header-context.configuration';
 export { HttpQueryParamContext } from './lib/configuration/context/http-query-param-context.configuration';
+export { HttpOfflineQueueContext } from './lib/configuration/context/http-offline-queue-context.configuration';
 export * from './lib/configuration/context/http-request-params-context.configuration';
 
 export { HttpHeader } from './lib/decorator/http-header.decorator';
@@ -7,6 +8,7 @@ export { HttpLiveResource } from './lib/decorator/http-live-resource.decorator';
 export { HttpQueryParam } from './lib/decorator/http-query-param.decorator';
 export { HttpResource } from './lib/decorator/http-resource.decorator';
 export { OnHttpResourceChange } from './lib/decorator/on-http-resource-change.decorator';
+export { HttpOfflineQueue } from './lib/decorator/http-offline-queue.decorator';
 export * from './lib/decorator/http-request.decorator';
 
 export { AfterExecuteHttpRequestEvent } from './lib/driver/event/after-execute-http-request.event';
