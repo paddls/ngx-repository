@@ -1,5 +1,5 @@
 import { HttpRepositoryDriver } from '../driver/http-repository.driver';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import {
   AbstractRepository,
   CreateRepository,
@@ -46,6 +46,8 @@ import { Inject, Type } from '@angular/core';
 import { createHttpRepositoryConfiguration } from '../configuration/context/http-repository-context.configuration';
 import { HTTP_REPOSITORY_CONFIGURATION } from '../configuration/http-repository.configuration';
 import { mergeDeep } from '@paddls/utils';
+import { HttpRequestQueuedEvent } from '../offline-queue/event/http-request-queued.event';
+import { HTTP_OFFLINE_QUEUE_METADATA_KEY } from '../decorator/http-offline-queue.decorator';
 
 @Repository(null, {
   requestBuilder: HttpRequestBuilder,
@@ -200,6 +202,17 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
       query
     }));
 
+    if (this.withOfflineQueue() && this.isOffline()) {
+      PublisherService.getInstance().publish(new HttpRequestQueuedEvent({
+        type: this.resourceType,
+        operation: 'create',
+        object,
+        query
+      }))
+
+      return EMPTY;
+    }
+
     return this.execute(object, query, ['create', 'write']).pipe(
       tap((data: R) => PublisherService.getInstance().publish(new AfterHttpCreateEvent({
         type: this.resourceType,
@@ -216,6 +229,17 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
       object,
       query
     }));
+
+    if (this.withOfflineQueue() && this.isOffline()) {
+      PublisherService.getInstance().publish(new HttpRequestQueuedEvent({
+        type: this.resourceType,
+        operation: 'delete',
+        object,
+        query
+      }))
+
+      return EMPTY;
+    }
 
     return this.execute(object, query, ['delete', 'write']).pipe(
       tap((data: R) => PublisherService.getInstance().publish(new AfterHttpDeleteEvent({
@@ -234,6 +258,17 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
       query
     }));
 
+    if (this.withOfflineQueue() && this.isOffline()) {
+      PublisherService.getInstance().publish(new HttpRequestQueuedEvent({
+        type: this.resourceType,
+        operation: 'update',
+        object,
+        query
+      }))
+
+      return EMPTY;
+    }
+
     return this.execute(object, query, ['update', 'write']).pipe(
       tap((data: R) => PublisherService.getInstance().publish(new AfterHttpUpdateEvent({
         type: this.resourceType,
@@ -251,6 +286,17 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
       query
     }));
 
+    if (this.withOfflineQueue() && this.isOffline()) {
+      PublisherService.getInstance().publish(new HttpRequestQueuedEvent({
+        type: this.resourceType,
+        operation: 'patch',
+        object,
+        query
+      }))
+
+      return EMPTY;
+    }
+
     return this.execute(object, query, ['patch', 'write']).pipe(
       tap((data: R) => PublisherService.getInstance().publish(new AfterHttpPatchEvent({
         type: this.resourceType,
@@ -262,12 +308,20 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
   }
 
   protected getResourceConfiguration(resourceType: Type<any>, configuration: ResourceConfiguration): ResourceConfiguration {
-    const config = mergeDeep(configuration, Reflect.getMetadata(HTTP_RESOURCE_METADATA_KEY, resourceType));
+    const config: ResourceConfiguration = mergeDeep(configuration, Reflect.getMetadata(HTTP_RESOURCE_METADATA_KEY, resourceType));
 
     return createHttpRepositoryConfiguration(config);
   }
 
   private isLiveResource(): boolean {
     return Reflect.getMetadata(HTTP_LIVE_RESOURCE_METADATA_KEY, this.resourceType) === true;
+  }
+
+  private withOfflineQueue(): boolean {
+    return !!Reflect.getMetadata(HTTP_OFFLINE_QUEUE_METADATA_KEY, this.resourceType);
+  }
+
+  private isOffline(): boolean {
+    return !navigator.onLine;
   }
 }
