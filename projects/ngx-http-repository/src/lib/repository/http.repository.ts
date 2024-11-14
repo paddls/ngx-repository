@@ -46,7 +46,7 @@ import { Inject, Type } from '@angular/core';
 import { createHttpRepositoryConfiguration } from '../configuration/context/http-repository-context.configuration';
 import { HTTP_REPOSITORY_CONFIGURATION } from '../configuration/http-repository.configuration';
 import { mergeDeep } from '@paddls/utils';
-import { HttpRequestQueuedEvent } from './event/http-request-queued.event';
+import { HttpRequestQueuedEvent } from '../offline-queue/event/http-request-queued.event';
 import { HTTP_OFFLINE_QUEUE_METADATA_KEY } from '../decorator/http-offline-queue.decorator';
 
 @Repository(null, {
