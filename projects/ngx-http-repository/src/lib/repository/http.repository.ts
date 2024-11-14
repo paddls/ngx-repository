@@ -47,6 +47,7 @@ import { createHttpRepositoryConfiguration } from '../configuration/context/http
 import { HTTP_REPOSITORY_CONFIGURATION } from '../configuration/http-repository.configuration';
 import { mergeDeep } from '@paddls/utils';
 import { HttpRequestQueuedEvent } from './event/http-request-queued.event';
+import { HTTP_OFFLINE_QUEUE_METADATA_KEY } from '../decorator/http-offline-queue.decorator';
 
 @Repository(null, {
   requestBuilder: HttpRequestBuilder,
@@ -201,7 +202,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
       query
     }));
 
-    if (this.isOffline()) {
+    if (this.withOfflineQueue() && this.isOffline()) {
       PublisherService.getInstance().publish(new HttpRequestQueuedEvent({
         type: this.resourceType,
         operation: 'create',
@@ -229,7 +230,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
       query
     }));
 
-    if (this.isOffline()) {
+    if (this.withOfflineQueue() && this.isOffline()) {
       PublisherService.getInstance().publish(new HttpRequestQueuedEvent({
         type: this.resourceType,
         operation: 'delete',
@@ -257,7 +258,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
       query
     }));
 
-    if (this.isOffline()) {
+    if (this.withOfflineQueue() && this.isOffline()) {
       PublisherService.getInstance().publish(new HttpRequestQueuedEvent({
         type: this.resourceType,
         operation: 'update',
@@ -285,7 +286,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
       query
     }));
 
-    if (this.isOffline()) {
+    if (this.withOfflineQueue() && this.isOffline()) {
       PublisherService.getInstance().publish(new HttpRequestQueuedEvent({
         type: this.resourceType,
         operation: 'patch',
@@ -314,6 +315,10 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
 
   private isLiveResource(): boolean {
     return Reflect.getMetadata(HTTP_LIVE_RESOURCE_METADATA_KEY, this.resourceType) === true;
+  }
+
+  private withOfflineQueue(): boolean {
+    return !!Reflect.getMetadata(HTTP_OFFLINE_QUEUE_METADATA_KEY, this.resourceType);
   }
 
   private isOffline(): boolean {
