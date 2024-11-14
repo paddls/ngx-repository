@@ -6,7 +6,7 @@ import { softCache } from '@paddls/rxjs-common';
 
 const EVENT_LISTENER_OBS_METADATA_KEY: string = 'ngx-repository:event-listener-observable';
 
-export function EventListener<E>(predicate?: Predicate<E> | (Predicate<E>[])): any {
+export function EventListener<E>(predicate?: Predicate<E> | (Predicate<E>[])): (target: any, propertyKey?: string) => void {
   return (target: any, propertyKey?: string) => {
     let finalPredicate: Predicate<E> | Predicate<E>[] = predicate;
 
@@ -21,7 +21,7 @@ export function EventListener<E>(predicate?: Predicate<E> | (Predicate<E>[])): a
     }
 
     Object.defineProperty(target.constructor.prototype, propertyKey, {
-      get(): any {
+      get(): unknown {
         if (Reflect.hasOwnMetadata(`${EVENT_LISTENER_OBS_METADATA_KEY}:${propertyKey}`, this)) {
           return Reflect.getOwnMetadata(`${EVENT_LISTENER_OBS_METADATA_KEY}:${propertyKey}`, this);
         }
