@@ -36,12 +36,6 @@
       ],
       "@paddls/ngx-firestore-repository/*": [
         "dist/ngx-firestore-repository/*"
-      ],
-      "@paddls/utils": [
-        "dist/utils"
-      ],
-      "@paddls/utils/*": [
-        "dist/utils/*"
       ]
     },
     "useDefineForClassFields": false

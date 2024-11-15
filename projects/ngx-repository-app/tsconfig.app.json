@@ -4,9 +4,6 @@
     "outDir": "../../out-tsc/app",
     "types": [],
     "paths": {
-      "@paddls/utils": [
-        "projects/utils/index.ts"
-      ],
       "@paddls/ngx-repository": [
         "projects/ngx-repository/src/public-api.ts"
       ],

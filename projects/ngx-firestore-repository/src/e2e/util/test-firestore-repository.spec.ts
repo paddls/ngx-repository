@@ -4,7 +4,7 @@ import { initializeRepository, RepositoryContext } from './repository-intializer
 import { addDoc, deleteDoc, query, updateDoc } from '../../lib/firestore-functions';
 import { CollectionReference, DocumentReference } from 'firebase/firestore';
 import { FirestoreMock } from './firestore-mock.spec';
-import { forOwn } from '@paddls/utils';
+import { forOwn } from '../../lib/utils/for-own';
 
 export interface FirestoreTestContext {
   entity: Type<any>;

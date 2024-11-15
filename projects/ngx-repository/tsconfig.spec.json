@@ -5,12 +5,7 @@
     "types": [
       "jasmine",
       "node"
-    ],
-    "paths": {
-      "@paddls/utils": [
-        "projects/utils/index.ts"
-      ]
-    }
+    ]
   },
   "files": [
     "src/test.ts"

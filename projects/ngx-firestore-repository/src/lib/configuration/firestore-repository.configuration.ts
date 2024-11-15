@@ -1,8 +1,11 @@
 import { ResourceConfiguration, ResourceParamConfiguration } from '@paddls/ngx-repository';
 import { InjectionToken } from '@angular/core';
 import { FIRESTORE_OPERATIONS } from '../request/firestore.operation';
-import { get, isString, isUndefined, omit } from '@paddls/utils';
 import { FirestoreRepositoryParamConfiguration } from './firestore-repository-param.configuration';
+import { omit } from '../utils/omit';
+import { get } from '../utils/get';
+import { isUndefined } from '../utils/is-undefined';
+import { isString } from '../utils/is-string';
 
 export const FIRESTORE_REPOSITORY_CONFIGURATION: InjectionToken<FirestoreResourceConfiguration> = new InjectionToken<FirestoreResourceConfiguration>('FIRESTORE_REPOSITORY_CONFIGURATION');
 
