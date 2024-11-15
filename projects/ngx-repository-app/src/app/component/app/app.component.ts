@@ -1,15 +1,8 @@
-import { Component, inject } from '@angular/core';
-import { NgxSerializerService } from '@paddls/ngx-repository';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-
-  service = inject(NgxSerializerService);
-
-  constructor() {
-    console.log(this.service);
-  }
 }
