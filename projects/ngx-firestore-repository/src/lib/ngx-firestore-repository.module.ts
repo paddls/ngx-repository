@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import { EnvironmentProviders, makeEnvironmentProviders, ModuleWithProviders, NgModule, Provider } from '@angular/core';
+import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
 import { FirestoreRepositoryBuilder } from './repository/firestore-repository-builder.service';
 import { FIRESTORE_APP } from './ngx-firestore-repository.module.di';
 import { REPOSITORY_BUILDER_TOKEN } from '@paddls/ngx-repository';
@@ -34,7 +34,7 @@ export interface NgxFirestoreRepositoryModuleConfiguration { // @TODO: RMA/TNI :
   debug?: boolean;
 }
 
-export function provideNgxFirestoreRepository(config: NgxFirestoreRepositoryModuleConfiguration = {debug: false}): EnvironmentProviders {
+export function provideNgxFirestoreRepository(config: NgxFirestoreRepositoryModuleConfiguration = {debug: false}): Provider[] {
   const providers: Provider[] = [
     ...MODULE_PROVIDERS,
     {
@@ -47,7 +47,7 @@ export function provideNgxFirestoreRepository(config: NgxFirestoreRepositoryModu
     providers.push(LogExecuteFirestoreRequestEventListener);
   }
 
-  return makeEnvironmentProviders(providers);
+  return providers;
 }
 
 /**

@@ -65,7 +65,7 @@ const MODULE_PROVIDERS: Provider[] = [
  */
 export const NGX_REPOSITORY_INJECTOR_INSTANCE: string = 'NGX_REPOSITORY_INJECTOR_INSTANCE';
 
-export function provideNgxRepositoryModule(config?: Config): Provider[] {
+export function provideNgxRepository(config?: Config): Provider[] {
   return [
     ...MODULE_PROVIDERS,
     {
@@ -88,7 +88,7 @@ export function provideNgxRepositoryModule(config?: Config): Provider[] {
 export class NgxRepositoryModule {
 
   /**
-   * @deprecated The method should not be used, use provideNgxRepositoryModule instead
+   * @deprecated The method should not be used, use provideNgxRepository instead
    */
   public static forRoot(config?: Config): ModuleWithProviders<NgxRepositoryModule> {
     return {

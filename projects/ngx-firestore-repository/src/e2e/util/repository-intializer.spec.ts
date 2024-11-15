@@ -1,5 +1,5 @@
 import { Injectable, Type } from '@angular/core';
-import { InjectRepository, provideNgxRepositoryModule } from '@paddls/ngx-repository';
+import { InjectRepository, provideNgxRepository } from '@paddls/ngx-repository';
 import { TestBed } from '@angular/core/testing';
 import { Firestore, getFirestore } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
@@ -36,7 +36,7 @@ export function initializeRepository<T>(bookImpl: Type<T>, providers: any[] = []
 
   TestBed.configureTestingModule({
     providers: [
-      provideNgxRepositoryModule(),
+      provideNgxRepository(),
       provideNgxFirestoreRepository(),
       BookServiceImpl,
       {

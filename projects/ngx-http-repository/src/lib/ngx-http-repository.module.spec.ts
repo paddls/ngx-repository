@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import {
   NgxHttpRepositoryModule,
   NgxHttpRepositoryModuleConfiguration,
-  provideNgxHttpRepositoryModule
+  provideNgxHttpRepository
 } from './ngx-http-repository.module';
 import { LogExecuteHttpRequestEventListener } from './driver/listener/log-execute-http-request-event.listener';
 import { HTTP_REPOSITORY_CONFIGURATION } from './configuration/http-repository.configuration';
@@ -21,7 +21,7 @@ describe('NgxHttpRepositoryModule.forRoot', () => {
   testHttpRepository();
 });
 
-describe('provideNgxHttpRepositoryModule', () => {
+describe('provideNgxHttpRepository', () => {
   const config: NgxHttpRepositoryModuleConfiguration = {
     debug: true
   };
@@ -29,7 +29,7 @@ describe('provideNgxHttpRepositoryModule', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        provideNgxHttpRepositoryModule(config)
+        provideNgxHttpRepository(config)
       ]
     });
   });

@@ -29,8 +29,8 @@ export interface NgxHttpRepositoryModuleConfiguration {
   debug?: boolean;
 }
 
-export function provideNgxHttpRepositoryModule(config: NgxHttpRepositoryModuleConfiguration = {debug: false}): EnvironmentProviders | Provider[] {
-  const providers: Provider | EnvironmentProviders[] = [
+export function provideNgxHttpRepository(config: NgxHttpRepositoryModuleConfiguration = {debug: false}): Provider[] {
+  const providers: Provider = [
     ...PROVIDERS,
     {
       provide: HTTP_REPOSITORY_CONFIGURATION,
@@ -56,7 +56,7 @@ export function provideNgxHttpRepositoryModule(config: NgxHttpRepositoryModuleCo
 export class NgxHttpRepositoryModule {
 
   /**
-   *  @deprecated The method should not be used, use provideNgxHttpRepositoryModule
+   *  @deprecated The method should not be used, use provideNgxHttpRepository
    */
   public static forRoot(config: NgxHttpRepositoryModuleConfiguration = {debug: false}): ModuleWithProviders<NgxHttpRepositoryModule> {
     const providers: Provider[] = [
