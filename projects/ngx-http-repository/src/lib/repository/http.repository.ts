@@ -45,7 +45,7 @@ import { OnHttpResourceChange } from '../decorator/on-http-resource-change.decor
 import { Inject, Type } from '@angular/core';
 import { createHttpRepositoryConfiguration } from '../configuration/context/http-repository-context.configuration';
 import { HTTP_REPOSITORY_CONFIGURATION } from '../configuration/http-repository.configuration';
-import { mergeDeep } from '../utils/merge-deep';
+import merge from 'lodash.merge';
 
 @Repository(null, {
   requestBuilder: HttpRequestBuilder,
@@ -262,7 +262,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
   }
 
   protected getResourceConfiguration(resourceType: Type<any>, configuration: ResourceConfiguration): ResourceConfiguration {
-    const config = mergeDeep(configuration, Reflect.getMetadata(HTTP_RESOURCE_METADATA_KEY, resourceType));
+    const config = merge({}, configuration, Reflect.getMetadata(HTTP_RESOURCE_METADATA_KEY, resourceType));
 
     return createHttpRepositoryConfiguration(config);
   }
