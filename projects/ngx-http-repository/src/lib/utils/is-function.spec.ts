@@ -2,7 +2,8 @@ import { isFunction } from './is-function';
 
 describe('isFunction', () => {
   it('should return true if value type is function', () => {
-    const func = () => {};
+    const func = () => {
+    };
     expect(isFunction(func)).toBe(true);
   });
 

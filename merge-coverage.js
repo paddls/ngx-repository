@@ -6,9 +6,7 @@ const path = require('path');
 const inputFiles = [
   path.join(__dirname, 'coverage/ngx-repository/lcov.info'),
   path.join(__dirname, 'coverage/ngx-http-repository/lcov.info'),
-  path.join(__dirname, 'coverage/ngx-firestore-repository/lcov.info'),
-  path.join(__dirname, 'coverage/utils/lcov.info'),
-
+  path.join(__dirname, 'coverage/ngx-firestore-repository/lcov.info')
 ];
 
 // Path to save the merged LCOV file

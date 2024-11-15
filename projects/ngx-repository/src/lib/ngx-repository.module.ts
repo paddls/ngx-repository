@@ -1,6 +1,14 @@
 import 'reflect-metadata';
 
-import { APP_INITIALIZER, Injector, ModuleWithProviders, NgModule, Provider } from '@angular/core';
+import {
+  APP_INITIALIZER,
+  EnvironmentProviders,
+  Injector,
+  makeEnvironmentProviders,
+  ModuleWithProviders,
+  NgModule,
+  Provider
+} from '@angular/core';
 import { NgxRepositoryService } from './ngx-repository.service';
 import { DEFAULT_NORMALIZER_CONFIGURATION, NormalizerConfiguration } from '@paddls/ts-serializer';
 import { RequestManager } from './core/manager/request.manager';
@@ -65,14 +73,14 @@ const MODULE_PROVIDERS: Provider[] = [
  */
 export const NGX_REPOSITORY_INJECTOR_INSTANCE: string = 'NGX_REPOSITORY_INJECTOR_INSTANCE';
 
-export function provideNgxRepositoryModule(config?: Config): Provider[] {
-  return [
+export function provideNgxRepository(config?: Config): EnvironmentProviders {
+  return makeEnvironmentProviders([
     ...MODULE_PROVIDERS,
     {
       provide: NORMALIZER_CONFIGURATION_TOKEN,
       useValue: config && config.normalizerConfiguration ? config.normalizerConfiguration : DEFAULT_NORMALIZER_CONFIGURATION
     }
-  ];
+  ]);
 }
 
 
@@ -88,7 +96,7 @@ export function provideNgxRepositoryModule(config?: Config): Provider[] {
 export class NgxRepositoryModule {
 
   /**
-   * @deprecated The method should not be used, use provideNgxRepositoryModule instead
+   * @deprecated The method should not be used, use provideNgxRepository instead
    */
   public static forRoot(config?: Config): ModuleWithProviders<NgxRepositoryModule> {
     return {

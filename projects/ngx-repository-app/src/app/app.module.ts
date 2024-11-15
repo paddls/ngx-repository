@@ -9,7 +9,7 @@ import { InMemoryDataService } from './service/in-memory-data.service';
 import { SystemModule } from './module/@system/system.module';
 import { LibrariesComponent } from './component/libraries/libraries.component';
 import { LibraryComponent } from './component/library/library.component';
-import { provideNgxRepositoryModule } from '@paddls/ngx-repository';
+import { provideNgxRepository } from '@paddls/ngx-repository';
 import { MyPageResponseProcessor } from './module/@core/processor/my-page-response.processor';
 import { ClientComponent } from './component/client/client.component';
 import { FIRESTORE_APP, provideNgxFirestoreRepository } from '@paddls/ngx-firestore-repository';
@@ -17,7 +17,7 @@ import { initializeApp } from 'firebase/app';
 import { BookService } from './module/@core/service/book.service';
 import { Firestore, getFirestore } from 'firebase/firestore';
 import { PersonComponent } from './component/person/person.component';
-import { provideNgxHttpRepositoryModule } from '@paddls/ngx-http-repository';
+import { provideNgxHttpRepository } from '@paddls/ngx-http-repository';
 
 export const createFirestore: () => Firestore = () => getFirestore(initializeApp({
   apiKey: 'AIzaSyDSd6EXdQWaWcBMxbTYp-kFAV3zxNu-ArM',
@@ -46,7 +46,7 @@ export const createFirestore: () => Firestore = () => getFirestore(initializeApp
     SystemModule,
   ],
   providers: [
-    provideNgxRepositoryModule({
+    provideNgxRepository({
       normalizerConfiguration: {
         denormalizeNull: true,
         normalizeNull: false,
@@ -57,7 +57,7 @@ export const createFirestore: () => Firestore = () => getFirestore(initializeApp
     provideNgxFirestoreRepository({
       debug: true
     }),
-    provideNgxHttpRepositoryModule({
+    provideNgxHttpRepository({
       debug: true
     }),
     MyPageResponseProcessor,

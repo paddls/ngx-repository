@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import { EnvironmentProviders, ModuleWithProviders, NgModule, Provider } from '@angular/core';
+import { EnvironmentProviders, makeEnvironmentProviders, ModuleWithProviders, NgModule, Provider } from '@angular/core';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { REPOSITORY_BUILDER_TOKEN } from '@paddls/ngx-repository';
 import { HttpRepositoryDriver } from './driver/http-repository.driver';
@@ -29,8 +29,8 @@ export interface NgxHttpRepositoryModuleConfiguration {
   debug?: boolean;
 }
 
-export function provideNgxHttpRepositoryModule(config: NgxHttpRepositoryModuleConfiguration = {debug: false}): EnvironmentProviders | Provider[] {
-  const providers: Provider | EnvironmentProviders[] = [
+export function provideNgxHttpRepository(config: NgxHttpRepositoryModuleConfiguration = {debug: false}): EnvironmentProviders {
+  const providers: Provider = [
     ...PROVIDERS,
     {
       provide: HTTP_REPOSITORY_CONFIGURATION,
@@ -42,7 +42,7 @@ export function provideNgxHttpRepositoryModule(config: NgxHttpRepositoryModuleCo
     providers.push(LogExecuteHttpRequestEventListener);
   }
 
-  return providers;
+  return makeEnvironmentProviders(providers);
 }
 
 /**
@@ -56,7 +56,7 @@ export function provideNgxHttpRepositoryModule(config: NgxHttpRepositoryModuleCo
 export class NgxHttpRepositoryModule {
 
   /**
-   *  @deprecated The method should not be used, use provideNgxHttpRepositoryModule
+   *  @deprecated The method should not be used, use provideNgxHttpRepository
    */
   public static forRoot(config: NgxHttpRepositoryModuleConfiguration = {debug: false}): ModuleWithProviders<NgxHttpRepositoryModule> {
     const providers: Provider[] = [

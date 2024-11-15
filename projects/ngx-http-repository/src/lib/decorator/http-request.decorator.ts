@@ -13,7 +13,8 @@ import { HttpRepositoryDriver } from '../driver/http-repository.driver';
 import { HttpRequestBuilder } from '../request/http-request.builder';
 import { Observable } from 'rxjs';
 import { HttpRequestParamsContext } from '../configuration/context/http-request-params-context.configuration';
-import { flattenDeep, isString } from '@paddls/utils';
+import { flattenDeep } from '../utils/flatten-deep';
+import { isString } from '../utils/is-string';
 
 export function HttpRequestDecorator(params: HttpRequestParamsContext): PropertyDecorator {
   return (target: any, propertyKey: string) => {

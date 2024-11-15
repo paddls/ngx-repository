@@ -1,5 +1,5 @@
 import { FirestoreRepositoryRequest } from '../request/firestore-repository.request';
-import { omitBy } from '@paddls/utils';
+import { omitBy } from '../utils/omit-by';
 
 const IGNORED_KEYS: string[] = ['paths', 'readPath', 'createPath', 'updatePath', 'deletePath', 'pathParams', 'replaceParams'];
 

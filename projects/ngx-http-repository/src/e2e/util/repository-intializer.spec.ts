@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Type } from '@angular/core';
-import { InjectRepository, provideNgxRepositoryModule } from '@paddls/ngx-repository';
+import { InjectRepository, provideNgxRepository } from '@paddls/ngx-repository';
 import { HttpRepository } from '../../lib/repository/http.repository';
 import { TestBed } from '@angular/core/testing';
-import { provideNgxHttpRepositoryModule } from '../../lib/ngx-http-repository.module';
+import { provideNgxHttpRepository } from '../../lib/ngx-http-repository.module';
 
 export interface RepositoryContext<T> {
   repository: HttpRepository<T, number>;
@@ -21,8 +21,8 @@ export function initializeRepository<T>(bookImpl: Type<T>, providers: any[] = []
 
   TestBed.configureTestingModule({
     providers: [
-      provideNgxRepositoryModule(),
-      provideNgxHttpRepositoryModule(),
+      provideNgxRepository(),
+      provideNgxHttpRepository(),
       BookServiceImpl,
       ...providers
     ]

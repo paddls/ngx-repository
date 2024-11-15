@@ -7,9 +7,9 @@ import {
   PageResponseProcessor,
   PathColumn,
   PathParam,
-  provideNgxRepositoryModule
+  provideNgxRepository
 } from '@paddls/ngx-repository';
-import { provideNgxHttpRepositoryModule } from '../lib/ngx-http-repository.module';
+import { provideNgxHttpRepository } from '../lib/ngx-http-repository.module';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { expectHttpRequest, HttpRequestTestContext } from './util/expect-http-request.spec';
@@ -26,7 +26,7 @@ import {
   HttpQueryParam
 } from '../public-api';
 import { buildHttpParams } from './util/build-http.params.spec';
-import { forOwn } from '@paddls/utils';
+import { forOwn } from '../lib/utils/for-own';
 
 describe('HttpRequestDecorator', () => {
 
@@ -194,8 +194,8 @@ describe('HttpRequestDecorator', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        provideNgxRepositoryModule(),
-        provideNgxHttpRepositoryModule(),
+        provideNgxRepository(),
+        provideNgxHttpRepository(),
         Api
       ]
     });

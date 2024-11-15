@@ -9,9 +9,6 @@
     "paths": {
       "@paddls/ngx-repository": [
         "projects/ngx-repository/src/public-api.ts"
-      ],
-      "@paddls/utils": [
-        "projects/utils/index.ts"
       ]
     }
   },

@@ -36,7 +36,7 @@ export { HttpWriteOperation, HTTP_WRITE_OPERATIONS } from './lib/request/http.op
 
 export { HttpRepositoryResponse } from './lib/response/http-repository.response';
 export {
-  provideNgxHttpRepositoryModule, NgxHttpRepositoryModule, NgxHttpRepositoryModuleConfiguration
+  provideNgxHttpRepository, NgxHttpRepositoryModule, NgxHttpRepositoryModuleConfiguration
 } from './lib/ngx-http-repository.module';
 export {
   HttpRepositoryConfiguration, HTTP_REPOSITORY_CONFIGURATION
