@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import { EnvironmentProviders, ModuleWithProviders, NgModule, Provider } from '@angular/core';
+import { EnvironmentProviders, makeEnvironmentProviders, ModuleWithProviders, NgModule, Provider } from '@angular/core';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { REPOSITORY_BUILDER_TOKEN } from '@paddls/ngx-repository';
 import { HttpRepositoryDriver } from './driver/http-repository.driver';
@@ -29,7 +29,7 @@ export interface NgxHttpRepositoryModuleConfiguration {
   debug?: boolean;
 }
 
-export function provideNgxHttpRepository(config: NgxHttpRepositoryModuleConfiguration = {debug: false}): Provider[] {
+export function provideNgxHttpRepository(config: NgxHttpRepositoryModuleConfiguration = {debug: false}): EnvironmentProviders {
   const providers: Provider = [
     ...PROVIDERS,
     {
@@ -42,7 +42,7 @@ export function provideNgxHttpRepository(config: NgxHttpRepositoryModuleConfigur
     providers.push(LogExecuteHttpRequestEventListener);
   }
 
-  return providers;
+  return makeEnvironmentProviders(providers);
 }
 
 /**
