@@ -39,7 +39,7 @@
     "@angular/platform-browser": "^18.0.1",
     "@angular/platform-browser-dynamic": "^18.0.1",
     "@angular/router": "^18.0.1",
-    "@paddls/ngx-serializer": "^6.0.0",
+    "@paddls/ngx-serializer": "^6.1.0",
     "@paddls/rxjs-common": "^2.1.0",
     "@paddls/ts-serializer": "^1.2.0",
     "@types/chance": "^1.0.10",

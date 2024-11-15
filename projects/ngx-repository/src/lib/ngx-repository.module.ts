@@ -19,7 +19,7 @@ import { IdResponseProcessor } from './core/response/processor/id-response.proce
 import { PathColumnResponseProcessor } from './core/response/processor/path-column-response.processor';
 import { OriginalQueryResponseProcessor } from './core/response/processor/original-query-response.processor';
 import { PublisherService } from './core/event-stream/publisher.service';
-import { NgxSerializerModule, NORMALIZER_CONFIGURATION_TOKEN } from '@paddls/ngx-serializer';
+import { NgxSerializerModule, NORMALIZER_CONFIGURATION_TOKEN, provideNgxSerializer } from '@paddls/ngx-serializer';
 import { VoidResponseProcessor } from './core/response/processor/void-response.processor';
 import { ResponseBuilder } from './core/response/response.builder';
 import { BodyResponseProcessor } from './core/response/processor/body.response-processor';
@@ -75,6 +75,7 @@ export const NGX_REPOSITORY_INJECTOR_INSTANCE: string = 'NGX_REPOSITORY_INJECTOR
 
 export function provideNgxRepository(config?: Config): EnvironmentProviders {
   return makeEnvironmentProviders([
+    provideNgxSerializer(),
     ...MODULE_PROVIDERS,
     {
       provide: NORMALIZER_CONFIGURATION_TOKEN,
