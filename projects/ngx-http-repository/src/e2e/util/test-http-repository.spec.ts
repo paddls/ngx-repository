@@ -6,7 +6,7 @@ import { HttpRepository } from '../../lib/repository/http.repository';
 import { NgxHttpRepositoryModuleConfiguration } from '../../public-api';
 import { expectHttpRequest, HttpRequestTestContext } from './expect-http-request.spec';
 import { provideNgxHttpRepositoryModule } from '../../lib/ngx-http-repository.module';
-import { forOwn } from '@paddls/utils';
+import { forOwn } from '../../lib/utils/for-own';
 
 export interface HttpTestContext extends HttpRequestTestContext {
   entity: Type<any>;

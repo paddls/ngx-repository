@@ -26,7 +26,7 @@ import {
   HttpRepositoryWriteParamContextConfiguration
 } from '../configuration/context/http-repository-write-param-context.configuration';
 import { HTTP_MULTIPART_COLUMN_METADATA_KEY, HttpMultipartColumnContext } from '../decorator/http-multipart-resource';
-import { get } from '@paddls/utils';
+import { get } from '../utils/get';
 
 @Injectable()
 export class HttpRequestBuilder implements RequestBuilder {

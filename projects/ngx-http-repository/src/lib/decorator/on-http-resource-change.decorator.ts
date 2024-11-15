@@ -6,7 +6,11 @@ import { AfterHttpCreateEvent } from '../repository/event/after-http-create.even
 import { AfterHttpUpdateEvent } from '../repository/event/after-http-update.event';
 import { AfterHttpPatchEvent } from '../repository/event/after-http-patch.event';
 import { AfterHttpDeleteEvent } from '../repository/event/after-http-delete.event';
-import { flatten, isFunction, isObject, pick, valuesIn } from '@paddls/utils';
+import { isFunction } from '../utils/is-function';
+import { isObject } from '../utils/is-object';
+import { flatten } from '../utils/flatten';
+import { valuesIn } from '../utils/values-in';
+import { pick } from '../utils/pick';
 
 const eventMapping: { [key: string]: any } = {
   write: [AfterHttpCreateEvent, AfterHttpUpdateEvent, AfterHttpPatchEvent, AfterHttpDeleteEvent],
