@@ -1,12 +1,12 @@
 {
   "name": "@paddls/ngx-repository",
-  "version": "8.2.0-rc.0",
+  "version": "8.2.0-rc.1",
   "peerDependencies": {
     "@angular/common": ">=18.0.0",
     "@angular/core": ">=18.0.0"
   },
   "dependencies": {
-    "@paddls/ngx-serializer": "^6.1.0",
+    "@paddls/ngx-serializer": "^6.2.0",
     "@paddls/rxjs-common": "^2.1.0",
     "object-hash": "^2.0.3",
     "tslib": "^2.0.0"
