@@ -4,6 +4,7 @@ export { TypeGetter } from './lib/core/common/model/type-getter.type';
 export { PathParamConfiguration } from './lib/core/configuration/path-param.configuration';
 
 export { PropertyKeyConfiguration } from './lib/core/common/decorator/property-key-configuration';
+
 export { ColumnContext } from './lib/core/configuration/context/column-context.configuration';
 export { IdContext } from './lib/core/configuration/context/id-context.configuration';
 export { InjectRepositoryContext } from './lib/core/configuration/context/inject-repository-context.configuration';
@@ -35,9 +36,7 @@ export { TokenRegistry } from './lib/core/registry/token.registry';
 
 export { REPOSITORY_BUILDER_TOKEN } from './lib/ngx-repository.module.di';
 
-export {
-  provideNgxRepository, NgxRepositoryModule, NGX_REPOSITORY_INJECTOR_INSTANCE
-} from './lib/ngx-repository.module';
+export { NgxRepositoryModule, NGX_REPOSITORY_INJECTOR_INSTANCE } from './lib/ngx-repository.module';
 
 export {
   NormalizerConfiguration,

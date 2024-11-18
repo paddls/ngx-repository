@@ -64,5 +64,5 @@ export { FirestoreRepositoryResponse } from './lib/response/firestore-repository
 
 export { FIRESTORE_APP } from './lib/ngx-firestore-repository.module.di';
 export {
-  provideNgxFirestoreRepository, NgxFirestoreRepositoryModule, NgxFirestoreRepositoryModuleConfiguration
+  NgxFirestoreRepositoryModule, NgxFirestoreRepositoryModuleConfiguration
 } from './lib/ngx-firestore-repository.module';

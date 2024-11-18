@@ -1,6 +1,6 @@
 {
   "name": "@paddls/ngx-repository",
-  "version": "8.1.2",
+  "version": "8.2.0-rc.0",
   "peerDependencies": {
     "@angular/common": ">=18.0.0",
     "@angular/core": ">=18.0.0"

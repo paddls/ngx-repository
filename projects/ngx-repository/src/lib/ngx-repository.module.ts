@@ -1,14 +1,6 @@
 import 'reflect-metadata';
 
-import {
-  APP_INITIALIZER,
-  EnvironmentProviders,
-  Injector,
-  makeEnvironmentProviders,
-  ModuleWithProviders,
-  NgModule,
-  Provider
-} from '@angular/core';
+import { Injector, ModuleWithProviders, NgModule, Provider } from '@angular/core';
 import { NgxRepositoryService } from './ngx-repository.service';
 import { DEFAULT_NORMALIZER_CONFIGURATION, NormalizerConfiguration } from '@paddls/ts-serializer';
 import { RequestManager } from './core/manager/request.manager';
@@ -19,11 +11,11 @@ import { IdResponseProcessor } from './core/response/processor/id-response.proce
 import { PathColumnResponseProcessor } from './core/response/processor/path-column-response.processor';
 import { OriginalQueryResponseProcessor } from './core/response/processor/original-query-response.processor';
 import { PublisherService } from './core/event-stream/publisher.service';
-import { NgxSerializerModule, NORMALIZER_CONFIGURATION_TOKEN, provideNgxSerializer } from '@paddls/ngx-serializer';
+import { NgxSerializerModule, NORMALIZER_CONFIGURATION_TOKEN } from '@paddls/ngx-serializer';
 import { VoidResponseProcessor } from './core/response/processor/void-response.processor';
 import { ResponseBuilder } from './core/response/response.builder';
+import { TokenRegistry } from './core/registry/token.registry';
 import { BodyResponseProcessor } from './core/response/processor/body.response-processor';
-import { TokenRegistry } from '../public-api';
 
 /**
  * @ignore
@@ -35,14 +27,7 @@ export interface Config {
 /**
  * @ignore
  */
-export function ngxRepositoryInitializer(injector: Injector, n: NgxRepositoryService, p: PublisherService): () => void {
-  return () => {
-    Reflect.defineMetadata(NGX_REPOSITORY_INJECTOR_INSTANCE, injector, NgxRepositoryModule);
-    TokenRegistry.clear();
-    NgxRepositoryService.getInstance = () => n; // TODO @RMA review this
-    PublisherService.getInstance = () => p; // TODO @RMA review this
-  };
-}
+export const NGX_REPOSITORY_INJECTOR_INSTANCE: string = 'NGX_REPOSITORY_INJECTOR_INSTANCE';
 
 /**
  * @ignore
@@ -50,13 +35,6 @@ export function ngxRepositoryInitializer(injector: Injector, n: NgxRepositorySer
 const MODULE_PROVIDERS: Provider[] = [
   RepositoryNormalizer,
   NgxRepositoryService,
-  PublisherService,
-  {
-    provide: APP_INITIALIZER,
-    useFactory: ngxRepositoryInitializer,
-    multi: true,
-    deps: [Injector, NgxRepositoryService, PublisherService]
-  },
   RequestManager,
   ResponseBuilder,
   DenormalizeResponseProcessor,
@@ -65,25 +43,9 @@ const MODULE_PROVIDERS: Provider[] = [
   BodyResponseProcessor,
   VoidResponseProcessor,
   OriginalQueryResponseProcessor,
-  PathColumnResponseProcessor
+  PathColumnResponseProcessor,
+  PublisherService
 ];
-
-/**
- * @ignore
- */
-export const NGX_REPOSITORY_INJECTOR_INSTANCE: string = 'NGX_REPOSITORY_INJECTOR_INSTANCE';
-
-export function provideNgxRepository(config?: Config): EnvironmentProviders {
-  return makeEnvironmentProviders([
-    provideNgxSerializer(),
-    ...MODULE_PROVIDERS,
-    {
-      provide: NORMALIZER_CONFIGURATION_TOKEN,
-      useValue: config && config.normalizerConfiguration ? config.normalizerConfiguration : DEFAULT_NORMALIZER_CONFIGURATION
-    }
-  ]);
-}
-
 
 /**
  * @ignore
@@ -96,9 +58,13 @@ export function provideNgxRepository(config?: Config): EnvironmentProviders {
 })
 export class NgxRepositoryModule {
 
-  /**
-   * @deprecated The method should not be used, use provideNgxRepository instead
-   */
+  public constructor(injector: Injector) {
+    Reflect.defineMetadata(NGX_REPOSITORY_INJECTOR_INSTANCE, injector, NgxRepositoryModule);
+    TokenRegistry.clear();
+    NgxRepositoryService.getInstance = () => injector.get(NgxRepositoryService); // TODO @RMA review this
+    PublisherService.getInstance = () => injector.get(PublisherService);
+  }
+
   public static forRoot(config?: Config): ModuleWithProviders<NgxRepositoryModule> {
     return {
       ngModule: NgxRepositoryModule,
