@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { Column, Id, InjectRepository, NgxRepositoryModule, Page } from '@paddls/ngx-repository';
-import { HttpLiveResource, HttpRepository, HttpResource, NgxHttpRepositoryModule } from '../public-api';
+import { Column, Id, InjectRepository, Page, provideNgxRepository } from '@paddls/ngx-repository';
+import { HttpLiveResource, HttpRepository, HttpResource, provideNgxHttpRepository } from '../public-api';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
@@ -38,11 +38,9 @@ describe('LiveResource', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        NgxRepositoryModule.forRoot(),
-        NgxHttpRepositoryModule.forRoot()
-      ],
       providers: [
+        provideNgxRepository(),
+        provideNgxHttpRepository(),
         BookService
       ]
     });

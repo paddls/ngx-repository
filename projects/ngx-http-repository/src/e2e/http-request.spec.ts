@@ -2,14 +2,14 @@ import { TestBed } from '@angular/core/testing';
 import {
   Column,
   Id,
-  NgxRepositoryModule,
   NgxRepositoryService,
   Page,
   PageResponseProcessor,
   PathColumn,
-  PathParam
+  PathParam,
+  provideNgxRepository
 } from '@paddls/ngx-repository';
-import { NgxHttpRepositoryModule } from '../lib/ngx-http-repository.module';
+import { provideNgxHttpRepository } from '../lib/ngx-http-repository.module';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { expectHttpRequest, HttpRequestTestContext } from './util/expect-http-request.spec';
@@ -193,11 +193,9 @@ describe('HttpRequestDecorator', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        NgxRepositoryModule.forRoot(),
-        NgxHttpRepositoryModule.forRoot()
-      ],
       providers: [
+        provideNgxRepository(),
+        provideNgxHttpRepository(),
         Api
       ]
     });

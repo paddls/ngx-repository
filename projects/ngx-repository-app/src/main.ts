@@ -1,7 +1,7 @@
 import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { environment } from './environments/environment';
 import { MyPageResponseProcessor } from './app/module/@core/processor/my-page-response.processor';
-import { FIRESTORE_APP, NgxFirestoreRepositoryModule } from '@paddls/ngx-firestore-repository';
+import { FIRESTORE_APP, provideNgxFirestoreRepository } from '@paddls/ngx-firestore-repository';
 import { Firestore, getFirestore } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { routes } from './app/app.routes';
@@ -10,7 +10,7 @@ import { CoreModule } from './app/module/@core/core.module';
 import { FormsModule } from '@angular/forms';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './app/service/in-memory-data.service';
-import { NgxHttpRepositoryModule } from '@paddls/ngx-http-repository';
+import { provideNgxHttpRepository } from '@paddls/ngx-http-repository';
 import { SystemModule } from './app/module/@system/system.module';
 import { AppComponent } from './app/component/app/app.component';
 import { provideRouter, withRouterConfig } from '@angular/router';
@@ -39,12 +39,6 @@ bootstrapApplication(AppComponent, {
       FormsModule,
       SystemModule,
       InMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 100 }),
-      NgxFirestoreRepositoryModule.forRoot({
-        debug: true
-      }),
-      NgxHttpRepositoryModule.forRoot({
-        debug: true
-      }),
     ),
     provideRouter(routes, withRouterConfig({
       onSameUrlNavigation: 'reload'
@@ -56,6 +50,12 @@ bootstrapApplication(AppComponent, {
         denormalizeUndefined: true,
         normalizeUndefined: false
       }
+    }),
+    provideNgxHttpRepository({
+      debug: true
+    }),
+    provideNgxFirestoreRepository({
+      debug: true
     }),
     MyPageResponseProcessor,
     {
