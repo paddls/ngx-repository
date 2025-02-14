@@ -4,11 +4,12 @@ import { Observable } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { Person } from '../../module/@core/model/person.model';
 import { PersonService } from '../../module/@core/service/person.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   templateUrl: './person.component.html',
   styleUrls: ['./person.component.scss'],
-  standalone: false
+  imports: [AsyncPipe]
 })
 export class PersonComponent {
 

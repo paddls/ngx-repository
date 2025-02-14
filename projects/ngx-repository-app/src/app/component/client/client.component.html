@@ -1,13 +1,14 @@
-<ng-container *ngIf="client$|async as client">
+@if (client$ | async; as client) {
   <h2>Client</h2>
   <p>{{ client.fullName }}</p>
-
   <ul>
-    <li *ngFor="let purchase of client.purchases$|async">
-      <p>{{ purchase.bookId }} - {{ (purchase.book$|async)?.title }}</p>
-    </li>
+    @for (purchase of client.purchases$ | async; track purchase) {
+      <li>
+        <p>{{ purchase.bookId }} - {{ (purchase.book$ | async)?.title }}</p>
+      </li>
+    }
     <li>
       <button (click)="addPurchase(client)">add</button>
     </li>
   </ul>
-</ng-container>
+}

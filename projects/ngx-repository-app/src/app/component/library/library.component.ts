@@ -6,12 +6,17 @@ import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { LibraryService } from '../../module/@core/service/library.service';
 import { Book } from '../../module/@core/model/book.model';
 import { BookService } from '../../module/@core/service/book.service';
+import { AsyncPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-library',
   templateUrl: './library.component.html',
   styleUrls: ['./library.component.scss'],
-  standalone: false
+  imports: [
+    FormsModule,
+    AsyncPipe
+  ]
 })
 export class LibraryComponent {
 

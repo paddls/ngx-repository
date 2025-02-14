@@ -1,14 +1,18 @@
 <div class="list">
   <ul id="libraries">
     <li class="title"><a [routerLink]="['/', 'libraries']">Libraries</a></li>
-    <li *ngFor="let library of libraries$|async">
-      <a [routerLink]="['/', 'libraries', library.id]">{{ library.name }}</a>
-    </li>
+    @for (library of libraries$ | async; track library) {
+      <li>
+        <a [routerLink]="['/', 'libraries', library.id]">{{ library.name }}</a>
+      </li>
+    }
     <li class="pagination">
-      <button *ngFor="let page of pages$|async"
-              [disabled]="page + 1 === (currentPageSubject|async)"
-              (click)="onClickOnPage(page + 1)">{{ page + 1 }}
-      </button>
+      @for (page of pages$ | async; track page) {
+        <button
+          [disabled]="page + 1 === (currentPageSubject | async)"
+          (click)="onClickOnPage(page + 1)">{{ page + 1 }}
+        </button>
+      }
     </li>
     <li>
       <button (click)="createLibrary()">create</button>
@@ -21,13 +25,15 @@
              id="searchPerson"
              placeholder="Type first name"
              [(ngModel)]="searchedPersonFirstName"
-             (ngModelChange)="onSearchedPersonFirstNameChange()"/>
+             (ngModelChange)="onSearchedPersonFirstNameChange()" />
     </li>
-    <li *ngFor="let person of person$|async">
-      <a [routerLink]="['/', 'libraries', 'persons', person.id]">{{ person.fullName }}</a>
-      <button (click)="updatePerson(person)">update</button>
-      <button (click)="patchPerson(person)">patch</button>
-    </li>
+    @for (person of person$ | async; track person) {
+      <li>
+        <a [routerLink]="['/', 'libraries', 'persons', person.id]">{{ person.fullName }}</a>
+        <button (click)="updatePerson(person)">update</button>
+        <button (click)="patchPerson(person)">patch</button>
+      </li>
+    }
     <li>
       <button (click)="createPerson()">create</button>
     </li>
@@ -39,14 +45,16 @@
              id="searchClient"
              placeholder="Type first name"
              [(ngModel)]="searchedClientLastName"
-             (ngModelChange)="onSearchedClientLastNameChange()"/>
+             (ngModelChange)="onSearchedClientLastNameChange()" />
     </li>
-    <li *ngFor="let client of client$|async">
-      <a [routerLink]="['/', 'libraries', 'clients', client.id]">{{ client?.fullName }}</a>
-      <button (click)="deleteClient(client)">delete</button>
-      <button (click)="updateClient(client)">update</button>
-      <button (click)="patchClient(client)">patch</button>
-    </li>
+    @for (client of client$ | async; track client) {
+      <li>
+        <a [routerLink]="['/', 'libraries', 'clients', client.id]">{{ client?.fullName }}</a>
+        <button (click)="deleteClient(client)">delete</button>
+        <button (click)="updateClient(client)">update</button>
+        <button (click)="patchClient(client)">patch</button>
+      </li>
+    }
     <li>
       <button (click)="createClient()">create</button>
     </li>

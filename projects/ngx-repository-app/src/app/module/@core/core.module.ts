@@ -3,6 +3,7 @@ import { LibraryService } from './service/library.service';
 import { PersonService } from './service/person.service';
 import { PersonRepository } from './repository/person.repository';
 import { ClientService } from './service/client.service';
+import { BookService } from './service/book.service';
 
 const REPOSITORIES: Provider[] = [
   PersonRepository
@@ -11,7 +12,8 @@ const REPOSITORIES: Provider[] = [
 const SERVICES: Provider[] = [
   LibraryService,
   PersonService,
-  ClientService
+  ClientService,
+  BookService,
 ];
 
 @NgModule({

@@ -9,12 +9,20 @@ import { Client } from '../../module/@core/model/client.model';
 import { ClientService } from '../../module/@core/service/client.service';
 import { softCache } from '@paddls/rxjs-common';
 import { LibraryService } from '../../module/@core/service/library.service';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-libraries',
   templateUrl: './libraries.component.html',
   styleUrls: ['./libraries.component.scss'],
-  standalone: false
+  imports: [
+    RouterLink,
+    FormsModule,
+    RouterOutlet,
+    AsyncPipe
+  ]
 })
 export class LibrariesComponent {
 
