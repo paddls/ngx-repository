@@ -16,7 +16,7 @@ class MyPreResponseProcessor implements ResponseProcessor {
       return;
     }
 
-    return {...response, pre: 'called'};
+    return { ...response, pre: 'called' };
   }
 }
 
@@ -28,7 +28,7 @@ class MyPostResponseProcessor implements ResponseProcessor {
       return;
     }
 
-    return {...response, post: 'called'};
+    return { ...response, post: 'called' };
   }
 }
 
@@ -70,12 +70,12 @@ describe('ResponseBuilder', () => {
   describe('#build()', () => {
     it('should apply all processors to response', (done: DoneFn) => {
       const repositoryResponse: RepositoryResponse = {
-        getBody: () => ({field: 'value'}),
+        getBody: () => ({ field: 'value' }),
         getRequest: () => ({})
       };
 
       const requestManagerContext: RequestManagerContext = {
-        body: {field: 'value'},
+        body: { field: 'value' },
         query: null,
         driver: null,
         configuration: new ConfigurationContextProvider(new ConfigurationProvider({
@@ -92,7 +92,7 @@ describe('ResponseBuilder', () => {
       };
 
       responseBuilder.build(repositoryResponse, requestManagerContext).subscribe((response: any) => {
-        expect(response).toEqual({pre: 'called', post: 'called'});
+        expect(response).toEqual({ pre: 'called', post: 'called' });
 
         done();
       });

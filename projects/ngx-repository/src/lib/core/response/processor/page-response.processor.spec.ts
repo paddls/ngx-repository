@@ -34,7 +34,10 @@ describe('PageResponseProcessor', () => {
 
   describe('#transform()', () => {
     it('should build page if response is array', () => {
-      const response: Book[] = [new Book({id: '12'}), new Book({id: '12'})];
+      const response: Book[] = [
+        new Book({ id: '12' }),
+        new Book({ id: '12' })
+      ];
 
       const processedResponse: any = processor.transform(response);
 
@@ -42,7 +45,7 @@ describe('PageResponseProcessor', () => {
     });
 
     it('should not process response if response is not array', () => {
-      const response: Book = new Book({id: '12'});
+      const response: Book = new Book({ id: '12' });
 
       const processedResponse: any = processor.transform(response);
 

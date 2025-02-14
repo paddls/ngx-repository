@@ -1,4 +1,4 @@
-import { Inject, Injectable, Type } from '@angular/core';
+import { inject, Injectable, Type } from '@angular/core';
 import { Denormalizer, Normalizer, NormalizerConfiguration } from '@paddls/ts-serializer';
 import { NORMALIZER_CONFIGURATION_TOKEN } from '@paddls/ngx-serializer';
 
@@ -8,7 +8,9 @@ export class RepositoryNormalizer {
   protected readonly normalizer: Normalizer;
   protected readonly denormalizer: Denormalizer;
 
-  public constructor(@Inject(NORMALIZER_CONFIGURATION_TOKEN) configuration: NormalizerConfiguration) {
+  public constructor() {
+    const configuration = inject<NormalizerConfiguration>(NORMALIZER_CONFIGURATION_TOKEN);
+
     this.normalizer = new Normalizer(configuration);
     this.denormalizer = new Denormalizer(configuration);
   }

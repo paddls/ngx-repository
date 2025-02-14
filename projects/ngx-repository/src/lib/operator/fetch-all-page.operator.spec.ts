@@ -5,7 +5,10 @@ import { fetchAllPage } from './fetch-all-page.operator';
 describe('fetchAllPage', () => {
 
   it('should return 2 pages', (done: DoneFn) => {
-    const page1$: Observable<Page> = of(Page.build(['a', 'b'], 0, 2, 3));
+    const page1$: Observable<Page> = of(Page.build([
+      'a',
+      'b'
+    ], 0, 2, 3));
     const page2$: Observable<Page> = of(Page.build(['c'], 1, 2, 3));
 
     page1$.pipe(
@@ -15,7 +18,11 @@ describe('fetchAllPage', () => {
         return page2$;
       })
     ).subscribe((result: any[]) => {
-      expect(result).toEqual(['a', 'b', 'c']);
+      expect(result).toEqual([
+        'a',
+        'b',
+        'c'
+      ]);
       done();
     });
   });

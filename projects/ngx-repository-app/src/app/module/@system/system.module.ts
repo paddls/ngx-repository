@@ -1,4 +1,4 @@
-import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { inject, NgModule } from '@angular/core';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BaseUrlInterceptor } from './interceptor/base-url.interceptor';
 import { BookInterceptor } from './interceptor/book.interceptor';
@@ -37,7 +37,9 @@ import { PatchInterceptor } from './interceptor/patch.interceptor';
 })
 export class SystemModule {
 
-  public constructor(@Optional() @SkipSelf() parentModule: SystemModule) {
+  public constructor() {
+    const parentModule = inject(SystemModule, { optional: true, skipSelf: true });
+
     if (parentModule) {
       throw new Error('SystemModule has already been loaded. You should only import this module in the AppModule only.');
     }

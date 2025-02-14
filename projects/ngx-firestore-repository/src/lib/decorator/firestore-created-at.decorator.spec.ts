@@ -15,7 +15,7 @@ describe('FirestoreCreatedAtDecorator', () => {
   });
 
   it('should place context on property when no parameter', () => {
-    const firstResult: FirestoreCreatedAtContextConfiguration = {propertyKey: 'myProperty', field: 'myProperty'};
+    const firstResult: FirestoreCreatedAtContextConfiguration = { propertyKey: 'myProperty', field: 'myProperty' };
 
     FirestoreCreatedAt()(obj, 'myProperty');
 
@@ -23,7 +23,7 @@ describe('FirestoreCreatedAtDecorator', () => {
   });
 
   it('should place context on property when string parameter', () => {
-    const firstResult: FirestoreCreatedAtContextConfiguration = {propertyKey: 'myProperty', field: 'field'};
+    const firstResult: FirestoreCreatedAtContextConfiguration = { propertyKey: 'myProperty', field: 'field' };
 
     FirestoreCreatedAt('field')(obj, 'myProperty');
 
@@ -31,9 +31,9 @@ describe('FirestoreCreatedAtDecorator', () => {
   });
 
   it('should place context on property when object parameter', () => {
-    const firstResult: FirestoreCreatedAtContextConfiguration = {propertyKey: 'myProperty', field: 'field'};
+    const firstResult: FirestoreCreatedAtContextConfiguration = { propertyKey: 'myProperty', field: 'field' };
 
-    FirestoreCreatedAt({field: 'field'})(obj, 'myProperty');
+    FirestoreCreatedAt({ field: 'field' })(obj, 'myProperty');
 
     expect(Reflect.getMetadata(FIRESTORE_CREATED_AT_METADATA_KEY, obj)).toEqual([firstResult]);
   });

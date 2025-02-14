@@ -37,15 +37,15 @@ describe('HttpMultipartResource', () => {
     testHttpRepository({
       create: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.create(new Book({name})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
         expectedRequestBody,
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: 1,
         verify: async (params: any) => {
           const givenRequestBody: string = await params[2].body.get('data').text();
-          expect(givenRequestBody).toEqual(JSON.stringify({name}));
+          expect(givenRequestBody).toEqual(JSON.stringify({ name }));
         }
       },
       update: {
@@ -57,12 +57,12 @@ describe('HttpMultipartResource', () => {
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
         expectedRequestBody,
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0,
 
         verify: async (params: any) => {
           const givenRequestBody: string = await params[2].body.get('data').text();
-          expect(givenRequestBody).toEqual(JSON.stringify({id: 1, name}));
+          expect(givenRequestBody).toEqual(JSON.stringify({ id: 1, name }));
         }
       },
       patch: {
@@ -74,11 +74,11 @@ describe('HttpMultipartResource', () => {
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
         expectedRequestBody,
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0,
         verify: async (params: any) => {
           const givenRequestBody: string = await params[2].body.get('data').text();
-          expect(givenRequestBody).toEqual(JSON.stringify({id: 1, name}));
+          expect(givenRequestBody).toEqual(JSON.stringify({ id: 1, name }));
         }
       },
       delete: {
@@ -90,11 +90,11 @@ describe('HttpMultipartResource', () => {
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
         expectedRequestBody,
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0,
         verify: async (params: any) => {
           const givenRequestBody: string = await params[2].body.get('data').text();
-          expect(givenRequestBody).toEqual(JSON.stringify({id: 1, name}));
+          expect(givenRequestBody).toEqual(JSON.stringify({ id: 1, name }));
         }
       }
     });
@@ -114,11 +114,11 @@ describe('HttpMultipartResource', () => {
         expectedMethod: 'POST',
         expectedPath: '/books',
         expectedRequestBody,
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: 1,
         verify: async (params: any) => {
           const givenRequestBody: string = await params[2].body.get('data').text();
-          expect(givenRequestBody).toEqual(JSON.stringify({name}));
+          expect(givenRequestBody).toEqual(JSON.stringify({ name }));
           expect(params[2].body.get('file')).toEqual('hello.txt');
         }
       },
@@ -132,11 +132,11 @@ describe('HttpMultipartResource', () => {
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
         expectedRequestBody,
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0,
         verify: async (params: any) => {
           const givenRequestBody: string = await params[2].body.get('data').text();
-          expect(givenRequestBody).toEqual(JSON.stringify({id: 1, name}));
+          expect(givenRequestBody).toEqual(JSON.stringify({ id: 1, name }));
           expect(params[2].body.get('file')).toEqual('hello.txt');
         }
       },
@@ -150,11 +150,11 @@ describe('HttpMultipartResource', () => {
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
         expectedRequestBody,
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0,
         verify: async (params: any) => {
           const givenRequestBody: string = await params[2].body.get('data').text();
-          expect(givenRequestBody).toEqual(JSON.stringify({id: 1, name}));
+          expect(givenRequestBody).toEqual(JSON.stringify({ id: 1, name }));
           expect(params[2].body.get('file')).toEqual('hello.txt');
         }
       },
@@ -168,11 +168,11 @@ describe('HttpMultipartResource', () => {
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
         expectedRequestBody,
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0,
         verify: async (params: any) => {
           const givenRequestBody: string = await params[2].body.get('data').text();
-          expect(givenRequestBody).toEqual(JSON.stringify({id: 1, name}));
+          expect(givenRequestBody).toEqual(JSON.stringify({ id: 1, name }));
           expect(params[2].body.get('file')).toEqual('hello.txt');
         }
       }
@@ -193,11 +193,11 @@ describe('HttpMultipartResource', () => {
         expectedMethod: 'POST',
         expectedPath: '/books',
         expectedRequestBody,
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: 1,
         verify: async (params: any) => {
           const givenRequestBody: string = await params[2].body.get('data').text();
-          expect(givenRequestBody).toEqual(JSON.stringify({name}));
+          expect(givenRequestBody).toEqual(JSON.stringify({ name }));
           expect(params[2].body.get('theFile')).toEqual('world.txt');
         }
       },
@@ -211,12 +211,12 @@ describe('HttpMultipartResource', () => {
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
         expectedRequestBody,
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0,
 
         verify: async (params: any) => {
           const givenRequestBody: string = await params[2].body.get('data').text();
-          expect(givenRequestBody).toEqual(JSON.stringify({id: 1, name}));
+          expect(givenRequestBody).toEqual(JSON.stringify({ id: 1, name }));
           expect(params[2].body.get('theFile')).toEqual('world.txt');
         }
       },
@@ -230,11 +230,11 @@ describe('HttpMultipartResource', () => {
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
         expectedRequestBody,
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0,
         verify: async (params: any) => {
           const givenRequestBody: string = await params[2].body.get('data').text();
-          expect(givenRequestBody).toEqual(JSON.stringify({id: 1, name}));
+          expect(givenRequestBody).toEqual(JSON.stringify({ id: 1, name }));
           expect(params[2].body.get('theFile')).toEqual('world.txt');
         }
       },
@@ -248,11 +248,11 @@ describe('HttpMultipartResource', () => {
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
         expectedRequestBody,
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0,
         verify: async (params: any) => {
           const givenRequestBody: string = await params[2].body.get('data').text();
-          expect(givenRequestBody).toEqual(JSON.stringify({id: 1, name}));
+          expect(givenRequestBody).toEqual(JSON.stringify({ id: 1, name }));
           expect(params[2].body.get('theFile')).toEqual('world.txt');
         }
       }
@@ -274,11 +274,11 @@ describe('HttpMultipartResource', () => {
         expectedMethod: 'POST',
         expectedPath: '/books',
         expectedRequestBody,
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: 1,
         verify: async (params: any) => {
           const givenRequestBody: string = await params[2].body.get('data').text();
-          expect(givenRequestBody).toEqual(JSON.stringify({name}));
+          expect(givenRequestBody).toEqual(JSON.stringify({ name }));
           expect(params[2].body.get('theFile')).toEqual('world.txt');
           expect(params[2].body.get('file')).toEqual('hello.txt');
         }
@@ -294,11 +294,11 @@ describe('HttpMultipartResource', () => {
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
         expectedRequestBody,
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0,
         verify: async (params: any) => {
           const givenRequestBody: string = await params[2].body.get('data').text();
-          expect(givenRequestBody).toEqual(JSON.stringify({id: 1, name}));
+          expect(givenRequestBody).toEqual(JSON.stringify({ id: 1, name }));
           expect(params[2].body.get('theFile')).toEqual('world.txt');
           expect(params[2].body.get('file')).toEqual('hello.txt');
         }
@@ -314,11 +314,11 @@ describe('HttpMultipartResource', () => {
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
         expectedRequestBody,
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0,
         verify: async (params: any) => {
           const givenRequestBody: string = await params[2].body.get('data').text();
-          expect(givenRequestBody).toEqual(JSON.stringify({id: 1, name}));
+          expect(givenRequestBody).toEqual(JSON.stringify({ id: 1, name }));
           expect(params[2].body.get('theFile')).toEqual('world.txt');
           expect(params[2].body.get('file')).toEqual('hello.txt');
         }
@@ -334,11 +334,11 @@ describe('HttpMultipartResource', () => {
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
         expectedRequestBody,
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0,
         verify: async (params: any) => {
           const givenRequestBody: string = await params[2].body.get('data').text();
-          expect(givenRequestBody).toEqual(JSON.stringify({id: 1, name}));
+          expect(givenRequestBody).toEqual(JSON.stringify({ id: 1, name }));
           expect(params[2].body.get('theFile')).toEqual('world.txt');
           expect(params[2].body.get('file')).toEqual('hello.txt');
         }

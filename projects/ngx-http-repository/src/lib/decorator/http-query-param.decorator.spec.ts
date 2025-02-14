@@ -37,7 +37,7 @@ describe('HttpParamDecorator', () => {
       test: 'foo'
     };
 
-    HttpQueryParam({name: 'hello', format: 'hello :value/:value'})(obj, 'test');
+    HttpQueryParam({ name: 'hello', format: 'hello :value/:value' })(obj, 'test');
     expect(Reflect.getMetadata(HTTP_QUERY_PARAM_METADATA_KEY, obj)).toEqual([
       {
         propertyKey: 'test',

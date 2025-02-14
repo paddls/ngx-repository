@@ -2,7 +2,7 @@ import { RepositoryResponse } from './repository.response';
 import { Observable, of } from 'rxjs';
 import { RequestManagerContext } from '../manager/request-manager.context';
 import { ConfigurationContextProvider } from '../configuration/configuration-context.provider';
-import { Injectable, Injector, Type } from '@angular/core';
+import { inject, Injectable, Injector, Type } from '@angular/core';
 import { ResponseProcessor } from './processor/response.processor';
 import { BuilderParam } from '../configuration/resource-param.configuration';
 import { BodyResponseProcessor } from './processor/body.response-processor';
@@ -19,8 +19,7 @@ import { get } from '../common/utils/get';
 @Injectable()
 export class ResponseBuilder {
 
-  public constructor(protected readonly injector: Injector) {
-  }
+  protected readonly injector = inject(Injector);
 
   public static withParams(params: ResponseBuilderParam = {}): BuilderParam<ResponseBuilder> {
     const responseProcessors: ResponseProcessorToken[] = [

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Library } from '../../module/@core/model/library.model';
@@ -6,13 +6,23 @@ import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { LibraryService } from '../../module/@core/service/library.service';
 import { Book } from '../../module/@core/model/book.model';
 import { BookService } from '../../module/@core/service/book.service';
+import { AsyncPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-library',
   templateUrl: './library.component.html',
-  styleUrls: ['./library.component.scss']
+  styleUrls: ['./library.component.scss'],
+  imports: [
+    FormsModule,
+    AsyncPipe
+  ]
 })
 export class LibraryComponent {
+
+  private libraryService = inject(LibraryService);
+  private bookService = inject(BookService);
+  private router = inject(Router);
 
   public libraryName: string;
 
@@ -20,10 +30,9 @@ export class LibraryComponent {
 
   private expandedBooks: Map<string, boolean> = new Map<string, boolean>();
 
-  public constructor(activatedRoute: ActivatedRoute,
-                     private libraryService: LibraryService,
-                     private bookService: BookService,
-                     private router: Router) {
+  public constructor() {
+    const activatedRoute = inject(ActivatedRoute);
+
     this.library$ = activatedRoute.params.pipe(
       filter((params: Params) => !!params),
       map((params: Params) => params[`libraryId`]),

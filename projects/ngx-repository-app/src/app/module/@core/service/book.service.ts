@@ -9,7 +9,7 @@ import { BookQuery } from '../query/book.query';
 @Injectable()
 export class BookService {
 
-  @InjectRepository({resourceType: () => Book, repository: () => HttpRepository})
+  @InjectRepository({ resourceType: () => Book, repository: () => HttpRepository })
   private bookRepository: HttpRepository<Book, string>;
 
   private chance: Chance.Chance = new Chance.Chance();

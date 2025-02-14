@@ -8,7 +8,10 @@ type ExecuteFirestoreRequestEvent = BeforeExecuteFirestoreRequestEvent | AfterEx
 
 // @dynamic
 @Injectable()
-@EventListener([(e: ExecuteFirestoreRequestEvent) => e instanceof BeforeExecuteFirestoreRequestEvent, (e: ExecuteFirestoreRequestEvent) => e instanceof AfterExecuteFirestoreRequestEvent])
+@EventListener([
+  (e: ExecuteFirestoreRequestEvent) => e instanceof BeforeExecuteFirestoreRequestEvent,
+  (e: ExecuteFirestoreRequestEvent) => e instanceof AfterExecuteFirestoreRequestEvent
+])
 export class LogExecuteFirestoreRequestEventListener implements Listener<ExecuteFirestoreRequestEvent> {
 
   public on(event: ExecuteFirestoreRequestEvent): void {

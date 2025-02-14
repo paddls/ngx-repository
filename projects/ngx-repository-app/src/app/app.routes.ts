@@ -1,11 +1,10 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { LibrariesComponent } from './component/libraries/libraries.component';
 import { LibraryComponent } from './component/library/library.component';
 import { ClientComponent } from './component/client/client.component';
 import { PersonComponent } from './component/person/person.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     redirectTo: 'libraries',
@@ -30,12 +29,3 @@ const routes: Routes = [
     ]
   }
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    onSameUrlNavigation: 'reload'
-  })],
-  exports: [RouterModule]
-})
-export class AppRoutingModule {
-}

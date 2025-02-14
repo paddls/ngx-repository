@@ -21,30 +21,30 @@ describe('VoidResponseProcessor', () => {
     testHttpRepository({
       update: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.update(new Book({id: 1})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({ id: 1 })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1},
+        expectedRequestBody: { id: 1 },
         expectedResponse: void 0,
-        mockedResponseBody: {id: 1}
+        mockedResponseBody: { id: 1 }
       },
       patch: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({id: 1})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({ id: 1 })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1},
+        expectedRequestBody: { id: 1 },
         expectedResponse: void 0,
-        mockedResponseBody: {id: 1}
+        mockedResponseBody: { id: 1 }
       },
       delete: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({id: 1})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({ id: 1 })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1},
+        expectedRequestBody: { id: 1 },
         expectedResponse: void 0,
-        mockedResponseBody: {id: 1}
+        mockedResponseBody: { id: 1 }
       }
     });
   });
@@ -72,30 +72,30 @@ describe('VoidResponseProcessor', () => {
     testHttpRepository({
       update: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.update(new Book({id: 1})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({ id: 1 })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1},
-        expectedResponse: new Book({id: 1, name: 'Gladiator'}),
-        mockedResponseBody: {id: 1, name: 'Gladiator'}
+        expectedRequestBody: { id: 1 },
+        expectedResponse: new Book({ id: 1, name: 'Gladiator' }),
+        mockedResponseBody: { id: 1, name: 'Gladiator' }
       },
       patch: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({id: 1})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({ id: 1 })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1},
-        expectedResponse: new Book({id: 1, name: 'Gladiator'}),
-        mockedResponseBody: {id: 1, name: 'Gladiator'}
+        expectedRequestBody: { id: 1 },
+        expectedResponse: new Book({ id: 1, name: 'Gladiator' }),
+        mockedResponseBody: { id: 1, name: 'Gladiator' }
       },
       delete: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({id: 1})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({ id: 1 })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1},
-        expectedResponse: new Book({id: 1, name: 'Gladiator'}),
-        mockedResponseBody: {id: 1, name: 'Gladiator'}
+        expectedRequestBody: { id: 1 },
+        expectedResponse: new Book({ id: 1, name: 'Gladiator' }),
+        mockedResponseBody: { id: 1, name: 'Gladiator' }
       }
     });
   });
@@ -137,30 +137,30 @@ describe('VoidResponseProcessor', () => {
     testHttpRepository({
       update: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.update(new Book({id: 1})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.update(new Book({ id: 1 })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1},
-        expectedResponse: new Manga({identifier: 'abc', author: 'Charly'}),
-        mockedResponseBody: {identifier: 'abc', author: 'Charly'}
+        expectedRequestBody: { id: 1 },
+        expectedResponse: new Manga({ identifier: 'abc', author: 'Charly' }),
+        mockedResponseBody: { identifier: 'abc', author: 'Charly' }
       },
       patch: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({id: 1})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.patch(new Book({ id: 1 })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1},
-        expectedResponse: new Manga({identifier: 'abc', author: 'Charly'}),
-        mockedResponseBody: {identifier: 'abc', author: 'Charly'}
+        expectedRequestBody: { id: 1 },
+        expectedResponse: new Manga({ identifier: 'abc', author: 'Charly' }),
+        mockedResponseBody: { identifier: 'abc', author: 'Charly' }
       },
       delete: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({id: 1})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.delete(new Book({ id: 1 })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1},
-        expectedResponse: new Manga({identifier: 'abc', author: 'Charly'}),
-        mockedResponseBody: {identifier: 'abc', author: 'Charly'}
+        expectedRequestBody: { id: 1 },
+        expectedResponse: new Manga({ identifier: 'abc', author: 'Charly' }),
+        mockedResponseBody: { identifier: 'abc', author: 'Charly' }
       }
     });
   });

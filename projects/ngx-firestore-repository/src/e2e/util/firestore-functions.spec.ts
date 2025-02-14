@@ -51,7 +51,7 @@ export function onSnapshot(reference: any,
       wif(
         () => reference.type === 'collection',
         (items: any[]) => ({
-          docs: items.map((data: any) => ({data: () => data}))
+          docs: items.map((data: any) => ({ data: () => data }))
         }),
         (data: any[]) => ({
           data: () => data
@@ -65,55 +65,55 @@ export function onSnapshot(reference: any,
 export function where(fieldPath: string | FieldPath, opStr: WhereFilterOp, value: unknown): QueryConstraint {
   return {
     type: 'where',
-    data: {fieldPath, opStr, value}
+    data: { fieldPath, opStr, value }
   } as any;
 }
 
 export function orderBy(fieldPath: string | FieldPath, directionStr?: OrderByDirection): QueryConstraint {
   return {
     type: 'orderBy',
-    data: {fieldPath, directionStr}
+    data: { fieldPath, directionStr }
   } as any;
 }
 
 export function startAt(...fieldValues: unknown[]): QueryConstraint {
   return {
     type: 'startAt',
-    data: {fieldValues}
+    data: { fieldValues }
   } as any;
 }
 
 export function startAfter(...fieldValues: unknown[]): QueryConstraint {
   return {
     type: 'startAfter',
-    data: {fieldValues}
+    data: { fieldValues }
   } as any;
 }
 
 export function endAt(...fieldValues: unknown[]): QueryConstraint {
   return {
     type: 'endAt',
-    data: {fieldValues}
+    data: { fieldValues }
   } as any;
 }
 
 export function endBefore(...fieldValues: unknown[]): QueryConstraint {
   return {
     type: 'endBefore',
-    data: {fieldValues}
+    data: { fieldValues }
   } as any;
 }
 
 export function limit(limit: number): QueryConstraint {
   return {
     type: 'limit',
-    data: {limit}
+    data: { limit }
   } as any;
 }
 
 export function limitToLast(limit: number): QueryConstraint {
   return {
     type: 'limitToLast',
-    data: {limit}
+    data: { limit }
   } as any;
 }

@@ -19,7 +19,7 @@ describe('Id', () => {
     });
 
     it('should return the id property of query param', () => {
-      const query: any = {myQueryIdProperty: 'myIdFromQuery'};
+      const query: any = { myQueryIdProperty: 'myIdFromQuery' };
       Reflect.defineMetadata(ID_METADATA_KEY, 'myQueryIdProperty', query);
       const id: Id = new Id(query, null);
 
@@ -27,7 +27,7 @@ describe('Id', () => {
     });
 
     it('should return the id property of body param', () => {
-      const body: any = {myBodyIdProperty: 'myIdFromBody'};
+      const body: any = { myBodyIdProperty: 'myIdFromBody' };
       Reflect.defineMetadata(ID_METADATA_KEY, 'myBodyIdProperty', body);
       const id: Id = new Id(null, body);
 
@@ -35,8 +35,8 @@ describe('Id', () => {
     });
 
     it('should return the id property of body param if both of query and body have id property', () => {
-      const query: any = {myQueryIdProperty: 'myIdFromQuery'};
-      const body: any = {myBodyIdProperty: 'myIdFromBody'};
+      const query: any = { myQueryIdProperty: 'myIdFromQuery' };
+      const body: any = { myBodyIdProperty: 'myIdFromBody' };
       Reflect.defineMetadata(ID_METADATA_KEY, 'myQueryIdProperty', query);
       Reflect.defineMetadata(ID_METADATA_KEY, 'myBodyIdProperty', body);
       const id: Id = new Id(query, body);

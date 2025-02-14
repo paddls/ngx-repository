@@ -7,10 +7,10 @@ const ngxRepositoryService: any = {
 };
 
 class MyService {
-  @InjectRepository({resourceType: () => Mock})
+  @InjectRepository({ resourceType: () => Mock })
   public test: any;
 
-  @InjectRepository({resourceType: () => Mock})
+  @InjectRepository({ resourceType: () => Mock })
   public test2: any;
 }
 

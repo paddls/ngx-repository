@@ -27,7 +27,7 @@ xdescribe('FirestoreRepositoryDriver', () => {
       ]
     });
 
-    spyOn(FromRefFunctions, 'fromRef').and.callFake(() => throwError({name: 'FirebaseError'}));
+    spyOn(FromRefFunctions, 'fromRef').and.callFake(() => throwError({ name: 'FirebaseError' }));
 
     driver = TestBed.inject(FirestoreRepositoryDriver);
 
@@ -37,9 +37,9 @@ xdescribe('FirestoreRepositoryDriver', () => {
   });
 
   it('should throw new NgxFirestoreRepositoryReadRequestError on findBy FirebaseError', () => {
-    const request: FirestoreRepositoryRequest = new FirestoreCriteriaRepositoryRequest('findAll', {value: '/books'} as any, null, null);
+    const request: FirestoreRepositoryRequest = new FirestoreCriteriaRepositoryRequest('findAll', { value: '/books' } as any, null, null);
     spyOn(request as FirestoreCriteriaRepositoryRequest, 'getQuery').and.returnValue(null);
-    const expectedError: any = new NgxFirestoreRepositoryReadRequestError(request, {name: 'FirebaseError'} as any);
+    const expectedError: any = new NgxFirestoreRepositoryReadRequestError(request, { name: 'FirebaseError' } as any);
 
     const result$: Observable<any> = driver.execute(request);
 

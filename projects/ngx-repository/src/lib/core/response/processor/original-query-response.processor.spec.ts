@@ -16,7 +16,7 @@ describe('OriginalQueryResponseProcessor', () => {
   }
 
   it('should place original query metadata on object', () => {
-    const response: Book = new Book({id: '12'});
+    const response: Book = new Book({ id: '12' });
 
     const context: RequestManagerContext = {
       query: 'query'
@@ -29,7 +29,10 @@ describe('OriginalQueryResponseProcessor', () => {
   });
 
   it('should place original query metadata on array', () => {
-    const response: Book[] = [new Book({id: '12'}), new Book({id: '12'})];
+    const response: Book[] = [
+      new Book({ id: '12' }),
+      new Book({ id: '12' })
+    ];
 
     const context: RequestManagerContext = {
       query: 'query'
@@ -43,7 +46,7 @@ describe('OriginalQueryResponseProcessor', () => {
   });
 
   it('should not place original query metadata when no query', () => {
-    const response: Book = new Book({id: '12'});
+    const response: Book = new Book({ id: '12' });
 
     const context: RequestManagerContext = {
       query: null

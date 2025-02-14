@@ -26,7 +26,7 @@ export function testFirestoreRepository(tests: { [key: string]: Partial<Firestor
     });
 
     it(name, async () => {
-      const {repository}: RepositoryContext<any> = initializeRepository(context.entity);
+      const { repository }: RepositoryContext<any> = initializeRepository(context.entity);
 
       FirestoreMock.mock(context.expectedPath, context.mockedResponse);
 
@@ -34,7 +34,7 @@ export function testFirestoreRepository(tests: { [key: string]: Partial<Firestor
 
       expect(response).toEqual(context.expectedResponse);
       if (context.expectedRequest) {
-        context.expectedRequest({path: context.expectedPath});
+        context.expectedRequest({ path: context.expectedPath });
       }
       if (context.expectedQuery) {
         context.expectedQuery();
@@ -45,24 +45,24 @@ export function testFirestoreRepository(tests: { [key: string]: Partial<Firestor
 
 export function expectCollectionAdd<T>(value: any): (reference: CollectionReference<T>) => void {
   return (reference: CollectionReference<T>) => {
-    expect(addDoc as any).toHaveBeenCalledOnceWith({type: 'collection', ...reference}, value);
+    expect(addDoc as any).toHaveBeenCalledOnceWith({ type: 'collection', ...reference }, value);
   };
 }
 
 export function expectDocumentUpdate<T>(value: any): (reference: DocumentReference<T>) => void {
   return (reference: DocumentReference<T>) => {
-    expect(updateDoc as any).toHaveBeenCalledOnceWith({type: 'document', ...reference}, value);
+    expect(updateDoc as any).toHaveBeenCalledOnceWith({ type: 'document', ...reference }, value);
   };
 }
 
 export function expectDocumentDelete<T>(): (reference: DocumentReference<T>) => void {
   return (reference: DocumentReference<T>) => {
-    expect(deleteDoc as any).toHaveBeenCalledOnceWith({type: 'document', ...reference});
+    expect(deleteDoc as any).toHaveBeenCalledOnceWith({ type: 'document', ...reference });
   };
 }
 
 export function expectQuery(type: string, args: any): () => void {
   return () => {
-    expect(query as any).toHaveBeenCalledWith(jasmine.anything(), {type, data: {...args}});
+    expect(query as any).toHaveBeenCalledWith(jasmine.anything(), { type, data: { ...args } });
   };
 }

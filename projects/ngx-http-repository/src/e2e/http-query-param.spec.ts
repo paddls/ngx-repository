@@ -36,47 +36,50 @@ describe('HttpQueryParam', () => {
     testHttpRepository({
       findOne: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({name})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({ name })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
         expectedQueryParams: buildHttpParams('name', name),
-        mockedResponseBody: [{id: 1, name}],
-        expectedResponse: new Book({id: 1, name})
+        mockedResponseBody: [{ id: 1, name }],
+        expectedResponse: new Book({ id: 1, name })
       },
       findAll: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({name})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({ name })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
         expectedQueryParams: buildHttpParams('name', name),
-        mockedResponseBody: [{id: 1, name}, {id: 2, name}],
+        mockedResponseBody: [
+          { id: 1, name },
+          { id: 2, name }
+        ],
         expectedResponse: Page.build([
-          new Book({id: 1, name}),
-          new Book({id: 2, name})
+          new Book({ id: 1, name }),
+          new Book({ id: 2, name })
         ])
       },
       findById: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({name})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({ name })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/1',
         expectedRequestBody: null,
         expectedQueryParams: buildHttpParams('name', name),
-        mockedResponseBody: {id: 1, name},
-        expectedResponse: new Book({id: 1, name})
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: new Book({ id: 1, name })
       },
       create: {
         entity: Book,
         request: (repository: HttpRepository<any, any>) => repository.create(new Book({
           name
-        }), new BookQuery({name})).toPromise(),
+        }), new BookQuery({ name })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
-        expectedRequestBody: {name},
+        expectedRequestBody: { name },
         expectedQueryParams: buildHttpParams('name', name),
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: 1
       },
       update: {
@@ -84,12 +87,12 @@ describe('HttpQueryParam', () => {
         request: (repository: HttpRepository<any, any>) => repository.update(new Book({
           id: 1,
           name
-        }), new BookQuery({name})).toPromise(),
+        }), new BookQuery({ name })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1, name},
+        expectedRequestBody: { id: 1, name },
         expectedQueryParams: buildHttpParams('name', name),
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0
       },
       patch: {
@@ -97,12 +100,12 @@ describe('HttpQueryParam', () => {
         request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
           id: 1,
           name
-        }), new BookQuery({name})).toPromise(),
+        }), new BookQuery({ name })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1, name},
+        expectedRequestBody: { id: 1, name },
         expectedQueryParams: buildHttpParams('name', name),
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0
       },
       delete: {
@@ -110,12 +113,12 @@ describe('HttpQueryParam', () => {
         request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
           id: 1,
           name
-        }), new BookQuery({name})).toPromise(),
+        }), new BookQuery({ name })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1, name},
+        expectedRequestBody: { id: 1, name },
         expectedQueryParams: buildHttpParams('name', name),
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0
       }
     });
@@ -126,7 +129,7 @@ describe('HttpQueryParam', () => {
 
     class BookQuery {
 
-      @HttpQueryParam({format: '[:value]'})
+      @HttpQueryParam({ format: '[:value]' })
       public name: string;
 
       public constructor(data: Partial<BookQuery> = {}) {
@@ -137,47 +140,50 @@ describe('HttpQueryParam', () => {
     testHttpRepository({
       findOne: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({name})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({ name })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
         expectedQueryParams: buildHttpParams('name', `[${name}]`),
-        mockedResponseBody: [{id: 1, name}],
-        expectedResponse: new Book({id: 1, name})
+        mockedResponseBody: [{ id: 1, name }],
+        expectedResponse: new Book({ id: 1, name })
       },
       findAll: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({name})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({ name })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
         expectedQueryParams: buildHttpParams('name', `[${name}]`),
-        mockedResponseBody: [{id: 1, name}, {id: 2, name}],
+        mockedResponseBody: [
+          { id: 1, name },
+          { id: 2, name }
+        ],
         expectedResponse: Page.build([
-          new Book({id: 1, name}),
-          new Book({id: 2, name})
+          new Book({ id: 1, name }),
+          new Book({ id: 2, name })
         ])
       },
       findById: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({name})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({ name })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/1',
         expectedRequestBody: null,
         expectedQueryParams: buildHttpParams('name', `[${name}]`),
-        mockedResponseBody: {id: 1, name},
-        expectedResponse: new Book({id: 1, name})
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: new Book({ id: 1, name })
       },
       create: {
         entity: Book,
         request: (repository: HttpRepository<any, any>) => repository.create(new Book({
           name
-        }), new BookQuery({name})).toPromise(),
+        }), new BookQuery({ name })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
-        expectedRequestBody: {name},
+        expectedRequestBody: { name },
         expectedQueryParams: buildHttpParams('name', `[${name}]`),
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: 1
       },
       update: {
@@ -185,12 +191,12 @@ describe('HttpQueryParam', () => {
         request: (repository: HttpRepository<any, any>) => repository.update(new Book({
           id: 1,
           name
-        }), new BookQuery({name})).toPromise(),
+        }), new BookQuery({ name })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1, name},
+        expectedRequestBody: { id: 1, name },
         expectedQueryParams: buildHttpParams('name', `[${name}]`),
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0
       },
       patch: {
@@ -198,12 +204,12 @@ describe('HttpQueryParam', () => {
         request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
           id: 1,
           name
-        }), new BookQuery({name})).toPromise(),
+        }), new BookQuery({ name })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1, name},
+        expectedRequestBody: { id: 1, name },
         expectedQueryParams: buildHttpParams('name', `[${name}]`),
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0
       },
       delete: {
@@ -211,12 +217,12 @@ describe('HttpQueryParam', () => {
         request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
           id: 1,
           name
-        }), new BookQuery({name})).toPromise(),
+        }), new BookQuery({ name })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1, name},
+        expectedRequestBody: { id: 1, name },
         expectedQueryParams: buildHttpParams('name', `[${name}]`),
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0
       }
     });
@@ -229,7 +235,7 @@ describe('HttpQueryParam', () => {
 
     class BookQuery {
 
-      @HttpQueryParam({customConverter: () => DateConverter})
+      @HttpQueryParam({ customConverter: () => DateConverter })
       public since: Date;
 
       public constructor(data: Partial<BookQuery> = {}) {
@@ -240,45 +246,48 @@ describe('HttpQueryParam', () => {
     testHttpRepository({
       findOne: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({since})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({ since })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
         expectedQueryParams: buildHttpParams('since', `2021-01-01T03:51:00.000Z`),
-        mockedResponseBody: [{id: 1, name}],
-        expectedResponse: new Book({id: 1, name})
+        mockedResponseBody: [{ id: 1, name }],
+        expectedResponse: new Book({ id: 1, name })
       },
       findAll: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({since})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({ since })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
         expectedQueryParams: buildHttpParams('since', `2021-01-01T03:51:00.000Z`),
-        mockedResponseBody: [{id: 1, name}, {id: 2, name}],
+        mockedResponseBody: [
+          { id: 1, name },
+          { id: 2, name }
+        ],
         expectedResponse: Page.build([
-          new Book({id: 1, name}),
-          new Book({id: 2, name})
+          new Book({ id: 1, name }),
+          new Book({ id: 2, name })
         ])
       },
       findById: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({since})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({ since })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/1',
         expectedRequestBody: null,
         expectedQueryParams: buildHttpParams('since', `2021-01-01T03:51:00.000Z`),
-        mockedResponseBody: {id: 1, name},
-        expectedResponse: new Book({id: 1, name})
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: new Book({ id: 1, name })
       },
       create: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.create(new Book({name}), new BookQuery({since})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.create(new Book({ name }), new BookQuery({ since })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
-        expectedRequestBody: {name},
+        expectedRequestBody: { name },
         expectedQueryParams: buildHttpParams('since', `2021-01-01T03:51:00.000Z`),
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: 1
       },
       update: {
@@ -286,12 +295,12 @@ describe('HttpQueryParam', () => {
         request: (repository: HttpRepository<any, any>) => repository.update(new Book({
           id: 1,
           name
-        }), new BookQuery({since})).toPromise(),
+        }), new BookQuery({ since })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1, name},
+        expectedRequestBody: { id: 1, name },
         expectedQueryParams: buildHttpParams('since', `2021-01-01T03:51:00.000Z`),
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0
       },
       patch: {
@@ -299,12 +308,12 @@ describe('HttpQueryParam', () => {
         request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
           id: 1,
           name
-        }), new BookQuery({since})).toPromise(),
+        }), new BookQuery({ since })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1, name},
+        expectedRequestBody: { id: 1, name },
         expectedQueryParams: buildHttpParams('since', `2021-01-01T03:51:00.000Z`),
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0
       },
       delete: {
@@ -312,12 +321,12 @@ describe('HttpQueryParam', () => {
         request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
           id: 1,
           name
-        }), new BookQuery({since})).toPromise(),
+        }), new BookQuery({ since })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1, name},
+        expectedRequestBody: { id: 1, name },
         expectedQueryParams: buildHttpParams('since', `2021-01-01T03:51:00.000Z`),
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0
       }
     });
@@ -330,7 +339,7 @@ describe('HttpQueryParam', () => {
 
     class BookQuery {
 
-      @HttpQueryParam({customConverter: () => DateConverter, name: 'SINCE'})
+      @HttpQueryParam({ customConverter: () => DateConverter, name: 'SINCE' })
       public since: Date;
 
       public constructor(data: Partial<BookQuery> = {}) {
@@ -341,47 +350,50 @@ describe('HttpQueryParam', () => {
     testHttpRepository({
       findOne: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({since})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.findOne(new BookQuery({ since })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
         expectedQueryParams: buildHttpParams('SINCE', `2021-01-01T03:51:00.000Z`),
-        mockedResponseBody: [{id: 1, name}],
-        expectedResponse: new Book({id: 1, name})
+        mockedResponseBody: [{ id: 1, name }],
+        expectedResponse: new Book({ id: 1, name })
       },
       findAll: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({since})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.findAll(new BookQuery({ since })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books',
         expectedRequestBody: null,
         expectedQueryParams: buildHttpParams('SINCE', `2021-01-01T03:51:00.000Z`),
-        mockedResponseBody: [{id: 1, name}, {id: 2, name}],
+        mockedResponseBody: [
+          { id: 1, name },
+          { id: 2, name }
+        ],
         expectedResponse: Page.build([
-          new Book({id: 1, name}),
-          new Book({id: 2, name})
+          new Book({ id: 1, name }),
+          new Book({ id: 2, name })
         ])
       },
       findById: {
         entity: Book,
-        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({since})).toPromise(),
+        request: (repository: HttpRepository<any, any>) => repository.findById(1, new BookQuery({ since })).toPromise(),
         expectedMethod: 'GET',
         expectedPath: '/books/1',
         expectedRequestBody: null,
         expectedQueryParams: buildHttpParams('SINCE', `2021-01-01T03:51:00.000Z`),
-        mockedResponseBody: {id: 1, name},
-        expectedResponse: new Book({id: 1, name})
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: new Book({ id: 1, name })
       },
       create: {
         entity: Book,
         request: (repository: HttpRepository<any, any>) => repository.create(new Book({
           name
-        }), new BookQuery({since})).toPromise(),
+        }), new BookQuery({ since })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
-        expectedRequestBody: {name},
+        expectedRequestBody: { name },
         expectedQueryParams: buildHttpParams('SINCE', `2021-01-01T03:51:00.000Z`),
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: 1
       },
       update: {
@@ -389,12 +401,12 @@ describe('HttpQueryParam', () => {
         request: (repository: HttpRepository<any, any>) => repository.update(new Book({
           id: 1,
           name
-        }), new BookQuery({since})).toPromise(),
+        }), new BookQuery({ since })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1, name},
+        expectedRequestBody: { id: 1, name },
         expectedQueryParams: buildHttpParams('SINCE', `2021-01-01T03:51:00.000Z`),
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0
       },
       patch: {
@@ -402,12 +414,12 @@ describe('HttpQueryParam', () => {
         request: (repository: HttpRepository<any, any>) => repository.patch(new Book({
           id: 1,
           name
-        }), new BookQuery({since})).toPromise(),
+        }), new BookQuery({ since })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1, name},
+        expectedRequestBody: { id: 1, name },
         expectedQueryParams: buildHttpParams('SINCE', `2021-01-01T03:51:00.000Z`),
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0
       },
       delete: {
@@ -415,12 +427,12 @@ describe('HttpQueryParam', () => {
         request: (repository: HttpRepository<any, any>) => repository.delete(new Book({
           id: 1,
           name
-        }), new BookQuery({since})).toPromise(),
+        }), new BookQuery({ since })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1, name},
+        expectedRequestBody: { id: 1, name },
         expectedQueryParams: buildHttpParams('SINCE', `2021-01-01T03:51:00.000Z`),
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0
       }
     });
@@ -461,8 +473,8 @@ describe('HttpQueryParam', () => {
         expectedPath: '/books',
         expectedRequestBody: null,
         expectedQueryParams: buildHttpParams('name', name),
-        mockedResponseBody: [{id: 1, name}],
-        expectedResponse: new Book({id: 1, name})
+        mockedResponseBody: [{ id: 1, name }],
+        expectedResponse: new Book({ id: 1, name })
       },
       findAll: {
         entity: Book,
@@ -475,10 +487,13 @@ describe('HttpQueryParam', () => {
         expectedPath: '/books',
         expectedRequestBody: null,
         expectedQueryParams: buildHttpParams('name', name),
-        mockedResponseBody: [{id: 1, name}, {id: 2, name}],
+        mockedResponseBody: [
+          { id: 1, name },
+          { id: 2, name }
+        ],
         expectedResponse: Page.build([
-          new Book({id: 1, name}),
-          new Book({id: 2, name})
+          new Book({ id: 1, name }),
+          new Book({ id: 2, name })
         ])
       },
       findById: {
@@ -492,8 +507,8 @@ describe('HttpQueryParam', () => {
         expectedPath: '/books/1',
         expectedRequestBody: null,
         expectedQueryParams: buildHttpParams('name', name),
-        mockedResponseBody: {id: 1, name},
-        expectedResponse: new Book({id: 1, name})
+        mockedResponseBody: { id: 1, name },
+        expectedResponse: new Book({ id: 1, name })
       },
       create: {
         entity: Book,
@@ -506,9 +521,9 @@ describe('HttpQueryParam', () => {
         })).toPromise(),
         expectedMethod: 'POST',
         expectedPath: '/books',
-        expectedRequestBody: {name},
+        expectedRequestBody: { name },
         expectedQueryParams: buildHttpParams('name', name),
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: 1
       },
       update: {
@@ -523,9 +538,9 @@ describe('HttpQueryParam', () => {
         })).toPromise(),
         expectedMethod: 'PUT',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1, name},
+        expectedRequestBody: { id: 1, name },
         expectedQueryParams: buildHttpParams('name', name),
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0
       },
       patch: {
@@ -540,9 +555,9 @@ describe('HttpQueryParam', () => {
         })).toPromise(),
         expectedMethod: 'PATCH',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1, name},
+        expectedRequestBody: { id: 1, name },
         expectedQueryParams: buildHttpParams('name', name),
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0
       },
       delete: {
@@ -557,9 +572,9 @@ describe('HttpQueryParam', () => {
         })).toPromise(),
         expectedMethod: 'DELETE',
         expectedPath: '/books/1',
-        expectedRequestBody: {id: 1, name},
+        expectedRequestBody: { id: 1, name },
         expectedQueryParams: buildHttpParams('name', name),
-        mockedResponseBody: {id: 1, name},
+        mockedResponseBody: { id: 1, name },
         expectedResponse: void 0
       }
     });

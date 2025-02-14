@@ -2,14 +2,14 @@ import { TestBed } from '@angular/core/testing';
 import {
   Column,
   Id,
-  NgxRepositoryModule,
   NgxRepositoryService,
   Page,
   PageResponseProcessor,
   PathColumn,
-  PathParam
+  PathParam,
+  provideNgxRepository
 } from '@paddls/ngx-repository';
-import { NgxHttpRepositoryModule } from '../lib/ngx-http-repository.module';
+import { provideNgxHttpRepository } from '../lib/ngx-http-repository.module';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { expectHttpRequest, HttpRequestTestContext } from './util/expect-http-request.spec';
@@ -193,11 +193,9 @@ describe('HttpRequestDecorator', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        NgxRepositoryModule.forRoot(),
-        NgxHttpRepositoryModule.forRoot()
-      ],
       providers: [
+        provideNgxRepository(),
+        provideNgxHttpRepository(),
         Api
       ]
     });
@@ -215,24 +213,24 @@ describe('HttpRequestDecorator', () => {
         expectedMethod: 'GET'
       },
       HttpPost: {
-        request: () => api.post(new ApiRequest({name: 'theName'})).toPromise(),
+        request: () => api.post(new ApiRequest({ name: 'theName' })).toPromise(),
         expectedMethod: 'POST',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpPut: {
-        request: () => api.put(new ApiRequest({name: 'theName'})).toPromise(),
+        request: () => api.put(new ApiRequest({ name: 'theName' })).toPromise(),
         expectedMethod: 'PUT',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpPatch: {
-        request: () => api.patch(new ApiRequest({name: 'theName'})).toPromise(),
+        request: () => api.patch(new ApiRequest({ name: 'theName' })).toPromise(),
         expectedMethod: 'PATCH',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpDelete: {
-        request: () => api.delete(new ApiRequest({name: 'theName'})).toPromise(),
+        request: () => api.delete(new ApiRequest({ name: 'theName' })).toPromise(),
         expectedMethod: 'DELETE',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpOption: {
         request: () => api.option().toPromise(),
@@ -245,8 +243,8 @@ describe('HttpRequestDecorator', () => {
         const defaultConfiguration: Partial<HttpRequestTestContext> = {
           httpClient,
           expectedPath: '/api',
-          mockedResponseBody: {column: 'theValue'},
-          expectedResponse: new ApiResponse({column: 'theValue'})
+          mockedResponseBody: { column: 'theValue' },
+          expectedResponse: new ApiResponse({ column: 'theValue' })
         };
 
         await expectHttpRequest({
@@ -260,11 +258,11 @@ describe('HttpRequestDecorator', () => {
   describe('should send custom request with body', () => {
     const tests: { [key: string]: Partial<HttpRequestTestContext> } = {
       HttpGet: {
-        request: () => api.getWithBody(new ApiRequest({name: 'theName'})).toPromise(),
+        request: () => api.getWithBody(new ApiRequest({ name: 'theName' })).toPromise(),
         expectedMethod: 'GET'
       },
       HttpOption: {
-        request: () => api.optionWithBody(new ApiRequest({name: 'theName'})).toPromise(),
+        request: () => api.optionWithBody(new ApiRequest({ name: 'theName' })).toPromise(),
         expectedMethod: 'OPTION'
       }
     };
@@ -274,9 +272,9 @@ describe('HttpRequestDecorator', () => {
         const defaultConfiguration: Partial<HttpRequestTestContext> = {
           httpClient,
           expectedPath: '/api',
-          expectedRequestBody: {name: 'theName'},
-          mockedResponseBody: {column: 'theValue'},
-          expectedResponse: new ApiResponse({column: 'theValue'})
+          expectedRequestBody: { name: 'theName' },
+          mockedResponseBody: { column: 'theValue' },
+          expectedResponse: new ApiResponse({ column: 'theValue' })
         };
 
         await expectHttpRequest({
@@ -312,8 +310,8 @@ describe('HttpRequestDecorator', () => {
         const defaultConfiguration: Partial<HttpRequestTestContext> = {
           httpClient,
           expectedPath: '/api',
-          mockedResponseBody: {column: 'theValue'},
-          expectedResponse: new ApiResponse({column: 'theValue'})
+          mockedResponseBody: { column: 'theValue' },
+          expectedResponse: new ApiResponse({ column: 'theValue' })
         };
 
         await expectHttpRequest({
@@ -331,24 +329,24 @@ describe('HttpRequestDecorator', () => {
         expectedMethod: 'GET'
       },
       HttpPost: {
-        request: () => api.post(new ApiRequest({name: 'theName'})).toPromise(),
+        request: () => api.post(new ApiRequest({ name: 'theName' })).toPromise(),
         expectedMethod: 'POST',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpPut: {
-        request: () => api.put(new ApiRequest({name: 'theName'})).toPromise(),
+        request: () => api.put(new ApiRequest({ name: 'theName' })).toPromise(),
         expectedMethod: 'PUT',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpPatch: {
-        request: () => api.patch(new ApiRequest({name: 'theName'})).toPromise(),
+        request: () => api.patch(new ApiRequest({ name: 'theName' })).toPromise(),
         expectedMethod: 'PATCH',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpDelete: {
-        request: () => api.delete(new ApiRequest({name: 'theName'})).toPromise(),
+        request: () => api.delete(new ApiRequest({ name: 'theName' })).toPromise(),
         expectedMethod: 'DELETE',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpOption: {
         request: () => api.option().toPromise(),
@@ -361,8 +359,8 @@ describe('HttpRequestDecorator', () => {
         const defaultConfiguration: Partial<HttpRequestTestContext> = {
           httpClient,
           expectedPath: '/api',
-          mockedResponseBody: [{column: 'theValue'}],
-          expectedResponse: [new ApiResponse({column: 'theValue'})]
+          mockedResponseBody: [{ column: 'theValue' }],
+          expectedResponse: [new ApiResponse({ column: 'theValue' })]
         };
 
         await expectHttpRequest({
@@ -380,24 +378,24 @@ describe('HttpRequestDecorator', () => {
         expectedMethod: 'GET'
       },
       HttpPost: {
-        request: () => api.postWithResponseProcessor(new ApiRequest({name: 'theName'})).toPromise(),
+        request: () => api.postWithResponseProcessor(new ApiRequest({ name: 'theName' })).toPromise(),
         expectedMethod: 'POST',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpPut: {
-        request: () => api.putWithResponseProcessor(new ApiRequest({name: 'theName'})).toPromise(),
+        request: () => api.putWithResponseProcessor(new ApiRequest({ name: 'theName' })).toPromise(),
         expectedMethod: 'PUT',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpPatch: {
-        request: () => api.patchWithResponseProcessor(new ApiRequest({name: 'theName'})).toPromise(),
+        request: () => api.patchWithResponseProcessor(new ApiRequest({ name: 'theName' })).toPromise(),
         expectedMethod: 'PATCH',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpDelete: {
-        request: () => api.deleteWithResponseProcessor(new ApiRequest({name: 'theName'})).toPromise(),
+        request: () => api.deleteWithResponseProcessor(new ApiRequest({ name: 'theName' })).toPromise(),
         expectedMethod: 'DELETE',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpOption: {
         request: () => api.optionWithResponseProcessor().toPromise(),
@@ -410,8 +408,8 @@ describe('HttpRequestDecorator', () => {
         const defaultConfiguration: Partial<HttpRequestTestContext> = {
           httpClient,
           expectedPath: '/api',
-          mockedResponseBody: [{column: 'theValue'}],
-          expectedResponse: Page.build([new ApiResponse({column: 'theValue'})])
+          mockedResponseBody: [{ column: 'theValue' }],
+          expectedResponse: Page.build([new ApiResponse({ column: 'theValue' })])
         };
 
         await expectHttpRequest({
@@ -425,31 +423,31 @@ describe('HttpRequestDecorator', () => {
   describe('should send custom request with path param & column', () => {
     const tests: { [key: string]: Partial<HttpRequestTestContext> } = {
       HttpGet: {
-        request: () => api.getWithPathParam(new ApiQuery({version: 'v1'})).toPromise(),
+        request: () => api.getWithPathParam(new ApiQuery({ version: 'v1' })).toPromise(),
         expectedMethod: 'GET'
       },
       HttpPost: {
-        request: () => api.postWithPathParam(new ApiRequest({name: 'theName'}), new ApiQuery({version: 'v1'})).toPromise(),
+        request: () => api.postWithPathParam(new ApiRequest({ name: 'theName' }), new ApiQuery({ version: 'v1' })).toPromise(),
         expectedMethod: 'POST',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpPut: {
-        request: () => api.putWithPathParam(new ApiRequest({name: 'theName'}), new ApiQuery({version: 'v1'})).toPromise(),
+        request: () => api.putWithPathParam(new ApiRequest({ name: 'theName' }), new ApiQuery({ version: 'v1' })).toPromise(),
         expectedMethod: 'PUT',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpPatch: {
-        request: () => api.patchWithPathParam(new ApiRequest({name: 'theName'}), new ApiQuery({version: 'v1'})).toPromise(),
+        request: () => api.patchWithPathParam(new ApiRequest({ name: 'theName' }), new ApiQuery({ version: 'v1' })).toPromise(),
         expectedMethod: 'PATCH',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpDelete: {
-        request: () => api.deleteWithPathParam(new ApiRequest({name: 'theName'}), new ApiQuery({version: 'v1'})).toPromise(),
+        request: () => api.deleteWithPathParam(new ApiRequest({ name: 'theName' }), new ApiQuery({ version: 'v1' })).toPromise(),
         expectedMethod: 'DELETE',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpOption: {
-        request: () => api.optionWithPathParam(new ApiQuery({version: 'v1'})).toPromise(),
+        request: () => api.optionWithPathParam(new ApiQuery({ version: 'v1' })).toPromise(),
         expectedMethod: 'OPTION'
       }
     };
@@ -459,8 +457,8 @@ describe('HttpRequestDecorator', () => {
         const defaultConfiguration: Partial<HttpRequestTestContext> = {
           httpClient,
           expectedPath: '/api/v1',
-          mockedResponseBody: {column: 'theValue'},
-          expectedResponse: new ApiResponse({column: 'theValue', version: 'v1'})
+          mockedResponseBody: { column: 'theValue' },
+          expectedResponse: new ApiResponse({ column: 'theValue', version: 'v1' })
         };
 
         await expectHttpRequest({
@@ -474,31 +472,31 @@ describe('HttpRequestDecorator', () => {
   describe('should send custom request with query param', () => {
     const tests: { [key: string]: Partial<HttpRequestTestContext> } = {
       HttpGet: {
-        request: () => api.get(new ApiQuery({name: 'theRequestedName'})).toPromise(),
+        request: () => api.get(new ApiQuery({ name: 'theRequestedName' })).toPromise(),
         expectedMethod: 'GET'
       },
       HttpPost: {
-        request: () => api.post(new ApiRequest({name: 'theName'}), new ApiQuery({name: 'theRequestedName'})).toPromise(),
+        request: () => api.post(new ApiRequest({ name: 'theName' }), new ApiQuery({ name: 'theRequestedName' })).toPromise(),
         expectedMethod: 'POST',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpPut: {
-        request: () => api.put(new ApiRequest({name: 'theName'}), new ApiQuery({name: 'theRequestedName'})).toPromise(),
+        request: () => api.put(new ApiRequest({ name: 'theName' }), new ApiQuery({ name: 'theRequestedName' })).toPromise(),
         expectedMethod: 'PUT',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpPatch: {
-        request: () => api.patch(new ApiRequest({name: 'theName'}), new ApiQuery({name: 'theRequestedName'})).toPromise(),
+        request: () => api.patch(new ApiRequest({ name: 'theName' }), new ApiQuery({ name: 'theRequestedName' })).toPromise(),
         expectedMethod: 'PATCH',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpDelete: {
-        request: () => api.delete(new ApiRequest({name: 'theName'}), new ApiQuery({name: 'theRequestedName'})).toPromise(),
+        request: () => api.delete(new ApiRequest({ name: 'theName' }), new ApiQuery({ name: 'theRequestedName' })).toPromise(),
         expectedMethod: 'DELETE',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpOption: {
-        request: () => api.option(new ApiQuery({name: 'theRequestedName'})).toPromise(),
+        request: () => api.option(new ApiQuery({ name: 'theRequestedName' })).toPromise(),
         expectedMethod: 'OPTION'
       }
     };
@@ -508,9 +506,9 @@ describe('HttpRequestDecorator', () => {
         const defaultConfiguration: Partial<HttpRequestTestContext> = {
           httpClient,
           expectedPath: '/api',
-          mockedResponseBody: {column: 'theValue'},
+          mockedResponseBody: { column: 'theValue' },
           expectedQueryParams: buildHttpParams('name', 'theRequestedName'),
-          expectedResponse: new ApiResponse({column: 'theValue'})
+          expectedResponse: new ApiResponse({ column: 'theValue' })
         };
 
         await expectHttpRequest({
@@ -524,31 +522,31 @@ describe('HttpRequestDecorator', () => {
   describe('should send custom request with headers', () => {
     const tests: { [key: string]: Partial<HttpRequestTestContext> } = {
       HttpGet: {
-        request: () => api.get(new ApiQuery({size: 3})).toPromise(),
+        request: () => api.get(new ApiQuery({ size: 3 })).toPromise(),
         expectedMethod: 'GET'
       },
       HttpPost: {
-        request: () => api.post(new ApiRequest({name: 'theName'}), new ApiQuery({size: 3})).toPromise(),
+        request: () => api.post(new ApiRequest({ name: 'theName' }), new ApiQuery({ size: 3 })).toPromise(),
         expectedMethod: 'POST',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpPut: {
-        request: () => api.put(new ApiRequest({name: 'theName'}), new ApiQuery({size: 3})).toPromise(),
+        request: () => api.put(new ApiRequest({ name: 'theName' }), new ApiQuery({ size: 3 })).toPromise(),
         expectedMethod: 'PUT',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpPatch: {
-        request: () => api.patch(new ApiRequest({name: 'theName'}), new ApiQuery({size: 3})).toPromise(),
+        request: () => api.patch(new ApiRequest({ name: 'theName' }), new ApiQuery({ size: 3 })).toPromise(),
         expectedMethod: 'PATCH',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpDelete: {
-        request: () => api.delete(new ApiRequest({name: 'theName'}), new ApiQuery({size: 3})).toPromise(),
+        request: () => api.delete(new ApiRequest({ name: 'theName' }), new ApiQuery({ size: 3 })).toPromise(),
         expectedMethod: 'DELETE',
-        expectedRequestBody: {name: 'theName'}
+        expectedRequestBody: { name: 'theName' }
       },
       HttpOption: {
-        request: () => api.option(new ApiQuery({size: 3})).toPromise(),
+        request: () => api.option(new ApiQuery({ size: 3 })).toPromise(),
         expectedMethod: 'OPTION'
       }
     };
@@ -558,9 +556,9 @@ describe('HttpRequestDecorator', () => {
         const defaultConfiguration: Partial<HttpRequestTestContext> = {
           httpClient,
           expectedPath: '/api',
-          mockedResponseBody: {column: 'theValue'},
-          expectedRequestHeaders: {size: '3'},
-          expectedResponse: new ApiResponse({column: 'theValue'})
+          mockedResponseBody: { column: 'theValue' },
+          expectedRequestHeaders: { size: '3' },
+          expectedResponse: new ApiResponse({ column: 'theValue' })
         };
 
         await expectHttpRequest({

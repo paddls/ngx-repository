@@ -28,7 +28,7 @@ describe('IdResponseProcessor', () => {
       )
     } as any;
 
-    expect(processor.transform(new Book({id: '12'}), null, context)).toEqual('12');
+    expect(processor.transform(new Book({ id: '12' }), null, context)).toEqual('12');
   });
 
   it('should return null when no id field', () => {
@@ -39,7 +39,7 @@ describe('IdResponseProcessor', () => {
       )
     } as any;
 
-    expect(processor.transform(new Book({id: '12'}), null, context)).toBeNull();
+    expect(processor.transform(new Book({ id: '12' }), null, context)).toBeNull();
   });
 
   it('should return null when no response', () => {

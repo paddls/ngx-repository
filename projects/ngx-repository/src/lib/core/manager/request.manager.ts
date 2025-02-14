@@ -4,7 +4,7 @@ import { switchMap } from 'rxjs/operators';
 import { RepositoryRequest } from '../request/repository.request';
 import { RepositoryResponse } from '../response/repository.response';
 import { RequestBuilder } from '../request/request.builder';
-import { Injectable, Injector, Type } from '@angular/core';
+import { inject, Injectable, Injector, Type } from '@angular/core';
 import { ResponseBuilder } from '../response/response.builder';
 import { BuilderParam } from '../configuration/resource-param.configuration';
 import { ConfigurationContextProvider } from '../configuration/configuration-context.provider';
@@ -14,8 +14,7 @@ import { get } from '../common/utils/get';
 @Injectable()
 export class RequestManager {
 
-  public constructor(protected readonly injector: Injector) {
-  }
+  protected readonly injector = inject(Injector);
 
   public execute(context: RequestManagerContext): Observable<any> {
     const driver: RepositoryDriver = context.driver;

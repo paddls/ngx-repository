@@ -7,7 +7,7 @@ import { ID_METADATA_KEY } from '../../decorator/id.decorator';
 @Injectable()
 export class IdResponseProcessor implements ResponseProcessor {
 
-  public transform(response: any, origin: RepositoryResponse, {configuration}: RequestManagerContext): any {
+  public transform(response: any, origin: RepositoryResponse, { configuration }: RequestManagerContext): any {
     const resourceType: Type<any> = configuration.getConfiguration('responseType')();
     const idField: string = Reflect.getMetadata(ID_METADATA_KEY, resourceType.prototype);
 

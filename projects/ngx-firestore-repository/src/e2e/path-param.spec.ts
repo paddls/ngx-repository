@@ -41,56 +41,65 @@ describe('PathParam', () => {
     testFirestoreRepository({
       findAll: {
         entity: Book,
-        request: (repository: FirestoreRepository<any>) => repository.findAll(new BookQuery({category: 'shonen'})).toPromise(),
+        request: (repository: FirestoreRepository<any>) => repository.findAll(new BookQuery({ category: 'shonen' })).toPromise(),
         expectedPath: '/books/shonen',
-        expectedResponse: Page.build([new Book({id: '1', name: 'Book 1'}), new Book({id: '2', name: 'Book 2'})]),
-        mockedResponse: [{id: '1', name: 'Book 1'}, {id: '2', name: 'Book 2'}]
+        expectedResponse: Page.build([
+          new Book({ id: '1', name: 'Book 1' }),
+          new Book({ id: '2', name: 'Book 2' })
+        ]),
+        mockedResponse: [
+          { id: '1', name: 'Book 1' },
+          { id: '2', name: 'Book 2' }
+        ]
       },
       findOne: {
         entity: Book,
-        request: (repository: FirestoreRepository<any>) => repository.findOne(new BookQuery({category: 'shonen'})).toPromise(),
+        request: (repository: FirestoreRepository<any>) => repository.findOne(new BookQuery({ category: 'shonen' })).toPromise(),
         expectedPath: '/books/shonen',
-        expectedResponse: new Book({id: '1', name: 'Book 1'}),
-        mockedResponse: [{id: '1', name: 'Book 1'}, {id: '2', name: 'Book 2'}]
+        expectedResponse: new Book({ id: '1', name: 'Book 1' }),
+        mockedResponse: [
+          { id: '1', name: 'Book 1' },
+          { id: '2', name: 'Book 2' }
+        ]
       },
       findById: {
         entity: Book,
-        request: (repository: FirestoreRepository<any>) => repository.findById(1, new BookQuery({category: 'shonen'})).toPromise(),
+        request: (repository: FirestoreRepository<any>) => repository.findById(1, new BookQuery({ category: 'shonen' })).toPromise(),
         expectedPath: '/books/shonen/1',
-        expectedResponse: new Book({id: '1', name: 'Book 1'}),
-        mockedResponse: {id: '1', name: 'Book 1'}
+        expectedResponse: new Book({ id: '1', name: 'Book 1' }),
+        mockedResponse: { id: '1', name: 'Book 1' }
       },
       create: {
         entity: Book,
-        request: (repository: FirestoreRepository<any>) => repository.create(new Book({name: 'Book 1'}), new BookQuery({category: 'shonen'})).toPromise(),
+        request: (repository: FirestoreRepository<any>) => repository.create(new Book({ name: 'Book 1' }), new BookQuery({ category: 'shonen' })).toPromise(),
         expectedPath: '/books/shonen',
-        expectedRequest: expectCollectionAdd({name: 'Book 1'}),
+        expectedRequest: expectCollectionAdd({ name: 'Book 1' }),
         expectedResponse: '1',
-        mockedResponse: {id: '1'}
+        mockedResponse: { id: '1' }
       },
       update: {
         entity: Book,
         request: (repository: FirestoreRepository<any>) => repository.update(
-          new Book({id: '1', name: 'Book 1'}),
-          new BookQuery({category: 'shonen'})).toPromise(),
+          new Book({ id: '1', name: 'Book 1' }),
+          new BookQuery({ category: 'shonen' })).toPromise(),
         expectedPath: '/books/shonen/1',
-        expectedRequest: expectDocumentUpdate({id: '1', name: 'Book 1'}),
+        expectedRequest: expectDocumentUpdate({ id: '1', name: 'Book 1' }),
         expectedResponse: void 0
       },
       patch: {
         entity: Book,
         request: (repository: FirestoreRepository<any>) => repository.patch(
-          new Book({id: '2', name: 'Book 2'}),
-          new BookQuery({category: 'shonen'})).toPromise(),
+          new Book({ id: '2', name: 'Book 2' }),
+          new BookQuery({ category: 'shonen' })).toPromise(),
         expectedPath: '/books/shonen/2',
-        expectedRequest: expectDocumentUpdate({id: '2', name: 'Book 2'}),
+        expectedRequest: expectDocumentUpdate({ id: '2', name: 'Book 2' }),
         expectedResponse: void 0
       },
       delete: {
         entity: Book,
         request: (repository: FirestoreRepository<any>) => repository.delete(
-          new Book({id: '1', name: 'Book 1'}),
-          new BookQuery({category: 'shonen'})).toPromise(),
+          new Book({ id: '1', name: 'Book 1' }),
+          new BookQuery({ category: 'shonen' })).toPromise(),
         expectedPath: '/books/shonen/1',
         expectedRequest: expectDocumentDelete(),
         expectedResponse: void 0
@@ -112,56 +121,65 @@ describe('PathParam', () => {
     testFirestoreRepository({
       findAll: {
         entity: Book,
-        request: (repository: FirestoreRepository<any>) => repository.findAll(new BookQuery({categoryName: 'shonen'})).toPromise(),
+        request: (repository: FirestoreRepository<any>) => repository.findAll(new BookQuery({ categoryName: 'shonen' })).toPromise(),
         expectedPath: '/books/shonen',
-        expectedResponse: Page.build([new Book({id: '1', name: 'Book 1'}), new Book({id: '2', name: 'Book 2'})]),
-        mockedResponse: [{id: '1', name: 'Book 1'}, {id: '2', name: 'Book 2'}]
+        expectedResponse: Page.build([
+          new Book({ id: '1', name: 'Book 1' }),
+          new Book({ id: '2', name: 'Book 2' })
+        ]),
+        mockedResponse: [
+          { id: '1', name: 'Book 1' },
+          { id: '2', name: 'Book 2' }
+        ]
       },
       findOne: {
         entity: Book,
-        request: (repository: FirestoreRepository<any>) => repository.findOne(new BookQuery({categoryName: 'shonen'})).toPromise(),
+        request: (repository: FirestoreRepository<any>) => repository.findOne(new BookQuery({ categoryName: 'shonen' })).toPromise(),
         expectedPath: '/books/shonen',
-        expectedResponse: new Book({id: '1', name: 'Book 1'}),
-        mockedResponse: [{id: '1', name: 'Book 1'}, {id: '2', name: 'Book 2'}]
+        expectedResponse: new Book({ id: '1', name: 'Book 1' }),
+        mockedResponse: [
+          { id: '1', name: 'Book 1' },
+          { id: '2', name: 'Book 2' }
+        ]
       },
       findById: {
         entity: Book,
-        request: (repository: FirestoreRepository<any>) => repository.findById(1, new BookQuery({categoryName: 'shonen'})).toPromise(),
+        request: (repository: FirestoreRepository<any>) => repository.findById(1, new BookQuery({ categoryName: 'shonen' })).toPromise(),
         expectedPath: '/books/shonen/1',
-        expectedResponse: new Book({id: '1', name: 'Book 1'}),
-        mockedResponse: {id: '1', name: 'Book 1'}
+        expectedResponse: new Book({ id: '1', name: 'Book 1' }),
+        mockedResponse: { id: '1', name: 'Book 1' }
       },
       create: {
         entity: Book,
-        request: (repository: FirestoreRepository<any>) => repository.create(new Book({name: 'Book 1'}), new BookQuery({categoryName: 'shonen'})).toPromise(),
+        request: (repository: FirestoreRepository<any>) => repository.create(new Book({ name: 'Book 1' }), new BookQuery({ categoryName: 'shonen' })).toPromise(),
         expectedPath: '/books/shonen',
-        expectedRequest: expectCollectionAdd({name: 'Book 1'}),
+        expectedRequest: expectCollectionAdd({ name: 'Book 1' }),
         expectedResponse: '1',
-        mockedResponse: {id: '1'}
+        mockedResponse: { id: '1' }
       },
       update: {
         entity: Book,
         request: (repository: FirestoreRepository<any>) => repository.update(
-          new Book({id: '1', name: 'Book 1'}),
-          new BookQuery({categoryName: 'shonen'})).toPromise(),
+          new Book({ id: '1', name: 'Book 1' }),
+          new BookQuery({ categoryName: 'shonen' })).toPromise(),
         expectedPath: '/books/shonen/1',
-        expectedRequest: expectDocumentUpdate({id: '1', name: 'Book 1'}),
+        expectedRequest: expectDocumentUpdate({ id: '1', name: 'Book 1' }),
         expectedResponse: void 0
       },
       patch: {
         entity: Book,
         request: (repository: FirestoreRepository<any>) => repository.patch(
-          new Book({id: '2', name: 'Book 2'}),
-          new BookQuery({categoryName: 'shonen'})).toPromise(),
+          new Book({ id: '2', name: 'Book 2' }),
+          new BookQuery({ categoryName: 'shonen' })).toPromise(),
         expectedPath: '/books/shonen/2',
-        expectedRequest: expectDocumentUpdate({id: '2', name: 'Book 2'}),
+        expectedRequest: expectDocumentUpdate({ id: '2', name: 'Book 2' }),
         expectedResponse: void 0
       },
       delete: {
         entity: Book,
         request: (repository: FirestoreRepository<any>) => repository.delete(
-          new Book({id: '1', name: 'Book 1'}),
-          new BookQuery({categoryName: 'shonen'})).toPromise(),
+          new Book({ id: '1', name: 'Book 1' }),
+          new BookQuery({ categoryName: 'shonen' })).toPromise(),
         expectedPath: '/books/shonen/1',
         expectedRequest: expectDocumentDelete(),
         expectedResponse: void 0
@@ -182,7 +200,7 @@ describe('PathParam', () => {
 
     class BookQuery {
 
-      @PathParam({customConverter: () => UppercaseConverter})
+      @PathParam({ customConverter: () => UppercaseConverter })
       public category: string;
 
       public constructor(data: Partial<BookQuery> = {}) {
@@ -193,56 +211,65 @@ describe('PathParam', () => {
     testFirestoreRepository({
       findAll: {
         entity: Book,
-        request: (repository: FirestoreRepository<any>) => repository.findAll(new BookQuery({category: 'shonen'})).toPromise(),
+        request: (repository: FirestoreRepository<any>) => repository.findAll(new BookQuery({ category: 'shonen' })).toPromise(),
         expectedPath: '/books/SHONEN',
-        expectedResponse: Page.build([new Book({id: '1', name: 'Book 1'}), new Book({id: '2', name: 'Book 2'})]),
-        mockedResponse: [{id: '1', name: 'Book 1'}, {id: '2', name: 'Book 2'}]
+        expectedResponse: Page.build([
+          new Book({ id: '1', name: 'Book 1' }),
+          new Book({ id: '2', name: 'Book 2' })
+        ]),
+        mockedResponse: [
+          { id: '1', name: 'Book 1' },
+          { id: '2', name: 'Book 2' }
+        ]
       },
       findOne: {
         entity: Book,
-        request: (repository: FirestoreRepository<any>) => repository.findOne(new BookQuery({category: 'shonen'})).toPromise(),
+        request: (repository: FirestoreRepository<any>) => repository.findOne(new BookQuery({ category: 'shonen' })).toPromise(),
         expectedPath: '/books/SHONEN',
-        expectedResponse: new Book({id: '1', name: 'Book 1'}),
-        mockedResponse: [{id: '1', name: 'Book 1'}, {id: '2', name: 'Book 2'}]
+        expectedResponse: new Book({ id: '1', name: 'Book 1' }),
+        mockedResponse: [
+          { id: '1', name: 'Book 1' },
+          { id: '2', name: 'Book 2' }
+        ]
       },
       findById: {
         entity: Book,
-        request: (repository: FirestoreRepository<any>) => repository.findById(1, new BookQuery({category: 'shonen'})).toPromise(),
+        request: (repository: FirestoreRepository<any>) => repository.findById(1, new BookQuery({ category: 'shonen' })).toPromise(),
         expectedPath: '/books/SHONEN/1',
-        expectedResponse: new Book({id: '1', name: 'Book 1'}),
-        mockedResponse: {id: '1', name: 'Book 1'}
+        expectedResponse: new Book({ id: '1', name: 'Book 1' }),
+        mockedResponse: { id: '1', name: 'Book 1' }
       },
       create: {
         entity: Book,
-        request: (repository: FirestoreRepository<any>) => repository.create(new Book({name: 'Book 1'}), new BookQuery({category: 'shonen'})).toPromise(),
+        request: (repository: FirestoreRepository<any>) => repository.create(new Book({ name: 'Book 1' }), new BookQuery({ category: 'shonen' })).toPromise(),
         expectedPath: '/books/SHONEN',
-        expectedRequest: expectCollectionAdd({name: 'Book 1'}),
+        expectedRequest: expectCollectionAdd({ name: 'Book 1' }),
         expectedResponse: '1',
-        mockedResponse: {id: '1'}
+        mockedResponse: { id: '1' }
       },
       update: {
         entity: Book,
         request: (repository: FirestoreRepository<any>) => repository.update(
-          new Book({id: '1', name: 'Book 1'}),
-          new BookQuery({category: 'shonen'})).toPromise(),
+          new Book({ id: '1', name: 'Book 1' }),
+          new BookQuery({ category: 'shonen' })).toPromise(),
         expectedPath: '/books/SHONEN/1',
-        expectedRequest: expectDocumentUpdate({id: '1', name: 'Book 1'}),
+        expectedRequest: expectDocumentUpdate({ id: '1', name: 'Book 1' }),
         expectedResponse: void 0
       },
       patch: {
         entity: Book,
         request: (repository: FirestoreRepository<any>) => repository.patch(
-          new Book({id: '2', name: 'Book 2'}),
-          new BookQuery({category: 'shonen'})).toPromise(),
+          new Book({ id: '2', name: 'Book 2' }),
+          new BookQuery({ category: 'shonen' })).toPromise(),
         expectedPath: '/books/SHONEN/2',
-        expectedRequest: expectDocumentUpdate({id: '2', name: 'Book 2'}),
+        expectedRequest: expectDocumentUpdate({ id: '2', name: 'Book 2' }),
         expectedResponse: void 0
       },
       delete: {
         entity: Book,
         request: (repository: FirestoreRepository<any>) => repository.delete(
-          new Book({id: '1', name: 'Book 1'}),
-          new BookQuery({category: 'shonen'})).toPromise(),
+          new Book({ id: '1', name: 'Book 1' }),
+          new BookQuery({ category: 'shonen' })).toPromise(),
         expectedPath: '/books/SHONEN/1',
         expectedRequest: expectDocumentDelete(),
         expectedResponse: void 0
@@ -263,7 +290,7 @@ describe('PathParam', () => {
 
     class BookQuery {
 
-      @PathParam({customConverter: () => UppercaseConverter, name: 'category'})
+      @PathParam({ customConverter: () => UppercaseConverter, name: 'category' })
       public categoryName: string;
 
       public constructor(data: Partial<BookQuery> = {}) {
@@ -274,56 +301,65 @@ describe('PathParam', () => {
     testFirestoreRepository({
       findAll: {
         entity: Book,
-        request: (repository: FirestoreRepository<any>) => repository.findAll(new BookQuery({categoryName: 'shonen'})).toPromise(),
+        request: (repository: FirestoreRepository<any>) => repository.findAll(new BookQuery({ categoryName: 'shonen' })).toPromise(),
         expectedPath: '/books/SHONEN',
-        expectedResponse: Page.build([new Book({id: '1', name: 'Book 1'}), new Book({id: '2', name: 'Book 2'})]),
-        mockedResponse: [{id: '1', name: 'Book 1'}, {id: '2', name: 'Book 2'}]
+        expectedResponse: Page.build([
+          new Book({ id: '1', name: 'Book 1' }),
+          new Book({ id: '2', name: 'Book 2' })
+        ]),
+        mockedResponse: [
+          { id: '1', name: 'Book 1' },
+          { id: '2', name: 'Book 2' }
+        ]
       },
       findOne: {
         entity: Book,
-        request: (repository: FirestoreRepository<any>) => repository.findOne(new BookQuery({categoryName: 'shonen'})).toPromise(),
+        request: (repository: FirestoreRepository<any>) => repository.findOne(new BookQuery({ categoryName: 'shonen' })).toPromise(),
         expectedPath: '/books/SHONEN',
-        expectedResponse: new Book({id: '1', name: 'Book 1'}),
-        mockedResponse: [{id: '1', name: 'Book 1'}, {id: '2', name: 'Book 2'}]
+        expectedResponse: new Book({ id: '1', name: 'Book 1' }),
+        mockedResponse: [
+          { id: '1', name: 'Book 1' },
+          { id: '2', name: 'Book 2' }
+        ]
       },
       findById: {
         entity: Book,
-        request: (repository: FirestoreRepository<any>) => repository.findById(1, new BookQuery({categoryName: 'shonen'})).toPromise(),
+        request: (repository: FirestoreRepository<any>) => repository.findById(1, new BookQuery({ categoryName: 'shonen' })).toPromise(),
         expectedPath: '/books/SHONEN/1',
-        expectedResponse: new Book({id: '1', name: 'Book 1'}),
-        mockedResponse: {id: '1', name: 'Book 1'}
+        expectedResponse: new Book({ id: '1', name: 'Book 1' }),
+        mockedResponse: { id: '1', name: 'Book 1' }
       },
       create: {
         entity: Book,
-        request: (repository: FirestoreRepository<any>) => repository.create(new Book({name: 'Book 1'}), new BookQuery({categoryName: 'shonen'})).toPromise(),
+        request: (repository: FirestoreRepository<any>) => repository.create(new Book({ name: 'Book 1' }), new BookQuery({ categoryName: 'shonen' })).toPromise(),
         expectedPath: '/books/SHONEN',
-        expectedRequest: expectCollectionAdd({name: 'Book 1'}),
+        expectedRequest: expectCollectionAdd({ name: 'Book 1' }),
         expectedResponse: '1',
-        mockedResponse: {id: '1'}
+        mockedResponse: { id: '1' }
       },
       update: {
         entity: Book,
         request: (repository: FirestoreRepository<any>) => repository.update(
-          new Book({id: '1', name: 'Book 1'}),
-          new BookQuery({categoryName: 'shonen'})).toPromise(),
+          new Book({ id: '1', name: 'Book 1' }),
+          new BookQuery({ categoryName: 'shonen' })).toPromise(),
         expectedPath: '/books/SHONEN/1',
-        expectedRequest: expectDocumentUpdate({id: '1', name: 'Book 1'}),
+        expectedRequest: expectDocumentUpdate({ id: '1', name: 'Book 1' }),
         expectedResponse: void 0
       },
       patch: {
         entity: Book,
         request: (repository: FirestoreRepository<any>) => repository.patch(
-          new Book({id: '2', name: 'Book 2'}),
-          new BookQuery({categoryName: 'shonen'})).toPromise(),
+          new Book({ id: '2', name: 'Book 2' }),
+          new BookQuery({ categoryName: 'shonen' })).toPromise(),
         expectedPath: '/books/SHONEN/2',
-        expectedRequest: expectDocumentUpdate({id: '2', name: 'Book 2'}),
+        expectedRequest: expectDocumentUpdate({ id: '2', name: 'Book 2' }),
         expectedResponse: void 0
       },
       delete: {
         entity: Book,
         request: (repository: FirestoreRepository<any>) => repository.delete(
-          new Book({id: '1', name: 'Book 1'}),
-          new BookQuery({categoryName: 'shonen'})).toPromise(),
+          new Book({ id: '1', name: 'Book 1' }),
+          new BookQuery({ categoryName: 'shonen' })).toPromise(),
         expectedPath: '/books/SHONEN/1',
         expectedRequest: expectDocumentDelete(),
         expectedResponse: void 0
@@ -355,56 +391,65 @@ describe('PathParam', () => {
     testFirestoreRepository({
       findAll: {
         entity: Book,
-        request: (repository: FirestoreRepository<any>) => repository.findAll(new BookQuery({child: new SubBookQuery({category: 'shonen'})})).toPromise(),
+        request: (repository: FirestoreRepository<any>) => repository.findAll(new BookQuery({ child: new SubBookQuery({ category: 'shonen' }) })).toPromise(),
         expectedPath: '/books/shonen',
-        expectedResponse: Page.build([new Book({id: '1', name: 'Book 1'}), new Book({id: '2', name: 'Book 2'})]),
-        mockedResponse: [{id: '1', name: 'Book 1'}, {id: '2', name: 'Book 2'}]
+        expectedResponse: Page.build([
+          new Book({ id: '1', name: 'Book 1' }),
+          new Book({ id: '2', name: 'Book 2' })
+        ]),
+        mockedResponse: [
+          { id: '1', name: 'Book 1' },
+          { id: '2', name: 'Book 2' }
+        ]
       },
       findOne: {
         entity: Book,
-        request: (repository: FirestoreRepository<any>) => repository.findOne(new BookQuery({child: new SubBookQuery({category: 'shonen'})})).toPromise(),
+        request: (repository: FirestoreRepository<any>) => repository.findOne(new BookQuery({ child: new SubBookQuery({ category: 'shonen' }) })).toPromise(),
         expectedPath: '/books/shonen',
-        expectedResponse: new Book({id: '1', name: 'Book 1'}),
-        mockedResponse: [{id: '1', name: 'Book 1'}, {id: '2', name: 'Book 2'}]
+        expectedResponse: new Book({ id: '1', name: 'Book 1' }),
+        mockedResponse: [
+          { id: '1', name: 'Book 1' },
+          { id: '2', name: 'Book 2' }
+        ]
       },
       findById: {
         entity: Book,
-        request: (repository: FirestoreRepository<any>) => repository.findById(1, new BookQuery({child: new SubBookQuery({category: 'shonen'})})).toPromise(),
+        request: (repository: FirestoreRepository<any>) => repository.findById(1, new BookQuery({ child: new SubBookQuery({ category: 'shonen' }) })).toPromise(),
         expectedPath: '/books/shonen/1',
-        expectedResponse: new Book({id: '1', name: 'Book 1'}),
-        mockedResponse: {id: '1', name: 'Book 1'}
+        expectedResponse: new Book({ id: '1', name: 'Book 1' }),
+        mockedResponse: { id: '1', name: 'Book 1' }
       },
       create: {
         entity: Book,
-        request: (repository: FirestoreRepository<any>) => repository.create(new Book({name: 'Book 1'}), new BookQuery({child: new SubBookQuery({category: 'shonen'})})).toPromise(),
+        request: (repository: FirestoreRepository<any>) => repository.create(new Book({ name: 'Book 1' }), new BookQuery({ child: new SubBookQuery({ category: 'shonen' }) })).toPromise(),
         expectedPath: '/books/shonen',
-        expectedRequest: expectCollectionAdd({name: 'Book 1'}),
+        expectedRequest: expectCollectionAdd({ name: 'Book 1' }),
         expectedResponse: '1',
-        mockedResponse: {id: '1'}
+        mockedResponse: { id: '1' }
       },
       update: {
         entity: Book,
         request: (repository: FirestoreRepository<any>) => repository.update(
-          new Book({id: '1', name: 'Book 1'}),
-          new BookQuery({child: new SubBookQuery({category: 'shonen'})})).toPromise(),
+          new Book({ id: '1', name: 'Book 1' }),
+          new BookQuery({ child: new SubBookQuery({ category: 'shonen' }) })).toPromise(),
         expectedPath: '/books/shonen/1',
-        expectedRequest: expectDocumentUpdate({id: '1', name: 'Book 1'}),
+        expectedRequest: expectDocumentUpdate({ id: '1', name: 'Book 1' }),
         expectedResponse: void 0
       },
       patch: {
         entity: Book,
         request: (repository: FirestoreRepository<any>) => repository.patch(
-          new Book({id: '2', name: 'Book 2'}),
-          new BookQuery({child: new SubBookQuery({category: 'shonen'})})).toPromise(),
+          new Book({ id: '2', name: 'Book 2' }),
+          new BookQuery({ child: new SubBookQuery({ category: 'shonen' }) })).toPromise(),
         expectedPath: '/books/shonen/2',
-        expectedRequest: expectDocumentUpdate({id: '2', name: 'Book 2'}),
+        expectedRequest: expectDocumentUpdate({ id: '2', name: 'Book 2' }),
         expectedResponse: void 0
       },
       delete: {
         entity: Book,
         request: (repository: FirestoreRepository<any>) => repository.delete(
-          new Book({id: '1', name: 'Book 1'}),
-          new BookQuery({child: new SubBookQuery({category: 'shonen'})})).toPromise(),
+          new Book({ id: '1', name: 'Book 1' }),
+          new BookQuery({ child: new SubBookQuery({ category: 'shonen' }) })).toPromise(),
         expectedPath: '/books/shonen/1',
         expectedRequest: expectDocumentDelete(),
         expectedResponse: void 0

@@ -35,13 +35,34 @@ export interface FirestoreResourceConfiguration extends FirestoreRepositoryParam
 
 export function createFirestoreRepositoryConfiguration(params: ResourceConfiguration): FirestoreResourceConfiguration {
   return {
-    findById: buildOperationParams(params, ['read', 'findById']),
-    findOne: buildOperationParams(params, ['read', 'findOne']),
-    findAll: buildOperationParams(params, ['read', 'findAll']),
-    create: buildOperationParams(params, ['write', 'create']),
-    update: buildOperationParams(params, ['write', 'update']),
-    patch: buildOperationParams(params, ['write', 'patch']),
-    delete: buildOperationParams(params, ['write', 'delete'])
+    findById: buildOperationParams(params, [
+      'read',
+      'findById'
+    ]),
+    findOne: buildOperationParams(params, [
+      'read',
+      'findOne'
+    ]),
+    findAll: buildOperationParams(params, [
+      'read',
+      'findAll'
+    ]),
+    create: buildOperationParams(params, [
+      'write',
+      'create'
+    ]),
+    update: buildOperationParams(params, [
+      'write',
+      'update'
+    ]),
+    patch: buildOperationParams(params, [
+      'write',
+      'patch'
+    ]),
+    delete: buildOperationParams(params, [
+      'write',
+      'delete'
+    ])
   };
 }
 
@@ -51,7 +72,7 @@ function buildOperationParams<T>(params: ResourceConfiguration, path: string[]) 
     rootConfiguration,
     ...path.map((key: string) => get(params, key))
       .filter((value: any) => !isUndefined(value))
-  ].map((value: any) => isString(value) ? {path: value} : value);
+  ].map((value: any) => isString(value) ? { path: value } : value);
 
   return Object.assign({}, ...configurations);
 }

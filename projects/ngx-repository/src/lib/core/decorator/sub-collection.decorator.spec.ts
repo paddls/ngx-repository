@@ -24,10 +24,10 @@ describe('SubCollectionDecorator', () => {
     });
 
     SubCollection(subCollectionContext)(obj, 'myProperty');
-    expect(Reflect.getMetadata(SUB_COLLECTION_METADATA_KEY, obj, 'myProperty')).toEqual({propertyKey: 'myProperty', ...subCollectionContext});
+    expect(Reflect.getMetadata(SUB_COLLECTION_METADATA_KEY, obj, 'myProperty')).toEqual({ propertyKey: 'myProperty', ...subCollectionContext });
 
     SubCollection(subCollectionContext)(obj, 'MySecondProperty');
-    expect(Reflect.getMetadata(SUB_COLLECTION_METADATA_KEY, obj, 'MySecondProperty')).toEqual({propertyKey: 'MySecondProperty', ...subCollectionContext});
+    expect(Reflect.getMetadata(SUB_COLLECTION_METADATA_KEY, obj, 'MySecondProperty')).toEqual({ propertyKey: 'MySecondProperty', ...subCollectionContext });
   });
 
   describe('#getSubCollectionObservable', () => {

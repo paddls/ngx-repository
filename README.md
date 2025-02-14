@@ -89,7 +89,7 @@ To start using NgxRepository, import `NgxRepositoryModule` and the modules corre
 import { NgxRepositoryModule } from '@paddls/ngx-repository';
 import { NgxHttpRepositoryModule } from '@paddls/ngx-http-repository';
 import { NgxFirestoreRepositoryModule } from '@paddls/ngx-firestore-repository';
-import {initializeFirestore} from 'firebase/firestore';
+import { initializeFirestore } from 'firebase/firestore';
 
 const firebaseApp: FirebaseApp = initializeApp({
   apiKey: 'TODO',
@@ -111,7 +111,7 @@ const firestore = initializeFirestore(firebaseApp, {
     NgxRepositoryModule.forRoot(),
     NgxHttpRepositoryModule.forRoot(), // Http driver
     NgxFirestoreRepositoryModule.forRoot({
-      firestore 
+      firestore
     }), // Firestore driver
   ]
 })
@@ -200,7 +200,7 @@ import { HttpRepository } from '@paddls/ngx-http-repository'
 export class BookService {
 
   // repository is build with Http driver for User resource
-  @InjectRepository({resourceType: () => Book, repository: () => HttpRepository})
+  @InjectRepository({ resourceType: () => Book, repository: () => HttpRepository })
   private readonly bookRepository: HttpRepository<Book, number>;
 
   public findAll(): Observable<Page<Book>> {
@@ -262,17 +262,17 @@ export class User {
 As shown in the example above, each configuration field is optional : you can define any field you want or not to have
 any configuration at all.
 
-| Field                  | Description                                                                                                     | Available on `@Id()`   |
-|------------------------|-----------------------------------------------------------------------------------------------------------------|------------------------|
-| `field`                | Field name in JSON                                                                                              | Yes                    |
-| `type`                 | Field type after deserialization : only fields with `@Id()` or `@Column()` decorator in type will be serialized | No                     |
-| `readOnly`             | Boolean to indicate to not send the value in json to the server                                                 | Yes                    |
-| `writeOnly`            | Boolean to indicate to ignore the field in json                                                                 | Yes                    |
-| `customConverter`      | A converter to make a custom serialization/deserialization                                                      | No                     |
-| `denormalizeNull`      | Boolean to override global configuration to denormalize the column when is set to null value                    | Yes                    |
-| `denormalizeUndefined` | Boolean to override global configuration to denormalize the column when is set to undefined value               | Yes                    |
-| `normalizeNull`        | Boolean to override global configuration to normalize the column when is set to null value                      | Yes                    |
-| `normalizeUndefined`   | Boolean to override global configuration to normalize the column when is set to undefined value                 | Yes                    |
+| Field                  | Description                                                                                                     | Available on `@Id()` |
+|------------------------|-----------------------------------------------------------------------------------------------------------------|----------------------|
+| `field`                | Field name in JSON                                                                                              | Yes                  |
+| `type`                 | Field type after deserialization : only fields with `@Id()` or `@Column()` decorator in type will be serialized | No                   |
+| `readOnly`             | Boolean to indicate to not send the value in json to the server                                                 | Yes                  |
+| `writeOnly`            | Boolean to indicate to ignore the field in json                                                                 | Yes                  |
+| `customConverter`      | A converter to make a custom serialization/deserialization                                                      | No                   |
+| `denormalizeNull`      | Boolean to override global configuration to denormalize the column when is set to null value                    | Yes                  |
+| `denormalizeUndefined` | Boolean to override global configuration to denormalize the column when is set to undefined value               | Yes                  |
+| `normalizeNull`        | Boolean to override global configuration to normalize the column when is set to null value                      | Yes                  |
+| `normalizeUndefined`   | Boolean to override global configuration to normalize the column when is set to undefined value                 | Yes                  |
 |
 
 The `field` and `type` fields can be defined using a shorthand. For `field`, just specify a string directly in the
@@ -492,10 +492,11 @@ available.
 The following example shows a query used in a `findAll()` operation on a Firestore resource.
 
 ```typescript
+
 @Injectable()
 export class ClientService {
 
-  @InjectRepository({resourceType: () => Client, repository: () => FirestoreRepository})
+  @InjectRepository({ resourceType: () => Client, repository: () => FirestoreRepository })
   private repository: FirestoreRepository<Client, string>;
 
   public searchByLastName(searchedLastName: string): Observable<Page<Client>> {
@@ -516,6 +517,7 @@ and `@FirestoreResource()` resource decorators.
 > the operation. This can be done by using the syntax in the following example.
 
 ```typescript
+
 @HttpResource({
   path: '/libraries',
   update: '/library',
@@ -568,6 +570,7 @@ context is also possible to define the `path` context parameter.
 > ⚠️ This context parameter is only available for `@HttpResource()`
 
 ```typescript
+
 @HttpResource({
   path: '/libraries',
   create: {
@@ -589,6 +592,7 @@ Define a specific [page response processor](#page-response-processor) using
 > `@HttpResource()`
 
 ```typescript
+
 @HttpResource({
   path: '/libraries',
   findAll: {
@@ -764,7 +768,7 @@ export class PersonRepository extends HttpRepository<Person, string> {
   public constructor(requestManager: RequestManager,
                      driver: HttpRepositoryDriver,
                      @Inject(HTTP_REPOSITORY_CONFIGURATION)
-                       configuration: ResourceConfiguration) {
+                     configuration: ResourceConfiguration) {
     super(requestManager, driver, configuration);
   }
 
@@ -798,6 +802,7 @@ bodies or requests with a response type different from body type.
 To do that, simply create an ``@Injectable()`` class and define your API methods inside like in the following example :
 
 ```typescript
+
 @Injectable()
 class Api {
 
@@ -1070,6 +1075,7 @@ describe('LibraryService', () => {
 You can enable debug mode by setting ``debug`` flag to ``true`` in your repository module import config.
 
 ```typescript
+
 @NgModule({
   imports: [
     BrowserModule,

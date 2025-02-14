@@ -2,7 +2,7 @@ import { HttpQueryParam } from '@paddls/ngx-http-repository';
 
 export class PersonQuery {
 
-  @HttpQueryParam({name: 'firstName', format: '^:value'})
+  @HttpQueryParam({ name: 'firstName', format: '^:value' })
   public firstNameStartWith?: string;
 
   @HttpQueryParam('id')

@@ -12,7 +12,7 @@ import {
 
 export class ClientQuery {
 
-  @FirestoreCriteria({field: 'lastName', operator: '=='})
+  @FirestoreCriteria({ field: 'lastName', operator: '==' })
   public lastNameEqual?: string;
 
   @FirestoreOrderBy()

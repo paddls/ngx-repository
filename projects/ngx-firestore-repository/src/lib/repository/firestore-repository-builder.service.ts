@@ -1,4 +1,4 @@
-import { Injectable, Type } from '@angular/core';
+import { inject, Injectable, Type } from '@angular/core';
 import { FIRESTORE_RESOURCE_METADATA_KEY } from '../decorator/firestore-resource.decorator';
 import { FirestoreRepository } from './firestore.repository';
 import { AbstractRepository, AbstractRepositoryBuilder, RequestManager } from '@paddls/ngx-repository';
@@ -10,8 +10,10 @@ import { FirestoreRepositoryDriver } from '../driver/firestore-repository-driver
 @Injectable()
 export class FirestoreRepositoryBuilder extends AbstractRepositoryBuilder {
 
-  public constructor(private readonly driver: FirestoreRepositoryDriver,
-                     private readonly requestManger: RequestManager) {
+  private readonly driver = inject(FirestoreRepositoryDriver);
+  private readonly requestManger = inject(RequestManager);
+
+  public constructor() {
     super(FIRESTORE_RESOURCE_METADATA_KEY);
   }
 

@@ -23,7 +23,7 @@ describe('PathColumnResponseProcessor', () => {
   }
 
   it('should place path column names on all decorated fields', () => {
-    const response: Book = new Book({id: '12'});
+    const response: Book = new Book({ id: '12' });
 
     const origin: RepositoryResponse = {
       getRequest: () => ({
@@ -43,7 +43,7 @@ describe('PathColumnResponseProcessor', () => {
   });
 
   it('should not place path column names when not defined', () => {
-    const response: Book = new Book({id: '12'});
+    const response: Book = new Book({ id: '12' });
 
     const origin: RepositoryResponse = {
       getRequest: () => ({
@@ -61,7 +61,10 @@ describe('PathColumnResponseProcessor', () => {
   });
 
   it('should place path column names on all decorated fields of all array items', () => {
-    const response: Book[] = [new Book({id: '12'}), new Book({id: '12'})];
+    const response: Book[] = [
+      new Book({ id: '12' }),
+      new Book({ id: '12' })
+    ];
 
     const origin: RepositoryResponse = {
       getRequest: () => ({

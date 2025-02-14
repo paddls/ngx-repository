@@ -9,7 +9,7 @@ import {
   RequestManagerContext
 } from '@paddls/ngx-repository';
 import { FirestoreRepositoryRequest } from './firestore-repository.request';
-import { Inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { FIRESTORE_APP } from '../ngx-firestore-repository.module.di';
 import { FirestoreRepositoryParamConfiguration } from '../configuration/firestore-repository-param.configuration';
 import { FirestoreOperation } from './firestore.operation';
@@ -20,11 +20,10 @@ import { Firestore } from 'firebase/firestore';
 @Injectable()
 export class FirestoreRequestBuilder implements RequestBuilder {
 
-  public constructor(protected readonly normalizer: FirestoreNormalizer,
-                     @Inject(FIRESTORE_APP) protected readonly firestore: Firestore) {
-  }
+  protected readonly normalizer = inject(FirestoreNormalizer);
+  protected readonly firestore = inject<Firestore>(FIRESTORE_APP);
 
-  public build({body, query, configuration}: RequestManagerContext): Observable<FirestoreRepositoryRequest> {
+  public build({ body, query, configuration }: RequestManagerContext): Observable<FirestoreRepositoryRequest> {
     const operation: FirestoreOperation = configuration.getOperation() as FirestoreOperation;
     const path: Path = this.getPath(body, query, configuration);
     const normalizedBody: any = this.getBody(body);
@@ -43,9 +42,9 @@ export class FirestoreRequestBuilder implements RequestBuilder {
       return null;
     }
 
-    PublisherService.getInstance().publish(new BeforeNormalizeEvent({body}));
+    PublisherService.getInstance().publish(new BeforeNormalizeEvent({ body }));
     const data: any = this.normalizer.normalize(body);
-    PublisherService.getInstance().publish(new AfterNormalizeEvent({body, data}));
+    PublisherService.getInstance().publish(new AfterNormalizeEvent({ body, data }));
 
     return data;
   }

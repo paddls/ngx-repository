@@ -3,7 +3,11 @@ import { Page } from './page';
 describe('Page', () => {
 
   it('should map a page to another page with additional informations', () => {
-    const originalPage: Page<number> = new Page<number>([1, 2, 3]);
+    const originalPage: Page<number> = new Page<number>([
+      1,
+      2,
+      3
+    ]);
     originalPage.totalItems = 3;
     originalPage.itemsPerPage = 2;
     originalPage.currentPage = 1;
@@ -18,7 +22,11 @@ describe('Page', () => {
   });
 
   it('should build a page', () => {
-    const page: Page<number> = Page.build([1, 2, 3], 1, 2, 3);
+    const page: Page<number> = Page.build([
+      1,
+      2,
+      3
+    ], 1, 2, 3);
 
     expect(page[0]).toEqual(1);
     expect(page[1]).toEqual(2);

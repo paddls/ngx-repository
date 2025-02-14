@@ -21,7 +21,7 @@ export const SUB_COLLECTION_OBS_METADATA_KEY: string = 'subCollectionObs';
 
 export function SubCollection<T>(subCollectionContext: SubCollectionContext<T>): any {
   return (target: object, propertyKey: string) => {
-    const subCollectionContextConfiguration: SubCollectionContextConfiguration = {propertyKey, ...subCollectionContext};
+    const subCollectionContextConfiguration: SubCollectionContextConfiguration = { propertyKey, ...subCollectionContext };
     Reflect.defineMetadata(SUB_COLLECTION_METADATA_KEY, subCollectionContextConfiguration, target, propertyKey);
 
     Object.defineProperty(target.constructor.prototype, propertyKey, {

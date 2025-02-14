@@ -1,7 +1,7 @@
 import { Person } from '../model/person.model';
 import { Observable } from 'rxjs';
 import { PersonQuery } from '../query/person.query';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Repository, RequestManager } from '@paddls/ngx-repository';
 import { HttpRepository, HttpRepositoryDriver } from '@paddls/ngx-http-repository';
 
@@ -9,9 +9,8 @@ import { HttpRepository, HttpRepositoryDriver } from '@paddls/ngx-http-repositor
 @Repository(() => Person)
 export class PersonRepository extends HttpRepository<Person, string> {
 
-  public constructor(requestManager: RequestManager,
-                     driver: HttpRepositoryDriver) {
-    super(requestManager, driver);
+  public constructor() {
+    super(inject(RequestManager), inject(HttpRepositoryDriver));
   }
 
   public searchByFirstName(searchedFirstName: string): Observable<Person[]> {
