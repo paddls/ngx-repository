@@ -4,6 +4,7 @@ import { REPOSITORY_BUILDER_TOKEN } from './ngx-repository.module.di';
 import { TokenRegistry } from './core/registry/token.registry';
 import { AbstractRepository } from './core/repository/abstract-repository';
 import { RepositoryService } from './repository-service';
+import { NgxRepositoryModule } from './ngx-repository.module';
 
 /**
  * @ignore
@@ -15,7 +16,7 @@ export class NgxRepositoryService implements RepositoryService {
   protected parentInjector = inject(Injector);
   private readonly repositoryBuilders = inject<RepositoryBuilder[]>(REPOSITORY_BUILDER_TOKEN);
 
-  public static getInstance: () => RepositoryService;
+  public static getInstance: () => RepositoryService = () => NgxRepositoryModule.injector.get(NgxRepositoryService);
 
   protected injector: Injector;
 

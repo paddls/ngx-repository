@@ -1,6 +1,7 @@
 import { inject, Injectable, Injector, Predicate, Type } from '@angular/core';
 import { Listener } from './listener';
 import { Observable, Subject } from 'rxjs';
+import { NgxRepositoryModule } from '../../ngx-repository.module';
 
 interface RegistryItem {
 
@@ -19,7 +20,7 @@ export class PublisherService {
 
   private static registryItems: RegistryItem[] = [];
 
-  public static getInstance: () => PublisherService;
+  public static getInstance: () => PublisherService = () => NgxRepositoryModule.injector.get(PublisherService);
 
   public static addListenerToRegistry(predicate: Predicate<any> | Predicate<any>[], listener: Type<Listener<any>>): void {
     PublisherService.registryItems.push({ predicate, listener });

@@ -10,11 +10,11 @@ import { CoreModule } from './app/module/@core/core.module';
 import { FormsModule } from '@angular/forms';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './app/service/in-memory-data.service';
-import { NgxRepositoryModule } from '@paddls/ngx-repository';
 import { NgxHttpRepositoryModule } from '@paddls/ngx-http-repository';
 import { SystemModule } from './app/module/@system/system.module';
 import { AppComponent } from './app/component/app/app.component';
 import { provideRouter, withRouterConfig } from '@angular/router';
+import { provideNgxRepository } from '@paddls/ngx-repository';
 
 const createFirestore: () => Firestore = () => getFirestore(initializeApp({
   apiKey: 'AIzaSyDSd6EXdQWaWcBMxbTYp-kFAV3zxNu-ArM',
@@ -39,14 +39,6 @@ bootstrapApplication(AppComponent, {
       FormsModule,
       SystemModule,
       InMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 100 }),
-      NgxRepositoryModule.forRoot({
-        normalizerConfiguration: {
-          denormalizeNull: true,
-          normalizeNull: false,
-          denormalizeUndefined: true,
-          normalizeUndefined: false
-        }
-      }),
       NgxFirestoreRepositoryModule.forRoot({
         debug: true
       }),
@@ -57,6 +49,14 @@ bootstrapApplication(AppComponent, {
     provideRouter(routes, withRouterConfig({
       onSameUrlNavigation: 'reload'
     })),
+    provideNgxRepository({
+      normalizerConfiguration: {
+        denormalizeNull: true,
+        normalizeNull: false,
+        denormalizeUndefined: true,
+        normalizeUndefined: false
+      }
+    }),
     MyPageResponseProcessor,
     {
       provide: FIRESTORE_APP,

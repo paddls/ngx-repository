@@ -1,8 +1,6 @@
-import { Injector } from '@angular/core';
 import {
   ConfigurationContextProvider,
   ConfigurationProvider,
-  NGX_REPOSITORY_INJECTOR_INSTANCE,
   NgxRepositoryModule,
   RepositoryDriver,
   RequestManager,
@@ -20,9 +18,8 @@ export function HttpRequestDecorator(params: HttpRequestParamsContext): Property
   return (target: any, propertyKey: string) => {
     Object.defineProperty(target.constructor.prototype, propertyKey, {
       get(): any {
-        const injector: Injector = Reflect.getOwnMetadata(NGX_REPOSITORY_INJECTOR_INSTANCE, NgxRepositoryModule);
-        const requestManager: RequestManager = injector.get(RequestManager);
-        const driver: RepositoryDriver = injector.get(HttpRepositoryDriver);
+        const requestManager: RequestManager = NgxRepositoryModule.injector.get(RequestManager);
+        const driver: RepositoryDriver = NgxRepositoryModule.injector.get(HttpRepositoryDriver);
         const configuration: ConfigurationContextProvider = new ConfigurationContextProvider(new ConfigurationProvider({
           requestBuilder: HttpRequestBuilder,
           responseBuilder: ResponseBuilder.withParams({
