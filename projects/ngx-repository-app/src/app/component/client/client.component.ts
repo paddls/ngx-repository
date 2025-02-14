@@ -7,7 +7,8 @@ import { ClientService } from '../../module/@core/service/client.service';
 
 @Component({
   templateUrl: './client.component.html',
-  styleUrls: ['./client.component.scss']
+  styleUrls: ['./client.component.scss'],
+  standalone: false
 })
 export class ClientComponent {
 

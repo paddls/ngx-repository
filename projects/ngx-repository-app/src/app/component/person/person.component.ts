@@ -7,7 +7,8 @@ import { PersonService } from '../../module/@core/service/person.service';
 
 @Component({
   templateUrl: './person.component.html',
-  styleUrls: ['./person.component.scss']
+  styleUrls: ['./person.component.scss'],
+  standalone: false
 })
 export class PersonComponent {
 

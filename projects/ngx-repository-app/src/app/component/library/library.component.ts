@@ -10,7 +10,8 @@ import { BookService } from '../../module/@core/service/book.service';
 @Component({
   selector: 'app-library',
   templateUrl: './library.component.html',
-  styleUrls: ['./library.component.scss']
+  styleUrls: ['./library.component.scss'],
+  standalone: false
 })
 export class LibraryComponent {
 

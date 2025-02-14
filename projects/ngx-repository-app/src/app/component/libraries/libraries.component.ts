@@ -13,7 +13,8 @@ import { LibraryService } from '../../module/@core/service/library.service';
 @Component({
   selector: 'app-libraries',
   templateUrl: './libraries.component.html',
-  styleUrls: ['./libraries.component.scss']
+  styleUrls: ['./libraries.component.scss'],
+  standalone: false
 })
 export class LibrariesComponent {
 
