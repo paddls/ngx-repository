@@ -51,6 +51,7 @@ Easily create a **strongly typed data access layer** in your **Angular** project
 
 | `Angular`          | `NgxRepository`   |
 |--------------------|-------------------|
+| `19.0.0` and above | `9.0.0` and above |
 | `18.0.0` and above | `8.0.0` and above |
 | `17.0.0` and above | `7.0.0` and above |
 | `16.0.0` and above | `6.0.0` and above |
@@ -83,7 +84,7 @@ npm install --save @paddls/ngx-firestore-repository
 
 ### Import modules
 
-To start using NgxRepository, import `NgxRepositoryModule` and the modules corresponding to the chosen drivers :
+To start using NgxRepository, provide it like this :
 
 ```typescript
 import { NgxRepositoryModule } from '@paddls/ngx-repository';
@@ -106,17 +107,24 @@ const firestore = initializeFirestore(firebaseApp, {
   localCache: persistentLocalCache()
 });
 
-@NgModule({
-  imports: [
-    NgxRepositoryModule.forRoot(),
-    NgxHttpRepositoryModule.forRoot(), // Http driver
-    NgxFirestoreRepositoryModule.forRoot({
-      firestore
-    }), // Firestore driver
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideNgxRepository({
+      normalizerConfiguration: {
+        denormalizeNull: true,
+        normalizeNull: false,
+        denormalizeUndefined: true,
+        normalizeUndefined: false
+      }
+    }),
+    provideNgxHttpRepository({
+      debug: true
+    }),
+    provideNgxFirestoreRepository({
+      debug: true
+    }),
   ]
-})
-export class AppModule {
-}
+}).catch((err: Error) => console.error(err));
 ```
 
 ## Basic usage
