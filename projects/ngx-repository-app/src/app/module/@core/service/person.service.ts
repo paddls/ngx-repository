@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Person } from '../model/person.model';
 import { PersonRepository } from '../repository/person.repository';
@@ -8,17 +8,16 @@ import { PersonQuery } from '../query/person.query';
 @Injectable()
 export class PersonService {
 
-  private chance: Chance.Chance = new Chance.Chance();
+  private personRepository = inject(PersonRepository);
 
-  public constructor(private personRepository: PersonRepository) {
-  }
+  private chance: Chance.Chance = new Chance.Chance();
 
   public searchByFirstName(searchedFirstName: string): Observable<Person[]> {
     return this.personRepository.searchByFirstName(searchedFirstName);
   }
 
   public findOneById(id: string): Observable<Person> {
-    return this.personRepository.findOne(new PersonQuery({idEqualsTo: id}));
+    return this.personRepository.findOne(new PersonQuery({ idEqualsTo: id }));
   }
 
   public create(): Observable<string> {

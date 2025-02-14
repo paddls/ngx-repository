@@ -35,7 +35,10 @@ export function getDeepQueryMetadataValues<T extends PropertyKeyConfiguration>(m
         propertyKey: parent ? `${parent}.${property.propertyKey}` : property.propertyKey
       })) as T[];
 
-    return flattenDeep([childMetadata, modifiedMetadata]);
+    return flattenDeep([
+      childMetadata,
+      modifiedMetadata
+    ]);
   }
 
   return [];

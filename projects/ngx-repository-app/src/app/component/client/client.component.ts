@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
@@ -13,10 +13,14 @@ import { AsyncPipe } from '@angular/common';
 })
 export class ClientComponent {
 
+  private clientService = inject(ClientService);
+
+
   public client$: Observable<Client>;
 
-  public constructor(activatedRoute: ActivatedRoute,
-                     private clientService: ClientService) {
+  public constructor() {
+    const activatedRoute = inject(ActivatedRoute);
+
     this.client$ = activatedRoute.params.pipe(
       filter((params: Params) => !!params),
       map((params: Params) => params['clientId']),

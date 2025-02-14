@@ -32,9 +32,9 @@ describe('Path', () => {
       Reflect.defineMetadata(
         PATH_PARAM_METADATA_KEY,
         [
-          {propertyKey: 'myFirstQueryPathParam', name: 'firstQueryPathParam'},
-          {propertyKey: 'mySecondQueryPathParam', name: 'secondQueryPathParam'},
-          {propertyKey: 'myThirdPathParam', name: 'myThirdPathParam'}
+          { propertyKey: 'myFirstQueryPathParam', name: 'firstQueryPathParam' },
+          { propertyKey: 'mySecondQueryPathParam', name: 'secondQueryPathParam' },
+          { propertyKey: 'myThirdPathParam', name: 'myThirdPathParam' }
         ],
         query
       );
@@ -48,10 +48,10 @@ describe('Path', () => {
       Reflect.defineMetadata(
         PATH_COLUMN_METADATA_KEY,
         [
-          {propertyKey: 'myFirstBodyPathParam', name: 'firstBodyPathParam'},
-          {propertyKey: 'mySecondBodyPathParam', name: 'secondBodyPathParam'},
-          {propertyKey: 'myThirdBodyPathParam', name: 'thirdPathParam'},
-          {propertyKey: 'myFourthBodyPathParam', name: 'fourthBodyPathParam'}
+          { propertyKey: 'myFirstBodyPathParam', name: 'firstBodyPathParam' },
+          { propertyKey: 'mySecondBodyPathParam', name: 'secondBodyPathParam' },
+          { propertyKey: 'myThirdBodyPathParam', name: 'thirdPathParam' },
+          { propertyKey: 'myFourthBodyPathParam', name: 'fourthBodyPathParam' }
         ],
         body
       );
@@ -95,8 +95,8 @@ describe('Path', () => {
       Reflect.defineMetadata(
         PATH_PARAM_METADATA_KEY,
         [
-          {propertyKey: 'myFirstQueryPathParam', name: 'myFirstArg'},
-          {propertyKey: 'mySecondQueryPathParam', name: 'secondQueryPathParam'},
+          { propertyKey: 'myFirstQueryPathParam', name: 'myFirstArg' },
+          { propertyKey: 'mySecondQueryPathParam', name: 'secondQueryPathParam' },
         ],
         query
       );
@@ -107,7 +107,7 @@ describe('Path', () => {
       Reflect.defineMetadata(
         PATH_COLUMN_METADATA_KEY,
         [
-          {propertyKey: 'myFirstBodyPathParam', name: 'mySecondArg'}
+          { propertyKey: 'myFirstBodyPathParam', name: 'mySecondArg' }
         ],
         body
       );
@@ -125,8 +125,8 @@ describe('Path', () => {
       Reflect.defineMetadata(
         PATH_PARAM_METADATA_KEY,
         [
-          {propertyKey: 'myFirstQueryPathParam', name: 'myFirstArg'},
-          {propertyKey: 'mySecondQueryPathParam', name: 'secondQueryPathParam'},
+          { propertyKey: 'myFirstQueryPathParam', name: 'myFirstArg' },
+          { propertyKey: 'mySecondQueryPathParam', name: 'secondQueryPathParam' },
         ],
         query
       );
@@ -137,7 +137,7 @@ describe('Path', () => {
       Reflect.defineMetadata(
         PATH_COLUMN_METADATA_KEY,
         [
-          {propertyKey: 'myFirstBodyPathParam', name: 'mySecondArg'}
+          { propertyKey: 'myFirstBodyPathParam', name: 'mySecondArg' }
         ],
         body
       );

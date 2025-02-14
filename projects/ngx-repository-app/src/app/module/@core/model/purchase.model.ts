@@ -13,7 +13,7 @@ export class Purchase extends Identifiable {
   @Column()
   public bookId: string;
 
-  @JoinColumn({attribute: 'bookId', resourceType: () => Book, repository: () => HttpRepository})
+  @JoinColumn({ attribute: 'bookId', resourceType: () => Book, repository: () => HttpRepository })
   public book$: Observable<Book> = EMPTY;
 
   public constructor(data: Partial<Purchase> = {}) {

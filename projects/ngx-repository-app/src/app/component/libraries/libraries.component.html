@@ -1,7 +1,7 @@
 <div class="list">
   <ul id="libraries">
     <li class="title"><a [routerLink]="['/', 'libraries']">Libraries</a></li>
-    @for (library of libraries$ | async; track library) {
+    @for (library of libraries$ | async; track library.id) {
       <li>
         <a [routerLink]="['/', 'libraries', library.id]">{{ library.name }}</a>
       </li>
@@ -27,7 +27,7 @@
              [(ngModel)]="searchedPersonFirstName"
              (ngModelChange)="onSearchedPersonFirstNameChange()" />
     </li>
-    @for (person of person$ | async; track person) {
+    @for (person of person$ | async; track person.id) {
       <li>
         <a [routerLink]="['/', 'libraries', 'persons', person.id]">{{ person.fullName }}</a>
         <button (click)="updatePerson(person)">update</button>
@@ -47,7 +47,7 @@
              [(ngModel)]="searchedClientLastName"
              (ngModelChange)="onSearchedClientLastNameChange()" />
     </li>
-    @for (client of client$ | async; track client) {
+    @for (client of client$ | async; track client.id) {
       <li>
         <a [routerLink]="['/', 'libraries', 'clients', client.id]">{{ client?.fullName }}</a>
         <button (click)="deleteClient(client)">delete</button>

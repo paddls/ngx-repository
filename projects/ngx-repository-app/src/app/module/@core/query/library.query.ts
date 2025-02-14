@@ -11,7 +11,7 @@ export class LibraryQuery {
   @HttpHeader('apiPaginated')
   public paginated: boolean = true;
 
-  @HttpHeader({name: 'apiCurrentPage'})
+  @HttpHeader({ name: 'apiCurrentPage' })
   public page: number = 1;
 
   @HttpHeader('apiPerPage')

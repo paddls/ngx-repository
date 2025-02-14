@@ -8,8 +8,8 @@ describe('FirestoreCriteriaDecorator', () => {
       test: 'value'
     };
 
-    FirestoreCriteria({field: 'Foo', operator: '<'})(obj, 'foo');
-    FirestoreCriteria({field: 'Test', operator: '>'})(obj, 'test');
+    FirestoreCriteria({ field: 'Foo', operator: '<' })(obj, 'foo');
+    FirestoreCriteria({ field: 'Test', operator: '>' })(obj, 'test');
 
     expect(Reflect.getMetadata(FIRESTORE_CRITERIA_METADATA_KEY, obj)).toEqual([
       {

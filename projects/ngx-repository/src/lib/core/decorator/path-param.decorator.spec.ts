@@ -35,7 +35,7 @@ describe('PathParamDecorator', () => {
       test: 'value'
     };
 
-    PathParam({name: 'hello'})(obj, 'test');
+    PathParam({ name: 'hello' })(obj, 'test');
     expect(Reflect.getMetadata(PATH_PARAM_METADATA_KEY, obj)).toEqual([
       {
         propertyKey: 'test',

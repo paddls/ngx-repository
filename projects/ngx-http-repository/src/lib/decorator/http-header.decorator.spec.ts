@@ -37,7 +37,7 @@ describe('HttpHeaderDecorator', () => {
       test: 'value'
     };
 
-    HttpHeader({name: 'hello'})(obj, 'test');
+    HttpHeader({ name: 'hello' })(obj, 'test');
     expect(Reflect.getMetadata(HTTP_HEADER_METADATA_KEY, obj)).toEqual([
       {
         propertyKey: 'test',

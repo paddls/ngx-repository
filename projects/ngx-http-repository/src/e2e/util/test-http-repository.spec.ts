@@ -44,7 +44,7 @@ export async function httpTest(httpTestContext: HttpTestContext): Promise<void> 
     @Injectable()
     class BookService {
 
-      @InjectRepository({resourceType: () => httpTestContext.entity, repository: () => HttpRepository})
+      @InjectRepository({ resourceType: () => httpTestContext.entity, repository: () => HttpRepository })
       public repository: HttpRepository<any, number>;
 
     }
@@ -58,7 +58,7 @@ export async function httpTest(httpTestContext: HttpTestContext): Promise<void> 
   TestBed.configureTestingModule({
     imports: [
       NgxRepositoryModule.forRoot(),
-      NgxHttpRepositoryModule.forRoot(httpTestContext.httpConfiguration || {debug: false})
+      NgxHttpRepositoryModule.forRoot(httpTestContext.httpConfiguration || { debug: false })
     ],
     providers: [
       ...(httpTestContext.providers || []),

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Library } from '../../module/@core/model/library.model';
@@ -20,16 +20,19 @@ import { FormsModule } from '@angular/forms';
 })
 export class LibraryComponent {
 
+  private libraryService = inject(LibraryService);
+  private bookService = inject(BookService);
+  private router = inject(Router);
+
   public libraryName: string;
 
   public library$: Observable<Library>;
 
   private expandedBooks: Map<string, boolean> = new Map<string, boolean>();
 
-  public constructor(activatedRoute: ActivatedRoute,
-                     private libraryService: LibraryService,
-                     private bookService: BookService,
-                     private router: Router) {
+  public constructor() {
+    const activatedRoute = inject(ActivatedRoute);
+
     this.library$ = activatedRoute.params.pipe(
       filter((params: Params) => !!params),
       map((params: Params) => params[`libraryId`]),

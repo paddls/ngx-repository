@@ -6,10 +6,10 @@ export function fromRef<T>(ref: any, scheduler: SchedulerLike = asyncScheduler):
     let unsubscribe: any;
     if (scheduler != null) {
       scheduler.schedule(() => {
-        unsubscribe = onSnapshot(ref, {includeMetadataChanges: true}, subscriber);
+        unsubscribe = onSnapshot(ref, { includeMetadataChanges: true }, subscriber);
       });
     } else {
-      unsubscribe = onSnapshot(ref, {includeMetadataChanges: true}, subscriber);
+      unsubscribe = onSnapshot(ref, { includeMetadataChanges: true }, subscriber);
     }
 
     return () => {

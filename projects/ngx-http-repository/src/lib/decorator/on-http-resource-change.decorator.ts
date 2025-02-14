@@ -13,7 +13,12 @@ import { valuesIn } from '../utils/values-in';
 import { pick } from '../utils/pick';
 
 const eventMapping: { [key: string]: any } = {
-  write: [AfterHttpCreateEvent, AfterHttpUpdateEvent, AfterHttpPatchEvent, AfterHttpDeleteEvent],
+  write: [
+    AfterHttpCreateEvent,
+    AfterHttpUpdateEvent,
+    AfterHttpPatchEvent,
+    AfterHttpDeleteEvent
+  ],
   create: [AfterHttpCreateEvent],
   udpate: [AfterHttpUpdateEvent],
   delete: [AfterHttpDeleteEvent]

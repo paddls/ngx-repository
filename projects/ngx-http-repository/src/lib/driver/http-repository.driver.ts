@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { HttpRepositoryRequest } from '../request/http-repository.request';
 import { Observable } from 'rxjs';
@@ -11,11 +11,10 @@ import { AfterExecuteHttpRequestEvent } from './event/after-execute-http-request
 @Injectable()
 export class HttpRepositoryDriver implements RepositoryDriver {
 
-  public constructor(protected readonly http: HttpClient) {
-  }
+  protected readonly http = inject(HttpClient);
 
   public execute(request: HttpRepositoryRequest): Observable<HttpRepositoryResponse> {
-    PublisherService.getInstance().publish(new BeforeExecuteHttpRequestEvent({request}));
+    PublisherService.getInstance().publish(new BeforeExecuteHttpRequestEvent({ request }));
 
     return this.http.request(request.method, request.path.value, {
       params: request.queryParams,

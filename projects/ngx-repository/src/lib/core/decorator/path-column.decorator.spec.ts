@@ -35,7 +35,7 @@ describe('PathColumnDecorator', () => {
       test: 'value'
     };
 
-    PathColumn({name: 'hello'})(obj, 'test');
+    PathColumn({ name: 'hello' })(obj, 'test');
     expect(Reflect.getMetadata(PATH_COLUMN_METADATA_KEY, obj)).toEqual([
       {
         propertyKey: 'test',

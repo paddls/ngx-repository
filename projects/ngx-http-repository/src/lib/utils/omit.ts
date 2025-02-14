@@ -1,5 +1,5 @@
 export const omit = (obj: { [x: string]: any; }, props: (string | number)[]) => {
-  obj = {...obj};
+  obj = { ...obj };
   props.forEach((prop: string | number) => delete obj[prop]);
 
   return obj;

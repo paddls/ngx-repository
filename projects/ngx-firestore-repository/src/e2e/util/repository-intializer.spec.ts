@@ -29,7 +29,7 @@ export function initializeRepository<T>(bookImpl: Type<T>, providers: any[] = []
   @Injectable()
   class BookServiceImpl {
 
-    @InjectRepository({resourceType: () => bookImpl, repository: () => FirestoreRepository})
+    @InjectRepository({ resourceType: () => bookImpl, repository: () => FirestoreRepository })
     public repository: FirestoreRepository<T, number>;
 
   }

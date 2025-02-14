@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Library } from '../../module/@core/model/library.model';
 import { Person } from '../../module/@core/model/person.model';
@@ -26,7 +26,10 @@ import { FormsModule } from '@angular/forms';
 })
 export class LibrariesComponent {
 
-  private readonly currentPageSubject: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+  protected readonly currentPageSubject: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+  private readonly libraryService = inject(LibraryService);
+  private readonly personService = inject(PersonService);
+  private readonly clientService = inject(ClientService);
 
   private readonly searchedPersonFirstNameChangeSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
@@ -44,9 +47,11 @@ export class LibrariesComponent {
 
   public client$: Observable<Client[]>;
 
-  public constructor(private readonly libraryService: LibraryService,
-                     private readonly personService: PersonService,
-                     private readonly clientService: ClientService) {
+  public constructor() {
+    const libraryService = this.libraryService;
+    const personService = this.personService;
+    const clientService = this.clientService;
+
     this.libraries$ = this.currentPageSubject.pipe(
       switchMap((currentPage: number) => libraryService.findAll(currentPage, 5)),
       softCache()

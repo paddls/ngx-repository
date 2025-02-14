@@ -11,10 +11,10 @@ export class LibraryService {
 
   private chance: Chance.Chance = new Chance.Chance();
 
-  @InjectRepository({resourceType: () => Library, repository: () => HttpRepository})
+  @InjectRepository({ resourceType: () => Library, repository: () => HttpRepository })
   private readLibraryRepository: HttpRepository<Library, string>;
 
-  @InjectRepository({resourceType: () => Library, repository: () => HttpRepository})
+  @InjectRepository({ resourceType: () => Library, repository: () => HttpRepository })
   private writeLibraryRepository: HttpRepository<Library, string>;
 
   public findAll(currentPage: number, itemPerPage: number): Observable<Page<Library>> {

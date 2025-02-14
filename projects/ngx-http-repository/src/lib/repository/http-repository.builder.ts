@@ -1,4 +1,4 @@
-import { Inject, Injectable, Type } from '@angular/core';
+import { inject, Injectable, Type } from '@angular/core';
 import { HTTP_RESOURCE_METADATA_KEY } from '../decorator/http-resource.decorator';
 import { AbstractRepository, AbstractRepositoryBuilder, RequestManager } from '@paddls/ngx-repository';
 import { HttpRepository } from './http.repository';
@@ -14,14 +14,15 @@ import {
 @Injectable()
 export class HttpRepositoryBuilder extends AbstractRepositoryBuilder {
 
-  public constructor(private readonly driver: HttpRepositoryDriver,
-                     private readonly requestManger: RequestManager,
-                     @Inject(HTTP_REPOSITORY_CONFIGURATION)
-                     private readonly configuration: HttpRepositoryConfiguration) {
+  private readonly driver = inject(HttpRepositoryDriver);
+  private readonly requestManger = inject(RequestManager);
+  private readonly configuration = inject<HttpRepositoryConfiguration>(HTTP_REPOSITORY_CONFIGURATION);
+
+  public constructor() {
     super(HTTP_RESOURCE_METADATA_KEY);
   }
 
-  public supports<T>(resourceType: Type<T>, repositoryType: Type<AbstractRepository<T>>): boolean {
+  public supports<T>(_: Type<T>, repositoryType: Type<AbstractRepository<T>>): boolean {
     return repositoryType === HttpRepository;
   }
 

@@ -16,10 +16,10 @@ export class Book extends Identifiable {
   @Column('title')
   public title: string;
 
-  @Column({field: 'author'})
+  @Column({ field: 'author' })
   public authorId: string;
 
-  @Column({field: 'editor.id'})
+  @Column({ field: 'editor.id' })
   public editorId: string;
 
   @PathColumn('libraryId')
@@ -28,18 +28,18 @@ export class Book extends Identifiable {
   @Column()
   public library: string;
 
-  @JoinColumn({attribute: 'LIBRARYID', resourceType: () => Library, repository: () => HttpRepository})
+  @JoinColumn({ attribute: 'LIBRARYID', resourceType: () => Library, repository: () => HttpRepository })
   public library$: Observable<Library>;
 
-  @JoinColumn({attribute: 'authorId', resourceType: () => Person, repository: () => PersonRepository})
+  @JoinColumn({ attribute: 'authorId', resourceType: () => Person, repository: () => PersonRepository })
   public author$: Observable<Person>;
 
-  @JoinColumn({attribute: 'editorId', resourceType: () => Person, repository: () => HttpRepository})
+  @JoinColumn({ attribute: 'editorId', resourceType: () => Person, repository: () => HttpRepository })
   public editor$: Observable<Person>;
 
   @SubCollection({
     resourceType: () => Comment,
-    params: (book: Book, params: any) => new CommentQuery({bookId: book.id, libraryId: params.LIBRARY_ID}),
+    params: (book: Book, params: any) => new CommentQuery({ bookId: book.id, libraryId: params.LIBRARY_ID }),
     repository: () => HttpRepository
   })
   public comments$: Observable<Comment[]>;

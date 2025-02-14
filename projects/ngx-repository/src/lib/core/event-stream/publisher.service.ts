@@ -1,4 +1,4 @@
-import { Injectable, Injector, Predicate, Type } from '@angular/core';
+import { inject, Injectable, Injector, Predicate, Type } from '@angular/core';
 import { Listener } from './listener';
 import { Observable, Subject } from 'rxjs';
 
@@ -13,17 +13,16 @@ interface RegistryItem {
 @Injectable()
 export class PublisherService {
 
+  private readonly injector = inject(Injector);
+
   private static publisher$: Subject<any> = new Subject<any>();
 
   private static registryItems: RegistryItem[] = [];
 
   public static getInstance: () => PublisherService;
 
-  public constructor(private readonly injector: Injector) {
-  }
-
   public static addListenerToRegistry(predicate: Predicate<any> | Predicate<any>[], listener: Type<Listener<any>>): void {
-    PublisherService.registryItems.push({predicate, listener});
+    PublisherService.registryItems.push({ predicate, listener });
   }
 
   public static getPublisher(): Observable<any> {

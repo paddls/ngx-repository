@@ -12,7 +12,7 @@ export class LibraryInterceptor implements HttpInterceptor {
       url = url.replace('/library', '/libraries');
     }
 
-    req = req.clone({url});
+    req = req.clone({ url });
     if (!req.headers || !req.headers.has('apiPaginated') || !req.headers.get('apiPaginated')) {
       return next.handle(req);
     }

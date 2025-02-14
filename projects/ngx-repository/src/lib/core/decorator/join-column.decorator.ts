@@ -21,7 +21,7 @@ export const JOIN_COLUMN_OBS_METADATA_KEY: string = 'joinColumnObs';
 
 export function JoinColumn<T>(joinColumnContext: JoinColumnContext<T>): any {
   return (target: object, propertyKey: string) => {
-    const joinColumnContextConfiguration: JoinColumnContextConfiguration = {propertyKey, ...joinColumnContext};
+    const joinColumnContextConfiguration: JoinColumnContextConfiguration = { propertyKey, ...joinColumnContext };
     Reflect.defineMetadata(JOIN_COLUMN_METADATA_KEY, joinColumnContextConfiguration, target, propertyKey);
 
     Object.defineProperty(target.constructor.prototype, propertyKey, {

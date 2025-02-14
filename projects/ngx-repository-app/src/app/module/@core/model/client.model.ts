@@ -26,7 +26,7 @@ export class Client extends Identifiable {
 
   @SubCollection({
     resourceType: () => Purchase,
-    params: (client: Client) => new PurchaseQuery({clientId: client.id}),
+    params: (client: Client) => new PurchaseQuery({ clientId: client.id }),
     repository: () => FirestoreRepository
   })
   public purchases$: Observable<Page<Purchase>>;

@@ -48,7 +48,10 @@ describe('EventListenerDecorator', () => {
   });
 
   it('should add listener to registry when multiple predicates', () => {
-    @EventListener([() => false, () => true])
+    @EventListener([
+      () => false,
+      () => true
+    ])
     class MultiplePredicatesEventListener implements Listener<any> {
 
       public on(): void {
@@ -78,7 +81,10 @@ describe('EventListenerDecorator', () => {
   it('should add listener to property when multiple predicates', (done: DoneFn) => {
     class RandomClass {
 
-      @EventListener([() => false, () => true])
+      @EventListener([
+        () => false,
+        () => true
+      ])
       public listener$: Observable<any>;
     }
 

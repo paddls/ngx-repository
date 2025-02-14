@@ -6,7 +6,7 @@ export class Mock {
 
   public mySecondProperty: string;
 
-  @Column({field: 'name', writeOnly: true})
+  @Column({ field: 'name', writeOnly: true })
   public name: string = 'test';
 
   public constructor(data?: Partial<Mock>) {

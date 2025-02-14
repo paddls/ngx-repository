@@ -13,8 +13,8 @@ describe('SubQueryDecorator', () => {
         }
       }
 
-      const query = new MyQuery({param: 'Oscar'});
-      Reflect.defineMetadata('httpQueryParams', {name: 'param'}, query);
+      const query = new MyQuery({ param: 'Oscar' });
+      Reflect.defineMetadata('httpQueryParams', { name: 'param' }, query);
 
       const metadata: any[] = getDeepQueryMetadataValues('httpQueryParams', query);
       expect(metadata[0].name).toEqual('param');
@@ -45,14 +45,14 @@ describe('SubQueryDecorator', () => {
       }
 
 
-      const subQuery: MySubQuery = new MySubQuery({subParam: 'Romain'});
+      const subQuery: MySubQuery = new MySubQuery({ subParam: 'Romain' });
 
       const query = new MyQuery({
         param: 'Oscar',
         subQuery
       });
-      Reflect.defineMetadata('httpQueryParams', {name: 'param'}, query);
-      Reflect.defineMetadata('httpQueryParams', {name: 'subParam'}, subQuery);
+      Reflect.defineMetadata('httpQueryParams', { name: 'param' }, query);
+      Reflect.defineMetadata('httpQueryParams', { name: 'subParam' }, subQuery);
 
       const metadata: any[] = getDeepQueryMetadataValues('httpQueryParams', query);
 
@@ -87,14 +87,14 @@ describe('SubQueryDecorator', () => {
       }
 
 
-      const subQuery: MySubQuery = new MySubQuery({subParam: 'Romain'});
+      const subQuery: MySubQuery = new MySubQuery({ subParam: 'Romain' });
 
       const query = new MyQuery({
         param: 'Oscar',
         subQuery
       });
-      Reflect.defineMetadata('httpQueryParams', {name: 'param'}, query);
-      Reflect.defineMetadata('httpQueryParams', {name: 'subParam'}, subQuery);
+      Reflect.defineMetadata('httpQueryParams', { name: 'param' }, query);
+      Reflect.defineMetadata('httpQueryParams', { name: 'subParam' }, subQuery);
 
       const metadata: any = getDeepQueryMetadataValue('httpQueryParams', query);
 

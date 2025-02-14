@@ -14,7 +14,7 @@ describe('LogExecuteFirestoreRequestEventListener', () => {
       listener.on(new BeforeExecuteFirestoreRequestEvent({
         request: {
           operation: 'read',
-          path: {value: '/path'} as any
+          path: { value: '/path' } as any
         } as any
       }));
 
@@ -27,7 +27,7 @@ describe('LogExecuteFirestoreRequestEventListener', () => {
       listener.on(new AfterExecuteFirestoreRequestEvent({
         request: {
           operation: 'read',
-          path: {value: '/path'} as any
+          path: { value: '/path' } as any
         } as any
       }));
 

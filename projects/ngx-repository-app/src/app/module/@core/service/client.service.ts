@@ -11,10 +11,10 @@ import { PurchaseQuery } from '../query/purchase.query';
 @Injectable()
 export class ClientService {
 
-  @InjectRepository({resourceType: () => Client, repository: () => FirestoreRepository})
+  @InjectRepository({ resourceType: () => Client, repository: () => FirestoreRepository })
   private repository: FirestoreRepository<Client, string>;
 
-  @InjectRepository({resourceType: () => Purchase, repository: () => FirestoreRepository})
+  @InjectRepository({ resourceType: () => Purchase, repository: () => FirestoreRepository })
   private purchaseRepository: FirestoreRepository<Purchase, string>;
 
   private chance: Chance.Chance = new Chance.Chance();

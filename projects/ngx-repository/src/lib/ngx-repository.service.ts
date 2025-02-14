@@ -1,4 +1,4 @@
-import { Inject, Injectable, InjectionToken, Injector, Type } from '@angular/core';
+import { inject, Injectable, InjectionToken, Injector, Type } from '@angular/core';
 import { RepositoryBuilder } from './core/repository/repository.builder';
 import { REPOSITORY_BUILDER_TOKEN } from './ngx-repository.module.di';
 import { TokenRegistry } from './core/registry/token.registry';
@@ -12,12 +12,14 @@ import { RepositoryService } from './repository-service';
 @Injectable()
 export class NgxRepositoryService implements RepositoryService {
 
+  protected parentInjector = inject(Injector);
+  private readonly repositoryBuilders = inject<RepositoryBuilder[]>(REPOSITORY_BUILDER_TOKEN);
+
   public static getInstance: () => RepositoryService;
 
   protected injector: Injector;
 
-  public constructor(protected parentInjector: Injector,
-                     @Inject(REPOSITORY_BUILDER_TOKEN) private readonly repositoryBuilders: RepositoryBuilder[]) {
+  public constructor() {
     this.injector = Injector.create({
       providers: [],
       parent: this.parentInjector
@@ -93,10 +95,12 @@ export class NgxRepositoryService implements RepositoryService {
     const token: InjectionToken<AbstractRepository<T>> = TokenRegistry.addTokenToRegistry(resourceType, repositoryType);
 
     this.injector = Injector.create({
-      providers: [{
-        provide: token,
-        useValue: repository
-      }],
+      providers: [
+        {
+          provide: token,
+          useValue: repository
+        }
+      ],
       parent: this.injector
     });
 

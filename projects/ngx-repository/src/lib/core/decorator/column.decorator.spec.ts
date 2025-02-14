@@ -5,12 +5,15 @@ import { ColumnContext, ColumnContextConfiguration } from '../configuration/cont
 describe('ColumnDecorator', () => {
   let obj: any;
 
-  const firstResult: ColumnContextConfiguration<any, any> = {propertyKey: 'myProperty', field: 'myPropertyName'};
+  const firstResult: ColumnContextConfiguration<any, any> = { propertyKey: 'myProperty', field: 'myPropertyName' };
   const secondResult: ColumnContextConfiguration<any, any> = {
     propertyKey: 'mySecondProperty',
     field: 'myBeautifulProperty'
   };
-  const thirdResult: ColumnContextConfiguration<any, any> = {propertyKey: 'myThirdProperty', field: 'myThirdProperty'};
+  const thirdResult: ColumnContextConfiguration<any, any> = {
+    propertyKey: 'myThirdProperty',
+    field: 'myThirdProperty'
+  };
 
   beforeEach(() => {
     obj = {

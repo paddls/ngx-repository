@@ -14,7 +14,7 @@ export function initializeRepository<T>(bookImpl: Type<T>, providers: any[] = []
   @Injectable()
   class BookServiceImpl {
 
-    @InjectRepository({resourceType: () => bookImpl, repository: () => HttpRepository})
+    @InjectRepository({ resourceType: () => bookImpl, repository: () => HttpRepository })
     public repository: HttpRepository<T, number>;
 
   }

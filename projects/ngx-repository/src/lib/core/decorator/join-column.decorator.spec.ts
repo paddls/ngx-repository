@@ -24,10 +24,10 @@ describe('JoinColumnDecorator', () => {
     });
 
     JoinColumn(joinColumnContext1)(obj, 'myProperty');
-    expect(Reflect.getMetadata(JOIN_COLUMN_METADATA_KEY, obj, 'myProperty')).toEqual({propertyKey: 'myProperty', ...joinColumnContext1});
+    expect(Reflect.getMetadata(JOIN_COLUMN_METADATA_KEY, obj, 'myProperty')).toEqual({ propertyKey: 'myProperty', ...joinColumnContext1 });
 
     JoinColumn(joinColumnContext2)(obj, 'MySecondProperty');
-    expect(Reflect.getMetadata(JOIN_COLUMN_METADATA_KEY, obj, 'MySecondProperty')).toEqual({propertyKey: 'MySecondProperty', ...joinColumnContext2});
+    expect(Reflect.getMetadata(JOIN_COLUMN_METADATA_KEY, obj, 'MySecondProperty')).toEqual({ propertyKey: 'MySecondProperty', ...joinColumnContext2 });
   });
 
   describe('#getJoinColumnObservable', () => {

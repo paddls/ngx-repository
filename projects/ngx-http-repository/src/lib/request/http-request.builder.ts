@@ -12,7 +12,7 @@ import {
   RequestManagerContext
 } from '@paddls/ngx-repository';
 import { HttpRepositoryRequest } from './http-repository.request';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HTTP_QUERY_PARAM_METADATA_KEY } from '../decorator/http-query-param.decorator';
 import { HttpParams } from '@angular/common/http';
 import { HTTP_HEADER_METADATA_KEY } from '../decorator/http-header.decorator';
@@ -31,10 +31,9 @@ import { get } from '../utils/get';
 @Injectable()
 export class HttpRequestBuilder implements RequestBuilder {
 
-  public constructor(private readonly normalizer: RepositoryNormalizer) {
-  }
+  private readonly normalizer = inject(RepositoryNormalizer);
 
-  public build({body, query, configuration}: RequestManagerContext): Observable<RepositoryRequest> {
+  public build({ body, query, configuration }: RequestManagerContext): Observable<RepositoryRequest> {
     const method: string = this.getMethod(configuration);
     const path: Path = this.getPath(body, query, configuration);
     const normalizedBody: any = this.getBody(body, configuration);
@@ -60,7 +59,7 @@ export class HttpRequestBuilder implements RequestBuilder {
 
     if (multipart) {
       const data: FormData = new FormData();
-      data.set(multipart, new Blob([JSON.stringify(normalizedBody)], {type: 'application/json'}));
+      data.set(multipart, new Blob([JSON.stringify(normalizedBody)], { type: 'application/json' }));
 
       const parts: HttpMultipartColumnContext[] = Reflect.getMetadata(HTTP_MULTIPART_COLUMN_METADATA_KEY, body) || [];
       parts.forEach((part: HttpMultipartColumnContext) => {
@@ -76,9 +75,9 @@ export class HttpRequestBuilder implements RequestBuilder {
   }
 
   protected normalize(body: any): any {
-    PublisherService.getInstance().publish(new BeforeNormalizeEvent({body}));
+    PublisherService.getInstance().publish(new BeforeNormalizeEvent({ body }));
     const data: any = this.normalizer.normalize(body);
-    PublisherService.getInstance().publish(new AfterNormalizeEvent({body, data}));
+    PublisherService.getInstance().publish(new AfterNormalizeEvent({ body, data }));
 
     return data;
   }

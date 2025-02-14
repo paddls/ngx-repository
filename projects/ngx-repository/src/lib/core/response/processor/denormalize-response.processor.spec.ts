@@ -46,10 +46,10 @@ describe('DenormalizeResponseProcessor', () => {
     class Book {
     }
 
-    const response: any = {name: 'Oscar'};
+    const response: any = { name: 'Oscar' };
     const origin: RepositoryResponse = {
-      getBody: () => ({name: 'Oscar'}),
-      getRequest: () => ({path: '/books'})
+      getBody: () => ({ name: 'Oscar' }),
+      getRequest: () => ({ path: '/books' })
     };
     const context: RequestManagerContext = {
       configuration: new ConfigurationContextProvider(new ConfigurationProvider({

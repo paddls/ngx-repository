@@ -39,7 +39,7 @@ export interface NgxHttpRepositoryModuleConfiguration {
 })
 export class NgxHttpRepositoryModule {
 
-  public static forRoot(config: NgxHttpRepositoryModuleConfiguration = {debug: false}): ModuleWithProviders<NgxHttpRepositoryModule> {
+  public static forRoot(config: NgxHttpRepositoryModuleConfiguration = { debug: false }): ModuleWithProviders<NgxHttpRepositoryModule> {
     const providers: Provider[] = [
       {
         provide: HTTP_REPOSITORY_CONFIGURATION,

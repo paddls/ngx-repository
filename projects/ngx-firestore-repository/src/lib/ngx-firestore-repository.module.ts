@@ -44,7 +44,7 @@ export interface NgxFirestoreRepositoryModuleConfiguration { // @TODO: RMA/TNI :
 })
 export class NgxFirestoreRepositoryModule {
 
-  public static forRoot(config: NgxFirestoreRepositoryModuleConfiguration = {debug: false}): ModuleWithProviders<NgxFirestoreRepositoryModule> {
+  public static forRoot(config: NgxFirestoreRepositoryModuleConfiguration = { debug: false }): ModuleWithProviders<NgxFirestoreRepositoryModule> {
     const providers: Provider[] = [
       {
         provide: FIRESTORE_APP,

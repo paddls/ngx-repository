@@ -29,13 +29,34 @@ export interface HttpRepositoryContextConfiguration extends HttpRepositoryParamC
 
 export function createHttpRepositoryConfiguration(params: HttpRepositoryContextConfiguration): HttpRepositoryContextConfiguration {
   return {
-    findById: buildOperationParams(params, ['read', 'findById']),
-    findOne: buildOperationParams(params, ['read', 'findOne']),
-    findAll: buildFindAllParams(params, ['read', 'findAll']),
-    create: buildCreateParams(params, ['write', 'create']),
-    update: buildWriteParams(params, ['write', 'update']),
-    patch: buildWriteParams(params, ['write', 'patch']),
-    delete: buildWriteParams(params, ['write', 'delete'])
+    findById: buildOperationParams(params, [
+      'read',
+      'findById'
+    ]),
+    findOne: buildOperationParams(params, [
+      'read',
+      'findOne'
+    ]),
+    findAll: buildFindAllParams(params, [
+      'read',
+      'findAll'
+    ]),
+    create: buildCreateParams(params, [
+      'write',
+      'create'
+    ]),
+    update: buildWriteParams(params, [
+      'write',
+      'update'
+    ]),
+    patch: buildWriteParams(params, [
+      'write',
+      'patch'
+    ]),
+    delete: buildWriteParams(params, [
+      'write',
+      'delete'
+    ])
   };
 }
 
@@ -45,7 +66,7 @@ function buildOperationParams<T>(params: HttpRepositoryContextConfiguration, pat
     rootConfiguration,
     ...path.map((key: string) => get(params, key))
       .filter((value: any) => !isUndefined(value))
-  ].map((value: any) => isString(value) ? {path: value} : value);
+  ].map((value: any) => isString(value) ? { path: value } : value);
 
   return Object.assign({}, ...configurations);
 }
