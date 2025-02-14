@@ -1126,4 +1126,4 @@ You should release from the master branch
 npm run release --release=x.x.x
 ````
 
-Then push
+Then push.
