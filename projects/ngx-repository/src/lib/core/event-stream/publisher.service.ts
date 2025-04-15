@@ -20,7 +20,7 @@ export class PublisherService {
 
   private static registryItems: RegistryItem[] = [];
 
-  public static getInstance: () => PublisherService = () => NgxRepositoryModule.injector.get(PublisherService);
+  public static getInstance: () => PublisherService = () => NgxRepositoryModule.injector?.get(PublisherService);
 
   public static addListenerToRegistry(predicate: Predicate<any> | Predicate<any>[], listener: Type<Listener<any>>): void {
     PublisherService.registryItems.push({ predicate, listener });
