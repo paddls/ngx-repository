@@ -1,10 +1,10 @@
 {
   "name": "@paddls/ngx-http-repository",
-  "version": "9.1.0-rc.0",
+  "version": "9.1.0-rc.1",
   "peerDependencies": {
     "@angular/common": ">= 19.0.0",
     "@angular/core": ">= 19.0.0",
-    "@paddls/ngx-repository": "^9.1.0-rc.0"
+    "@paddls/ngx-repository": "^9.1.0-rc.1"
   },
   "dependencies": {
     "tslib": "^2.0.0",
