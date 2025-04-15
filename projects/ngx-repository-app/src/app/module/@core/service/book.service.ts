@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpRepository } from '@paddls/ngx-http-repository';
 import { Book } from '../model/book.model';
-import { InjectRepository, Page } from '@paddls/ngx-repository';
+import { Page, injectRepository } from '@paddls/ngx-repository';
 import { Observable } from 'rxjs';
 import { Chance } from 'chance';
 import { BookQuery } from '../query/book.query';
@@ -9,8 +9,10 @@ import { BookQuery } from '../query/book.query';
 @Injectable()
 export class BookService {
 
-  @InjectRepository({ resourceType: () => Book, repository: () => HttpRepository })
-  private bookRepository: HttpRepository<Book, string>;
+  private bookRepository: HttpRepository<Book, string> = injectRepository({
+    resourceType: () => Book,
+    repository: () => HttpRepository
+  });
 
   private chance: Chance.Chance = new Chance.Chance();
 

@@ -108,3 +108,5 @@ export { ResponseProcessorToken } from './lib/core/response/response-processor.t
 export { getIdFromObject } from './lib/core/common/functions';
 
 export { fetchAllPage } from './lib/operator/fetch-all-page.operator';
+
+export { injectRepository } from './lib/core/function/inject-repository';

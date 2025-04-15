@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { InjectRepository, Page } from '@paddls/ngx-repository';
+import { injectRepository, InjectRepository, Page } from '@paddls/ngx-repository';
 import { Client } from '../model/client.model';
 import { Chance } from 'chance';
 import { Purchase } from '../model/purchase.model';
@@ -11,11 +11,15 @@ import { PurchaseQuery } from '../query/purchase.query';
 @Injectable()
 export class ClientService {
 
-  @InjectRepository({ resourceType: () => Client, repository: () => FirestoreRepository })
-  private repository: FirestoreRepository<Client, string>;
+  private repository: FirestoreRepository<Client, string> = injectRepository({
+    resourceType: () => Client,
+    repository: () => FirestoreRepository
+  });
 
-  @InjectRepository({ resourceType: () => Purchase, repository: () => FirestoreRepository })
-  private purchaseRepository: FirestoreRepository<Purchase, string>;
+  private purchaseRepository: FirestoreRepository<Purchase, string> = injectRepository({
+    resourceType: () => Purchase,
+    repository: () => FirestoreRepository
+  });
 
   private chance: Chance.Chance = new Chance.Chance();
 

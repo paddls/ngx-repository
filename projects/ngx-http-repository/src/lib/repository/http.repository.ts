@@ -96,7 +96,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
   }
 
   public findAll<R = Page<T>>(query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeHttpFindAllEvent({
+    PublisherService.getInstance()?.publish(new BeforeHttpFindAllEvent({
       type: this.resourceType,
       query
     }));
@@ -105,7 +105,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
       'findAll',
       'read'
     ]).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterHttpFindAllEvent({
+      tap((data: R) => PublisherService.getInstance()?.publish(new AfterHttpFindAllEvent({
         type: this.resourceType,
         query,
         data
@@ -120,7 +120,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
   }
 
   public findOne<R = T>(query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeHttpFindOneEvent({
+    PublisherService.getInstance()?.publish(new BeforeHttpFindOneEvent({
       type: this.resourceType,
       query
     }));
@@ -130,7 +130,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
       'read'
     ]).pipe(
       map((result: any) => result?.[0] || null),
-      tap((data: R) => PublisherService.getInstance().publish(new AfterHttpFindOneEvent({
+      tap((data: R) => PublisherService.getInstance()?.publish(new AfterHttpFindOneEvent({
         type: this.resourceType,
         query,
         data
@@ -162,7 +162,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
   }
 
   public findById<R = T, ID = K>(id: ID, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeHttpFindByIdEvent({
+    PublisherService.getInstance()?.publish(new BeforeHttpFindByIdEvent({
       type: this.resourceType,
       id,
       query
@@ -172,7 +172,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
       'findById',
       'read'
     ]).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterHttpFindByIdEvent({
+      tap((data: R) => PublisherService.getInstance()?.publish(new AfterHttpFindByIdEvent({
         type: this.resourceType,
         id,
         query,
@@ -203,7 +203,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
   }
 
   public create<O = T, R = K>(object: O, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeHttpCreateEvent({
+    PublisherService.getInstance()?.publish(new BeforeHttpCreateEvent({
       type: this.resourceType,
       object,
       query
@@ -213,7 +213,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
       'create',
       'write'
     ]).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterHttpCreateEvent({
+      tap((data: R) => PublisherService.getInstance()?.publish(new AfterHttpCreateEvent({
         type: this.resourceType,
         object,
         query,
@@ -223,7 +223,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
   }
 
   public delete<O = T, R = void>(object: O, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeHttpDeleteEvent({
+    PublisherService.getInstance()?.publish(new BeforeHttpDeleteEvent({
       type: this.resourceType,
       object,
       query
@@ -233,7 +233,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
       'delete',
       'write'
     ]).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterHttpDeleteEvent({
+      tap((data: R) => PublisherService.getInstance()?.publish(new AfterHttpDeleteEvent({
         type: this.resourceType,
         object,
         query,
@@ -243,7 +243,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
   }
 
   public update<O = T, R = void>(object: O, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeHttpUpdateEvent({
+    PublisherService.getInstance()?.publish(new BeforeHttpUpdateEvent({
       type: this.resourceType,
       object,
       query
@@ -253,7 +253,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
       'update',
       'write'
     ]).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterHttpUpdateEvent({
+      tap((data: R) => PublisherService.getInstance()?.publish(new AfterHttpUpdateEvent({
         type: this.resourceType,
         object,
         query,
@@ -263,7 +263,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
   }
 
   public patch<O = T, R = void>(object: O, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeHttpPatchEvent({
+    PublisherService.getInstance()?.publish(new BeforeHttpPatchEvent({
       type: this.resourceType,
       object,
       query
@@ -273,7 +273,7 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
       'patch',
       'write'
     ]).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterHttpPatchEvent({
+      tap((data: R) => PublisherService.getInstance()?.publish(new AfterHttpPatchEvent({
         type: this.resourceType,
         object,
         query,

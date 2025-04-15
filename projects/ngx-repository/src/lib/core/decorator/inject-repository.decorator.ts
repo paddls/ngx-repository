@@ -15,6 +15,9 @@ export const INJECT_REPOSITORY_METADATA_KEY: string = 'injectRepositories';
  */
 export const INJECT_REPOSITORY_INSTANCE_METADATA_KEY: string = 'injectRepositorieInstance';
 
+/**
+ * @Deprecated Please use injectRepository function instead.
+ */
 export function InjectRepository<T>(params: InjectRepositoryContext<T>): any {
   return (target: any, propertyKey: string) => {
     const injectRepositoryContextConfiguration: InjectRepositoryContextConfiguration = {

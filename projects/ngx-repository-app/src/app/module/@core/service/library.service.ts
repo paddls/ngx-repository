@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Library } from '../model/library.model';
 import { Observable } from 'rxjs';
 import { LibraryQuery } from '../query/library.query';
-import { InjectRepository, Page } from '@paddls/ngx-repository';
+import { injectRepository, InjectRepository, Page } from '@paddls/ngx-repository';
 import { HttpRepository } from '@paddls/ngx-http-repository';
 import { Chance } from 'chance';
 
@@ -11,11 +11,15 @@ export class LibraryService {
 
   private chance: Chance.Chance = new Chance.Chance();
 
-  @InjectRepository({ resourceType: () => Library, repository: () => HttpRepository })
-  private readLibraryRepository: HttpRepository<Library, string>;
+  private readLibraryRepository: HttpRepository<Library, string> = injectRepository({
+    resourceType: () => Library,
+    repository: () => HttpRepository
+  });
 
-  @InjectRepository({ resourceType: () => Library, repository: () => HttpRepository })
-  private writeLibraryRepository: HttpRepository<Library, string>;
+  private writeLibraryRepository: HttpRepository<Library, string> = injectRepository({
+    resourceType: () => Library,
+    repository: () => HttpRepository
+  });
 
   public findAll(currentPage: number, itemPerPage: number): Observable<Page<Library>> {
     return this.readLibraryRepository.findAll(new LibraryQuery({
