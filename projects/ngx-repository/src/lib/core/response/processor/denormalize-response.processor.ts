@@ -17,13 +17,13 @@ export class DenormalizeResponseProcessor implements ResponseProcessor {
     const responseType: Type<any> = configuration.getConfiguration('responseType')();
     const normalizerConfiguration: NormalizerConfiguration = configuration.findConfiguration('normalizerConfiguration');
 
-    PublisherService.getInstance().publish(new BeforeDenormalizeEvent({
+    PublisherService.getInstance()?.publish(new BeforeDenormalizeEvent({
       type: responseType,
       body: response,
       configuration: normalizerConfiguration
     }));
     const data: any = this.normalizer.denormalize(responseType, response, normalizerConfiguration);
-    PublisherService.getInstance().publish(new AfterDenormalizeEvent({
+    PublisherService.getInstance()?.publish(new AfterDenormalizeEvent({
       type: responseType,
       body: response,
       configuration: normalizerConfiguration,

@@ -29,7 +29,7 @@ export class FirestoreRepositoryDriver implements RepositoryDriver {
   private readonly firestore = inject<Firestore>(FIRESTORE_APP);
 
   public execute(request: FirestoreRepositoryRequest): Observable<FirestoreRepositoryResponse> {
-    PublisherService.getInstance().publish(new BeforeExecuteFirestoreRequestEvent({ request }));
+    PublisherService.getInstance()?.publish(new BeforeExecuteFirestoreRequestEvent({ request }));
 
     let obs$: Observable<RepositoryResponse>;
 
@@ -66,7 +66,7 @@ export class FirestoreRepositoryDriver implements RepositoryDriver {
     }
 
     return obs$.pipe(
-      tap((response: FirestoreRepositoryResponse) => PublisherService.getInstance().publish(new AfterExecuteFirestoreRequestEvent({
+      tap((response: FirestoreRepositoryResponse) => PublisherService.getInstance()?.publish(new AfterExecuteFirestoreRequestEvent({
         request,
         response
       })))

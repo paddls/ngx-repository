@@ -14,7 +14,7 @@ export class HttpRepositoryDriver implements RepositoryDriver {
   protected readonly http = inject(HttpClient);
 
   public execute(request: HttpRepositoryRequest): Observable<HttpRepositoryResponse> {
-    PublisherService.getInstance().publish(new BeforeExecuteHttpRequestEvent({ request }));
+    PublisherService.getInstance()?.publish(new BeforeExecuteHttpRequestEvent({ request }));
 
     return this.http.request(request.method, request.path.value, {
       params: request.queryParams,
@@ -24,7 +24,7 @@ export class HttpRepositoryDriver implements RepositoryDriver {
       responseType: 'json'
     }).pipe(
       map((response: HttpResponse<any>) => new HttpRepositoryResponse(response, request)),
-      tap((response: HttpRepositoryResponse) => PublisherService.getInstance().publish(new AfterExecuteHttpRequestEvent({
+      tap((response: HttpRepositoryResponse) => PublisherService.getInstance()?.publish(new AfterExecuteHttpRequestEvent({
         request,
         response
       })))

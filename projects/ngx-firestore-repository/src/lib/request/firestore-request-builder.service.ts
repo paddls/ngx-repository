@@ -42,9 +42,9 @@ export class FirestoreRequestBuilder implements RequestBuilder {
       return null;
     }
 
-    PublisherService.getInstance().publish(new BeforeNormalizeEvent({ body }));
+    PublisherService.getInstance()?.publish(new BeforeNormalizeEvent({ body }));
     const data: any = this.normalizer.normalize(body);
-    PublisherService.getInstance().publish(new AfterNormalizeEvent({ body, data }));
+    PublisherService.getInstance()?.publish(new AfterNormalizeEvent({ body, data }));
 
     return data;
   }

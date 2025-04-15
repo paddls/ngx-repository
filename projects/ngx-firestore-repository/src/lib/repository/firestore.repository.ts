@@ -87,13 +87,13 @@ export class FirestoreRepository<T, K = string> extends AbstractRepository<T> im
   }
 
   public findAll<R = Page<T>>(query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeFirestoreFindAllEvent({ query }));
+    PublisherService.getInstance()?.publish(new BeforeFirestoreFindAllEvent({ query }));
 
     return this.execute(null, query, [
       'findAll',
       'read'
     ]).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterFirestoreFindAllEvent({
+      tap((data: R) => PublisherService.getInstance()?.publish(new AfterFirestoreFindAllEvent({
         query,
         data
       })))
@@ -101,14 +101,14 @@ export class FirestoreRepository<T, K = string> extends AbstractRepository<T> im
   }
 
   public findOne<R = T>(query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeFirestoreFindOneEvent({ query }));
+    PublisherService.getInstance()?.publish(new BeforeFirestoreFindOneEvent({ query }));
 
     return this.execute(null, query, [
       'findOne',
       'read'
     ]).pipe(
       map((result: any) => result?.[0] || null),
-      tap((data: R) => PublisherService.getInstance().publish(new AfterFirestoreFindOneEvent({
+      tap((data: R) => PublisherService.getInstance()?.publish(new AfterFirestoreFindOneEvent({
         query,
         data
       })))
@@ -116,13 +116,13 @@ export class FirestoreRepository<T, K = string> extends AbstractRepository<T> im
   }
 
   public findById<R = T, ID = K>(id: ID, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeFirestoreFindByIdEvent({ id, query }));
+    PublisherService.getInstance()?.publish(new BeforeFirestoreFindByIdEvent({ id, query }));
 
     return this.execute(null, new IdQuery(id, query), [
       'findById',
       'read'
     ]).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterFirestoreFindByIdEvent({
+      tap((data: R) => PublisherService.getInstance()?.publish(new AfterFirestoreFindByIdEvent({
         id,
         query,
         data
@@ -131,13 +131,13 @@ export class FirestoreRepository<T, K = string> extends AbstractRepository<T> im
   }
 
   public create<O = T, R = K>(object: O, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeFirestoreCreateEvent({ object, query }));
+    PublisherService.getInstance()?.publish(new BeforeFirestoreCreateEvent({ object, query }));
 
     return this.execute(object, query, [
       'create',
       'write'
     ]).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterFirestoreCreateEvent({
+      tap((data: R) => PublisherService.getInstance()?.publish(new AfterFirestoreCreateEvent({
         object,
         query,
         data
@@ -146,13 +146,13 @@ export class FirestoreRepository<T, K = string> extends AbstractRepository<T> im
   }
 
   public delete<O = T, R = void>(object: O, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeFirestoreDeleteEvent({ object, query }));
+    PublisherService.getInstance()?.publish(new BeforeFirestoreDeleteEvent({ object, query }));
 
     return this.execute(object, query, [
       'delete',
       'write'
     ]).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterFirestoreDeleteEvent({
+      tap((data: R) => PublisherService.getInstance()?.publish(new AfterFirestoreDeleteEvent({
         object,
         query,
         data
@@ -161,13 +161,13 @@ export class FirestoreRepository<T, K = string> extends AbstractRepository<T> im
   }
 
   public update<O = T, R = void>(object: O, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeFirestoreUpdateEvent({ object, query }));
+    PublisherService.getInstance()?.publish(new BeforeFirestoreUpdateEvent({ object, query }));
 
     return this.execute(object, query, [
       'update',
       'write'
     ]).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterFirestoreUpdateEvent({
+      tap((data: R) => PublisherService.getInstance()?.publish(new AfterFirestoreUpdateEvent({
         object,
         query,
         data
@@ -176,13 +176,13 @@ export class FirestoreRepository<T, K = string> extends AbstractRepository<T> im
   }
 
   public patch<O = T, R = void>(object: O, query?: any): Observable<R> {
-    PublisherService.getInstance().publish(new BeforeFirestorePatchEvent({ object, query }));
+    PublisherService.getInstance()?.publish(new BeforeFirestorePatchEvent({ object, query }));
 
     return this.execute(object, query, [
       'patch',
       'write'
     ]).pipe(
-      tap((data: R) => PublisherService.getInstance().publish(new AfterFirestorePatchEvent({
+      tap((data: R) => PublisherService.getInstance()?.publish(new AfterFirestorePatchEvent({
         object,
         query,
         data
