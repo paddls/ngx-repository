@@ -4,7 +4,7 @@
   "peerDependencies": {
     "@angular/common": ">= 19.0.0",
     "@angular/core": ">= 19.0.0",
-    "@paddls/ngx-repository": "^9.0.0",
+    "@paddls/ngx-repository": "^9.1.0-rc.0",
     "firebase": ">= 9.9.2"
   },
   "dependencies": {
