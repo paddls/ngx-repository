@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { injectRepository, InjectRepository, Page } from '@paddls/ngx-repository';
+import { injectRepository, Page } from '@paddls/ngx-repository';
 import { Client } from '../model/client.model';
 import { Chance } from 'chance';
 import { Purchase } from '../model/purchase.model';

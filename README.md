@@ -195,21 +195,23 @@ export class User {
 
 Right, now you have your resources. NgxRepository will generate all repositories on demand. You just have to inject it
 in your services using the
-`@InjectRepository()` decorator. You need to specify in the decorator context the type of your resource and the type of
+`injectRepository()` function. You need to specify in the function args the type of your resource and the type of
 your repository(`HttpRepository`, `FirestoreRepository`...).
 
 The generic types of the generated repository type are the type of the resource and the type of the resource id.
 
 ```typescript
-import { InjectRepository, Page } from '@paddls/ngx-repository';
+import { injectRepository, Page } from '@paddls/ngx-repository';
 import { HttpRepository } from '@paddls/ngx-http-repository'
 
 @Injectable()
 export class BookService {
 
   // repository is build with Http driver for User resource
-  @InjectRepository({ resourceType: () => Book, repository: () => HttpRepository })
-  private readonly bookRepository: HttpRepository<Book, number>;
+  private readonly bookRepository: HttpRepository<Book, string> = injectRepository({
+    resourceType: () => Book,
+    repository: () => HttpRepository
+  });
 
   public findAll(): Observable<Page<Book>> {
     return this.bookRepository.findAll();
@@ -226,6 +228,11 @@ export class BookService {
   }
 }
 ```
+
+> ⚠️ Prior to version 9.1.0, the repository was injected using the `@InjectRepository()` decorator. This decorator is
+> now deprecated and will be removed in a future version.
+> Please use the `injectRepository()` function instead.
+
 
 Each repository of a resource made from `FirestoreDriver` or `HttpDriver` are singleton services stored in Angular
 Injector, so don't worry about injecting them on several services.
@@ -504,8 +511,10 @@ The following example shows a query used in a `findAll()` operation on a Firesto
 @Injectable()
 export class ClientService {
 
-  @InjectRepository({ resourceType: () => Client, repository: () => FirestoreRepository })
-  private repository: FirestoreRepository<Client, string>;
+  private readonly repository: FirestoreRepository<Client, string> = injectRepository({
+    resourceType: () => Client,
+    repository: () => FirestoreRepository
+  });
 
   public searchByLastName(searchedLastName: string): Observable<Page<Client>> {
     return this.repository.findAll(new ClientQuery({
