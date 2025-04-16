@@ -819,117 +819,92 @@ bodies or requests with a response type different from body type.
 To do that, simply create an ``@Injectable()`` class and define your API methods inside like in the following example :
 
 ```typescript
-
 @Injectable()
 class Api {
 
-  @HttpGet('/api', () => ApiResponse)
-  public get: HttpQueryFn<ApiResponse>;
+  public get: HttpQueryFn<ApiResponse> = httpGet<ApiResponse>('/api', () => ApiResponse);
 
-  @HttpGet({
+  public getWithBody: HttpBodyFn<ApiResponse> = httpGet({
     path: '/api',
     withBody: true
-  }, () => ApiResponse)
-  public getWithBody: HttpBodyFn<ApiResponse>;
+  }, () => ApiResponse);
 
-  @HttpGet({
+  public getWithResponseProcessor: HttpQueryFn<Page<ApiResponse>> = httpGet({
     path: '/api',
     postResponseProcessors: PageResponseProcessor
-  }, () => ApiResponse)
-  public getWithResponseProcessor: HttpQueryFn<Page<ApiResponse>>;
+  }, () => ApiResponse);
 
-  @HttpGet('/api/:version', () => ApiResponse)
-  public getWithPathParam: HttpQueryFn<ApiResponse>;
+  public getWithPathParam: HttpQueryFn<ApiResponse> = httpGet('/api/:version', () => ApiResponse);
 
-  @HttpPost('/api', () => ApiResponse)
-  public post: HttpBodyFn<ApiResponse, ApiRequest>;
+  public post: HttpBodyFn<ApiResponse, ApiRequest> = httpPost('/api', () => ApiResponse);
 
-  @HttpPost({
+  public postWithResponseProcessor: HttpBodyFn<Page<ApiResponse>> = httpPost({
     path: '/api',
     postResponseProcessors: [PageResponseProcessor]
-  }, () => ApiResponse)
-  public postWithResponseProcessor: HttpBodyFn<Page<ApiResponse>>;
+  }, () => ApiResponse);
 
-  @HttpPost({
+  public postWithoutBody: HttpQueryFn<Page<ApiResponse>> = httpPost({
     path: '/api',
     withBody: false
-  }, () => ApiResponse)
-  public postWithoutBody: HttpQueryFn<Page<ApiResponse>>;
+  }, () => ApiResponse);
 
-  @HttpPost('/api/:version', () => ApiResponse)
-  public postWithPathParam: HttpBodyFn<ApiResponse>;
+  public postWithPathParam: HttpBodyFn<ApiResponse> = httpPost('/api/:version', () => ApiResponse);
 
-  @HttpPut('/api', () => ApiResponse)
-  public put: HttpBodyFn<ApiResponse, ApiRequest>;
+  public put: HttpBodyFn<ApiResponse, ApiRequest> = httpPut('/api', () => ApiResponse);
 
-  @HttpPut('/api/:version', () => ApiResponse)
-  public putWithPathParam: HttpBodyFn<ApiResponse, ApiRequest>;
+  public putWithPathParam: HttpBodyFn<ApiResponse, ApiRequest> = httpPut('/api/:version', () => ApiResponse);
 
-  @HttpPut({
+  public putWithoutBody: HttpQueryFn<ApiResponse, ApiRequest> = httpPut({
     path: '/api',
     withBody: false
-  }, () => ApiResponse)
-  public putWithoutBody: HttpQueryFn<ApiResponse, ApiRequest>;
+  }, () => ApiResponse);
 
-  @HttpPut({
+  public putWithResponseProcessor: HttpBodyFn<ApiResponse, ApiRequest> = httpPut({
     path: '/api',
     postResponseProcessors: [PageResponseProcessor]
-  }, () => ApiResponse)
-  public putWithResponseProcessor: HttpBodyFn<ApiResponse, ApiRequest>;
+  }, () => ApiResponse);
 
-  @HttpPatch('/api', () => ApiResponse)
-  public patch: HttpBodyFn<ApiResponse, ApiRequest>;
+  public patch: HttpBodyFn<ApiResponse, ApiRequest> = httpPatch('/api', () => ApiResponse);
 
-  @HttpPatch('/api/:version', () => ApiResponse)
-  public patchWithPathParam: HttpBodyFn<ApiResponse, ApiRequest>;
+  public patchWithPathParam: HttpBodyFn<ApiResponse, ApiRequest> = httpPatch('/api/:version', () => ApiResponse);
 
-  @HttpPatch({
+  public patchWithoutBody: HttpQueryFn<ApiResponse, ApiRequest> = httpPatch({
     path: '/api',
     withBody: false
-  }, () => ApiResponse)
-  public patchWithoutBody: HttpQueryFn<ApiResponse, ApiRequest>;
+  }, () => ApiResponse);
 
-  @HttpPatch({
+  public patchWithResponseProcessor: HttpBodyFn<ApiResponse, ApiRequest> = httpPatch({
     path: '/api',
     postResponseProcessors: [PageResponseProcessor]
-  }, () => ApiResponse)
-  public patchWithResponseProcessor: HttpBodyFn<ApiResponse, ApiRequest>;
+  }, () => ApiResponse);
 
-  @HttpDelete('/api', () => ApiResponse)
-  public delete: HttpBodyFn<ApiResponse, ApiRequest>;
+  public delete: HttpBodyFn<ApiResponse, ApiRequest> = httpDelete('/api', () => ApiResponse);
 
-  @HttpDelete('/api/:version', () => ApiResponse)
-  public deleteWithPathParam: HttpBodyFn<ApiResponse, ApiRequest>;
+  public deleteWithPathParam: HttpBodyFn<ApiResponse, ApiRequest> = httpDelete('/api/:version', () => ApiResponse);
 
-  @HttpDelete({
+  public deleteWithoutBody: HttpQueryFn<ApiResponse, ApiRequest> = httpDelete({
     path: '/api',
     withBody: false
-  }, () => ApiResponse)
-  public deleteWithoutBody: HttpQueryFn<ApiResponse, ApiRequest>;
+  }, () => ApiResponse);
 
-  @HttpDelete({
+  public deleteWithResponseProcessor: HttpBodyFn<ApiResponse, ApiRequest> = httpDelete({
     path: '/api',
     postResponseProcessors: [PageResponseProcessor]
-  }, () => ApiResponse)
-  public deleteWithResponseProcessor: HttpBodyFn<ApiResponse, ApiRequest>;
+  }, () => ApiResponse);
 
-  @HttpOption('/api', () => ApiResponse)
-  public option: HttpQueryFn<ApiResponse>;
+  public option: HttpQueryFn<ApiResponse> = httpOption('/api', () => ApiResponse);
 
-  @HttpOption('/api/:version', () => ApiResponse)
-  public optionWithPathParam: HttpQueryFn<ApiResponse>;
+  public optionWithPathParam: HttpQueryFn<ApiResponse> = httpOption('/api/:version', () => ApiResponse);
 
-  @HttpOption({
+  public optionWithBody: HttpBodyFn<ApiResponse> = httpOption({
     path: '/api',
     withBody: true
-  }, () => ApiResponse)
-  public optionWithBody: HttpBodyFn<ApiResponse>;
+  }, () => ApiResponse);
 
-  @HttpOption({
+  public optionWithResponseProcessor: HttpQueryFn<ApiResponse> = httpOption({
     path: '/api',
     postResponseProcessors: [PageResponseProcessor]
-  }, () => ApiResponse)
-  public optionWithResponseProcessor: HttpQueryFn<ApiResponse>;
+  }, () => ApiResponse);
 
 }
 ```
