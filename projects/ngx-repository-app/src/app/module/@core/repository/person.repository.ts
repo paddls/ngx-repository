@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { PersonQuery } from '../query/person.query';
 import { inject, Injectable } from '@angular/core';
 import { Repository, RequestManager } from '@paddls/ngx-repository';
-import { HttpRepository, HttpRepositoryDriver } from '@paddls/ngx-http-repository';
+import { HttpQueryFn, HttpRepository, HttpRepositoryDriver } from '@paddls/ngx-http-repository';
 
 @Injectable()
 @Repository(() => Person)

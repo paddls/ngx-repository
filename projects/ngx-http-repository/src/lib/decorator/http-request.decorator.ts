@@ -63,6 +63,8 @@ function buildHttpRequestDecorator(params: string | HttpRequestParamsContext, re
 }
 
 /**
+ * @deprecated use httpGet function instead.
+ *
  * Generate method to invoke Http Get request. By default HttpQueryFn but can be changed to HttpBodyFn (see withBody option)
  * @param params path or full configuration object.
  * @param responseType type of the response for deserialization.
@@ -72,6 +74,8 @@ export function HttpGet(params: string | HttpRequestParamsContext, responseType:
 }
 
 /**
+ * @deprecated use httpPost function instead.
+ *
  * Generate method to invoke Http Post request. By default HttpBodyFn but can be changed to HttpQueryFn (see withBody option)
  * @param params path or full configuration object.
  * @param responseType type of the response for deserialization.
@@ -81,6 +85,8 @@ export function HttpPost(params: string | HttpRequestParamsContext, responseType
 }
 
 /**
+ * @deprecated use httpPut function instead.
+ *
  * Generate method to invoke Http Put request. By default HttpBodyFn but can be changed to HttpQueryFn (see withBody option)
  * @param params path or full configuration object.
  * @param responseType type of the response for deserialization.
@@ -90,6 +96,8 @@ export function HttpPut(params: string | HttpRequestParamsContext, responseType:
 }
 
 /**
+ * @deprecated use httpPatch function instead.
+ *
  * Generate method to invoke Http Patch request. By default HttpBodyFn but can be changed to HttpQueryFn (see withBody option)
  * @param params path or full configuration object.
  * @param responseType type of the response for deserialization.
@@ -99,6 +107,8 @@ export function HttpPatch(params: string | HttpRequestParamsContext, responseTyp
 }
 
 /**
+ * @deprecated use httpDelete function instead.
+ *
  * Generate method to invoke Http Delete request. By default HttpBodyFn but can be changed to HttpQueryFn (see withBody option)
  * @param params path or full configuration object.
  * @param responseType type of the response for deserialization.
@@ -108,6 +118,8 @@ export function HttpDelete(params: string | HttpRequestParamsContext, responseTy
 }
 
 /**
+ * @deprecated use httpOption function instead.
+ *
  * Generate method to invoke Http Option request. By default HttpQueryFn but can be changed to HttpBodyFn (see withBody option)
  * @param params path or full configuration object.
  * @param responseType type of the response for deserialization.

@@ -9,6 +9,13 @@ export { HttpResource } from './lib/decorator/http-resource.decorator';
 export { OnHttpResourceChange } from './lib/decorator/on-http-resource-change.decorator';
 export * from './lib/decorator/http-request.decorator';
 
+export * from './lib/function/http-delete';
+export * from './lib/function/http-get';
+export * from './lib/function/http-option';
+export * from './lib/function/http-patch';
+export * from './lib/function/http-post';
+export * from './lib/function/http-put';
+
 export { AfterExecuteHttpRequestEvent } from './lib/driver/event/after-execute-http-request.event';
 export { BeforeExecuteHttpRequestEvent } from './lib/driver/event/before-execute-http-request.event';
 export { HttpRepositoryDriver } from './lib/driver/http-repository.driver';
