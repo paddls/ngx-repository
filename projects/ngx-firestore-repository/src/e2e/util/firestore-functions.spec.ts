@@ -1,11 +1,4 @@
-import {
-  CollectionReference,
-  DocumentData,
-  DocumentReference,
-  Firestore,
-  OrderByDirection,
-  WhereFilterOp
-} from 'firebase/firestore';
+import { CollectionReference, DocumentData, DocumentReference, Firestore, OrderByDirection, WhereFilterOp } from 'firebase/firestore';
 import { FieldPath, Query, QueryConstraint, SnapshotListenOptions, Unsubscribe } from '@firebase/firestore';
 import { Observer, of } from 'rxjs';
 import { FirestoreMock } from 'projects/ngx-firestore-repository/src/e2e/util/firestore-mock.spec';
@@ -54,7 +47,8 @@ export function onSnapshot(reference: any,
           docs: items.map((data: any) => ({ data: () => data }))
         }),
         (data: any[]) => ({
-          data: () => data
+          data: () => data,
+          exists: () => data != null
         })
       ),
     )

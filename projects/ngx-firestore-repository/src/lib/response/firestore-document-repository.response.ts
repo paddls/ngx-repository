@@ -9,10 +9,14 @@ export class FirestoreDocumentRepositoryResponse implements FirestoreRepositoryR
   }
 
   public getBody(): any {
-    return {
-      id: this.response.id,
-      ...this.response.data()
-    };
+    if (this.response.exists()) {
+      return {
+        id: this.response.id,
+        ...this.response.data()
+      };
+    } else {
+      return null;
+    }
   }
 
   public getRequest(): RepositoryRequest {

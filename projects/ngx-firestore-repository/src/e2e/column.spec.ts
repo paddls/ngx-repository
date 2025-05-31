@@ -1,11 +1,6 @@
 import { Column, Id, Page } from '@paddls/ngx-repository';
 import { FirestoreResource } from '../lib/decorator/firestore-resource.decorator';
-import {
-  expectCollectionAdd,
-  expectDocumentDelete,
-  expectDocumentUpdate,
-  testFirestoreRepository
-} from './util/test-firestore-repository.spec';
+import { expectCollectionAdd, expectDocumentDelete, expectDocumentUpdate, testFirestoreRepository } from './util/test-firestore-repository.spec';
 import { FirestoreRepository } from '../lib/repository/firestore.repository';
 import { Converter } from '@paddls/ts-serializer';
 
@@ -58,6 +53,13 @@ describe('Column', () => {
         expectedPath: '/books/1',
         expectedResponse: new Book({ id: '1', name: 'Book 1' }),
         mockedResponse: { id: '1', name: 'Book 1' }
+      },
+      findByIdNotExist: {
+        entity: Book,
+        request: (repository: FirestoreRepository<any>) => repository.findById(2).toPromise(),
+        expectedPath: '/books/2',
+        expectedResponse: null,
+        mockedResponse: null
       },
       create: {
         entity: Book,
