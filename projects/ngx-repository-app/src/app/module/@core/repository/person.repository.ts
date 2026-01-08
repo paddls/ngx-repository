@@ -9,8 +9,8 @@ import { HttpQueryFn, HttpRepository, HttpRepositoryDriver } from '@paddls/ngx-h
 @Repository(() => Person)
 export class PersonRepository extends HttpRepository<Person, string> {
 
-  public constructor() {
-    super(inject(RequestManager), inject(HttpRepositoryDriver));
+  public constructor(requestManager: RequestManager, httpRepositoryDriver: HttpRepositoryDriver) {
+    super(requestManager, httpRepositoryDriver);
   }
 
   public searchByFirstName(searchedFirstName: string): Observable<Person[]> {

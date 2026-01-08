@@ -3,4 +3,5 @@ import { PathParamConfiguration, ResourceParamConfiguration } from '@paddls/ngx-
 export interface HttpRepositoryParamConfiguration extends ResourceParamConfiguration, PathParamConfiguration {
   path?: string;
   method?: string;
+  httpResponseType?: 'arraybuffer' | 'blob' | 'json' | 'text';
 }

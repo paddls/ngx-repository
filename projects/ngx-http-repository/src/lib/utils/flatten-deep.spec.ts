@@ -10,7 +10,7 @@ describe('flattenDeep', () => {
         4
       ]
     ];
-    const result = flattenDeep(array);
+    const result: any = flattenDeep(array);
     expect(result).toEqual([
       1,
       2,
@@ -30,7 +30,7 @@ describe('flattenDeep', () => {
         ]
       ]
     ];
-    const result = flattenDeep(array);
+    const result: any = flattenDeep(array);
     expect(result).toEqual([
       1,
       2,
@@ -45,7 +45,7 @@ describe('flattenDeep', () => {
       2,
       3
     ];
-    const result = flattenDeep(array);
+    const result: any = flattenDeep(array);
     expect(result).toEqual([
       1,
       2,
@@ -55,13 +55,13 @@ describe('flattenDeep', () => {
 
   it('should handle empty array correctly', () => {
     const array: any[] = [];
-    const result = flattenDeep(array);
+    const result: any = flattenDeep(array);
     expect(result).toEqual([]);
   });
 
   it('should handle undefined correctly', () => {
     const array: any[] = [];
-    const result = flattenDeep(array);
+    const result: any = flattenDeep(array);
     expect(result).toEqual([]);
   });
 });

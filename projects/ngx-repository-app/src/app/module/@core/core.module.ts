@@ -25,7 +25,7 @@ const SERVICES: Provider[] = [
 export class CoreModule {
 
   public constructor() {
-    const parentModule = inject(CoreModule, { optional: true, skipSelf: true });
+    const parentModule: CoreModule = inject(CoreModule, { optional: true, skipSelf: true });
 
     if (parentModule) {
       throw new Error('CoreModule has already been loaded. You should only import this module in the AppModule only.');

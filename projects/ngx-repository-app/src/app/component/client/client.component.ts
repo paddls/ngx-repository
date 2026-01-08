@@ -13,20 +13,13 @@ import { AsyncPipe } from '@angular/common';
 })
 export class ClientComponent {
 
-  private clientService = inject(ClientService);
+  private readonly clientService: ClientService = inject(ClientService);
 
-
-  public client$: Observable<Client>;
-
-  public constructor() {
-    const activatedRoute = inject(ActivatedRoute);
-
-    this.client$ = activatedRoute.params.pipe(
-      filter((params: Params) => !!params),
-      map((params: Params) => params['clientId']),
-      switchMap((clientId: string) => this.clientService.findById(clientId))
-    );
-  }
+  public readonly client$: Observable<Client> = inject(ActivatedRoute).params.pipe(
+    filter((params: Params) => !!params),
+    map((params: Params) => params['clientId']),
+    switchMap((clientId: string) => this.clientService.findById(clientId))
+  );
 
   public addPurchase(client: Client): void {
     this.clientService.addPurchase(client).subscribe();

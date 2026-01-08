@@ -43,7 +43,7 @@ import { HTTP_LIVE_RESOURCE_METADATA_KEY } from '../decorator/http-live-resource
 import { refreshOn } from '@paddls/rxjs-common';
 import { OnHttpResourceChange } from '../decorator/on-http-resource-change.decorator';
 import { Inject, Type } from '@angular/core';
-import { createHttpRepositoryConfiguration } from '../configuration/context/http-repository-context.configuration';
+import { createHttpRepositoryConfiguration, HttpRepositoryContextConfiguration } from '../configuration/context/http-repository-context.configuration';
 import { HTTP_REPOSITORY_CONFIGURATION } from '../configuration/http-repository.configuration';
 import merge from 'lodash.merge';
 
@@ -282,8 +282,8 @@ export class HttpRepository<T, K> extends AbstractRepository<T> implements FindA
     );
   }
 
-  protected getResourceConfiguration(resourceType: Type<any>, configuration: ResourceConfiguration): ResourceConfiguration {
-    const config = merge({}, configuration, Reflect.getMetadata(HTTP_RESOURCE_METADATA_KEY, resourceType));
+  protected getResourceConfiguration(resourceType: Type<any>, configuration: HttpRepositoryContextConfiguration): HttpRepositoryContextConfiguration {
+    const config: HttpRepositoryContextConfiguration = merge({}, configuration, Reflect.getMetadata(HTTP_RESOURCE_METADATA_KEY, resourceType));
 
     return createHttpRepositoryConfiguration(config);
   }

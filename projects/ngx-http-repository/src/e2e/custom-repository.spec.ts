@@ -1,7 +1,7 @@
 import { HttpRepository, HttpRepositoryDriver, HttpResource } from '../public-api';
 import { Id, Page, Repository, RequestManager, ResourceConfiguration } from '@paddls/ngx-repository';
 import { testHttpRepository } from './util/test-http-repository.spec';
-import { inject, Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HTTP_REPOSITORY_CONFIGURATION } from '../lib/configuration/http-repository.configuration';
 
 describe('Custom Repository', () => {
@@ -27,8 +27,8 @@ describe('Custom Repository', () => {
     @Repository(() => Book)
     class CustomBookRepository extends HttpRepository<Book, number> {
 
-      public constructor() {
-        super(inject(RequestManager), inject(HttpRepositoryDriver), inject<ResourceConfiguration>(HTTP_REPOSITORY_CONFIGURATION));
+      public constructor(requestManager: RequestManager, httpRepositoryDriver: HttpRepositoryDriver, @Inject(HTTP_REPOSITORY_CONFIGURATION) configuration: ResourceConfiguration) {
+        super(requestManager, httpRepositoryDriver, configuration);
       }
     }
 

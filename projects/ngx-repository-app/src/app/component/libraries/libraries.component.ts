@@ -26,10 +26,13 @@ import { FormsModule } from '@angular/forms';
 })
 export class LibrariesComponent {
 
+  private readonly libraryService: LibraryService = inject(LibraryService);
+
+  private readonly personService: PersonService = inject(PersonService);
+
+  private readonly clientService: ClientService = inject(ClientService);
+
   protected readonly currentPageSubject: BehaviorSubject<number> = new BehaviorSubject<number>(1);
-  private readonly libraryService = inject(LibraryService);
-  private readonly personService = inject(PersonService);
-  private readonly clientService = inject(ClientService);
 
   private readonly searchedPersonFirstNameChangeSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
@@ -48,12 +51,8 @@ export class LibrariesComponent {
   public client$: Observable<Client[]>;
 
   public constructor() {
-    const libraryService = this.libraryService;
-    const personService = this.personService;
-    const clientService = this.clientService;
-
     this.libraries$ = this.currentPageSubject.pipe(
-      switchMap((currentPage: number) => libraryService.findAll(currentPage, 5)),
+      switchMap((currentPage: number) => this.libraryService.findAll(currentPage, 5)),
       softCache()
     );
 
@@ -62,11 +61,11 @@ export class LibrariesComponent {
     );
 
     this.person$ = this.searchedPersonFirstNameChangeSubject.pipe(
-      switchMap((searchedFirstName: string) => personService.searchByFirstName(searchedFirstName))
+      switchMap((searchedFirstName: string) => this.personService.searchByFirstName(searchedFirstName))
     );
 
     this.client$ = this.searchedClientLastNameChangeSubject.pipe(
-      switchMap((searchedLastName: string) => clientService.searchByLastName(searchedLastName))
+      switchMap((searchedLastName: string) => this.clientService.searchByLastName(searchedLastName))
     );
   }
 

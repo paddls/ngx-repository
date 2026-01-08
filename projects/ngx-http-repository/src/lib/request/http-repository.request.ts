@@ -7,7 +7,8 @@ export class HttpRepositoryRequest implements RepositoryRequest, PathRequest {
                      public readonly body: any,
                      public readonly path: Path,
                      public readonly headers: { [key: string]: string | string[] } = {},
-                     public readonly queryParams: HttpParams = new HttpParams()) {
+                     public readonly queryParams: HttpParams = new HttpParams(),
+                     public readonly httpResponseType: 'arraybuffer' | 'blob' | 'json' | 'text') {
   }
 
   public getPath(): Path {

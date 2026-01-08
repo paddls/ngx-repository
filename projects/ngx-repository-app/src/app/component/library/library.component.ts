@@ -20,26 +20,22 @@ import { FormsModule } from '@angular/forms';
 })
 export class LibraryComponent {
 
-  private libraryService = inject(LibraryService);
-  private bookService = inject(BookService);
-  private router = inject(Router);
+  private readonly libraryService: LibraryService = inject(LibraryService);
+
+  private readonly bookService: BookService = inject(BookService);
+
+  private readonly router: Router = inject(Router);
 
   public libraryName: string;
 
-  public library$: Observable<Library>;
+  public readonly library$: Observable<Library> = inject(ActivatedRoute).params.pipe(
+    filter((params: Params) => !!params),
+    map((params: Params) => params[`libraryId`]),
+    switchMap((libraryId: string) => this.libraryService.findById(libraryId)),
+    tap((library: Library) => this.libraryName = library.name)
+  );
 
-  private expandedBooks: Map<string, boolean> = new Map<string, boolean>();
-
-  public constructor() {
-    const activatedRoute = inject(ActivatedRoute);
-
-    this.library$ = activatedRoute.params.pipe(
-      filter((params: Params) => !!params),
-      map((params: Params) => params[`libraryId`]),
-      switchMap((libraryId: string) => this.libraryService.findById(libraryId)),
-      tap((library: Library) => this.libraryName = library.name)
-    );
-  }
+  private readonly expandedBooks: Map<string, boolean> = new Map<string, boolean>();
 
   public bookIsExpanded(book: Book): boolean {
     return this.expandedBooks.has(book.id) && !!this.expandedBooks.get(book.id);
@@ -54,7 +50,7 @@ export class LibraryComponent {
   }
 
   public onUpdateLibrary(library: Library): void {
-    const libraryToUpdate: Library = structuredClone(library);
+    const libraryToUpdate: Library = new Library(library);
     libraryToUpdate.name = this.libraryName;
     this.libraryService.update(libraryToUpdate).subscribe();
   }

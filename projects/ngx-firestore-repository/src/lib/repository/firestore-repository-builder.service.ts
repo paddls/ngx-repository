@@ -10,8 +10,9 @@ import { FirestoreRepositoryDriver } from '../driver/firestore-repository-driver
 @Injectable()
 export class FirestoreRepositoryBuilder extends AbstractRepositoryBuilder {
 
-  private readonly driver = inject(FirestoreRepositoryDriver);
-  private readonly requestManger = inject(RequestManager);
+  private readonly driver: FirestoreRepositoryDriver = inject(FirestoreRepositoryDriver);
+
+  private readonly requestManger: RequestManager = inject(RequestManager);
 
   public constructor() {
     super(FIRESTORE_RESOURCE_METADATA_KEY);

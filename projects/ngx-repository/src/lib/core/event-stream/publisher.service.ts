@@ -14,11 +14,11 @@ interface RegistryItem {
 @Injectable()
 export class PublisherService {
 
-  private readonly injector = inject(Injector);
-
   private static publisher$: Subject<any> = new Subject<any>();
 
   private static registryItems: RegistryItem[] = [];
+
+  private readonly injector: Injector = inject(Injector);
 
   public static getInstance: () => PublisherService = () => NgxRepositoryModule.injector?.get(PublisherService);
 

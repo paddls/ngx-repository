@@ -2,14 +2,14 @@ import { omit } from './omit';
 
 describe('omit', () => {
   it('should omit a single property', () => {
-    const obj = { a: 1, b: 2, c: 3 };
-    const result = omit(obj, ['b']);
+    const obj: any = { a: 1, b: 2, c: 3 };
+    const result: any = omit(obj, ['b']);
     expect(result).toEqual({ a: 1, c: 3 });
   });
 
   it('should omit multiple properties', () => {
-    const obj = { a: 1, b: 2, c: 3 };
-    const result = omit(obj, [
+    const obj: any = { a: 1, b: 2, c: 3 };
+    const result: any = omit(obj, [
       'a',
       'b'
     ]);
@@ -17,8 +17,8 @@ describe('omit', () => {
   });
 
   it('should return an empty object if all properties are omitted', () => {
-    const obj = { a: 1, b: 2, c: 3 };
-    const result = omit(obj, [
+    const obj: any = { a: 1, b: 2, c: 3 };
+    const result: any = omit(obj, [
       'a',
       'b',
       'c'
@@ -27,14 +27,14 @@ describe('omit', () => {
   });
 
   it('should return the original object if no properties are omitted', () => {
-    const obj = { a: 1, b: 2, c: 3 };
-    const result = omit(obj, []);
+    const obj: any = { a: 1, b: 2, c: 3 };
+    const result: any = omit(obj, []);
     expect(result).toEqual({ a: 1, b: 2, c: 3 });
   });
 
   it('should handle non-existing properties correctly', () => {
-    const obj = { a: 1, b: 2 };
-    const result = omit(obj, ['c']);
+    const obj: any = { a: 1, b: 2 };
+    const result: any = omit(obj, ['c']);
     expect(result).toEqual({ a: 1, b: 2 });
   });
 

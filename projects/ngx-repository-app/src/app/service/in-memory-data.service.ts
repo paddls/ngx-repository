@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class InMemoryDataService implements InMemoryDbService {
 
   public createDb(): { libraries: any[], persons: any[], books: any[], comments: any[] } {

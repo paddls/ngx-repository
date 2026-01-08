@@ -13,15 +13,11 @@ import { AsyncPipe } from '@angular/common';
 })
 export class PersonComponent {
 
-  private personService = inject(PersonService);
+  private readonly personService: PersonService = inject(PersonService);
 
-  public person$: Observable<Person>;
-
-  public constructor() {
-    this.person$ = inject(ActivatedRoute).params.pipe(
-      filter((params: Params) => !!params),
-      map((params: Params) => params[`personId`]),
-      switchMap((personId: string) => this.personService.findOneById(personId))
-    );
-  }
+  public readonly person$: Observable<Person> = inject(ActivatedRoute).params.pipe(
+    filter((params: Params) => !!params),
+    map((params: Params) => params[`personId`]),
+    switchMap((personId: string) => this.personService.findOneById(personId))
+  );
 }

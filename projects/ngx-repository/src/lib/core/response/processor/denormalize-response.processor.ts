@@ -11,7 +11,7 @@ import { AfterDenormalizeEvent } from '../../../normalizer/event/after-denormali
 @Injectable()
 export class DenormalizeResponseProcessor implements ResponseProcessor {
 
-  private readonly normalizer = inject(RepositoryNormalizer);
+  private readonly normalizer: RepositoryNormalizer = inject(RepositoryNormalizer);
 
   public transform(response: any, origin: RepositoryResponse, { configuration }: RequestManagerContext): any {
     const responseType: Type<any> = configuration.getConfiguration('responseType')();

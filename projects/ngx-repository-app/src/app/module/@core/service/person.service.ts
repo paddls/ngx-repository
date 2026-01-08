@@ -8,9 +8,9 @@ import { PersonQuery } from '../query/person.query';
 @Injectable()
 export class PersonService {
 
-  private personRepository = inject(PersonRepository);
+  private readonly personRepository: PersonRepository = inject(PersonRepository);
 
-  private chance: Chance.Chance = new Chance.Chance();
+  private readonly chance: Chance.Chance = new Chance.Chance();
 
   public searchByFirstName(searchedFirstName: string): Observable<Person[]> {
     return this.personRepository.searchByFirstName(searchedFirstName);

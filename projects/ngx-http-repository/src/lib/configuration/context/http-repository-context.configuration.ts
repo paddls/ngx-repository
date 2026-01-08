@@ -60,7 +60,7 @@ export function createHttpRepositoryConfiguration(params: HttpRepositoryContextC
   };
 }
 
-function buildOperationParams<T>(params: HttpRepositoryContextConfiguration, path: string[]): T {
+function buildOperationParams<T extends HttpRepositoryContextConfiguration>(params: T, path: string[]): T {
   const rootConfiguration: any = omit(params, HTTP_OPERATIONS);
   const configurations: any[] = [
     rootConfiguration,
@@ -68,7 +68,9 @@ function buildOperationParams<T>(params: HttpRepositoryContextConfiguration, pat
       .filter((value: any) => !isUndefined(value))
   ].map((value: any) => isString(value) ? { path: value } : value);
 
-  return Object.assign({}, ...configurations);
+  return Object.assign({
+    httpResponseType: 'json'
+  }, ...configurations);
 }
 
 function buildFindAllParams(params: HttpRepositoryContextConfiguration, path: string[]): HttpRepositoryParamConfiguration {
@@ -77,6 +79,8 @@ function buildFindAllParams(params: HttpRepositoryContextConfiguration, path: st
   if (param.pageResponseProcessor) {
     param.responseBuilder = PageResponseProcessor.withParams(param.pageResponseProcessor);
   }
+
+  param.httpResponseType = param.httpResponseType || 'json';
 
   return param;
 }

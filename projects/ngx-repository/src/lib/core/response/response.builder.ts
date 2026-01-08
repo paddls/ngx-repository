@@ -19,7 +19,7 @@ import { get } from '../common/utils/get';
 @Injectable()
 export class ResponseBuilder {
 
-  protected readonly injector = inject(Injector);
+  protected readonly injector: Injector = inject(Injector);
 
   public static withParams(params: ResponseBuilderParam = {}): BuilderParam<ResponseBuilder> {
     const responseProcessors: ResponseProcessorToken[] = [

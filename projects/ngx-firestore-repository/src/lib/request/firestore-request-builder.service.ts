@@ -20,8 +20,9 @@ import { Firestore } from 'firebase/firestore';
 @Injectable()
 export class FirestoreRequestBuilder implements RequestBuilder {
 
-  protected readonly normalizer = inject(FirestoreNormalizer);
-  protected readonly firestore = inject<Firestore>(FIRESTORE_APP);
+  protected readonly normalizer: FirestoreNormalizer = inject(FirestoreNormalizer);
+
+  protected readonly firestore: Firestore = inject<Firestore>(FIRESTORE_APP);
 
   public build({ body, query, configuration }: RequestManagerContext): Observable<FirestoreRepositoryRequest> {
     const operation: FirestoreOperation = configuration.getOperation() as FirestoreOperation;

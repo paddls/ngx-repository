@@ -38,7 +38,7 @@ import { PatchInterceptor } from './interceptor/patch.interceptor';
 export class SystemModule {
 
   public constructor() {
-    const parentModule = inject(SystemModule, { optional: true, skipSelf: true });
+    const parentModule: SystemModule = inject(SystemModule, { optional: true, skipSelf: true });
 
     if (parentModule) {
       throw new Error('SystemModule has already been loaded. You should only import this module in the AppModule only.');

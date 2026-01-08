@@ -31,16 +31,17 @@ import { get } from '../utils/get';
 @Injectable()
 export class HttpRequestBuilder implements RequestBuilder {
 
-  private readonly normalizer = inject(RepositoryNormalizer);
+  private readonly normalizer: RepositoryNormalizer = inject(RepositoryNormalizer);
 
   public build({ body, query, configuration }: RequestManagerContext): Observable<RepositoryRequest> {
     const method: string = this.getMethod(configuration);
+    const httpResponseType: 'arraybuffer' | 'blob' | 'json' | 'text' = this.getHttpResponseType(configuration);
     const path: Path = this.getPath(body, query, configuration);
     const normalizedBody: any = this.getBody(body, configuration);
     const queryParams: any = this.getQueryParams(query);
     const headers: any = this.getHeaders(query);
 
-    return of(new HttpRepositoryRequest(method, normalizedBody, path, headers, queryParams));
+    return of(new HttpRepositoryRequest(method, normalizedBody, path, headers, queryParams, httpResponseType));
   }
 
   protected getPath(body: any, query: any, configuration: ConfigurationContextProvider): Path {
@@ -55,7 +56,7 @@ export class HttpRequestBuilder implements RequestBuilder {
     }
 
     const multipart: string = configuration.findConfiguration<HttpRepositoryWriteParamContextConfiguration>('multipart');
-    const normalizedBody = this.normalize(body);
+    const normalizedBody: any = this.normalize(body);
 
     if (multipart) {
       const data: FormData = new FormData();
@@ -109,6 +110,10 @@ export class HttpRequestBuilder implements RequestBuilder {
     }
 
     return headers;
+  }
+
+  protected getHttpResponseType(configuration: ConfigurationContextProvider): 'arraybuffer' | 'blob' | 'json' | 'text' | null {
+    return configuration.findConfiguration<HttpRepositoryParamConfiguration>('httpResponseType') || 'json';
   }
 
   protected setParam(query: any, params: HttpParamContextConfiguration, setter: (value: any) => void): void {

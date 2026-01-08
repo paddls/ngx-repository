@@ -26,7 +26,7 @@ import { addDoc, collection, deleteDoc, doc, setDoc, updateDoc } from '../firest
 @Injectable()
 export class FirestoreRepositoryDriver implements RepositoryDriver {
 
-  private readonly firestore = inject<Firestore>(FIRESTORE_APP);
+  private readonly firestore: Firestore = inject<Firestore>(FIRESTORE_APP);
 
   public execute(request: FirestoreRepositoryRequest): Observable<FirestoreRepositoryResponse> {
     PublisherService.getInstance()?.publish(new BeforeExecuteFirestoreRequestEvent({ request }));

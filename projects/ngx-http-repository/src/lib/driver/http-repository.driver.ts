@@ -11,7 +11,7 @@ import { AfterExecuteHttpRequestEvent } from './event/after-execute-http-request
 @Injectable()
 export class HttpRepositoryDriver implements RepositoryDriver {
 
-  protected readonly http = inject(HttpClient);
+  protected readonly http: HttpClient = inject(HttpClient);
 
   public execute(request: HttpRepositoryRequest): Observable<HttpRepositoryResponse> {
     PublisherService.getInstance()?.publish(new BeforeExecuteHttpRequestEvent({ request }));
@@ -21,7 +21,7 @@ export class HttpRepositoryDriver implements RepositoryDriver {
       headers: request.headers,
       observe: 'response',
       body: request.body,
-      responseType: 'json'
+      responseType: request.httpResponseType
     }).pipe(
       map((response: HttpResponse<any>) => new HttpRepositoryResponse(response, request)),
       tap((response: HttpRepositoryResponse) => PublisherService.getInstance()?.publish(new AfterExecuteHttpRequestEvent({

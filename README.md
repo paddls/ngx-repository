@@ -579,6 +579,23 @@ export class Library {
 }
 ```
 
+**Http Response type**
+
+Define a specific http response type for HttpClient service (different from the resource) using `httpResponseType`
+context parameter.
+
+```typescript
+@HttpResource({
+  path: '/libraries',
+  write: {
+    httpResponseType: 'blob'
+  }
+})
+export class Library {
+
+}
+```
+
 **Path**
 
 Define a specific path for an operation using `path` context parameter. Passing a string directly as an operation

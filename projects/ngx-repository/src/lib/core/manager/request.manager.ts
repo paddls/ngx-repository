@@ -14,7 +14,7 @@ import { get } from '../common/utils/get';
 @Injectable()
 export class RequestManager {
 
-  protected readonly injector = inject(Injector);
+  protected readonly injector: Injector = inject(Injector);
 
   public execute(context: RequestManagerContext): Observable<any> {
     const driver: RepositoryDriver = context.driver;
