@@ -139,8 +139,12 @@ export class HttpRequestBuilder implements RequestBuilder {
 
   // TODO @RMA move to Repository side - use method configuration instead
   protected getMethod(configuration: ConfigurationContextProvider): string {
-    const operation: HttpOperation = configuration.getOperation() as HttpOperation;
+    const method: string = configuration.findConfiguration<HttpRepositoryParamConfiguration>('method');
+    if (method) {
+      return method;
+    }
 
+    const operation: HttpOperation = configuration.getOperation() as HttpOperation;
     switch (operation) {
       case 'findAll':
       case 'findById':
@@ -155,7 +159,5 @@ export class HttpRequestBuilder implements RequestBuilder {
       case 'delete':
         return 'DELETE';
     }
-
-    return configuration.getConfiguration<HttpRepositoryParamConfiguration>('method');
   }
 }

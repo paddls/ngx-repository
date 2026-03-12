@@ -1113,6 +1113,18 @@ To install and build the project, you just have to clone the repository and make
 npm i
 ````
 
+For development, insert 
+```ts
+provideHttpClient(withInterceptorsFromDi())
+```
+at line 31 in app.config.ts
+
+and remove
+```ts
+provideHttpClient(withInterceptorsFromDi())
+```
+from ngx-http-repository.module.ts at line 22
+
 After dependency installation, you can run others commands :
 
 ````shell script
