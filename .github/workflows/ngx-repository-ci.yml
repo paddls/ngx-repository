@@ -6,26 +6,26 @@ on:
   pull_request:
     branches: [ '**' ]
 
+permissions:
+  id-token: write
+  contents: write
+
 jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 18 ]
-
+        node-version: [ 24.12.0 ]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-
       - name: Installation
         run: npm ci
-
       - name: Linter
         run: npm run lint
 
@@ -34,23 +34,18 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 18 ]
-
+        node-version: [ 24.12.0 ]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-
       - name: Installation
         run: npm ci
-
       - name: Test
         run: npm run test:ci
-
       - name: Archive coverage artifact
         if: github.ref == 'refs/heads/master'
         uses: actions/upload-artifact@master
@@ -65,17 +60,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 18 ]
+        node-version: [ 24.12.0 ]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
       - name: Download artifact
         uses: actions/download-artifact@master
         with:
           name: ngx-repository-coverage
           path: ./coverage
-
       - name: Send coverage to Coverall
         uses: coverallsapp/github-action@v1.0.1
         with:
@@ -87,25 +80,20 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 18 ]
-
+        node-version: [ 24.12.0 ]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-
       - name: Installation
         run: npm ci
-
       - name: Build NgxRepository
         run: npm run build:ngx-repository
         env:
           CI: true
-
       - name: Archive artifact
         if: github.ref == 'refs/heads/master'
         uses: actions/upload-artifact@master
@@ -118,25 +106,20 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 18 ]
-
+        node-version: [ 24.12.0 ]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-
       - name: Installation
         run: npm ci
-
       - name: Build NgxHttpRepository
         run: npm run build:ngx-http-repository
         env:
           CI: true
-
       - name: Archive artifact
         if: github.ref == 'refs/heads/master'
         uses: actions/upload-artifact@master
@@ -149,25 +132,20 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 18 ]
-
+        node-version: [ 24.12.0 ]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-
       - name: Installation
         run: npm ci
-
       - name: Build NgxFirestoreRepository
         run: npm run build:ngx-firestore-repository
         env:
           CI: true
-
       - name: Archive artifact
         if: github.ref == 'refs/heads/master'
         uses: actions/upload-artifact@master
@@ -175,201 +153,191 @@ jobs:
           name: ngx-firestore-repository
           path: ./dist/ngx-firestore-repository
 
-  deploy-ngx-repository:
-    name: Deploy ngx-repository
+  # ─── Helpers réutilisables ──────────────────────────────────────────────────
+
+  # Extrait la version du dernier commit et la met en output pour les jobs suivants
+  resolve-version:
+    name: Resolve release version
     runs-on: ubuntu-latest
     needs: [ test, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
     if: github.ref == 'refs/heads/master'
-    strategy:
-      matrix:
-        node-version: [ 18 ]
-
+    outputs:
+      version: ${{ steps.extract.outputs.version }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+      - name: Extract version from commit message
+        id: extract
+        run: |
+          COMMIT_MSG=$(git log -1 --pretty=%s)
+          VERSION=$(echo "$COMMIT_MSG" | grep -oP '^release: v\K\S+' || true)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
+  # ─── Deploy @paddls/* via Trusted Publishers (OIDC) ────────────────────────
+
+  deploy-ngx-repository:
+    name: Deploy ngx-repository
+    runs-on: ubuntu-latest
+    needs: [ resolve-version ]
+    if: needs.resolve-version.outputs.version != ''
+    environment: npm-publish  # optionnel mais recommandé
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
       - name: Download artifact
         uses: actions/download-artifact@master
         with:
           name: ngx-repository
           path: ./dist/ngx-repository
-
-      - name: "Publish @paddls/ngx-repository"
-        uses: pascalgn/npm-publish-action@1.3.9
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          tag_name: "v%s"
-          tag_message: "v%s"
-          commit_pattern: "^release: v(\\S+)"
-          workspace: "./dist/ngx-repository"
-          publish_args: "--access public"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_PADDLS }}
+          node-version: 24.12.0
+          registry-url: 'https://registry.npmjs.org'
+      - name: Publish @paddls/ngx-repository
+        working-directory: ./dist/ngx-repository
+        run: NPM_CONFIG_PROVENANCE=false npm publish --access public
+      - name: Create and push git tag
+        run: |
+          VERSION=${{ needs.resolve-version.outputs.version }}
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git tag -a "v$VERSION" -m "v$VERSION"
+          git push origin "v$VERSION"
+
+  deploy-ngx-http-repository:
+    name: Deploy ngx-http-repository
+    runs-on: ubuntu-latest
+    needs: [ resolve-version ]
+    if: needs.resolve-version.outputs.version != ''
+    environment: npm-publish
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Download artifact
+        uses: actions/download-artifact@master
+        with:
+          name: ngx-http-repository
+          path: ./dist/ngx-http-repository
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.12.0
+          registry-url: 'https://registry.npmjs.org'
+      - name: Publish @paddls/ngx-http-repository
+        working-directory: ./dist/ngx-http-repository
+        run: npm publish --access public --provenance
+
+  deploy-ngx-firestore-repository:
+    name: Deploy ngx-firestore-repository
+    runs-on: ubuntu-latest
+    needs: [ resolve-version ]
+    if: needs.resolve-version.outputs.version != ''
+    environment: npm-publish
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Download artifact
+        uses: actions/download-artifact@master
+        with:
+          name: ngx-firestore-repository
+          path: ./dist/ngx-firestore-repository
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.12.0
+          registry-url: 'https://registry.npmjs.org'
+      - name: Publish @paddls/ngx-firestore-repository
+        working-directory: ./dist/ngx-firestore-repository
+        run: npm publish --access public --provenance
+
+  # ─── Deploy @witty-services/* via token classique ──────────────────────────
+  # Les Trusted Publishers sont liés à un package name précis sur npmjs.com,
+  # donc les packages @witty-services/* conservent le NPM_AUTH_TOKEN_PADDLS.
 
   deploy-witty-ngx-repository:
     name: Deploy witty ngx-repository
     runs-on: ubuntu-latest
-    needs: [ test, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
-    if: github.ref == 'refs/heads/master'
-    strategy:
-      matrix:
-        node-version: [ 18 ]
-
+    needs: [ resolve-version ]
+    if: needs.resolve-version.outputs.version != ''
+    environment: npm-publish
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
       - name: Download artifact
         uses: actions/download-artifact@master
         with:
           name: ngx-repository
           path: ./dist/ngx-repository
-
-      - name: "PrePublish @witty-services/ngx-repository"
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.12.0
+          registry-url: 'https://registry.npmjs.org'
+      - name: PrePublish @witty-services/ngx-repository
         uses: jossef/action-set-json-field@v1
         with:
           file: "./dist/ngx-repository/package.json"
           field: name
           value: "@witty-services/ngx-repository"
-      - name: "Publish @witty-services/ngx-repository"
-        uses: pascalgn/npm-publish-action@1.3.9
-        with:
-          commit_pattern: "^release: v(\\S+)"
-          workspace: "./dist/ngx-repository"
-          publish_args: "--access public"
-          create_tag: "false"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_PADDLS }}
-
-  deploy-ngx-http-repository:
-    name: Deploy ngx-http-repository
-    runs-on: ubuntu-latest
-    needs: [ test, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
-    if: github.ref == 'refs/heads/master'
-    strategy:
-      matrix:
-        node-version: [ 18 ]
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Download artifact
-        uses: actions/download-artifact@master
-        with:
-          name: ngx-http-repository
-          path: ./dist/ngx-http-repository
-
-      - name: "Publish @paddls/ngx-http-repository"
-        uses: pascalgn/npm-publish-action@1.3.9
-        with:
-          commit_pattern: "^release: v(\\S+)"
-          workspace: "./dist/ngx-http-repository"
-          publish_args: "--access public"
-          create_tag: "false"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_PADDLS }}
+      - name: Publish @witty-services/ngx-repository
+        working-directory: ./dist/ngx-repository
+        run: npm publish --access public --provenance
 
   deploy-witty-ngx-http-repository:
     name: Deploy witty ngx-http-repository
     runs-on: ubuntu-latest
-    needs: [ test, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
-    if: github.ref == 'refs/heads/master'
-    strategy:
-      matrix:
-        node-version: [ 18 ]
-
+    needs: [ resolve-version ]
+    if: needs.resolve-version.outputs.version != ''
+    environment: npm-publish
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
       - name: Download artifact
         uses: actions/download-artifact@master
         with:
           name: ngx-http-repository
           path: ./dist/ngx-http-repository
-
-      - name: "PrePublish @witty-services/ngx-http-repository"
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.12.0
+          registry-url: 'https://registry.npmjs.org'
+      - name: PrePublish @witty-services/ngx-http-repository
         uses: jossef/action-set-json-field@v1
         with:
           file: "./dist/ngx-http-repository/package.json"
           field: name
           value: "@witty-services/ngx-http-repository"
-      - name: "Publish @witty-services/ngx-http-repository"
-        uses: pascalgn/npm-publish-action@1.3.9
-        with:
-          commit_pattern: "^release: v(\\S+)"
-          workspace: "./dist/ngx-http-repository"
-          publish_args: "--access public"
-          create_tag: "false"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_PADDLS }}
-
-  deploy-ngx-firestore-repository:
-    name: Deploy ngx-firestore-repository
-    runs-on: ubuntu-latest
-    needs: [ test, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
-    if: github.ref == 'refs/heads/master'
-    strategy:
-      matrix:
-        node-version: [ 18 ]
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Download artifact
-        uses: actions/download-artifact@master
-        with:
-          name: ngx-firestore-repository
-          path: ./dist/ngx-firestore-repository
-
-      - name: "Publish @paddls/ngx-firestore-repository"
-        uses: pascalgn/npm-publish-action@1.3.9
-        with:
-          commit_pattern: "^release: v(\\S+)"
-          workspace: "./dist/ngx-firestore-repository"
-          publish_args: "--access public"
-          create_tag: "false"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_PADDLS }}
+      - name: Publish @witty-services/ngx-http-repository
+        working-directory: ./dist/ngx-http-repository
+        run: npm publish --access public --provenance
 
   deploy-witty-ngx-firestore-repository:
     name: Deploy witty ngx-firestore-repository
     runs-on: ubuntu-latest
-    needs: [ test, lint, build-ngx-repository, build-ngx-http-repository, build-ngx-firestore-repository ]
-    if: github.ref == 'refs/heads/master'
-    strategy:
-      matrix:
-        node-version: [ 18 ]
-
+    needs: [ resolve-version ]
+    if: needs.resolve-version.outputs.version != ''
+    environment: npm-publish
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
       - name: Download artifact
         uses: actions/download-artifact@master
         with:
           name: ngx-firestore-repository
           path: ./dist/ngx-firestore-repository
-
-      - name: "PrePublish @witty-services/ngx-firestore-repository"
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.12.0
+          registry-url: 'https://registry.npmjs.org'
+      - name: PrePublish @witty-services/ngx-firestore-repository
         uses: jossef/action-set-json-field@v1
         with:
           file: "./dist/ngx-firestore-repository/package.json"
           field: name
           value: "@witty-services/ngx-firestore-repository"
-      - name: "Publish @witty-services/ngx-firestore-repository"
-        uses: pascalgn/npm-publish-action@1.3.9
-        with:
-          commit_pattern: "^release: v(\\S+)"
-          workspace: "./dist/ngx-firestore-repository"
-          publish_args: "--access public"
-          create_tag: "false"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_PADDLS }}
+      - name: Publish @witty-services/ngx-firestore-repository
+        working-directory: ./dist/ngx-firestore-repository
+        run: npm publish --access public --provenance
