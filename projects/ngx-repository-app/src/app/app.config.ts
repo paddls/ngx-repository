@@ -11,8 +11,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CoreModule } from './module/@core/core.module';
 import { FormsModule } from '@angular/forms';
 import { SystemModule } from './module/@system/system.module';
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './service/in-memory-data.service';
 
 const createFirestore: () => Firestore = () => getFirestore(initializeApp({
   apiKey: 'AIzaSyDSd6EXdQWaWcBMxbTYp-kFAV3zxNu-ArM',
@@ -31,8 +29,7 @@ export const appConfig: ApplicationConfig = {
       BrowserModule,
       CoreModule,
       FormsModule,
-      SystemModule,
-      InMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 100 }),
+      SystemModule
     ),
     provideRouter(routes, withRouterConfig({
       onSameUrlNavigation: 'reload'
