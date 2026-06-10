@@ -35,7 +35,7 @@ export class LibraryService {
 
   public create(): Observable<string> {
     return this.writeLibraryRepository.create(new Library({
-      id: `${Date.now()}`,
+      id: `l${Date.now()}`,
       name: this.chance.company(),
       opened: true
     }));

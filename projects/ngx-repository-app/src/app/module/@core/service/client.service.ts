@@ -40,7 +40,7 @@ export class ClientService {
   public addPurchase(client: Client): Observable<string> {
     return this.purchaseRepository.create(
       new Purchase({
-        bookId: `${this.chance.integer({
+        bookId: `b${this.chance.integer({
           min: 1,
           max: 3
         })}`
