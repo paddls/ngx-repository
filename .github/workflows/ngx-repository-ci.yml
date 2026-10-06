@@ -196,7 +196,16 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Publish @paddls/ngx-repository
         working-directory: ./dist/ngx-repository
-        run: NPM_CONFIG_PROVENANCE=false npm publish --access public
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+
+          if [[ "$VERSION" =~ -rc([.-]|$) ]]; then
+            npm publish --access public --tag rc
+          else
+            npm publish --access public
+          fi
+        env:
+          NPM_CONFIG_PROVENANCE: false
       - name: Create and push git tag
         run: |
           VERSION=${{ needs.resolve-version.outputs.version }}
@@ -226,7 +235,14 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Publish @paddls/ngx-http-repository
         working-directory: ./dist/ngx-http-repository
-        run: npm publish --access public --provenance
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+
+          if [[ "$VERSION" =~ -rc([.-]|$) ]]; then
+            npm publish --access public --provenance --tag rc
+          else
+            npm publish --access public --provenance
+          fi
 
   deploy-ngx-firestore-repository:
     name: Deploy ngx-firestore-repository
@@ -249,7 +265,14 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Publish @paddls/ngx-firestore-repository
         working-directory: ./dist/ngx-firestore-repository
-        run: npm publish --access public --provenance
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+
+          if [[ "$VERSION" =~ -rc([.-]|$) ]]; then
+            npm publish --access public --provenance --tag rc
+          else
+            npm publish --access public --provenance
+          fi
 
   # ─── Deploy @witty-services/* via token classique ──────────────────────────
   # Les Trusted Publishers sont liés à un package name précis sur npmjs.com,
@@ -282,7 +305,14 @@ jobs:
           value: "@witty-services/ngx-repository"
       - name: Publish @witty-services/ngx-repository
         working-directory: ./dist/ngx-repository
-        run: npm publish --access public --provenance
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+
+          if [[ "$VERSION" =~ -rc([.-]|$) ]]; then
+            npm publish --access public --provenance --tag rc
+          else
+            npm publish --access public --provenance
+          fi
 
   deploy-witty-ngx-http-repository:
     name: Deploy witty ngx-http-repository
@@ -311,7 +341,14 @@ jobs:
           value: "@witty-services/ngx-http-repository"
       - name: Publish @witty-services/ngx-http-repository
         working-directory: ./dist/ngx-http-repository
-        run: npm publish --access public --provenance
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+
+          if [[ "$VERSION" =~ -rc([.-]|$) ]]; then
+            npm publish --access public --provenance --tag rc
+          else
+            npm publish --access public --provenance
+          fi
 
   deploy-witty-ngx-firestore-repository:
     name: Deploy witty ngx-firestore-repository
@@ -340,4 +377,11 @@ jobs:
           value: "@witty-services/ngx-firestore-repository"
       - name: Publish @witty-services/ngx-firestore-repository
         working-directory: ./dist/ngx-firestore-repository
-        run: npm publish --access public --provenance
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+
+          if [[ "$VERSION" =~ -rc([.-]|$) ]]; then
+            npm publish --access public --provenance --tag rc
+          else
+            npm publish --access public --provenance
+          fi
