@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { NgxRepositoryService } from './ngx-repository.service';
 import { AbstractRepository } from './core/repository/abstract-repository';
-import { Injectable, InjectionToken, Type } from '@angular/core';
+import { createEnvironmentInjector, EnvironmentInjector, Injectable, InjectionToken, Type } from '@angular/core';
 import { REPOSITORY_BUILDER_TOKEN } from './ngx-repository.module.di';
 import { TokenRegistry } from './core/registry/token.registry';
 import { RepositoryBuilder } from './core/repository/repository.builder';
@@ -160,6 +160,26 @@ describe('NgxRepositoryService', () => {
 
     expect(TokenRegistry.addTokenToRegistry).toHaveBeenCalledWith(Book, MyBookRepository as any);
     expect(repository).toEqual('Book - MyBookRepository');
+  });
+
+  it('should create its own repository when the registered token belongs to another application', () => {
+    const createApplicationInjector: () => EnvironmentInjector = () => createEnvironmentInjector([
+      NgxRepositoryService,
+      {
+        provide: REPOSITORY_BUILDER_TOKEN,
+        useValue: [
+          {
+            getRepository: () => new MyBookRepository()
+          }
+        ]
+      }
+    ], TestBed.inject(EnvironmentInjector));
+
+    const firstRepository: any = createApplicationInjector().get(NgxRepositoryService).getRepository(Book, MyBookRepository as any);
+    const secondRepository: any = createApplicationInjector().get(NgxRepositoryService).getRepository(Book, MyBookRepository as any);
+
+    expect(secondRepository).toBeInstanceOf(MyBookRepository);
+    expect(secondRepository).not.toBe(firstRepository);
   });
 
   it('should throw error when multiple builders and repository type is not configured', () => {

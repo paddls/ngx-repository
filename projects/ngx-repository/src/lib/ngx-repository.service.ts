@@ -51,7 +51,7 @@ export class NgxRepositoryService implements RepositoryService {
       return null;
     }
 
-    const repositories: AbstractRepository<T> | AbstractRepository<T>[] = this.injector.get(token);
+    const repositories: AbstractRepository<T> | AbstractRepository<T>[] = this.injector.get(token, null);
 
     if (repositories && Array.isArray(repositories)) {
       if (!repositoryType) {
