@@ -5,6 +5,7 @@ import { BookInterceptor } from './interceptor/book.interceptor';
 import { CommentInterceptor } from './interceptor/comment.interceptor';
 import { LibraryInterceptor } from './interceptor/library.interceptor';
 import { PatchInterceptor } from './interceptor/patch.interceptor';
+import { RemoveIdInterceptor } from './interceptor/remove-id.interceptor';
 
 @NgModule({
   providers: [
@@ -31,6 +32,11 @@ import { PatchInterceptor } from './interceptor/patch.interceptor';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: BaseUrlInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RemoveIdInterceptor,
       multi: true
     }
   ]
